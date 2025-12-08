@@ -1,0 +1,14 @@
+{
+  "filePath": ".spec-workflow/steering/tech.md",
+  "currentVersion": 1,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2025-11-24T12:30:37.547Z",
+      "trigger": "initial",
+      "approvalId": "approval_1763987437539_h69bsi11h",
+      "approvalTitle": "技术架构文档 (tech.md) 审批"
+    }
+  ]
+}
