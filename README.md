@@ -1,93 +1,30 @@
 # 赛事管理系统
 
-一个基于 Node.js + Express + MongoDB + Vue.js 的全栈赛事管理系统，用于学习和实践全栈开发。
+面向卡牌和格斗游戏的赛事管理平台，当前处于需求澄清与 SDD 接入阶段。
 
-## 功能特性
+## 已确认方向
 
-- 赛事管理：创建、编辑、删除赛事
-- 参赛者管理：报名信息录入和管理
-- 成绩管理：成绩录入、修改、查询
-- 排名展示：实时排名计算和展示
-- 数据统计：参赛数据分析和报表
+- 赛事系列包含独立赛事，每场赛事可组合多个比赛阶段。
+- 注册用户可创建和参加赛事，个人中心区分两个入口。
+- 选手和主办方可提交赛果；主办方可修改并手动确认推进。
+- 优先生成正确对阵；自动排时间与已推进后的回滚改判后置。
+- 使用模拟赛事和正常、边界、异常样例验收。
 
-## 技术栈
+## 工作入口
 
-**后端：**
-- Node.js + Express
-- MongoDB + Mongoose
-- RESTful API
+- [产品需求草稿](docs/PRD.md)
+- [SDD 流程](docs/SDD.md)
+- [新对话启动提示词](docs/SDD-START-PROMPT.md)
+- [规划交接](docs/handoff.md)
+- [Notion 工作台](https://app.notion.com/p/3edac01a7f2781c1a3b2d991dc2268de?pvs=204)
+- openspec/：正式规格唯一主流程；已初始化，尚无业务 change。
+- .agents/skills/：OpenSpec CLI 生成的项目技能。
 
-**前端（计划）：**
-- Vue.js 3
-- Vue Router
-- Axios
+## 当前代码
 
-## 项目结构
+backend/ 保留原有 Express 内存 CRUD 原型，不代表新平台功能已实现。
+前端、认证、持久化、报名、赛制和权限系统尚未实现。
+[旧 API 示例](docs/API.md) 仅作参考；旧技术栈尚未重新确认。
 
-```
-RaceAdministration/
-├── backend/           # 后端代码
-│   ├── src/
-│   │   ├── models/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   └── ...
-│   └── server.js
-├── frontend/          # 前端代码（待创建）
-└── docs/             # 项目文档
-```
-
-## 快速开始
-
-### 环境要求
-
-- Node.js >= 18.0.0
-- MongoDB >= 6.0
-
-### 安装依赖
-
-```bash
-cd backend
-npm install
-```
-
-### 配置环境变量
-
-复制 `.env.example` 为 `.env` 并修改配置：
-
-```bash
-cp .env.example .env
-```
-
-### 启动开发服务器
-
-```bash
-npm run dev
-```
-
-服务器将在 http://localhost:5000 启动
-
-## 学习路线
-
-1. ✅ 项目初始化和基础结构
-2. 🔄 Express 基础和路由
-3. ⏳ MongoDB 连接和数据模型
-4. ⏳ RESTful API 实现
-5. ⏳ 前端开发
-6. ⏳ 前后端联调
-
-## 文档
-
-- [API 文档](docs/API.md)
-- [学习笔记](docs/LEARNING.md)
-
-## 开发原则
-
-- KISS：保持简单
-- YAGNI：只实现需要的功能
-- DRY：避免重复代码
-- 渐进式开发：从简单到复杂
-
-## License
-
-MIT
+旧流程、课程和学习笔记已移出当前工作树，可从 Git 历史恢复。
+本轮没有自动提交、推送或安装业务依赖。

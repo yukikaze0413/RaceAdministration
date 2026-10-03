@@ -1,0 +1,43 @@
+schema: spec-driven
+
+context: |
+  Language: zh-CN
+  All artifacts must be written in zh-CN.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  This platform initially serves card and fighting games.
+  Hierarchy: tournament series -> tournament -> stage -> round/match.
+  Registered users may create and join tournaments.
+  Players and organizers may submit results; organizers may edit before round confirmation.
+  All formats require every match result in the round before organizer confirms the entire round.
+  Round confirmation advances the tournament and locks all results in that round permanently for this release.
+  Draw permission is configured when creating the tournament.
+  Custom tournaments compose stages, internal groups, entrant pools, reseeding and progression routing.
+  Routing may target later stages and specific seed positions; template configuration requires legality checks.
+  Admin sanctions require secondary confirmation and are editable before round advancement.
+  Withdrawn and disqualified entrants remain in subsequent pairings and receive immutable automatic losses.
+  Removing withdrawn entrants from pairings is deferred.
+  Double Loss is distinct from Double Elimination. Round-robin and Swiss support it; player submission permission is configurable.
+  Double Loss is currently prohibited in elimination formats for players, organizers and automatic processing.
+  Two withdrawn/disqualified entrants receive Double Loss only where that result is allowed.
+  Their meeting in elimination formats is an unresolved conflict; do not invent a winner or automatic advancement policy.
+  Withdrawal/disqualification persists across stages; entrants entering a subsequent stage continue receiving automatic losses.
+  Do not prohibit subsequent-stage entry solely because of withdrawal/disqualification.
+  Detailed progression, standings and no-winner elimination behavior remain unresolved.
+  Retroactive disqualification, automatic scheduling and rollback after advancement are deferred.
+  First-release format coverage and team registration are unresolved in docs/PRD.md.
+  Existing backend is a legacy in-memory CRUD prototype, not the target implementation.
+  Technology choices are not yet reconfirmed.
+  OpenSpec is the canonical specification and task workflow.
+  Notion contains decision summaries and evidence links; there is no automatic synchronization.
+
+rules:
+  proposal:
+    - Distinguish confirmed scope, unresolved decisions, and deferred features.
+  specs:
+    - Define supported format variants and rule versions explicitly.
+    - Cover permissions, result confirmation, invalid input, duplicate actions, and downstream locking.
+  design:
+    - Define deterministic pairing, independent verification examples, and concurrency behavior.
+  tasks:
+    - Organize independently verifiable business slices.
+    - Never mark planned tests or simulated acceptance as already executed.
