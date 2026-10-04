@@ -38,3 +38,7 @@ backend/ 保留原有 Express 内存 CRUD 原型，不代表新平台功能已�
 ## 全平台浏览器交付（2026-10-04）
 
 中文前端和必要持久后端已接入；运行方式见 [frontend/README.md](frontend/README.md)，新接口与缺失业务错误边界见 [PLATFORM-API.md](docs/PLATFORM-API.md)。账号、系列/赛事资料与结构编辑/校验/模拟预演/冻结真实可用；报名、报分、赛制运行等未实现能力明确返回501。冻结不代表已开赛。
+
+## 前端反馈SDD进度（2026-10-05）
+
+上一轮交付已提交1db793a。取消密码长度、成熟认证评估、日期时间选择和游戏/素材预设已登记[新规划](openspec/changes/improve-account-input-and-game-presets/proposal.md)，实施0/21，尚未修改业务行为；查看[任务列表](openspec/changes/improve-account-input-and-game-presets/tasks.md)。

@@ -26,7 +26,7 @@ Notion 当前按需人工同步，尚无自动或双向同步。
 
 OpenSpec 1.13.2，spec-driven schema，Codex core profile，语言 zh-CN。
 项目生成技能纳入 Git。backend 保留旧 Express 内存 CRUD 原型，并新增隔离的本地结构模块。
-全平台技术栈尚未重新确认；本切片已配置原生node:test业务脚本。
+已交付React19/Vite中文前端、Express本地会话与Node SQLite持久化；后端node:test、前端Vitest与真实Edge Playwright。旧CRUD原型隔离保留。
 
 ## Git 规则
 
@@ -48,6 +48,10 @@ PRD、OpenSpec 配置/规格/change/生成技能和可复现样例纳入 Git。
 保留 backend 和旧 API 文档作为原型参考。
 旧文件由基线 Git 提交保留，可用 git show 查看原文。
 
-## 当前实施出口（2026-10-04）
+## 历史实施出口（2026-10-04）
 
 三项正式规格已同步 openspec/specs/；活动change为空。验收与证据见归档目录 acceptance.md / evidence/。本切片 runtimeReady=false；真实用户接受未确认。后续业务切片需另行收敛与规划。
+
+## 当前进度（2026-10-05）
+
+plan-tournament-structure（22/22）与deliver-platform-frontend（43/43）均已归档，八份正式规格严格校验通过；实现提交1db793a。当前活动变更improve-account-input-and-game-presets的规划产物齐全，严格校验通过，实施0/21；新反馈尚未实现，不能沿用旧测试称新行为通过。任务入口见[新变更tasks](../openspec/changes/improve-account-input-and-game-presets/tasks.md)。
