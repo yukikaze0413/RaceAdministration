@@ -1,0 +1,8 @@
+Exit: 0
+{
+  "changes": [],
+  "root": {
+    "path": "D:\\Projects\\RaceAdministration",
+    "source": "nearest"
+  }
+}

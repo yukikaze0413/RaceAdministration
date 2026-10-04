@@ -1,0 +1,22 @@
+'use strict';
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {setup}=require('./helpers');const {validateStructure}=require('../../src/tournament-configuration/domain/validation');
+test('TS3:版本化模板改写内部引用，双实例隔离及请求重试返回原实例',async()=>{
+ const {service:s,ctx}=setup();
+ const p={trustedContext:ctx,tournamentId:'T',requestKey:'template',payload:{templateId:'four-groups',templateVersion:'1'}};
+ const a=await s.instantiateTemplate(p);assert.ok(a,'必须创建模板草稿');
+ const b=await s.instantiateTemplate({...p,requestKey:'second'});
+ assert.notEqual(a.id,b.id);assert.notEqual(a.stages[0].id,b.stages[0].id);
+ assert.deepEqual(await s.instantiateTemplate(p),a);
+ assert.equal(a.templateOrigin.version,'1');
+ const {id,version,state,tournamentId,...structure}=a;
+ assert.equal(validateStructure(structure,'T').structureValid,true);
+ const edited=structuredClone(structure);edited.routes[0].placement.positions=[2];
+ await s.replaceDraft({trustedContext:ctx,tournamentId:'T',id:a.id,expectedVersion:1,requestKey:'edit',payload:edited});
+ assert.deepEqual(await s.getConfiguration({trustedContext:ctx,tournamentId:'T',id:b.id}),b);
+ await assert.rejects(s.instantiateTemplate({...p,requestKey:'unknown',payload:{...p.payload,templateVersion:'missing'}}),{code:'INVALID_INPUT'});
+ await assert.rejects(s.instantiateTemplate({...p,payload:{templateId:'pool',templateVersion:'1'}}),{code:'IDEMPOTENCY_CONFLICT'});
+ const pooled=await s.instantiateTemplate({...p,requestKey:'pool',payload:{templateId:'pool',templateVersion:'1'}});
+ const {id:pi,version:pv,state:ps,tournamentId:pt,...pp}=pooled;
+ assert.equal(validateStructure(pp,'T').structureValid,true);
+});

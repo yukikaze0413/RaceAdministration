@@ -1,0 +1,30 @@
+[
+  {
+    "command": "npm test",
+    "exit": 0
+  },
+  {
+    "command": "node --test test/tournament-configuration/*.test.js",
+    "exit": 0
+  },
+  {
+    "command": "validate four-groups",
+    "exit": 0
+  },
+  {
+    "command": "preview four-groups",
+    "exit": 0
+  },
+  {
+    "command": "preview pool",
+    "exit": 0
+  },
+  {
+    "command": "validate invalid",
+    "exit": 1
+  },
+  {
+    "command": "demo",
+    "exit": 0
+  }
+]

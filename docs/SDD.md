@@ -20,13 +20,13 @@ Notion 当前按需人工同步，尚无自动或双向同步。
 6. 用模拟赛事验收，保存命令、结果、未验证限制。
 7. 完成后同步规格并归档；提交、推送、业务接受分别记录。
 
-初始化不代表需求批准。首版范围未确认，尚未创建业务 change。
+初始化不代表需求批准。2026-10-04用户确认首个change为赛事结构与配置校验（个人、预设路由并开赛前冻结），正式规划位于openspec/changes/archive/2026-10-04-plan-tournament-structure；22/22任务已实施并归档，26测试通过。
 
 ## 当前环境
 
 OpenSpec 1.13.2，spec-driven schema，Codex core profile，语言 zh-CN。
-项目生成技能纳入 Git。backend 是旧 Express 内存 CRUD 原型。
-旧技术栈尚未重新确认，业务测试脚本尚未配置。
+项目生成技能纳入 Git。backend 保留旧 Express 内存 CRUD 原型，并新增隔离的本地结构模块。
+全平台技术栈尚未重新确认；本切片已配置原生node:test业务脚本。
 
 ## Git 规则
 
@@ -47,3 +47,7 @@ PRD、OpenSpec 配置/规格/change/生成技能和可复现样例纳入 Git。
 移除旧 .spec-workflow、docs/CURRICULUM.md、docs/LEARNING.md 和 docs/LESSON_*。
 保留 backend 和旧 API 文档作为原型参考。
 旧文件由基线 Git 提交保留，可用 git show 查看原文。
+
+## 当前实施出口（2026-10-04）
+
+三项正式规格已同步 openspec/specs/；活动change为空。验收与证据见归档目录 acceptance.md / evidence/。本切片 runtimeReady=false；真实用户接受未确认。后续业务切片需另行收敛与规划。

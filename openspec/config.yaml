@@ -24,7 +24,9 @@ context: |
   Do not prohibit subsequent-stage entry solely because of withdrawal/disqualification.
   Detailed progression, standings and no-winner elimination behavior remain unresolved.
   Retroactive disqualification, automatic scheduling and rollback after advancement are deferred.
-  First-release format coverage and team registration are unresolved in docs/PRD.md.
+  The first change covers tournament structure and configuration validation only, with individual entrants and preconfigured routing frozen before play.
+  Team registration and executable format coverage remain deferred to their own changes.
+  Structure freezing does not imply runtime readiness; the first change implements no pairing or scoring engines.
   Existing backend is a legacy in-memory CRUD prototype, not the target implementation.
   Technology choices are not yet reconfirmed.
   OpenSpec is the canonical specification and task workflow.

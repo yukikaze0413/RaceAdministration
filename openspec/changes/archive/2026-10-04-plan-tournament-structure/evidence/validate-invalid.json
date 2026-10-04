@@ -1,0 +1,81 @@
+{
+  "configurationId": "61d2cbbc-2874-49a1-8991-29f32262dc70",
+  "version": 1,
+  "structureValid": false,
+  "previewReady": false,
+  "runtimeReady": false,
+  "diagnostics": [
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "ra",
+      "path": "/routes/0/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "a"
+      }
+    },
+    {
+      "code": "POSITION_CONFLICT",
+      "severity": "error",
+      "objectId": "rb",
+      "path": "/routes/1/placement/positions/0",
+      "reason": "目标位置重复",
+      "details": {}
+    },
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "rb",
+      "path": "/routes/1/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "b"
+      }
+    },
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "rc",
+      "path": "/routes/2/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "c"
+      }
+    },
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "rd",
+      "path": "/routes/3/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "d"
+      }
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "A",
+      "path": "/stages/0/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "B",
+      "path": "/stages/1/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "C",
+      "path": "/stages/2/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    }
+  ]
+}

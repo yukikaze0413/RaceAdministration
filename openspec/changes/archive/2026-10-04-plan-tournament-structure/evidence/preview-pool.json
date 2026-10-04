@@ -1,0 +1,92 @@
+{
+  "configurationId": "45640e92-c13d-4361-adb0-d6fa8eeae0ef",
+  "version": 1,
+  "structureValid": true,
+  "previewReady": true,
+  "runtimeReady": false,
+  "diagnostics": [
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "fromA",
+      "path": "/routes/0/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "A"
+      }
+    },
+    {
+      "code": "SOURCE_INPUT_REQUIRED",
+      "severity": "conditional",
+      "objectId": "fromB",
+      "path": "/routes/1/source",
+      "reason": "须提供已完成的模拟来源快照",
+      "details": {
+        "sourceId": "B"
+      }
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "A",
+      "path": "/stages/0/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "B",
+      "path": "/stages/1/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    },
+    {
+      "code": "FORMAT_RUNTIME_UNAVAILABLE",
+      "severity": "info",
+      "objectId": "C",
+      "path": "/stages/2/formatIntent",
+      "reason": "赛制仅描述意图，运行支持集为空",
+      "details": {}
+    }
+  ],
+  "allocations": [
+    {
+      "entrantId": "a",
+      "exitState": "disqualified",
+      "source": "A",
+      "sourceRank": 1,
+      "initialSeed": 8,
+      "poolSeed": 1,
+      "target": {
+        "stageId": "C"
+      },
+      "positionKind": "slot",
+      "value": 1
+    },
+    {
+      "entrantId": "b",
+      "exitState": "active",
+      "source": "B",
+      "sourceRank": 1,
+      "initialSeed": 2,
+      "poolSeed": 2,
+      "target": {
+        "stageId": "C"
+      },
+      "positionKind": "slot",
+      "value": 8
+    }
+  ],
+  "excluded": [],
+  "inputVersions": [
+    {
+      "sourceId": "A",
+      "version": 2
+    },
+    {
+      "sourceId": "B",
+      "version": 3
+    }
+  ]
+}

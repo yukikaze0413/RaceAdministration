@@ -1,3 +1,37 @@
+# 当前续接状态（2026-10-04，全平台前端交付）
+
+SDD变更deliver-platform-frontend已完成43/43任务并归档到../openspec/changes/archive/2026-10-04-deliver-platform-frontend。六项delta已同步正式规格；变更与八份正式规格严格校验通过，活动变更为空。
+
+已交付中文响应式全平台前端、真实账号/服务端会话、赛事系列与目录、所有者管理、结构配置表单/校验/显式模拟预演/冻结，以及SQLite持久化与重启恢复。缺失的报名/组队、报分、对阵、排名、推进、处罚、协作者等业务以能力状态和统一501错误覆盖；runtimeReady=false、started=false，不能开始真实比赛。
+
+最终后端42、前端25、浏览器8项测试通过；生产构建与类型检查通过。真实Edge验收覆盖360/768/1440宽度、键盘焦点、冲突、会话失效、冻结与重启。工程验收通过，真实用户业务接受未确认。证据与源文件指纹见归档acceptance.md、evidence/；启动说明见../frontend/README.md，接口说明见PLATFORM-API.md。
+
+当前分支chore/openspec-restart，基线3dd8abe。本轮与先前工作区改动均保留，未提交、推送、部署或同步Notion。后续另开领域change，先冻结未决业务规则，不重复apply已归档变更。Node内置SQLite是实验性API，本轮为单实例本地交付，未做生产TLS、备份或多实例验证。
+
+---
+
+# 上一切片完成记录（2026-10-04）
+
+首个 SDD change plan-tournament-structure 已实施并归档到 ../openspec/changes/archive/2026-10-04-plan-tournament-structure。
+22/22任务完成；Node.js v24.11.1 下26测试通过，严格变更与三项正式规格校验通过。
+已交付本地个人结构草稿、模板、配置校验、路由/池预演、结构冻结和CLI演示。runtimeReady=false；没有赛制运行、网页或生产认证/持久化。
+验收、实际命令输出及独立核验见归档目录 acceptance.md、handoff.md、evidence/。
+三项能力已同步 openspec/specs/；活动change为空。基线3dd8abe，分支chore/openspec-restart，工作区保留本轮及先前修改，未提交/推送/部署。
+工程验收与独立核验完成；真实用户业务接受未确认；Notion本轮未另同步。
+下一轮先收敛下一业务切片的目标与相关未决项，使用 vibe-workflow 进入新的OpenSpec规划；不要重复apply本变更。Q14/Q21/Q22-A/Q24-C/Q25/Q26/Q27及Major版本、组队仍留后续。
+
+---
+
+# 历史规划续接状态（2026-10-04，优先于下方历史记录）
+
+用户已选择推荐范围：赛事结构与配置校验、个人参赛、路由开赛前预设并冻结。
+规划前基线已提交3dd8abe；当前分支chore/openspec-restart。原有清理和需求文档已保存到该提交；新规划未再次提交。
+正式change：openspec/changes/archive/2026-10-04-plan-tournament-structure。proposal、三份spec、design、tasks齐全，严格结构校验valid=true、issues=[]；13个需求、33个场景、22项实施任务未勾选。
+主代理完成规划出口一致性核对；独立探子抽查未能执行，不计作独立评审。业务代码、业务测试和真实验收未执行，未推送。
+详细出口证据和后续入口见../openspec/changes/archive/2026-10-04-plan-tournament-structure/handoff.md。下方待答问题现已由用户选择默认选项解决，属于历史记录。
+下一步需要新的apply请求；本轮停在规划出口。Notion摘要同步，不是自动服务。
+
+---
 # SDD 规划交接
 
 更新时间：2026-10-03；目的：新对话接续需求与规划，不启动业务实现。

@@ -1,0 +1,13 @@
+Command: git diff --check
+Exit: 
+0
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/server.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/FORMAT-RESEARCH.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/PRD.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SDD-START-PROMPT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SDD.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/handoff.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/config.yaml', LF will be replaced by CRLF the next time Git touches it

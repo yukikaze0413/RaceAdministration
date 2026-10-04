@@ -1,0 +1,25 @@
+Command: npm --prefix frontend run e2e
+Exit: 
+0
+
+> race-administration-frontend@0.1.0 e2e
+> playwright test
+
+(node:8268) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:16836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16836) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok 1 e2e\platform.spec.ts:56:1 › actual account → series → event → edit → validate → mapped preview → freeze → denied other owner (3.3s)
+  ok 2 e2e\platform.spec.ts:196:1 › 360 / 768 / 1440 layouts, keyboard, deep links and API fallback isolation (950ms)
+  ok 3 e2e\platform.spec.ts:236:1 › read version conflicts recover and small-screen diagnostics focus the correct form field (834ms)
+  ok 4 e2e\platform.spec.ts:292:1 › revoked session clears private UI, password recovery and participation stay explicit (790ms)
+  ok 5 e2e\platform.spec.ts:322:1 › capability failure can be retried and unknown capability never enables configuration writes (476ms)
+  ok 6 e2e\platform.spec.ts:365:1 › metadata edits update context, visibility remains real, and profile saves without losing confirmation (847ms)
+  ok 7 e2e\platform.spec.ts:397:1 › preview failure removes old allocations, pool sample retains DQ, and narrow tables scroll inside their region (777ms)
+  ok 8 e2e\platform.spec.ts:447:1 › page render errors recover, unknown pages are 404, and malformed responses never become empty data (501ms)
+
+  8 passed (10.2s)

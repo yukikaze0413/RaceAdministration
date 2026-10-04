@@ -1,0 +1,170 @@
+{
+  "configuration": {
+    "entrantKind": "individual",
+    "structureVersion": "structure-v1",
+    "routingVersion": "routing-v1",
+    "stages": [
+      {
+        "id": "A",
+        "order": 1,
+        "capacity": 4,
+        "formatIntent": "fixed-swiss",
+        "groups": []
+      },
+      {
+        "id": "B",
+        "order": 2,
+        "capacity": 4,
+        "formatIntent": "round-robin",
+        "groups": []
+      },
+      {
+        "id": "C",
+        "order": 3,
+        "capacity": 8,
+        "formatIntent": "single-elimination",
+        "groups": []
+      }
+    ],
+    "pools": [
+      {
+        "id": "P",
+        "capacity": 2,
+        "sort": [
+          {
+            "field": "sourcePriority",
+            "direction": "asc",
+            "sources": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "id": "fromA",
+        "source": {
+          "stageId": "A"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "poolId": "P"
+        }
+      },
+      {
+        "id": "fromB",
+        "source": {
+          "stageId": "B"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "poolId": "P"
+        }
+      },
+      {
+        "id": "out",
+        "source": {
+          "poolId": "P"
+        },
+        "selector": {
+          "kind": "all"
+        },
+        "quota": 2,
+        "sort": [
+          {
+            "field": "poolSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "C"
+        },
+        "placement": {
+          "kind": "slot",
+          "positions": [
+            1,
+            8
+          ]
+        }
+      }
+    ]
+  },
+  "sources": {
+    "roster": [
+      {
+        "entrantId": "a",
+        "initialSeed": 8,
+        "exitState": "disqualified"
+      },
+      {
+        "entrantId": "b",
+        "initialSeed": 2,
+        "exitState": "active"
+      }
+    ],
+    "sourceSnapshots": [
+      {
+        "sourceId": "A",
+        "version": 2,
+        "completed": true,
+        "rankingProfileId": "rank1",
+        "recordProfileId": "record1",
+        "entries": [
+          {
+            "entrantId": "a",
+            "rank": 1,
+            "wins": 3,
+            "losses": 0,
+            "draws": 0,
+            "points": 9
+          }
+        ]
+      },
+      {
+        "sourceId": "B",
+        "version": 3,
+        "completed": true,
+        "rankingProfileId": "rank1",
+        "recordProfileId": "record1",
+        "entries": [
+          {
+            "entrantId": "b",
+            "rank": 1,
+            "wins": 3,
+            "losses": 0,
+            "draws": 0,
+            "points": 9
+          }
+        ]
+      }
+    ]
+  }
+}

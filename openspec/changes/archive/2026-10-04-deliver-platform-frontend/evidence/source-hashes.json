@@ -1,0 +1,267 @@
+{
+  "baseCommit": "3dd8abe4201b58873ce42ea502628bc45225f831",
+  "note": "最终未提交源文件 SHA-256；不包括构建产物、数据库、凭据或文档。",
+  "recordedAt": "2026-10-04T23:15:09.7876829+08:00",
+  "files": [
+    {
+      "path": "backend/package-lock.json",
+      "sha256": "3ceda513c531f7b613b1f05ffd918db1e2080eecbf84fa08caee523b4754f2da"
+    },
+    {
+      "path": "backend/package.json",
+      "sha256": "c5dc340a9e347ab6a9e9cf42ec0a85833b690abfe94f2489ab7e4a05c7272192"
+    },
+    {
+      "path": "backend/scripts/tournament-configuration.js",
+      "sha256": "dbe43a5221eb7dc6162939a69a412e977d78fad6dbaefa9d626b59a780a28e75"
+    },
+    {
+      "path": "backend/server.js",
+      "sha256": "7f06ae825e42e21e0a0aac58f2fbcd07eb3a913bb43cdd6d5ca17a1d51562a0d"
+    },
+    {
+      "path": "backend/src/app.js",
+      "sha256": "904f1a16d999593ddc3fa6dbc0fb0c462fb53027a1a0df468418113a607334e2"
+    },
+    {
+      "path": "backend/src/controllers/raceController.js",
+      "sha256": "e6d7d20f8663f772048cde5040d9891b3a2218d01cdac8e8e19c5282afeb361f"
+    },
+    {
+      "path": "backend/src/middlewares/errorHandler.js",
+      "sha256": "8a366fa794ba6b5d2f3640fd77a000739ffa8edc0f3c287b90c0102631f593af"
+    },
+    {
+      "path": "backend/src/platform/auth/accounts.js",
+      "sha256": "794d82fa12abfdfa36e474112e267a462b0ed7287ae5f19769b1c83897054532"
+    },
+    {
+      "path": "backend/src/platform/auth/sessions.js",
+      "sha256": "5fe6c30d3c79e2025eb40c1700b4a6a25fc928cab1266f4f377770c18d4d41d7"
+    },
+    {
+      "path": "backend/src/platform/catalog/catalog.js",
+      "sha256": "da63aed2796d0d37724c8cb527609d6c7e425dbdd422773995c05e11c3780c9d"
+    },
+    {
+      "path": "backend/src/platform/configuration/http.js",
+      "sha256": "11929d4ebfc8ce4c814c062cd48f7d0adbfa748ecc9901135d2ef9ec92249de0"
+    },
+    {
+      "path": "backend/src/platform/http/capabilities.js",
+      "sha256": "cee70be853e38c44b84566b96cd560647920a3196faef06e97b0cfc76b82d3db"
+    },
+    {
+      "path": "backend/src/platform/http/errors.js",
+      "sha256": "788924dbd28106ecff1643acb9c892c4ba11bf93282f23c450706bdded783cd5"
+    },
+    {
+      "path": "backend/src/platform/http/protections.js",
+      "sha256": "7d255d70ddefabbfe3ea7bb44e50c3663b00b68a3babc7550819478fc66b2970"
+    },
+    {
+      "path": "backend/src/platform/storage/database.js",
+      "sha256": "d20affa4eeec96fbcc8bb8f42bda4b85112975a93cc11ae0e100dba6b3a08d81"
+    },
+    {
+      "path": "backend/src/routes/raceRoutes.js",
+      "sha256": "f794a554c005d6a0fe4fe319947f1373f56ca235566020a459609aaf63b1ddc1"
+    },
+    {
+      "path": "backend/src/routes/testRoutes.js",
+      "sha256": "56afa34f748ef8adfcc7d3559922c78f7dc7431155500af2213f26de9d641424"
+    },
+    {
+      "path": "backend/src/tournament-configuration/adapters/memory-store.js",
+      "sha256": "ae3b704909555e927b74109e3e93412564a3c2d3119c679160eac35fabec4457"
+    },
+    {
+      "path": "backend/src/tournament-configuration/adapters/sqlite-store.js",
+      "sha256": "179b50e8427fc29a486854a9be7cfa7784b08c2c106fc378be0eb3dd8f919e46"
+    },
+    {
+      "path": "backend/src/tournament-configuration/application/service.js",
+      "sha256": "dbced4cb2b7d522b7801020a711e9a7750b62fb9cc4d405df07770b7023999b2"
+    },
+    {
+      "path": "backend/src/tournament-configuration/domain/canonical.js",
+      "sha256": "3134ad8d0963a1603fffb937da15ae2f55dd5742d2ace22e440279c7a54c2db8"
+    },
+    {
+      "path": "backend/src/tournament-configuration/domain/routing.js",
+      "sha256": "552449d5e00542bb49cec981452282d5b61a4f40aa2d26ba29ccc49e165dd7c6"
+    },
+    {
+      "path": "backend/src/tournament-configuration/domain/structure.js",
+      "sha256": "60e377df99916efbf761b4e21c6b0708511a226dec6fb0359ac2546e9d87e163"
+    },
+    {
+      "path": "backend/src/tournament-configuration/domain/templates.js",
+      "sha256": "7062f03a76c17ac559cd363aead48b8da5021942ffd287d838604c2bfbc003bb"
+    },
+    {
+      "path": "backend/src/tournament-configuration/domain/validation.js",
+      "sha256": "abcafdb9b5b85da4071f8b28856a5f313ae076a648969dc6fc648a5d582d08bb"
+    },
+    {
+      "path": "backend/src/utils/AppError.js",
+      "sha256": "e3569604d092c5b2140581f539af43de048109ec7350dbdc8891f2c5b555e3b4"
+    },
+    {
+      "path": "backend/test/platform/http.test.js",
+      "sha256": "419042bd1e29c90b1da1966b149e9d09286691fd9ebf5b1b42c88851d5848411"
+    },
+    {
+      "path": "backend/test/platform/server.test.js",
+      "sha256": "8f4d4578135a63d8c9902c3b5ced99948e1a27cc915f3cbd69285cf4b4ce46bd"
+    },
+    {
+      "path": "backend/test/tournament-configuration/cli.test.js",
+      "sha256": "aaac74c5df93567826db89c2d0e2d8ad6f6c7b172da8ef0ffdcb7d02505a6f5f"
+    },
+    {
+      "path": "backend/test/tournament-configuration/freeze.test.js",
+      "sha256": "bbedf1bcd3eeb02f743215cf345d80aa7e61b8a5f8ca8ba16a1f32b6ca0c9c86"
+    },
+    {
+      "path": "backend/test/tournament-configuration/helpers.js",
+      "sha256": "896c74f7b4217a43603d80e48f42d5530cbe4347ef62c32c377e20044fbf40c6"
+    },
+    {
+      "path": "backend/test/tournament-configuration/integration.test.js",
+      "sha256": "a81485e1b9a45ec52fdb448e3c55a2624e56a5b78bb5d12908e383c2907ffb6c"
+    },
+    {
+      "path": "backend/test/tournament-configuration/pool.test.js",
+      "sha256": "0e357b4230deb649070c9eccc1033848170be50867b776d9c2b17db56e3260b7"
+    },
+    {
+      "path": "backend/test/tournament-configuration/routing.test.js",
+      "sha256": "77a4ff27d063e34bd0eb2df495ca2b3b3797dfe30e292d05ace88ff96c59d8ed"
+    },
+    {
+      "path": "backend/test/tournament-configuration/structure.test.js",
+      "sha256": "2ad0b8389837e2a4b4d82b8a1db0be3c511942b584f1dacc36014f02d3f8e0a4"
+    },
+    {
+      "path": "backend/test/tournament-configuration/templates.test.js",
+      "sha256": "c8888dd228e400f79890ec8eb2050f07627f8b0be679e0582c43ffa55e1dd548"
+    },
+    {
+      "path": "backend/test/tournament-configuration/validation.test.js",
+      "sha256": "9a4390ac7742645c42965ec2f8faac78cb2849cbeef33fa60f7855aab32d76ed"
+    },
+    {
+      "path": "frontend/e2e/platform.spec.ts",
+      "sha256": "881c89c9477db7bad3719bc860c59a29efb307b11f2d14b414be653370ab0028"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "sha256": "cac3be1bdb8b24526ce67d328cd7cda6446b34345bf2ef8098f9976774bdcdfc"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "cfa7ddb41a45b64cecb4673b0c6a76843d9162cdac18c99a4cef0f15feb38a0c"
+    },
+    {
+      "path": "frontend/playwright.config.ts",
+      "sha256": "51c7b58be6ad82835a0e30e9a5f563e129f642e209426a8f99ed074c65cc300a"
+    },
+    {
+      "path": "frontend/src/app/router.tsx",
+      "sha256": "adda56cc8e9832a14dcfd47dfcdac150fb5e4e63f01c327c977390ab401e8cc5"
+    },
+    {
+      "path": "frontend/src/app/session.tsx",
+      "sha256": "178e1c232689c7991a20c3ee1c2de8e0b284065be4503531faa5457c5b0d3096"
+    },
+    {
+      "path": "frontend/src/features/account.test.tsx",
+      "sha256": "33d6963c1fbbf7d73d155c62e7ab03d4a2f69f3498f5295d39ae4169283f4a25"
+    },
+    {
+      "path": "frontend/src/features/account.tsx",
+      "sha256": "9591cc6566e61c7eacab98b2eefd407bcc596e35b3eae4e5d0a58f2b70af28d7"
+    },
+    {
+      "path": "frontend/src/features/catalog.test.tsx",
+      "sha256": "007e86bc588e3fca81f42890f6637686124e928fc9c42b8a876e5d88372125c8"
+    },
+    {
+      "path": "frontend/src/features/catalog.tsx",
+      "sha256": "0a76f73fca35ff7743bbd8329adc048a09eb937ca8dee18ed4ddd9941c4aa279"
+    },
+    {
+      "path": "frontend/src/features/configuration/forms.test.tsx",
+      "sha256": "1327c9367ed7d0c60bbcd8cd33d01fd655651eb33c8f5af9b1e3ec7162517dd1"
+    },
+    {
+      "path": "frontend/src/features/configuration/forms.tsx",
+      "sha256": "86a59d6c7a4b16185bbc681ea58f43471b689157f9ff5a22a2fafa9e1e14d6a2"
+    },
+    {
+      "path": "frontend/src/features/configuration/pages.tsx",
+      "sha256": "b7d0bef5c1a24ae87d585c06266757b61b62bbe103e245338d7a183e0f6833d6"
+    },
+    {
+      "path": "frontend/src/features/configuration/preview.test.ts",
+      "sha256": "b893bf9eba0805b7ffcedc89ad130e98f5acc743c3356b189d830bcd46c7f744"
+    },
+    {
+      "path": "frontend/src/features/configuration/preview.tsx",
+      "sha256": "8ac967b60571f4fe9a6d99e2ba4bb641df7ab68a3bede5ed73add5b14aa9c232"
+    },
+    {
+      "path": "frontend/src/features/operations.tsx",
+      "sha256": "98c9ca3364e21a3e2773dcefa64a8b07c8816224ad801d71b8f6d926ebcc1af3"
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "sha256": "2d08d4846e6d6f7ce2654b55f1b2ee2b8bbdff0dc3c49d411b98524d7fa9a28b"
+    },
+    {
+      "path": "frontend/src/shared/api.test.ts",
+      "sha256": "a02a3143cb51d05a9579e4f1cc98afa533bb396a6b9bf359ec0a7a985661fd60"
+    },
+    {
+      "path": "frontend/src/shared/api.ts",
+      "sha256": "1966e5390900434a7d77e6274f07df654eee141afc7d125a2136723845c06550"
+    },
+    {
+      "path": "frontend/src/shared/capabilities.test.tsx",
+      "sha256": "5942e75f34c22b1c55c2cd379d70eb5600508d91ad72129e83d3dc0b49eca254"
+    },
+    {
+      "path": "frontend/src/shared/capabilities.tsx",
+      "sha256": "c16410f3eefa7117aa413d106c0e0ce9e3ca3c03792a82d23e92c5ee74c6ef84"
+    },
+    {
+      "path": "frontend/src/shared/recovery.test.tsx",
+      "sha256": "c1b9edfb746ef1a0b6bedb5625eff6d3c820ca067778decaf5a81f03c4f1b861"
+    },
+    {
+      "path": "frontend/src/shared/ui.tsx",
+      "sha256": "e030c4de6ff42230b407a94a1415edfbbcf4cbc81418b4679235f258437fb778"
+    },
+    {
+      "path": "frontend/src/shared/write.ts",
+      "sha256": "c98c5bd5ee6a5293ff338b61dbaeff9a6e3ba5c9565d3f2f4e863722a00a9391"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "sha256": "d671553732e4d8903ad21bad2aacc716ced15bbfe5c8f1221e8fd9c5281e581a"
+    },
+    {
+      "path": "frontend/src/test-setup.ts",
+      "sha256": "9b328c4843431fa76d8de00008fc159e95f99a840211085ff3b8f25e53d14409"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "sha256": "4a75e70349580c3eca7813eaa778bbba2e2ff572dd2267d9170b4d9213712c84"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "sha256": "6888a602f22125e885d7cd735c581a4e9af0b62504dcf6c4d7e474de4477f242"
+    }
+  ]
+}

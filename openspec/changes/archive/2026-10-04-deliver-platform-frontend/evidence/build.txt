@@ -1,0 +1,15 @@
+Command: npm --prefix frontend run build Exit: 0
+
+> race-administration-frontend@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 37 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.35 kB │ gzip:   0.28 kB
+dist/assets/index-BabVaZUh.css    7.27 kB │ gzip:   2.18 kB
+dist/assets/index-zdmj2-z0.js   372.28 kB │ gzip: 115.98 kB
+
+✓ built in 113ms

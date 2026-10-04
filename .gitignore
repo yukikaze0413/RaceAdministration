@@ -31,3 +31,9 @@ Thumbs.db
 
 # Retired workflow; OpenSpec and project skills remain versioned
 .spec-workflow/
+
+# Platform local SQLite
+backend/.data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

@@ -1,0 +1,688 @@
+{
+  "report": {
+    "configurationId": "b929fac7-9e38-4b9f-b09f-a917efd77c93",
+    "version": 1,
+    "structureValid": true,
+    "previewReady": true,
+    "runtimeReady": false,
+    "diagnostics": [
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "ra",
+        "path": "/routes/0/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "a"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rb",
+        "path": "/routes/1/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "b"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rc",
+        "path": "/routes/2/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "c"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rd",
+        "path": "/routes/3/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "d"
+        }
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "A",
+        "path": "/stages/0/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "B",
+        "path": "/stages/1/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "C",
+        "path": "/stages/2/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      }
+    ],
+    "allocations": [
+      {
+        "entrantId": "a",
+        "exitState": "active",
+        "source": "a",
+        "sourceRank": 1,
+        "initialSeed": 1,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 1
+      },
+      {
+        "entrantId": "b",
+        "exitState": "active",
+        "source": "b",
+        "sourceRank": 1,
+        "initialSeed": 2,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 2
+      },
+      {
+        "entrantId": "c",
+        "exitState": "active",
+        "source": "c",
+        "sourceRank": 1,
+        "initialSeed": 3,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 1
+      },
+      {
+        "entrantId": "d",
+        "exitState": "active",
+        "source": "d",
+        "sourceRank": 1,
+        "initialSeed": 4,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 8
+      }
+    ],
+    "excluded": [],
+    "inputVersions": [
+      {
+        "sourceId": "a",
+        "version": 1
+      },
+      {
+        "sourceId": "b",
+        "version": 1
+      },
+      {
+        "sourceId": "c",
+        "version": 1
+      },
+      {
+        "sourceId": "d",
+        "version": 1
+      }
+    ]
+  },
+  "before": {
+    "configurationId": "b929fac7-9e38-4b9f-b09f-a917efd77c93",
+    "version": 1,
+    "structureValid": true,
+    "previewReady": true,
+    "runtimeReady": false,
+    "diagnostics": [
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "ra",
+        "path": "/routes/0/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "a"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rb",
+        "path": "/routes/1/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "b"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rc",
+        "path": "/routes/2/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "c"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rd",
+        "path": "/routes/3/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "d"
+        }
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "A",
+        "path": "/stages/0/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "B",
+        "path": "/stages/1/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "C",
+        "path": "/stages/2/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      }
+    ],
+    "allocations": [
+      {
+        "entrantId": "a",
+        "exitState": "active",
+        "source": "a",
+        "sourceRank": 1,
+        "initialSeed": 1,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 1
+      },
+      {
+        "entrantId": "b",
+        "exitState": "active",
+        "source": "b",
+        "sourceRank": 1,
+        "initialSeed": 2,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 2
+      },
+      {
+        "entrantId": "c",
+        "exitState": "active",
+        "source": "c",
+        "sourceRank": 1,
+        "initialSeed": 3,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 1
+      },
+      {
+        "entrantId": "d",
+        "exitState": "active",
+        "source": "d",
+        "sourceRank": 1,
+        "initialSeed": 4,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 8
+      }
+    ],
+    "excluded": [],
+    "inputVersions": [
+      {
+        "sourceId": "a",
+        "version": 1
+      },
+      {
+        "sourceId": "b",
+        "version": 1
+      },
+      {
+        "sourceId": "c",
+        "version": 1
+      },
+      {
+        "sourceId": "d",
+        "version": 1
+      }
+    ]
+  },
+  "snapshot": {
+    "snapshotId": "381b5b8f-be19-4b3d-bc53-1feec85954d7",
+    "configurationId": "b929fac7-9e38-4b9f-b09f-a917efd77c93",
+    "frozenFromVersion": 2,
+    "version": 3,
+    "structure": {
+      "entrantKind": "individual",
+      "structureVersion": "structure-v1",
+      "routingVersion": "routing-v1",
+      "stages": [
+        {
+          "id": "A",
+          "order": 1,
+          "capacity": 8,
+          "formatIntent": "single-elimination",
+          "groups": [
+            {
+              "id": "a",
+              "stageId": "A",
+              "capacity": 2
+            },
+            {
+              "id": "b",
+              "stageId": "A",
+              "capacity": 2
+            },
+            {
+              "id": "c",
+              "stageId": "A",
+              "capacity": 2
+            },
+            {
+              "id": "d",
+              "stageId": "A",
+              "capacity": 2
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "order": 2,
+          "capacity": 2,
+          "formatIntent": "fixed-swiss",
+          "groups": [
+            {
+              "id": "X",
+              "stageId": "B",
+              "capacity": 2
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "order": 3,
+          "capacity": 8,
+          "formatIntent": "single-elimination",
+          "groups": []
+        }
+      ],
+      "pools": [],
+      "routes": [
+        {
+          "id": "ra",
+          "source": {
+            "stageId": "A",
+            "groupId": "a"
+          },
+          "selector": {
+            "kind": "rankRange",
+            "from": 1,
+            "to": 1
+          },
+          "quota": 1,
+          "sort": [
+            {
+              "field": "initialSeed",
+              "direction": "asc"
+            }
+          ],
+          "target": {
+            "stageId": "B",
+            "groupId": "X"
+          },
+          "placement": {
+            "kind": "seed",
+            "positions": [
+              1
+            ]
+          }
+        },
+        {
+          "id": "rb",
+          "source": {
+            "stageId": "A",
+            "groupId": "b"
+          },
+          "selector": {
+            "kind": "rankRange",
+            "from": 1,
+            "to": 1
+          },
+          "quota": 1,
+          "sort": [
+            {
+              "field": "initialSeed",
+              "direction": "asc"
+            }
+          ],
+          "target": {
+            "stageId": "B",
+            "groupId": "X"
+          },
+          "placement": {
+            "kind": "seed",
+            "positions": [
+              2
+            ]
+          }
+        },
+        {
+          "id": "rc",
+          "source": {
+            "stageId": "A",
+            "groupId": "c"
+          },
+          "selector": {
+            "kind": "rankRange",
+            "from": 1,
+            "to": 1
+          },
+          "quota": 1,
+          "sort": [
+            {
+              "field": "initialSeed",
+              "direction": "asc"
+            }
+          ],
+          "target": {
+            "stageId": "C"
+          },
+          "placement": {
+            "kind": "slot",
+            "positions": [
+              1
+            ]
+          }
+        },
+        {
+          "id": "rd",
+          "source": {
+            "stageId": "A",
+            "groupId": "d"
+          },
+          "selector": {
+            "kind": "rankRange",
+            "from": 1,
+            "to": 1
+          },
+          "quota": 1,
+          "sort": [
+            {
+              "field": "initialSeed",
+              "direction": "asc"
+            }
+          ],
+          "target": {
+            "stageId": "C"
+          },
+          "placement": {
+            "kind": "slot",
+            "positions": [
+              8
+            ]
+          }
+        }
+      ]
+    },
+    "diagnostics": [
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "ra",
+        "path": "/routes/0/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "a"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rb",
+        "path": "/routes/1/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "b"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rc",
+        "path": "/routes/2/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "c"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rd",
+        "path": "/routes/3/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "d"
+        }
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "A",
+        "path": "/stages/0/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "B",
+        "path": "/stages/1/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "C",
+        "path": "/stages/2/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      }
+    ],
+    "digest": "053fbe395c75533bac4b997175c83157f0ef9ee142bad8f351573b90281dc35a",
+    "frozenAt": "2026-10-03T20:39:43.519Z",
+    "frozenBy": "local-demo",
+    "runtimeReady": false,
+    "started": false
+  },
+  "frozenEdit": {
+    "code": "STRUCTURE_FROZEN",
+    "reason": "结构不可修改或解冻"
+  },
+  "after": {
+    "configurationId": "b929fac7-9e38-4b9f-b09f-a917efd77c93",
+    "version": 3,
+    "structureValid": true,
+    "previewReady": true,
+    "runtimeReady": false,
+    "diagnostics": [
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "ra",
+        "path": "/routes/0/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "a"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rb",
+        "path": "/routes/1/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "b"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rc",
+        "path": "/routes/2/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "c"
+        }
+      },
+      {
+        "code": "SOURCE_INPUT_REQUIRED",
+        "severity": "conditional",
+        "objectId": "rd",
+        "path": "/routes/3/source",
+        "reason": "须提供已完成的模拟来源快照",
+        "details": {
+          "sourceId": "d"
+        }
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "A",
+        "path": "/stages/0/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "B",
+        "path": "/stages/1/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      },
+      {
+        "code": "FORMAT_RUNTIME_UNAVAILABLE",
+        "severity": "info",
+        "objectId": "C",
+        "path": "/stages/2/formatIntent",
+        "reason": "赛制仅描述意图，运行支持集为空",
+        "details": {}
+      }
+    ],
+    "allocations": [
+      {
+        "entrantId": "a",
+        "exitState": "active",
+        "source": "a",
+        "sourceRank": 1,
+        "initialSeed": 1,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 1
+      },
+      {
+        "entrantId": "b",
+        "exitState": "active",
+        "source": "b",
+        "sourceRank": 1,
+        "initialSeed": 2,
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "positionKind": "seed",
+        "value": 2
+      },
+      {
+        "entrantId": "c",
+        "exitState": "active",
+        "source": "c",
+        "sourceRank": 1,
+        "initialSeed": 3,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 1
+      },
+      {
+        "entrantId": "d",
+        "exitState": "active",
+        "source": "d",
+        "sourceRank": 1,
+        "initialSeed": 4,
+        "target": {
+          "stageId": "C"
+        },
+        "positionKind": "slot",
+        "value": 8
+      }
+    ],
+    "excluded": [],
+    "inputVersions": [
+      {
+        "sourceId": "a",
+        "version": 1
+      },
+      {
+        "sourceId": "b",
+        "version": 1
+      },
+      {
+        "sourceId": "c",
+        "version": 1
+      },
+      {
+        "sourceId": "d",
+        "version": 1
+      }
+    ]
+  },
+  "runtimeReady": false
+}

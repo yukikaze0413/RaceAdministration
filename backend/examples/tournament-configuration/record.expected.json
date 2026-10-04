@@ -1,0 +1,26 @@
+[
+  {
+    "entrantId": "p",
+    "exitState": "active",
+    "source": "S",
+    "sourceRank": 1,
+    "initialSeed": 1,
+    "target": {
+      "stageId": "T"
+    },
+    "positionKind": "slot",
+    "value": 1
+  },
+  {
+    "entrantId": "q",
+    "exitState": "active",
+    "source": "S",
+    "sourceRank": 1,
+    "initialSeed": 2,
+    "target": {
+      "stageId": "T"
+    },
+    "positionKind": "slot",
+    "value": 8
+  }
+]

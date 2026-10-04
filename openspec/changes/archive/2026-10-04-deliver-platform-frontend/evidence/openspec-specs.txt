@@ -1,0 +1,80 @@
+Exit: 0
+{
+  "items": [
+    {
+      "id": "account-session",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 16
+    },
+    {
+      "id": "capability-errors",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 5
+    },
+    {
+      "id": "configuration-validation",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 2
+    },
+    {
+      "id": "configuration-workbench",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 2
+    },
+    {
+      "id": "platform-shell",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    },
+    {
+      "id": "progression-routing",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    },
+    {
+      "id": "tournament-catalog",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    },
+    {
+      "id": "tournament-structure",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 0
+    }
+  ],
+  "summary": {
+    "totals": {
+      "items": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    "byType": {
+      "spec": {
+        "items": 8,
+        "passed": 8,
+        "failed": 0
+      }
+    }
+  },
+  "version": "1.0",
+  "root": {
+    "path": "D:\\Projects\\RaceAdministration",
+    "source": "nearest"
+  }
+}

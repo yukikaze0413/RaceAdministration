@@ -1,0 +1,16 @@
+Command: openspec archive deliver-platform-frontend --yes --skip-specs --json
+Exit: 
+0
+说明：归档时仅任务7.5（归档自身）未勾选；实际归档成功后更新完成标记。规格已单独同步、逐项比较并严格校验。
+{
+  "archive": {
+    "change": "deliver-platform-frontend",
+    "archivedAs": "2026-10-04-deliver-platform-frontend",
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\archive\\2026-10-04-deliver-platform-frontend",
+    "specsUpdated": false
+  },
+  "root": {
+    "path": "D:\\Projects\\RaceAdministration",
+    "source": "nearest"
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "entrantId": "a",
+    "exitState": "disqualified",
+    "source": "A",
+    "sourceRank": 1,
+    "initialSeed": 8,
+    "poolSeed": 1,
+    "target": {
+      "stageId": "C"
+    },
+    "positionKind": "slot",
+    "value": 1
+  },
+  {
+    "entrantId": "b",
+    "exitState": "active",
+    "source": "B",
+    "sourceRank": 1,
+    "initialSeed": 2,
+    "poolSeed": 2,
+    "target": {
+      "stageId": "C"
+    },
+    "positionKind": "slot",
+    "value": 8
+  }
+]

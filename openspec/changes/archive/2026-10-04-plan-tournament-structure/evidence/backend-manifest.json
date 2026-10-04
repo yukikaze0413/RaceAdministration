@@ -1,0 +1,106 @@
+[
+  {
+    "path": "backend/examples/tournament-configuration/four-groups.expected.json",
+    "sha256": "df5a9215d4d9101f423017f4ae6887da56e42869a2a7c59711de1d746883f08d"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/four-groups.json",
+    "sha256": "ba9678d5175b9db6880ce71c97da08530cb9a67ef1de2a7068c80e8ab8737cb6"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/invalid.json",
+    "sha256": "9080dd1a6c3fe0eb16078258a51b8733d1cafd65034f88493aa3466ba25c3156"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/pool.expected.json",
+    "sha256": "7cb6f30098ac0952aa540ed33afc89a8773cc6411a5c8965c9397ff6625e2704"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/pool.json",
+    "sha256": "90f057881d764c82a3b09eeabd3d3be3ec66b571fe2267ca2073a313a514f6a9"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/README.md",
+    "sha256": "eeb634eb48a82ff287a1089dede88cfb9b53d84e0df30d38eaf7db09575b4796"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/record.expected.json",
+    "sha256": "564545d29544d3d507c5de46d886adb0f5219cb182a5c9603ddcda9133f37f0d"
+  },
+  {
+    "path": "backend/examples/tournament-configuration/record.json",
+    "sha256": "a6ad08923048df629ffb99faf4d95d61218b312cf48f8d66cca36af54d5a8001"
+  },
+  {
+    "path": "backend/package.json",
+    "sha256": "32a2e1074f4e91802a06ca21a486bfa0af2b98f0f77fdafbabceae1f79006b8f"
+  },
+  {
+    "path": "backend/scripts/tournament-configuration.js",
+    "sha256": "dbe43a5221eb7dc6162939a69a412e977d78fad6dbaefa9d626b59a780a28e75"
+  },
+  {
+    "path": "backend/src/tournament-configuration/adapters/memory-store.js",
+    "sha256": "ae3b704909555e927b74109e3e93412564a3c2d3119c679160eac35fabec4457"
+  },
+  {
+    "path": "backend/src/tournament-configuration/application/service.js",
+    "sha256": "dbced4cb2b7d522b7801020a711e9a7750b62fb9cc4d405df07770b7023999b2"
+  },
+  {
+    "path": "backend/src/tournament-configuration/domain/canonical.js",
+    "sha256": "3134ad8d0963a1603fffb937da15ae2f55dd5742d2ace22e440279c7a54c2db8"
+  },
+  {
+    "path": "backend/src/tournament-configuration/domain/routing.js",
+    "sha256": "552449d5e00542bb49cec981452282d5b61a4f40aa2d26ba29ccc49e165dd7c6"
+  },
+  {
+    "path": "backend/src/tournament-configuration/domain/structure.js",
+    "sha256": "60e377df99916efbf761b4e21c6b0708511a226dec6fb0359ac2546e9d87e163"
+  },
+  {
+    "path": "backend/src/tournament-configuration/domain/templates.js",
+    "sha256": "b6a5f64b9d2137f5af0d2205377ba0675abe0becc739e0a33c3ac9252b31d9e3"
+  },
+  {
+    "path": "backend/src/tournament-configuration/domain/validation.js",
+    "sha256": "abcafdb9b5b85da4071f8b28856a5f313ae076a648969dc6fc648a5d582d08bb"
+  },
+  {
+    "path": "backend/test/tournament-configuration/cli.test.js",
+    "sha256": "aaac74c5df93567826db89c2d0e2d8ad6f6c7b172da8ef0ffdcb7d02505a6f5f"
+  },
+  {
+    "path": "backend/test/tournament-configuration/freeze.test.js",
+    "sha256": "bbedf1bcd3eeb02f743215cf345d80aa7e61b8a5f8ca8ba16a1f32b6ca0c9c86"
+  },
+  {
+    "path": "backend/test/tournament-configuration/helpers.js",
+    "sha256": "896c74f7b4217a43603d80e48f42d5530cbe4347ef62c32c377e20044fbf40c6"
+  },
+  {
+    "path": "backend/test/tournament-configuration/integration.test.js",
+    "sha256": "a81485e1b9a45ec52fdb448e3c55a2624e56a5b78bb5d12908e383c2907ffb6c"
+  },
+  {
+    "path": "backend/test/tournament-configuration/pool.test.js",
+    "sha256": "0e357b4230deb649070c9eccc1033848170be50867b776d9c2b17db56e3260b7"
+  },
+  {
+    "path": "backend/test/tournament-configuration/routing.test.js",
+    "sha256": "77a4ff27d063e34bd0eb2df495ca2b3b3797dfe30e292d05ace88ff96c59d8ed"
+  },
+  {
+    "path": "backend/test/tournament-configuration/structure.test.js",
+    "sha256": "2ad0b8389837e2a4b4d82b8a1db0be3c511942b584f1dacc36014f02d3f8e0a4"
+  },
+  {
+    "path": "backend/test/tournament-configuration/templates.test.js",
+    "sha256": "c8888dd228e400f79890ec8eb2050f07627f8b0be679e0582c43ffa55e1dd548"
+  },
+  {
+    "path": "backend/test/tournament-configuration/validation.test.js",
+    "sha256": "9a4390ac7742645c42965ec2f8faac78cb2849cbeef33fa60f7855aab32d76ed"
+  }
+]

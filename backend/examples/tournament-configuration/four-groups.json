@@ -1,0 +1,268 @@
+{
+  "configuration": {
+    "entrantKind": "individual",
+    "structureVersion": "structure-v1",
+    "routingVersion": "routing-v1",
+    "stages": [
+      {
+        "id": "A",
+        "order": 1,
+        "capacity": 8,
+        "formatIntent": "single-elimination",
+        "groups": [
+          {
+            "id": "a",
+            "stageId": "A",
+            "capacity": 2
+          },
+          {
+            "id": "b",
+            "stageId": "A",
+            "capacity": 2
+          },
+          {
+            "id": "c",
+            "stageId": "A",
+            "capacity": 2
+          },
+          {
+            "id": "d",
+            "stageId": "A",
+            "capacity": 2
+          }
+        ]
+      },
+      {
+        "id": "B",
+        "order": 2,
+        "capacity": 2,
+        "formatIntent": "fixed-swiss",
+        "groups": [
+          {
+            "id": "X",
+            "stageId": "B",
+            "capacity": 2
+          }
+        ]
+      },
+      {
+        "id": "C",
+        "order": 3,
+        "capacity": 8,
+        "formatIntent": "single-elimination",
+        "groups": []
+      }
+    ],
+    "pools": [],
+    "routes": [
+      {
+        "id": "ra",
+        "source": {
+          "stageId": "A",
+          "groupId": "a"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "placement": {
+          "kind": "seed",
+          "positions": [
+            1
+          ]
+        }
+      },
+      {
+        "id": "rb",
+        "source": {
+          "stageId": "A",
+          "groupId": "b"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "B",
+          "groupId": "X"
+        },
+        "placement": {
+          "kind": "seed",
+          "positions": [
+            2
+          ]
+        }
+      },
+      {
+        "id": "rc",
+        "source": {
+          "stageId": "A",
+          "groupId": "c"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "C"
+        },
+        "placement": {
+          "kind": "slot",
+          "positions": [
+            1
+          ]
+        }
+      },
+      {
+        "id": "rd",
+        "source": {
+          "stageId": "A",
+          "groupId": "d"
+        },
+        "selector": {
+          "kind": "rankRange",
+          "from": 1,
+          "to": 1
+        },
+        "quota": 1,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "C"
+        },
+        "placement": {
+          "kind": "slot",
+          "positions": [
+            8
+          ]
+        }
+      }
+    ]
+  },
+  "sources": {
+    "roster": [
+      {
+        "entrantId": "a",
+        "initialSeed": 1,
+        "exitState": "active"
+      },
+      {
+        "entrantId": "b",
+        "initialSeed": 2,
+        "exitState": "active"
+      },
+      {
+        "entrantId": "c",
+        "initialSeed": 3,
+        "exitState": "active"
+      },
+      {
+        "entrantId": "d",
+        "initialSeed": 4,
+        "exitState": "active"
+      }
+    ],
+    "sourceSnapshots": [
+      {
+        "sourceId": "a",
+        "version": 1,
+        "completed": true,
+        "rankingProfileId": "ranking-v1",
+        "recordProfileId": "record-v1",
+        "entries": [
+          {
+            "entrantId": "a",
+            "rank": 1,
+            "wins": 1,
+            "losses": 0,
+            "draws": 0,
+            "points": 3
+          }
+        ]
+      },
+      {
+        "sourceId": "b",
+        "version": 1,
+        "completed": true,
+        "rankingProfileId": "ranking-v1",
+        "recordProfileId": "record-v1",
+        "entries": [
+          {
+            "entrantId": "b",
+            "rank": 1,
+            "wins": 1,
+            "losses": 0,
+            "draws": 0,
+            "points": 3
+          }
+        ]
+      },
+      {
+        "sourceId": "c",
+        "version": 1,
+        "completed": true,
+        "rankingProfileId": "ranking-v1",
+        "recordProfileId": "record-v1",
+        "entries": [
+          {
+            "entrantId": "c",
+            "rank": 1,
+            "wins": 1,
+            "losses": 0,
+            "draws": 0,
+            "points": 3
+          }
+        ]
+      },
+      {
+        "sourceId": "d",
+        "version": 1,
+        "completed": true,
+        "rankingProfileId": "ranking-v1",
+        "recordProfileId": "record-v1",
+        "entries": [
+          {
+            "entrantId": "d",
+            "rank": 1,
+            "wins": 1,
+            "losses": 0,
+            "draws": 0,
+            "points": 3
+          }
+        ]
+      }
+    ]
+  }
+}

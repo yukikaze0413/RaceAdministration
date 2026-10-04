@@ -1,0 +1,109 @@
+{
+  "configuration": {
+    "entrantKind": "individual",
+    "structureVersion": "structure-v1",
+    "routingVersion": "routing-v1",
+    "stages": [
+      {
+        "id": "S",
+        "order": 1,
+        "capacity": 3,
+        "formatIntent": "fixed-swiss",
+        "groups": []
+      },
+      {
+        "id": "T",
+        "order": 2,
+        "capacity": 8,
+        "formatIntent": "single-elimination",
+        "groups": []
+      }
+    ],
+    "pools": [],
+    "routes": [
+      {
+        "id": "r",
+        "source": {
+          "stageId": "S"
+        },
+        "selector": {
+          "kind": "recordEquals",
+          "wins": 3,
+          "losses": 0,
+          "draws": 0
+        },
+        "quota": 2,
+        "sort": [
+          {
+            "field": "initialSeed",
+            "direction": "asc"
+          }
+        ],
+        "target": {
+          "stageId": "T"
+        },
+        "placement": {
+          "kind": "slot",
+          "positions": [
+            1,
+            8
+          ]
+        }
+      }
+    ]
+  },
+  "sources": {
+    "roster": [
+      {
+        "entrantId": "p",
+        "initialSeed": 1,
+        "exitState": "active"
+      },
+      {
+        "entrantId": "q",
+        "initialSeed": 2,
+        "exitState": "active"
+      },
+      {
+        "entrantId": "r",
+        "initialSeed": 3,
+        "exitState": "active"
+      }
+    ],
+    "sourceSnapshots": [
+      {
+        "sourceId": "S",
+        "version": 5,
+        "completed": true,
+        "rankingProfileId": "rank1",
+        "recordProfileId": "record1",
+        "entries": [
+          {
+            "entrantId": "r",
+            "rank": 1,
+            "wins": 3,
+            "losses": 0,
+            "draws": 0,
+            "points": 9
+          },
+          {
+            "entrantId": "p",
+            "rank": 1,
+            "wins": 3,
+            "losses": 0,
+            "draws": 0,
+            "points": 9
+          },
+          {
+            "entrantId": "q",
+            "rank": 1,
+            "wins": 3,
+            "losses": 0,
+            "draws": 0,
+            "points": 9
+          }
+        ]
+      }
+    ]
+  }
+}
