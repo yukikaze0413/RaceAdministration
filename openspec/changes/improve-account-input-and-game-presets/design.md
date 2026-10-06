@@ -28,7 +28,7 @@
 
 ### D3 游戏身份与旧数据
 
-增加gameId:string|null，保留现有game作为分类，避免旧客户端与资料整体破坏。选择street-fighter-6时服务端派生fighting；shadowverse-original派生card。客户端同时给不一致分类则422，未知ID则422。新UI按游戏搜索/选择，不再要求同时选卡牌/格斗；未指定游戏兼容项可保留原分类。旧记录缺gameId读取为null，不批量猜测迁移；未知但历史已存游戏ID展示文字与状态，不丢弃记录。
+增加gameId:string|null，保留现有game作为分类，避免旧客户端与资料整体破坏。选择street-fighter-6时服务端派生fighting；shadowverse派生card。客户端同时给不一致分类则422，未知ID则422。新UI先选择分类来筛选游戏，再选择最终预设；切换分类清空不兼容的旧游戏，服务端仍核验gameId与分类一致；未指定游戏兼容项可保留原分类。旧记录缺gameId读取为null，不批量猜测迁移；未知但历史已存游戏ID展示文字与状态，不丢弃记录。
 
 目录增加gameId筛选，gameId=unspecified仅作为查询哨兵，不是可保存的游戏ID；与旧game查询取交集，未知ID400。排序/分页、private404/public管理403不变。变更gameId只是基础资料，不改冻结快照或规则，不产生报名/结果；现有版本与请求键覆盖新字段，旧幂等结果缺新增字段由客户端兼容读取，不重写旧请求指纹。
 
@@ -36,7 +36,7 @@
 
 拟增加GET /api/games和GET /api/games/:gameId/resources，统一JSON错误契约；前者返回目录schemaVersion、catalogVersion、items，后者返回指定游戏的资料版本和实体/素材项，未知游戏404。首版使用审阅过的静态版本化清单，不在服务端逐请求抓取官网；没有证据支持把官网地址当公开API。前端新增游戏预设选择及样例资源浏览，不把图片作为游戏ID或表单值。
 
-清单实体：id、gameId、kind(character/card/class)、sourceName/displayName、locale、edition、sourcePage、catalogVersion；素材独立assetId、role(avatar/portrait/card-art/class-icon)、status、可选url/localPath、尺寸、校验值、来源与分发说明。进化前/后使用明确variant，不覆盖卡ID。原版八职业与中立分开；不是完整图库。图片URL只来自审阅清单，拒绝把任意用户URL当可信素材。
+清单实体：id、gameId、kind(character/card/class)、sourceName/displayName、locale、edition、sourcePage、catalogVersion；素材独立assetId、role(avatar/portrait/card-art/class-icon)、status、可选url/localPath、尺寸、校验值、来源与分发说明。进化前/后使用明确variant，不覆盖卡ID。统一职业表包含精灵、皇家、巫师、龙族、死灵、吸血鬼、梦魇、主教、复仇者；中立独立于职业表。死灵(shadowcraft)、吸血鬼(bloodcraft)、梦魇(nightmare)并列且不自动映射。两个版本共用gameId=shadowverse，卡片实体ID使用来源版本+原始卡ID命名空间（如shadowverse:original:card:101111010），同名实体不自动去重。来源版本只作出处，不作为游戏选择或职业使用门槛；不是完整图库。图片URL只来自审阅清单，拒绝把任意用户URL当可信素材。
 
 优先具体样例来源核验后采用可说明分发方式的文件；不可用条目保留pending/missing。前端保留布局、alt和名字，有单独加载/失败/重试；目录失败仍保留旧游戏选择和当前表单，可读取已存赛事。头像/立绘失败不会使整张表单重新挂载。具体图片未核实前不承诺asset-ready。浏览器运行错误与本地目录API错误分别呈现。
 
@@ -53,7 +53,7 @@
 - [Ant Design新依赖影响体积/React版本] → 先验证准确版本、按需引入并记录构建体积和焦点行为。
 - [固定偏移不等于地区夏令时] → 明确标注，不自动承诺全球地区日历规则。
 - [素材未取得或源站失效] → 来源状态如实记录，文本回退和单独重试；未核实立绘不假报完成。
-- [影之诗版别尚未回复] → 先按原版规划并显式留门槛；若选择Worlds Beyond，修改相关预设/职业/来源，再实施该资源切片。
+- [跨来源ID碰撞或职业错误合并] → 统一游戏ID，卡片实体按来源命名空间区分；死灵/吸血鬼/梦魇各自稳定ID并列，验证同名/同原始ID素材不被覆盖。
 
 ## Migration Plan
 
@@ -61,4 +61,21 @@
 
 ## Open Questions
 
-认证供应商仅作为研究输出，不阻塞密码、日期或目录实现。影之诗原版/Worlds Beyond问题已向用户提出；其答复是素材切片开始前的明确门槛，不将未回复视为已批准版别。具体素材文件与分发方式按research.md中的有限核验任务确定，未取得的项保留缺失状态。
+认证供应商仅作为研究输出，不阻塞密码、日期或目录实现。用户已确认影之诗统一入口、两个版本通用及死灵/吸血鬼/梦魇并列，没有待答的版别门槛。具体素材文件与分发方式按research.md中的有限核验任务确定，未取得的项保留缺失状态。
+## 2026-10-06手机验收修订
+
+分类是找到游戏预设的筛选层；游戏是最终保存的选择，前后端分类一致性仍由服务端核验。表单依次分为基本信息、比赛项目、时间与地点、归属与公开，移动端单列且最大表单宽760px。
+
+日历采用Ant Design官方DatePicker的日期/时间格式与分钟时间面板；显示YYYY-MM-DD HH:mm，内部完整UTC值和旧秒/毫秒保留。隔离全局input/button/table规则，避免组件嵌套控件被44px按钮和620px表格规则撑开。确认后归一显示，非法草稿原文仍保留。时区默认显示北京时间（UTC+08:00），固定偏移语义和切换保留同一时刻不变。参考https://ant.design/components/date-picker-cn/；不将分钟显示误当作删除已有精度。
+
+普通HTTP局域网不是安全上下文，crypto.randomUUID可能不存在；请求键与新增结构ID统一用crypto.getRandomValues生成v4 UUID，仍保持同载荷重试复用。键生成在useWrite的try/finally内，失败提供错误并释放busy；不使用Math.random。参考https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID 与 getRandomValues 文档。
+
+POST /api/v1/me/password要求当前session、当前密码与原样非空新密码；事务内再次比较摘要及session，更新同一用户行并撤销所有会话。登录在创建会话的事务内复查密码摘要，阻止在途旧凭据复活会话。纳入既有Origin/JSON及20次/15分钟限流。前端确认新密码，成功到公共登录页后清除身份，保留“密码已修改”提示。永久删除已获用户明确授权，详见account-redesign.md及AC5/AC6。
+
+已确认旧常驻后端早于源码且/games返回404；现有SQLite一致备份后仅重启项目后端为watch进程，手机同源精确Origin继续获准。实际LAN Edge的360px、isSecureContext=false、randomUUID undefined条件下点击创建/刷新/日期编辑保存成功。生产部署与用户自己的手机复验另行报告。
+
+## 账户重规划
+采用account-redesign.md中的官方案例研究与分层设计。PATCH /me支持displayName、username、currentPassword、avatar；头像内嵌SQLite用户JSON，sharp限制像素后转WebP。GET /me/deletion-preview返回关联数量及完整当前范围哈希；DELETE /me验证密码、用户名和expectedToken，在同步事务中清理六张业务表的自身行。历史跨账号seriesId、冻结者或配置请求引用使删除冲突，避免改动他人数据。头像异步转换和密码派生后重新读取当前用户及有效会话，避免旧请求覆盖新凭据或复活已删账号。
+
+## 2026-10-07账户页验收修订
+复用工作台现有panel与标准按钮，删除专属编号分区/侧栏。初始只读总览，单个原生dialog按action渲染对应输入；点击头像编辑，名称和登录用户名分别编辑，退出先确认，删除先读取范围。关闭清草稿/密码/错误并回焦点，忙碌时禁用操作。名称PATCH只提交displayName，用户名PATCH只提交username与必要currentPassword，避免无意覆盖其他资料。删除按当前ownerId而非创建者；新建仍默认为当前账号。此轮补模拟所有权变更数据库用例，不扩展转让API。

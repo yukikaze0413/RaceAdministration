@@ -1,0 +1,23 @@
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/src/platform/auth/accounts.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/src/platform/auth/sessions.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/src/platform/catalog/catalog.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/PLATFORM-API.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/PRD.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SDD-START-PROMPT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SDD.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/handoff.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/features/account.test.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/features/account.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/features/catalog.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/design.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/handoff.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/proposal.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/research.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/specs/game-presets/spec.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/changes/improve-account-input-and-game-presets/tasks.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'openspec/config.yaml', LF will be replaced by CRLF the next time Git touches it
+exit_code=0

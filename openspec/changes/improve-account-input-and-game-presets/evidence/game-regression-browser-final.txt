@@ -1,0 +1,58 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 179ms
+(node:24964) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 25 tests using 1 worker
+
+(node:27200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360 (792ms)
+  ok  2 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768 (655ms)
+  ok  3 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440 (674ms)
+(node:27200) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok  4 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC (2.1s)
+  ok  5 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in UTC (2.3s)
+  ok  6 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in UTC (1.9s)
+  ok  7 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in Asia/Shanghai (1.8s)
+  ok  8 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in Asia/Shanghai (2.3s)
+  ok  9 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in Asia/Shanghai (2.1s)
+  ok 10 e2e\datetime.spec.ts:154:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement (861ms)
+  ok 11 e2e\datetime.spec.ts:217:1 › DT2 New York DST gap does not affect a fixed +08 wall time; calendar draft cancellation restores original (1.5s)
+  ok 12 e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 360 (731ms)
+  ok 13 e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 768 (791ms)
+  ok 14 e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 1440 (857ms)
+  ok 15 e2e\game-presets.spec.ts:106:1 › GP3 directory failure and TC1 conflict preserve local game until confirmation (944ms)
+  ok 16 e2e\password.spec.ts:44:3 › AC1 feedback: actual 1-character registration and login at 360px (653ms)
+  ok 17 e2e\password.spec.ts:44:3 › AC1 feedback: actual 1025-character registration and login at 1440px (655ms)
+  ok 18 e2e\platform.spec.ts:56:1 › actual account → series → event → edit → validate → mapped preview → freeze → denied other owner (3.0s)
+  ok 19 e2e\platform.spec.ts:196:1 › 360 / 768 / 1440 layouts, keyboard, deep links and API fallback isolation (968ms)
+  ok 20 e2e\platform.spec.ts:236:1 › read version conflicts recover and small-screen diagnostics focus the correct form field (812ms)
+  ok 21 e2e\platform.spec.ts:292:1 › revoked session clears private UI, password recovery and participation stay explicit (751ms)
+  ok 22 e2e\platform.spec.ts:322:1 › capability failure can be retried and unknown capability never enables configuration writes (442ms)
+  ok 23 e2e\platform.spec.ts:365:1 › metadata edits update context, visibility remains real, and profile saves without losing confirmation (1.0s)
+  ok 24 e2e\platform.spec.ts:397:1 › preview failure removes old allocations, pool sample retains DQ, and narrow tables scroll inside their region (716ms)
+  ok 25 e2e\platform.spec.ts:447:1 › page render errors recover, unknown pages are 404, and malformed responses never become empty data (517ms)
+
+  25 passed (31.1s)

@@ -1,0 +1,21 @@
+### Ran Playwright code
+```js
+await (async(page)=>{
+ await page.setViewportSize({width:360,height:900});
+ await page.goto("http://10.82.238.254:5173/me/profile");
+ await page.getByRole("heading",{name:"账户设置",exact:true}).waitFor();
+ if(await page.getByRole("textbox").count())throw new Error("Unexpected default edit fields");
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw new Error("Account overview overflow");
+ await page.screenshot({path:"../output/playwright/account-overview-lan-360.png",fullPage:true});
+ await page.getByRole("button",{name:"修改名称",exact:true}).click();
+ await page.getByLabel("显示名").waitFor();
+ await page.screenshot({path:"../output/playwright/account-name-lan-360.png",fullPage:true});
+ await page.getByRole("dialog").getByRole("button",{name:"取消",exact:true}).click();
+ if(await page.getByRole("textbox").count())throw new Error("Edit did not close");
+})(page);
+```
+### Page
+- Page URL: http://10.82.238.254:5173/me/profile
+- Page Title: 赛事工作台
+### Events
+- New console entries: ..\.playwright-cli\console-2026-10-06T15-42-03-456Z.log#L7

@@ -1,7 +1,7 @@
 "use strict";
 const { randomBytes, createHash, timingSafeEqual } = require("node:crypto");
 const { transaction } = require("../storage/database");
-const { hash, publicUser, text } = require("./accounts");
+const { hash, publicUser } = require("./accounts");
 const { reject, fields } = require("../http/errors");
 const digest = (t) => createHash("sha256").update(t).digest("hex");
 function loginRequired(req) {
@@ -47,7 +47,7 @@ function mountSessions(
     if (
       typeof username !== "string" ||
       typeof password !== "string" ||
-      password.length > 1024
+      password.length === 0
     )
       reject(401, "INVALID_CREDENTIALS", "用户名或密码不正确。");
     const row = db
@@ -71,6 +71,12 @@ function mountSessions(
       reject(401, "INVALID_CREDENTIALS", "用户名或密码不正确。");
     const token = randomBytes(32).toString("hex");
     transaction(db, () => {
+      const latest = db
+        .prepare("SELECT data FROM users WHERE id=?")
+        .get(user.id);
+      if (!latest || JSON.parse(latest.data).passwordHash !== user.passwordHash || JSON.parse(latest.data).username !== user.username)
+        reject(401, "INVALID_CREDENTIALS", "用户名或密码不正确。");
+
       if (req.sessionHash)
         db.prepare("DELETE FROM sessions WHERE tokenHash=?").run(
           req.sessionHash,
@@ -96,17 +102,65 @@ function mountSessions(
     res.clearCookie("race_session", cookieOptions);
     send(req, res, { loggedOut: true });
   });
-  api.patch("/me", (req, res) => {
+
+  api.post("/me/password", async (req, res) => {
     const user = loginRequired(req);
-    fields(req.body, ["displayName"]);
-    const displayName = text(req.body.displayName, "/displayName", 1, 40);
-    if (!displayName.trim()) reject(422, "INVALID_INPUT", "显示名不能为空。");
-    const next = { ...user, displayName };
-    db.prepare("UPDATE users SET data=? WHERE id=?").run(
-      JSON.stringify(next),
-      user.id,
+    fields(req.body, ["currentPassword", "newPassword"]);
+    for (const key of ["currentPassword", "newPassword"])
+      if (typeof req.body[key] !== "string" || req.body[key].length === 0)
+        reject(422, "INVALID_INPUT", "请检查密码输入。", {
+          fieldErrors: [
+            {
+              path: "/" + key,
+              message:
+                key === "currentPassword"
+                  ? "请输入当前密码。"
+                  : "新密码不能为空。",
+            },
+          ],
+        });
+    const actual = Buffer.from(
+      await hash(req.body.currentPassword, user.salt, user.passwordParameters),
+      "hex",
     );
-    send(req, res, publicUser(next));
+    const expected = Buffer.from(user.passwordHash, "hex");
+    if (actual.length !== expected.length || !timingSafeEqual(actual, expected))
+      reject(422, "INVALID_CURRENT_PASSWORD", "当前密码不正确。", {
+        fieldErrors: [
+          { path: "/currentPassword", message: "当前密码不正确。" },
+        ],
+      });
+    const salt = randomBytes(16).toString("hex");
+    const passwordHash = await hash(
+      req.body.newPassword,
+      salt,
+      user.passwordParameters,
+    );
+    transaction(db, () => {
+      const row = db.prepare("SELECT data FROM users WHERE id=?").get(user.id);
+      if (!row) reject(409, "CREDENTIAL_CHANGED", "账号凭据已变化，请重新登录。");
+      const current = JSON.parse(row.data);
+      const session = db
+        .prepare(
+          "SELECT userId FROM sessions WHERE tokenHash=? AND expiresAt>?",
+        )
+        .get(req.sessionHash, now());
+      if (
+        current.passwordHash !== user.passwordHash ||
+        !session ||
+        session.userId !== user.id
+      )
+        reject(409, "CREDENTIAL_CHANGED", "账号凭据已变化，请重新登录。");
+      db.prepare("UPDATE users SET data=? WHERE id=?").run(
+        JSON.stringify({ ...current, salt, passwordHash }),
+        user.id,
+      );
+      db.prepare("DELETE FROM sessions WHERE userId=?").run(user.id);
+    });
+    res.clearCookie("race_session", cookieOptions);
+    send(req, res, { passwordChanged: true, requiresLogin: true });
   });
+
+  require("./profile").mountProfile(api, { db, send, now, cookieOptions });
 }
 module.exports = { mountSessions, loginRequired };

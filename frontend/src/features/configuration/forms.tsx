@@ -1,3 +1,4 @@
+import { requestKey } from "../../shared/api";
 import { Field, Empty } from "../../shared/ui";
 export type Structure = any;
 export const formats = [
@@ -327,7 +328,7 @@ export function StageForms({
               onClick={() =>
                 edit(i, "groups", [
                   ...s.groups,
-                  { id: crypto.randomUUID(), stageId: s.id, capacity: null },
+                  { id: requestKey(), stageId: s.id, capacity: null },
                 ])
               }
             >
@@ -358,7 +359,7 @@ export function StageForms({
             stages: [
               ...payload.stages,
               {
-                id: crypto.randomUUID(),
+                id: requestKey(),
                 order: payload.stages.length + 1,
                 capacity: null,
                 formatIntent: null,
@@ -430,7 +431,7 @@ export function PoolForms({
             ...payload,
             pools: [
               ...payload.pools,
-              { id: crypto.randomUUID(), capacity: null, sort: [] },
+              { id: requestKey(), capacity: null, sort: [] },
             ],
           })
         }
@@ -639,7 +640,7 @@ export function RouteForms({
             routes: [
               ...payload.routes,
               {
-                id: crypto.randomUUID(),
+                id: requestKey(),
                 source: refs[0]?.ref ?? {},
                 target: refs[1]?.ref ?? refs[0]?.ref ?? {},
                 selector: null,

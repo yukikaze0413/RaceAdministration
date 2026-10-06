@@ -1,0 +1,89 @@
+.tournament-datetime {
+  margin-bottom: 20px;
+  min-width: 0;
+}
+.datetime-label {
+  display: block;
+  margin-bottom: 8px;
+}
+.tournament-datetime .ant-picker {
+  width: 100%;
+}
+.tournament-datetime .field {
+  margin-top: 12px;
+}
+.tournament-calendar {
+  max-width: calc(100vw - 16px);
+}
+.tournament-calendar .ant-picker-panel-container {
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+}
+@media (max-width: 600px) {
+  .tournament-calendar .ant-picker-datetime-panel {
+    flex-direction: column;
+  }
+  .tournament-calendar .ant-picker-time-panel {
+    width: 100%;
+    border-inline-start: 0;
+    border-top: 1px solid #ddd;
+  }
+  .tournament-calendar .ant-picker-time-panel .ant-picker-content {
+    height: 130px;
+  }
+}
+
+/* Isolate picker controls from global app form and table styles. */
+.tournament-datetime .ant-picker-input > input {
+  padding: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 16px;
+}
+.tournament-datetime .ant-picker {
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.tournament-calendar table {
+  min-width: 0;
+  font-size: 14px;
+}
+.tournament-calendar td,
+.tournament-calendar th {
+  padding: 0;
+  border: 0;
+  max-width: none;
+  background: transparent;
+  text-align: center;
+}
+.tournament-calendar .ant-picker-header button {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  display: inline-block;
+  background: transparent;
+  color: inherit;
+}
+.tournament-calendar .ant-picker-ok button {
+  padding: 4px 12px;
+  min-height: 32px;
+}
+.datetime-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.metadata-form {
+  max-width: 760px;
+}
+.metadata-form fieldset {
+  margin: 0 0 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.metadata-form legend {
+  font-size: 20px;
+  margin-bottom: 4px;
+}

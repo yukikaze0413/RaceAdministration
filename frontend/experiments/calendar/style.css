@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #172b4d;
+  background: #f5f7fb;
+}
+.probe {
+  width: min(680px, calc(100% - 24px));
+  margin: 32px auto;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+}
+.probe label,
+.probe output {
+  display: block;
+  margin: 12px 0;
+}
+.probe .ant-picker {
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .calendar-gate .ant-picker-datetime-panel {
+    flex-direction: column;
+  }
+  .calendar-gate .ant-picker-time-panel {
+    width: 100%;
+    border-inline-start: 0;
+    border-top: 1px solid #ddd;
+  }
+  .calendar-gate .ant-picker-time-panel .ant-picker-content {
+    height: 150px;
+  }
+}

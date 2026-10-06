@@ -1,0 +1,6 @@
+
+> race-administration-frontend@0.1.0 build
+> tsc --noEmit && vite build
+
+src/shared/tournament-datetime.tsx(79,30): error TS2339: Property 'format' does not exist on type 'Dayjs[] | Dayjs'.
+  Property 'format' does not exist on type 'Dayjs[]'.

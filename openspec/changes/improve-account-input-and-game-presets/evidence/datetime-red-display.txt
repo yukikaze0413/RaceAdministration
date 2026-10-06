@@ -1,0 +1,55 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/shared/fixed-datetime.test.ts
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+ ❯ src/shared/fixed-datetime.test.ts (19 tests | 2 failed) 7ms
+   × DT1 renders old milliseconds and offset switching without changing the instant 3ms
+   × offers all 105 quarter-hour offsets and labels them explicitly 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/shared/fixed-datetime.test.ts > DT1 renders old milliseconds and offset switching without changing the instant
+AssertionError: expected '' to be '2026-10-05 10:30:47.123' // Object.is equality
+
+- Expected
++ Received
+
+- 2026-10-05 10:30:47.123
+
+ ❯ src/shared/fixed-datetime.test.ts:20:31
+     18| it("DT1 renders old milliseconds and offset switching without changing…
+     19|   const old = "2026-10-05T02:30:47.123Z";
+     20|   expect(utcToWall(old, 480)).toBe("2026-10-05 10:30:47.123");
+       |                               ^
+     21|   expect(utcToWall(old, -240)).toBe("2026-10-04 22:30:47.123");
+     22|   expect(utcToWall(null, 480)).toBe("");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/shared/fixed-datetime.test.ts > offers all 105 quarter-hour offsets and labels them explicitly
+AssertionError: expected [] to have a length of 105 but got +0
+
+- Expected
++ Received
+
+- 105
++ 0
+
+ ❯ src/shared/fixed-datetime.test.ts:26:25
+     24| });
+     25| it("offers all 105 quarter-hour offsets and labels them explicitly", (…
+     26|   expect(FIXED_OFFSETS).toHaveLength(105);
+       |                         ^
+     27|   expect(FIXED_OFFSETS[0]).toBe(-720);
+     28|   expect(FIXED_OFFSETS.at(-1)).toBe(840);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 17 passed (19)
+   Start at  16:15:41
+   Duration  2.14s (environment 92%, setup 5%, transform 1%, import 1%)

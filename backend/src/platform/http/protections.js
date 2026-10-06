@@ -10,8 +10,8 @@ function protections({ origins, now = Date.now }) {
         reject(400, "BAD_REQUEST", "写入请求必须使用JSON格式。");
     }
     if (
-      req.method === "POST" &&
-      ["/auth/login", "/auth/register"].includes(req.path)
+      (req.method === "POST" && ["/auth/login", "/auth/register", "/me/password"].includes(req.path)) ||
+      (["PATCH", "DELETE"].includes(req.method) && req.path === "/me")
     ) {
       const current = now(),
         key = req.ip;

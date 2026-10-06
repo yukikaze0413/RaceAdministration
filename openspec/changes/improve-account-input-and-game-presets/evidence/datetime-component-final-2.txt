@@ -1,0 +1,16 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/features/datetime.test.tsx src/shared/fixed-datetime.test.ts
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  24 passed (24)
+   Start at  16:38:41
+   Duration  5.43s (environment 47%, import 19%, transform 15%, tests 12%, setup 6%)
+
+Environment  jsdom was created 2 times · 2.43s total, 47% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

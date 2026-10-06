@@ -1,0 +1,250 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/features/datetime.test.tsx
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+ ❯ src/features/datetime.test.tsx (1 test | 1 failed) 28302ms
+   × DT1 replaces manual ISO entry with Chinese calendar and explicit fixed offset; name-only save preserves original milliseconds 28300ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/datetime.test.tsx > DT1 replaces manual ISO entry with Chinese calendar and explicit fixed offset; name-only save preserves original milliseconds
+TestingLibraryElementError: Unable to find a label with the text of: 开始日期时间
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <form
+      class="panel"
+    >
+      <label
+        class="field"
+      >
+        <span>
+          赛事名称
+        </span>
+        <input
+          maxlength="100"
+          required=""
+          value="旧赛事"
+        />
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          说明
+        </span>
+        <textarea
+          maxlength="2000"
+        />
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          分类
+        </span>
+        <select>
+          <option
+            value="card"
+          >
+            卡牌
+          </option>
+          <option
+            value="fighting"
+          >
+            格斗
+          </option>
+        </select>
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          地点
+        </span>
+        <input
+          maxlength="200"
+          value=""
+        />
+      </label>
+      <p
+        role="status"
+      >
+        正在加载日历…
+      </p>
+      <label
+        class="field"
+      >
+        <span>
+          所属系列
+        </span>
+        <select>
+          <option
+            value=""
+          >
+            独立赛事
+          </option>
+        </select>
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          资料可见性
+        </span>
+        <select>
+          <option
+            value="private"
+          >
+            私有，仅创建者可见
+          </option>
+          <option
+            value="public"
+          >
+            公开基础资料
+          </option>
+        </select>
+      </label>
+      <p
+        class="warning"
+      >
+        公开会同时显示所属系列的标题和说明；不会开启报名或启动赛事。
+      </p>
+      <button
+        class="primary"
+      >
+        保存资料
+      </button>
+
+
+    </form>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <form
+      class="panel"
+    >
+      <label
+        class="field"
+      >
+        <span>
+          赛事名称
+        </span>
+        <input
+          maxlength="100"
+          required=""
+          value="旧赛事"
+        />
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          说明
+        </span>
+        <textarea
+          maxlength="2000"
+        />
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          分类
+        </span>
+        <select>
+          <option
+            value="card"
+          >
+            卡牌
+          </option>
+          <option
+            value="fighting"
+          >
+            格斗
+          </option>
+        </select>
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          地点
+        </span>
+        <input
+          maxlength="200"
+          value=""
+        />
+      </label>
+      <p
+        role="status"
+      >
+        正在加载日历…
+      </p>
+      <label
+        class="field"
+      >
+        <span>
+          所属系列
+        </span>
+        <select>
+          <option
+            value=""
+          >
+            独立赛事
+          </option>
+        </select>
+      </label>
+      <label
+        class="field"
+      >
+        <span>
+          资料可见性
+        </span>
+        <select>
+          <option
+            value="private"
+          >
+            私有，仅创建者可见
+          </option>
+          <option
+            value="public"
+          >
+            公开基础资料
+          </option>
+        </select>
+      </label>
+      <p
+        class="warning"
+      >
+        公开会同时显示所属系列的标题和说明；不会开启报名或启动赛事。
+      </p>
+      <button
+        class="primary"
+      >
+        保存资料
+      </button>
+
+
+    </form>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/datetime.test.tsx:13:30
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  16:18:18
+   Duration  31.17s (tests 92%, environment 7%, setup 1%, import 1%)

@@ -1,0 +1,71 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test e2e/datetime.spec.ts -g invalid date
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 180ms
+(node:13292) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:19600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19600) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 e2e\datetime.spec.ts:89:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement (5.9s)
+
+
+  1) e2e\datetime.spec.ts:89:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByLabel('开始日期时间', { exact: true })
+    Expected: "2026-02-30 10:30"
+    Received: "2026-10-05 10:30:47.123"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('开始日期时间', { exact: true }) with timeout 5000ms
+      - waiting for getByLabel('开始日期时间', { exact: true })
+        14 × locator resolved to <input size="25" id="_r_0_" autocomplete="off" aria-invalid="false" placeholder="可留空，用日历或键盘选择" aria-describedby="_r_0_-help" value="2026-10-05 10:30:47.123"/>
+           - unexpected value "2026-10-05 10:30:47.123"
+
+
+       98 |   await expect(page.getByRole("button", { name: "保存资料" })).toBeDisabled();
+       99 |   await page.getByLabel("赛事名称").focus();
+    > 100 |   await expect(input).toHaveValue("2026-02-30 10:30");
+          |                       ^
+      101 |   await expect(page.getByRole("button", { name: "保存资料" })).toBeDisabled();
+      102 |   await input.focus();
+      103 |   await page.keyboard.press("Escape");
+        at D:\Projects\RaceAdministration\frontend\e2e\datetime.spec.ts:100:23
+
+    Error Context: test-results\datetime-DT2-invalid-date--8cc89--until-explicit-replacement\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\datetime-DT2-invalid-date--8cc89--until-explicit-replacement\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\datetime-DT2-invalid-date--8cc89--until-explicit-replacement\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\datetime.spec.ts:89:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement

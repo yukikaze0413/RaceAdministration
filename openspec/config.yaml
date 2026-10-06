@@ -28,7 +28,7 @@ context: |
   Team registration and executable format coverage remain deferred to their own changes.
   Structure freezing does not imply runtime readiness; the first change implements no pairing or scoring engines.
   Legacy in-memory CRUD is isolated; the delivered platform uses React/Vite, Express, local cookie sessions, and SQLite persistence.
-  Structure and platform frontend changes are implemented and archived. The active feedback change covers password policy, friendly datetime input, mature auth evaluation, and game/resource presets; these new behaviors are planned, not implemented.
+  Structure and platform frontend changes are implemented and archived. The active feedback change covers password policy, friendly datetime input, mature auth evaluation, and game/resource presets; tasks 1.1, 1.2, 2.1-2.3, 3.1-3.4 and 4.1-4.4 and 7.1-7.5 are complete (18/26): password length policy removed, auth compatibility assessed, production Chinese datetime input verified, and stable game presets, gameId compatibility, derived categories, filtering and legacy/frozen invariants verified. Account overview and on-demand edits now follow the workbench UI; avatar and username edits preserve immutable identity, and permanent account deletion only removes currently owned tournaments and related data. Resource assets and full-change acceptance remain pending.
   OpenSpec is the canonical specification and task workflow.
   Notion contains decision summaries and evidence links; there is no automatic synchronization.
 

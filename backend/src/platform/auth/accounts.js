@@ -17,7 +17,7 @@ function text(value, path, min, max) {
   return value;
 }
 function publicUser(u) {
-  return { id: u.id, username: u.username, displayName: u.displayName };
+  return { id: u.id, username: u.username, displayName: u.displayName, avatarUrl: u.avatarUrl ?? null };
 }
 const passwordParameters = { N: 32768, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
 async function hash(password, salt, parameters = passwordParameters) {
@@ -34,7 +34,10 @@ function mountAccounts(api, { db, send, now = Date.now }) {
       });
     const displayName = text(p.displayName, "/displayName", 1, 40);
     if (!displayName.trim()) reject(422, "INVALID_INPUT", "显示名不能为空。");
-    text(p.password, "/password", 12, 128);
+    if (typeof p.password !== "string" || p.password.length === 0)
+      reject(422, "INVALID_INPUT", "请检查输入字段。", {
+        fieldErrors: [{ path: "/password", message: "密码不能为空。" }],
+      });
     const salt = randomBytes(16).toString("hex");
     const u = {
       id: randomUUID(),

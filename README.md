@@ -22,8 +22,8 @@
 
 ## 当前代码
 
-backend/ 保留原有 Express 内存 CRUD 原型，不代表新平台功能已实现。
-前端、认证、持久化、报名、赛制和权限系统尚未实现。
+backend/ 隔离保留原有 Express 内存 CRUD 原型，同时已接入新平台账号、赛事资料、结构配置与SQLite持久化。
+中文前端、本地认证、持久化和创建者权限已交付；报名、报分、实际赛制运行与协作者权限仍待后续切片。
 [旧 API 示例](docs/API.md) 仅作参考；旧技术栈尚未重新确认。
 
 旧流程、课程和学习笔记已移出当前工作树，可从 Git 历史恢复。
@@ -39,6 +39,6 @@ backend/ 保留原有 Express 内存 CRUD 原型，不代表新平台功能已�
 
 中文前端和必要持久后端已接入；运行方式见 [frontend/README.md](frontend/README.md)，新接口与缺失业务错误边界见 [PLATFORM-API.md](docs/PLATFORM-API.md)。账号、系列/赛事资料与结构编辑/校验/模拟预演/冻结真实可用；报名、报分、赛制运行等未实现能力明确返回501。冻结不代表已开赛。
 
-## 前端反馈SDD进度（2026-10-05）
+## 前端反馈SDD进度（2026-10-07）
 
-上一轮交付已提交1db793a。取消密码长度、成熟认证评估、日期时间选择和游戏/素材预设已登记[新规划](openspec/changes/improve-account-input-and-game-presets/proposal.md)，实施0/21，尚未修改业务行为；查看[任务列表](openspec/changes/improve-account-input-and-game-presets/tasks.md)。
+活动[变更](openspec/changes/improve-account-input-and-game-presets/proposal.md)实施18/26：密码、分类→游戏、日期/时区与HTTP保存已修复；账户页统一工作台风格，先展示资料再按需编辑，头像/名称/用户名可修改、ID固定。注销仅删除当前拥有的赛事及关联数据，创建默认归本人。78后端/60前端/30Edge及build/typecheck通过。素材五项和完整出口三项仍未完成；见[任务](openspec/changes/improve-account-input-and-game-presets/tasks.md)与[最新账户验收](openspec/changes/improve-account-input-and-game-presets/acceptance-account-overview.md)。

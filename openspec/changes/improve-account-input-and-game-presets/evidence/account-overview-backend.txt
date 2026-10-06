@@ -1,0 +1,107 @@
+
+> race-administration-backend@1.0.0 test
+> node --test test/tournament-configuration/*.test.js test/platform/*.test.js
+
+(node:23548) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ rename preserves stable identity and ownership, requires password and unique username (684.3594ms)
+✔ avatar normalizes raster to bounded WebP and rejects SVG/corruption without writes (172.2567ms)
+✔ permanent deletion removes all owned rows and snapshots, preserves other account, releases username (545.2803ms)
+{"requestId":"30e29ddc-d17a-43ae-b7d1-97dd1d7331b7","status":503,"code":"STORE_FAILURE"}
+✔ changed preview and storage fault never partially delete account (235.0399ms)
+✔ cross-account historical references block deletion without changing either owner (261.7188ms)
+✔ deleted account cannot be resurrected by a password change already in flight (221.6223ms)
+✔ profile and deletion require session and trusted Origin, and share the credential rate limit (153.3684ms)
+✔ account deletion uses current ownership, preserving an event given away and deleting an event now received (259.5025ms)
+(node:26056) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ account password change preserves identity and owned event, revokes every session and accepts raw new password (654.2525ms)
+✔ password update rejects anonymous, wrong current password, empty new password and foreign Origin without writes (212.1613ms)
+✔ concurrent password changes apply once, without a stale credential overwrite (319.0294ms)
+✔ login already in flight cannot create a session from a password replaced during hashing (261.3607ms)
+(node:27688) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ DT2 invalid date has a field error and does not write a record or successful request (340.9591ms)
+✔ DT1 real HTTP creates both hand-calculated instants and preserves milliseconds on name-only edit (150.1976ms)
+✔ DT2 date version conflict leaves the stored instant intact (120.605ms)
+(node:13688) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ GP1 one Shadowverse preset has nine distinct classes and separate neutral category (1.5351ms)
+✔ TC1 game preset creation derives classification and replays same request (295.3675ms)
+✔ TC1 inconsistent preset/category is atomically rejected (160.8554ms)
+✔ TC1 partial game edit derives new classification and rejects category-only contradiction (153.0567ms)
+✔ TC1 old JSON reads as unspecified without rewriting old idempotency results (136.726ms)
+✔ TC2 public game filters intersect classification, paginate and exclude private records (147.1701ms)
+✔ GP1 games catalog is public versioned data and does not write tournaments (136.6031ms)
+✔ TC1 unknown IDs, ownership and same-version races leave no partial writes (303.1422ms)
+✔ GP1 game/catalog updates do not change frozen structure or enable runtime (152.4478ms)
+✔ TC1 new/old game records, sessions and historical request survive SQLite restart (149.1629ms)
+(node:12732) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ CE3: unknown new API is safe JSON 404 with a server request identifier (125.1651ms)
+✔ foundation: health reports durable storage without exposing paths (29.9991ms)
+✔ AC1: register persists a unique account and never returns credential material (189.6588ms)
+✔ AC2: session restores, rotates, expires, and logout revokes the old cookie (338.7812ms)
+✔ AC3: foreign origins and credential floods are rejected without writing users (24.2771ms)
+✔ CE3: malformed JSON and oversized input retain the error envelope (14.3705ms)
+✔ TC1-4: independent tournaments persist, protect private data, and reject stale edits (255.6831ms)
+✔ CW/TS: templates, validation and frozen snapshots use trusted HTTP identity (149.4169ms)
+✔ CE1/2: every unavailable endpoint authorizes before returning 501 and writes nothing (424.2609ms)
+✔ persistence: account, metadata, frozen snapshot and request replay survive reopening SQLite (192.6441ms)
+{"requestId":"9d29ef89-2dc6-4158-915c-4e57df4f377b","status":503,"code":"STORE_FAILURE"}
+✔ SQLite structure transaction rolls back a real commit failure and resolves same-version competition (111.3182ms)
+{"requestId":"39ac5f84-248e-4adf-acb2-197424b41dab","status":500,"code":"INTERNAL_ERROR"}
+{"requestId":"386619aa-1cd0-4f66-b2c8-3184ef8c2df1","status":503,"code":"STORE_UNAVAILABLE"}
+✔ error isolation: unexpected exceptions are sanitized, unavailable storage is 503 (4.6346ms)
+{"requestId":"6256263a-6c0d-468b-939b-d707d5146d28","status":503,"code":"STORE_FAILURE"}
+✔ input, visibility, page limits and metadata commit failures retain durable invariants (213.8048ms)
+✔ structure HTTP rejects forged identity, foreign configuration IDs and chooses the latest safe snapshot (130.9515ms)
+✔ migration errors preserve the original file and refuse to open an invalid database (1.7763ms)
+(node:33464) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ AC1 feedback: one-character password registers and logs in unchanged (335.6242ms)
+✔ AC1 feedback: 1025-character password registers and logs in unchanged (129.3979ms)
+✔ AC1 feedback: preserves 12 characters through hashing and login (199.2774ms)
+✔ AC1 feedback: preserves 129 characters through hashing and login (191.392ms)
+✔ AC1 feedback: preserves Unicode through hashing and login (192.3644ms)
+✔ AC1 feedback: preserves surrounding spaces through hashing and login (214.1782ms)
+✔ AC1 feedback: preserves whitespace only through hashing and login (121.4758ms)
+✔ AC1 feedback: empty and non-string passwords never create users or sessions (17.4969ms)
+✔ AC1 feedback: old persisted scrypt parameters and stable identity survive restart (41.9236ms)
+✔ AC1 feedback: credential request body limit, uniform errors and rate limit remain (50.4607ms)
+✔ AC1 feedback: malformed credential JSON and storage failure logs omit submitted secrets (4.8852ms)
+✔ documented npm-start entry serves an empty durable platform and same-origin build (336.6669ms)
+✔ CLI:validate/preview/demo使用应用JSON契约及exit code (437.4915ms)
+✔ TS4:复验后冻结快照，保留限制、未开赛且拒绝再编辑 (12.6743ms)
+✔ TS5:全部写操作规范化幂等，响应丢失重试先于版本检查 (6.643ms)
+✔ TS5:同版本并发编辑/冻结与双冻结仅有一次状态转换 (4.1367ms)
+✔ TS5:快照/配置/幂等任一步故障均回滚，失败重试可成功 (12.4022ms)
+✔ TS5:历史只读报告不能替代冻结内部复验 (2.5512ms)
+✔ TS5:仓库无法复制事务响应时也不提交候选状态 (0.7039ms)
+✔ R05/R07:模板→校验→预演→冻结→拒改与手写E6一致 (18.5173ms)
+✔ PR2/PR4:池等待全部上游并按来源优先级重排，保留原种子和DQ (5.792ms)
+✔ PR1/PR2:池不去重且跨规则成绩不可比 (1.6399ms)
+✔ PR3:指定目标只读取完整上游闭包，池链保留全部输入 (1.6176ms)
+✔ PR4/CV2:应用预演深拷贝不写配置，成功样例仅令previewReady为true (3.8856ms)
+✔ CV4/PR3:非法或未完成来源阻断预演且输入不变 (7.0993ms)
+✔ PR1:3–0筛选后全序取p/q，r未入选且数组置换不改变输出 (1.0582ms)
+✔ PR1/PR3:名额不足、缺排序值和未破同分整体失败 (0.7552ms)
+✔ E6/PR2:四组分流与跳阶段符合独立expected (0.9433ms)
+✔ PR2:同一目标阶段两组重复身份整体拒绝 (0.5598ms)
+✔ CV1/CV4:条件性交集在样例中命中则拒绝，不能复制到不同后续阶段 (0.4237ms)
+✔ TS1:个人草稿保存独立阶段与稳定引用 (2.3938ms)
+✔ TS1:拒绝非法类型、未知字段、重复ID及跨赛事引用 (1.0054ms)
+✔ TS2:可信授权隔离并提供独立版本草稿 (2.6141ms)
+✔ TS3:版本化模板改写内部引用，双实例隔离及请求重试返回原实例 (16.1408ms)
+✔ CV1:静态拒绝循环、容量、位置及筛选冲突且定位稳定 (7.202ms)
+✔ CV2/CV3:六类意图仅结构通过并保留未来来源与运行限制 (2.1728ms)
+✔ CV3:受授权的报告有配置版本，真实配对明确不可用 (4.1911ms)
+✔ E7:三条各2人路由到4槽，报告6人超额与明确路径 (0.3888ms)
+ℹ tests 78
+ℹ suites 0
+ℹ pass 78
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2753.0643

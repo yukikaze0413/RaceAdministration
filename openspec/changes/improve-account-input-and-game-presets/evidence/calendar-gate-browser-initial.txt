@@ -1,0 +1,127 @@
+
+> race-administration-frontend@0.1.0 e2e
+> playwright test e2e/calendar-gate.spec.ts
+
+
+Running 3 tests using 1 worker
+
+(node:13436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360 (5.5s)
+(node:23580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768 (5.5s)
+(node:14220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440 (5.5s)
+
+
+  1) e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.ant-picker-ok button')
+    Expected: "确定"
+    Received: "确 定"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.ant-picker-ok button') with timeout 5000ms
+      - waiting for locator('.ant-picker-ok button')
+        14 × locator resolved to <button type="button" class="ant-btn css-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-sm">…</button>
+           - unexpected value "确 定"
+
+
+      32 |       ).toBeVisible();
+      33 |       const confirm = page.locator(".ant-picker-ok button");
+    > 34 |       await expect(confirm).toHaveText("确定");
+         |                             ^
+      35 |       for (
+      36 |         let n = 0;
+      37 |         n < 70 &&
+        at D:\Projects\RaceAdministration\frontend\e2e\calendar-gate.spec.ts:34:29
+
+    Error Context: test-results\calendar-gate-calendar-gat-cd2f0-mit-cancel-and-clear-at-360\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\calendar-gate-calendar-gat-cd2f0-mit-cancel-and-clear-at-360\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\calendar-gate-calendar-gat-cd2f0-mit-cancel-and-clear-at-360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.ant-picker-ok button')
+    Expected: "确定"
+    Received: "确 定"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.ant-picker-ok button') with timeout 5000ms
+      - waiting for locator('.ant-picker-ok button')
+        14 × locator resolved to <button type="button" class="ant-btn css-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-sm">…</button>
+           - unexpected value "确 定"
+
+
+      32 |       ).toBeVisible();
+      33 |       const confirm = page.locator(".ant-picker-ok button");
+    > 34 |       await expect(confirm).toHaveText("确定");
+         |                             ^
+      35 |       for (
+      36 |         let n = 0;
+      37 |         n < 70 &&
+        at D:\Projects\RaceAdministration\frontend\e2e\calendar-gate.spec.ts:34:29
+
+    Error Context: test-results\calendar-gate-calendar-gat-8d3c1-mit-cancel-and-clear-at-768\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\calendar-gate-calendar-gat-8d3c1-mit-cancel-and-clear-at-768\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\calendar-gate-calendar-gat-8d3c1-mit-cancel-and-clear-at-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.ant-picker-ok button')
+    Expected: "确定"
+    Received: "确 定"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.ant-picker-ok button') with timeout 5000ms
+      - waiting for locator('.ant-picker-ok button')
+        14 × locator resolved to <button type="button" class="ant-btn css-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-sm">…</button>
+           - unexpected value "确 定"
+
+
+      32 |       ).toBeVisible();
+      33 |       const confirm = page.locator(".ant-picker-ok button");
+    > 34 |       await expect(confirm).toHaveText("确定");
+         |                             ^
+      35 |       for (
+      36 |         let n = 0;
+      37 |         n < 70 &&
+        at D:\Projects\RaceAdministration\frontend\e2e\calendar-gate.spec.ts:34:29
+
+    Error Context: test-results\calendar-gate-calendar-gat-83105-it-cancel-and-clear-at-1440\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\calendar-gate-calendar-gat-83105-it-cancel-and-clear-at-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\calendar-gate-calendar-gat-83105-it-cancel-and-clear-at-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360
+    e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768
+    e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440

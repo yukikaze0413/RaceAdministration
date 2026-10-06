@@ -8,9 +8,12 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "e2e": "playwright test"
+    "e2e": "npm run calendar:build && playwright test",
+    "calendar:build": "tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts"
   },
   "dependencies": {
+    "antd": "6.6.5",
+    "dayjs": "1.11.23",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-router-dom": "7.18.4"

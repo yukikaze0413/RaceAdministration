@@ -381,15 +381,19 @@ test("metadata edits update context, visibility remains real, and profile saves 
   await expect(visitor.getByText("未找到资料", { exact: true })).toBeVisible();
   await guest.close();
   await page.goto(base + "/me/profile");
+  await page.getByRole("button", { name: "修改名称", exact: true }).click();
   await page.getByLabel("显示名").fill("更名办赛者");
-  await page.getByRole("button", { name: "保存显示名" }).click();
-  await expect(page.getByText("显示名已保存。")).toBeVisible();
+  await page.getByRole("button", { name: "保存个人资料" }).click();
+  await expect(page.getByText("个人资料已保存。")).toBeVisible();
   await expect(
     page.getByRole("link", { name: "更名办赛者", exact: true }),
   ).toBeVisible();
   await page.reload();
-  await expect(page.getByLabel("显示名")).toHaveValue("更名办赛者");
+  await expect(
+    page.getByText("更名办赛者", { exact: true }).last(),
+  ).toBeVisible();
   await page.getByRole("button", { name: "退出登录", exact: true }).click();
+  await page.getByRole("button", { name: "确认退出登录", exact: true }).click();
   await expect(
     page.getByRole("link", { name: "登录 / 注册", exact: true }),
   ).toBeVisible();

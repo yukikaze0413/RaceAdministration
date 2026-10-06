@@ -1,0 +1,17 @@
+### Ran Playwright code
+```js
+await (async (page) => {
+ await page.reload();
+ await page.getByRole("heading", {name:"账户设置",exact:true}).waitFor();
+ const response=await page.request.get("http://10.82.238.254:5173/api/v1/me/deletion-preview");
+ if(response.status()!==200) throw new Error("Live preview endpoint status "+response.status());
+ const result=await response.json();
+ console.log(JSON.stringify({url:page.url(),status:response.status(),counts:result.data.counts,overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}));
+ await page.screenshot({path:"../output/playwright/account-lan-360.png",fullPage:true});
+})(page);
+```
+### Page
+- Page URL: http://10.82.238.254:5173/me/profile
+- Page Title: 赛事工作台
+### Events
+- New console entries: ..\.playwright-cli\console-2026-10-06T15-42-03-456Z.log#L2-L6

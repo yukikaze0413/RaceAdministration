@@ -1,0 +1,16 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+
+ Test Files  12 passed (12)
+      Tests  60 passed (60)
+   Start at  00:44:24
+   Duration  16.92s (environment 54%, tests 18%, import 13%, setup 7%, transform 7%)
+
+Environment  jsdom was created 12 times · 8.51s total, 54% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

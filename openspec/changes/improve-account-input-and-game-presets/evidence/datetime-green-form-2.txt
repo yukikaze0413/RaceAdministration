@@ -1,0 +1,12 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/features/datetime.test.tsx
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:19:48
+   Duration  5.48s (import 38%, environment 35%, transform 17%, setup 5%, tests 4%)

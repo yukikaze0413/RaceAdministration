@@ -1,0 +1,5 @@
+race-administration-frontend@0.1.0 D:\Projects\RaceAdministration\frontend
+├── antd@6.6.5
+└── dayjs@1.11.23
+
+Exit code: 0

@@ -21,10 +21,10 @@ export function useWrite() {
     lock.current = true;
     setBusy(true);
     setError(null);
-    const fingerprint = JSON.stringify({ path, method, body });
-    if (pending.current?.fingerprint !== fingerprint)
-      pending.current = { fingerprint, key: requestKey() };
     try {
+      const fingerprint = JSON.stringify({ path, method, body });
+      if (pending.current?.fingerprint !== fingerprint)
+        pending.current = { fingerprint, key: requestKey() };
       const result = await api<T>(path, {
         method,
         body,

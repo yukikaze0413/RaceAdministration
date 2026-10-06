@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -11,10 +11,21 @@ import {
 import { api, failure, ApiFailure } from "../shared/api";
 import { Empty, ErrorNotice, Field, Resource, useResource } from "../shared/ui";
 import { useWrite } from "../shared/write";
+const TournamentDateTime = lazy(() => import("../shared/tournament-datetime"));
+function gameName(id?: string | null) {
+  return id === "street-fighter-6"
+    ? "街霸六"
+    : id === "shadowverse"
+      ? "影之诗"
+      : id
+        ? "未知游戏（" + id + "）"
+        : "未指定游戏";
+}
 export type Tournament = {
   id: string;
   name: string;
   game: "card" | "fighting";
+  gameId?: string | null;
   description: string;
   location: string;
   startsAt: string | null;
@@ -30,7 +41,9 @@ function EventList({ items }: { items: Tournament[] }) {
       {items.map((t) => (
         <article key={t.id}>
           <div>
-            <span className="tag">{t.game === "card" ? "卡牌" : "格斗"}</span>
+            <span className="tag">
+              {gameName(t.gameId)} · {t.game === "card" ? "卡牌" : "格斗"}
+            </span>
             <span className="muted">基础资料 · 尚未开赛</span>
           </div>
           <h2>
@@ -79,12 +92,15 @@ export function CatalogPage() {
   const [query, setQuery] = useSearchParams(),
     [search, setSearch] = useState(query.get("q") ?? ""),
     game = query.get("game") ?? "",
+    gameId = query.get("gameId") ?? "",
+    games = useResource("/games"),
     page = query.get("page") ?? "1";
   const state = useResource(
     "/tournaments?" +
       new URLSearchParams({
         q: query.get("q") ?? "",
         ...(game ? { game } : {}),
+        ...(gameId ? { gameId } : {}),
         page,
       }),
   );
@@ -104,7 +120,12 @@ export function CatalogPage() {
         className="filters"
         onSubmit={(e) => {
           e.preventDefault();
-          setQuery({ q: search, ...(game ? { game } : {}), page: "1" });
+          setQuery({
+            q: search,
+            ...(game ? { game } : {}),
+            ...(gameId ? { gameId } : {}),
+            page: "1",
+          });
         }}
       >
         <Field label="关键词">
@@ -115,6 +136,38 @@ export function CatalogPage() {
             placeholder="搜索赛事名称"
           />
         </Field>
+        <Field label="筛选游戏">
+          <select
+            value={gameId}
+            disabled={games.loading || !!games.error}
+            onChange={(e) =>
+              setQuery({
+                q: search,
+                ...(game ? { game } : {}),
+                ...(e.target.value ? { gameId: e.target.value } : {}),
+                page: "1",
+              })
+            }
+          >
+            <option value="">全部游戏</option>
+            <option value="unspecified">未指定游戏</option>
+            {gameId &&
+              gameId !== "unspecified" &&
+              !games.data?.items.some((g: any) => g.id === gameId) && (
+                <option value={gameId}>{gameName(gameId)}</option>
+              )}
+            {games.data?.items
+              .filter((g: any) => !game || g.category === game)
+              .map((g: any) => (
+                <option key={g.id} value={g.id}>
+                  {g.displayName}
+                </option>
+              ))}
+          </select>
+        </Field>
+        {games.error && (
+          <ErrorNotice error={games.error} onRetry={games.reload} />
+        )}
         <Field label="赛事分类">
           <select
             value={game}
@@ -122,6 +175,7 @@ export function CatalogPage() {
               setQuery({
                 q: search,
                 ...(e.target.value ? { game: e.target.value } : {}),
+                ...(gameId ? { gameId } : {}),
                 page: "1",
               })
             }
@@ -147,6 +201,7 @@ export function CatalogPage() {
                 setQuery({
                   q: search,
                   ...(game ? { game } : {}),
+                  ...(gameId ? { gameId } : {}),
                   page: String(n),
                 })
               }
@@ -276,6 +331,7 @@ export function MetadataForm({
 }) {
   const navigate = useNavigate(),
     write = useWrite(),
+    games = useResource(kind === "tournament" ? "/games" : null),
     series = useResource(
       kind === "tournament" ? "/me/series?pageSize=50" : null,
     );
@@ -287,6 +343,7 @@ export function MetadataForm({
             ...(kind === "tournament"
               ? {
                   game: initial.game,
+                  gameId: initial.gameId ?? "",
                   location: initial.location,
                   startsAt: initial.startsAt ?? "",
                   seriesId: initial.seriesId ?? "",
@@ -300,6 +357,7 @@ export function MetadataForm({
             ...(kind === "tournament"
               ? {
                   game: "card",
+                  gameId: "",
                   location: "",
                   startsAt: "",
                   seriesId: "",
@@ -308,6 +366,9 @@ export function MetadataForm({
               : {}),
           },
     ),
+    [gameChanged, setGameChanged] = useState(false),
+    [dateValid, setDateValid] = useState(true),
+    [dateRevision, setDateRevision] = useState(0),
     [saved, setSaved] = useState(""),
     [server, setServer] = useState<any>(null),
     [version, setVersion] = useState(initial?.version),
@@ -316,6 +377,7 @@ export function MetadataForm({
     setBody((b: any) => ({ ...b, [key]: value }));
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (kind === "tournament" && !dateValid) return;
     setSaved("");
     const payload = {
       ...body,
@@ -324,6 +386,15 @@ export function MetadataForm({
         ? { seriesId: body.seriesId || null, startsAt: body.startsAt || null }
         : {}),
     };
+    if (kind === "tournament") {
+      if (
+        body.gameId &&
+        !["street-fighter-6", "shadowverse"].includes(body.gameId) &&
+        !gameChanged
+      )
+        delete payload.gameId;
+      else payload.gameId = body.gameId || null;
+    }
     const result = await write.run(
       "/" +
         (kind === "series" ? "series" : "tournaments") +
@@ -360,78 +431,146 @@ export function MetadataForm({
     }
   }
   return (
-    <form onSubmit={submit} className="panel">
-      <Field label={kind === "series" ? "系列名称" : "赛事名称"}>
-        <input
-          required
-          maxLength={100}
-          value={body.name}
-          onChange={(e) => change("name", e.target.value)}
-        />
-      </Field>
-      <Field label="说明">
-        <textarea
-          maxLength={2000}
-          value={body.description}
-          onChange={(e) => change("description", e.target.value)}
-        />
-      </Field>
+    <form onSubmit={submit} className="panel metadata-form">
+      <fieldset>
+        <legend>基本信息</legend>
+        <Field label={kind === "series" ? "系列名称" : "赛事名称"}>
+          <input
+            required
+            maxLength={100}
+            value={body.name}
+            onChange={(e) => change("name", e.target.value)}
+          />
+        </Field>
+        <Field label="说明">
+          <textarea
+            maxLength={2000}
+            value={body.description}
+            onChange={(e) => change("description", e.target.value)}
+          />
+        </Field>
+      </fieldset>
       {kind === "tournament" && (
         <>
-          <Field label="分类">
-            <select
-              value={body.game}
-              onChange={(e) => change("game", e.target.value)}
-            >
-              <option value="card">卡牌</option>
-              <option value="fighting">格斗</option>
-            </select>
-          </Field>
-          <Field label="地点">
-            <input
-              maxLength={200}
-              value={body.location}
-              onChange={(e) => change("location", e.target.value)}
-            />
-          </Field>
-          <Field label="开始时间（ISO8601，需含时区，如 2026-10-04T10:00+08:00）">
-            <input
-              value={body.startsAt}
-              onChange={(e) => change("startsAt", e.target.value)}
-            />
-          </Field>
-          <Field label="所属系列">
-            <select
-              value={body.seriesId}
-              disabled={series.loading || !!series.error}
-              onChange={(e) => change("seriesId", e.target.value)}
-            >
-              <option value="">独立赛事</option>
-              {series.data?.items.map((s: any) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </Field>
-          {series.error && (
-            <ErrorNotice error={series.error} onRetry={series.reload} />
-          )}
-          <Field label="资料可见性">
-            <select
-              value={body.visibility}
-              onChange={(e) => change("visibility", e.target.value)}
-            >
-              <option value="private">私有，仅创建者可见</option>
-              <option value="public">公开基础资料</option>
-            </select>
-          </Field>
-          <p className="warning">
-            公开会同时显示所属系列的标题和说明；不会开启报名或启动赛事。
-          </p>
+          <fieldset>
+            <legend>比赛项目</legend>
+            <p className="muted">先选择分类，再选择要举办比赛的游戏。</p>
+            <Field label="分类">
+              <select
+                value={body.game}
+                disabled={games.loading || !!games.error}
+                onChange={(e) => {
+                  const game = e.target.value;
+                  setBody((b: any) => ({
+                    ...b,
+                    game,
+                    gameId: game === b.game ? b.gameId : "",
+                  }));
+                  setGameChanged(true);
+                }}
+              >
+                <option value="card">卡牌</option>
+                <option value="fighting">格斗</option>
+              </select>
+            </Field>
+            <Field label="游戏预设">
+              <select
+                value={body.gameId}
+                disabled={games.loading || !!games.error}
+                onChange={(e) => {
+                  const gameId = e.target.value;
+                  const preset = games.data?.items.find(
+                    (g: any) => g.id === gameId,
+                  );
+                  setBody((b: any) => ({
+                    ...b,
+                    gameId,
+                    game: preset?.category ?? b.game,
+                  }));
+                  setGameChanged(true);
+                }}
+              >
+                <option value="">未指定游戏</option>
+                {body.gameId &&
+                  !games.data?.items.some((g: any) => g.id === body.gameId) && (
+                    <option value={body.gameId}>
+                      {gameName(body.gameId)}（保留当前游戏）
+                    </option>
+                  )}
+                {games.data?.items
+                  .filter((g: any) => g.category === body.game)
+                  .map((g: any) => (
+                    <option key={g.id} value={g.id}>
+                      {g.displayName}
+                    </option>
+                  ))}
+              </select>
+            </Field>
+            {games.loading && <p role="status">正在读取游戏预设…</p>}
+            {games.error && (
+              <ErrorNotice error={games.error} onRetry={games.reload} />
+            )}
+          </fieldset>
+          <fieldset>
+            <legend>时间与地点</legend>
+            <Field label="地点">
+              <input
+                maxLength={200}
+                value={body.location}
+                onChange={(e) => change("location", e.target.value)}
+              />
+            </Field>
+            <Suspense fallback={<p role="status">正在加载日历…</p>}>
+              <TournamentDateTime
+                key={dateRevision}
+                value={body.startsAt || null}
+                onChange={(iso) => change("startsAt", iso ?? "")}
+                onValidityChange={setDateValid}
+                serverError={
+                  write.error?.fieldErrors?.find((f) => f.path === "/startsAt")
+                    ?.message
+                }
+              />
+            </Suspense>
+          </fieldset>
+          <fieldset>
+            <legend>归属与公开</legend>
+            <Field label="所属系列">
+              <select
+                value={body.seriesId}
+                disabled={series.loading || !!series.error}
+                onChange={(e) => change("seriesId", e.target.value)}
+              >
+                <option value="">独立赛事</option>
+                {series.data?.items.map((s: any) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            {series.error && (
+              <ErrorNotice error={series.error} onRetry={series.reload} />
+            )}
+            <Field label="资料可见性">
+              <select
+                value={body.visibility}
+                onChange={(e) => change("visibility", e.target.value)}
+              >
+                <option value="private">私有，仅创建者可见</option>
+                <option value="public">公开基础资料</option>
+              </select>
+            </Field>
+            <p className="warning">
+              公开会同时显示所属系列的标题和说明；不会开启报名或启动赛事。
+            </p>
+          </fieldset>
         </>
       )}
-      <button className="primary" disabled={write.busy}>
+      <button
+        className="primary"
+        disabled={write.busy || (kind === "tournament" && !dateValid)}
+      >
         {write.busy ? "保存中…" : initial ? "保存资料" : "创建"}
       </button>
       {saved && <p role="status">{saved}</p>}
@@ -458,6 +597,7 @@ export function MetadataForm({
                 ...(kind === "tournament"
                   ? {
                       game: server.game,
+                      gameId: server.gameId ?? "",
                       location: server.location,
                       startsAt: server.startsAt ?? "",
                       seriesId: server.seriesId ?? "",
@@ -465,6 +605,9 @@ export function MetadataForm({
                     }
                   : {}),
               });
+              setGameChanged(false);
+              setDateRevision((n) => n + 1);
+              setDateValid(true);
               setVersion(server.version);
               setServer(null);
               write.clearError();
@@ -563,6 +706,7 @@ export function TournamentLayout({ manage = false }: { manage?: boolean }) {
             <div>
               <header className="context">
                 <span className="tag">
+                  {gameName(event.gameId)} ·{" "}
                   {event.game === "card" ? "卡牌" : "格斗"} ·{" "}
                   {event.visibility === "public" ? "公开" : "私有"}
                 </span>

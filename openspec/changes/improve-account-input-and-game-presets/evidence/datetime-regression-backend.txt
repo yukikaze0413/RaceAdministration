@@ -1,0 +1,80 @@
+
+> race-administration-backend@1.0.0 test
+> node --test test/tournament-configuration/*.test.js test/platform/*.test.js
+
+(node:3224) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ DT2 invalid date has a field error and does not write a record or successful request (544.5413ms)
+✔ DT1 real HTTP creates both hand-calculated instants and preserves milliseconds on name-only edit (373.2529ms)
+✔ DT2 date version conflict leaves the stored instant intact (279.6811ms)
+(node:3612) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ CE3: unknown new API is safe JSON 404 with a server request identifier (245.4801ms)
+✔ foundation: health reports durable storage without exposing paths (27.9883ms)
+✔ AC1: register persists a unique account and never returns credential material (415.481ms)
+✔ AC2: session restores, rotates, expires, and logout revokes the old cookie (698.1886ms)
+✔ AC3: foreign origins and credential floods are rejected without writing users (58.5244ms)
+✔ CE3: malformed JSON and oversized input retain the error envelope (28.8647ms)
+✔ TC1-4: independent tournaments persist, protect private data, and reject stale edits (571.3838ms)
+✔ CW/TS: templates, validation and frozen snapshots use trusted HTTP identity (311.6504ms)
+✔ CE1/2: every unavailable endpoint authorizes before returning 501 and writes nothing (955.4005ms)
+✔ persistence: account, metadata, frozen snapshot and request replay survive reopening SQLite (378.2455ms)
+{"requestId":"c441d020-c64e-4f6b-8323-9deaf4c1c1ea","status":503,"code":"STORE_FAILURE"}
+✔ SQLite structure transaction rolls back a real commit failure and resolves same-version competition (122.7779ms)
+{"requestId":"39b8a75f-81d3-480e-a744-9cdaa97c8099","status":500,"code":"INTERNAL_ERROR"}
+{"requestId":"a67b3806-c21a-4e5e-bb76-fb20a1841b6b","status":503,"code":"STORE_UNAVAILABLE"}
+✔ error isolation: unexpected exceptions are sanitized, unavailable storage is 503 (7.5152ms)
+{"requestId":"c7df40ec-404e-4ede-b4e9-d5705ca4cb1f","status":503,"code":"STORE_FAILURE"}
+✔ input, visibility, page limits and metadata commit failures retain durable invariants (229.8617ms)
+✔ structure HTTP rejects forged identity, foreign configuration IDs and chooses the latest safe snapshot (113.1824ms)
+✔ migration errors preserve the original file and refuse to open an invalid database (2.0928ms)
+(node:6168) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ AC1 feedback: one-character password registers and logs in unchanged (535.6264ms)
+✔ AC1 feedback: 1025-character password registers and logs in unchanged (331.284ms)
+✔ AC1 feedback: preserves 12 characters through hashing and login (408.1942ms)
+✔ AC1 feedback: preserves 129 characters through hashing and login (403.0867ms)
+✔ AC1 feedback: preserves Unicode through hashing and login (419.9058ms)
+✔ AC1 feedback: preserves surrounding spaces through hashing and login (428.3342ms)
+✔ AC1 feedback: preserves whitespace only through hashing and login (275.5171ms)
+✔ AC1 feedback: empty and non-string passwords never create users or sessions (39.3304ms)
+✔ AC1 feedback: old persisted scrypt parameters and stable identity survive restart (133.1925ms)
+✔ AC1 feedback: credential request body limit, uniform errors and rate limit remain (91.3112ms)
+✔ AC1 feedback: malformed credential JSON and storage failure logs omit submitted secrets (15.2783ms)
+✔ documented npm-start entry serves an empty durable platform and same-origin build (994.8811ms)
+✔ CLI:validate/preview/demo使用应用JSON契约及exit code (1399.6531ms)
+✔ TS4:复验后冻结快照，保留限制、未开赛且拒绝再编辑 (43.4644ms)
+✔ TS5:全部写操作规范化幂等，响应丢失重试先于版本检查 (12.5551ms)
+✔ TS5:同版本并发编辑/冻结与双冻结仅有一次状态转换 (4.757ms)
+✔ TS5:快照/配置/幂等任一步故障均回滚，失败重试可成功 (18.3268ms)
+✔ TS5:历史只读报告不能替代冻结内部复验 (3.6537ms)
+✔ TS5:仓库无法复制事务响应时也不提交候选状态 (0.5177ms)
+✔ R05/R07:模板→校验→预演→冻结→拒改与手写E6一致 (23.6572ms)
+✔ PR2/PR4:池等待全部上游并按来源优先级重排，保留原种子和DQ (40.6824ms)
+✔ PR1/PR2:池不去重且跨规则成绩不可比 (2.685ms)
+✔ PR3:指定目标只读取完整上游闭包，池链保留全部输入 (2.71ms)
+✔ PR4/CV2:应用预演深拷贝不写配置，成功样例仅令previewReady为true (7.2905ms)
+✔ CV4/PR3:非法或未完成来源阻断预演且输入不变 (21.6708ms)
+✔ PR1:3–0筛选后全序取p/q，r未入选且数组置换不改变输出 (1.7742ms)
+✔ PR1/PR3:名额不足、缺排序值和未破同分整体失败 (1.2985ms)
+✔ E6/PR2:四组分流与跳阶段符合独立expected (2.87ms)
+✔ PR2:同一目标阶段两组重复身份整体拒绝 (0.8782ms)
+✔ CV1/CV4:条件性交集在样例中命中则拒绝，不能复制到不同后续阶段 (0.9833ms)
+✔ TS1:个人草稿保存独立阶段与稳定引用 (2.7762ms)
+✔ TS1:拒绝非法类型、未知字段、重复ID及跨赛事引用 (2.0797ms)
+✔ TS2:可信授权隔离并提供独立版本草稿 (5.9798ms)
+✔ TS3:版本化模板改写内部引用，双实例隔离及请求重试返回原实例 (20.7832ms)
+✔ CV1:静态拒绝循环、容量、位置及筛选冲突且定位稳定 (26.7011ms)
+✔ CV2/CV3:六类意图仅结构通过并保留未来来源与运行限制 (2.1213ms)
+✔ CV3:受授权的报告有配置版本，真实配对明确不可用 (6.2385ms)
+✔ E7:三条各2人路由到4槽，报告6人超额与明确路径 (0.6871ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4545.6276
+
+Exit code: 0

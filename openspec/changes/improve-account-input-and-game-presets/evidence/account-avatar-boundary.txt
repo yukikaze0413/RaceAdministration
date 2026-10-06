@@ -1,0 +1,13 @@
+(node:35196) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:23772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23772) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok 1 e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 360 (1.9s)
+  ok 2 e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 768 (1.5s)
+  ok 3 e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 1440 (1.5s)
+
+  3 passed (5.7s)

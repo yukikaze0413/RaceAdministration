@@ -1,0 +1,53 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/features/datetime.test.tsx src/shared/fixed-datetime.test.ts
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+ ❯ src/features/datetime.test.tsx (5 tests | 2 failed) 498ms
+   × DT2 switching fixed offsets preserves the instant and missing offset blocks save 44ms
+   × DT2 invalid wall input is kept visible and blocks the write 35ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/datetime.test.tsx > DT2 switching fixed offsets preserves the instant and missing offset blocks save
+Error: expect(element).toHaveValue(2026-10-04 22:30:47.123)
+
+Expected the element to have value:
+  2026-10-04 22:30:47.123
+Received:
+  2026-10-05 10:30:47.123
+ ❯ src/features/datetime.test.tsx:32:17
+     30|   const input = await screen.findByLabelText("开始日期时间");
+     31|   fireEvent.change(screen.getByLabelText("固定UTC偏移"), { target: { value…
+     32|   expect(input).toHaveValue("2026-10-04 22:30:47.123");
+       |                 ^
+     33|   fireEvent.change(screen.getByLabelText("固定UTC偏移"), { target: { value…
+     34|   expect(screen.getByRole("button", { name: "保存资料" })).toBeDisabled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/features/datetime.test.tsx > DT2 invalid wall input is kept visible and blocks the write
+ReferenceError: ResizeObserver is not defined
+ ❯ ensureResizeObserver node_modules/@rc-component/resize-observer/lib/utils/observerUtil.js:24:5
+ ❯ observe node_modules/@rc-component/resize-observer/lib/utils/observerUtil.js:37:5
+ ❯ node_modules/@rc-component/resize-observer/lib/useResizeObserver.js:76:33
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28656:20
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ commitHookEffectListMount node_modules/react-dom/cjs/react-dom-client.development.js:13748:29
+ ❯ commitHookPassiveMountEffects node_modules/react-dom/cjs/react-dom-client.development.js:13835:11
+ ❯ commitPassiveMountOnFiber node_modules/react-dom/cjs/react-dom-client.development.js:16906:13
+ ❯ recursivelyTraversePassiveMountEffects node_modules/react-dom/cjs/react-dom-client.development.js:16851:13
+ ❯ commitPassiveMountOnFiber node_modules/react-dom/cjs/react-dom-client.development.js:16898:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 22 passed (24)
+   Start at  16:37:56
+   Duration  3.88s (environment 33%, import 29%, transform 20%, tests 14%, setup 5%)
+
+    Isolate  2 workers spawned · ~675ms startup each (spawn + environment, per file)
+             at least ~675ms faster with isolate: false — reuses workers across files instead of one per file

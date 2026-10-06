@@ -1,0 +1,2 @@
+Command: frontend/node_modules/.bin/tsc.cmd -p frontend/tsconfig.calendar-gate.json
+Exit code: 0

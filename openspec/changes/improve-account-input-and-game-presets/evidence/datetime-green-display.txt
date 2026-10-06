@@ -1,0 +1,12 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/shared/fixed-datetime.test.ts
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  16:16:28
+   Duration  2.38s (environment 83%, setup 12%, transform 3%, import 1%)

@@ -1,0 +1,36 @@
+
+> race-administration-frontend@0.1.0 test
+> vitest run src/shared/fixed-datetime.test.ts
+
+
+ RUN  v5.0.3 D:/Projects/RaceAdministration/frontend
+
+ ❯ src/shared/fixed-datetime.test.ts (1 test | 1 failed) 11ms
+   × DT2 converts the independently calculated +08 wall time 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/shared/fixed-datetime.test.ts > DT2 converts the independently calculated +08 wall time
+AssertionError: expected null to be '2026-10-05T02:30:00.000Z' // Object.is equality
+
+- Expected:
+"2026-10-05T02:30:00.000Z"
+
++ Received:
+null
+
+ ❯ src/shared/fixed-datetime.test.ts:4:53
+      2| import { wallToUtc } from "./fixed-datetime";
+      3| it("DT2 converts the independently calculated +08 wall time", () => {
+      4|   expect(wallToUtc("2026-10-05 10:30:00.000", 480)).toBe("2026-10-05T0…
+       |                                                     ^
+      5| });
+      6|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  16:14:33
+   Duration  2.60s (environment 82%, setup 13%, transform 2%, import 2%)

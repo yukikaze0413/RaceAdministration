@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 1,
+  "workbenchId": "3efac01a-7f27-81aa-8d53-e8d3401115a6",
+  "dataSources": {
+    "projects": "73fac01a-7f27-8337-869c-8786a7a0d4fb",
+    "iterations": "104ac01a-7f27-82f7-9659-870894b70bec",
+    "workItems": "6e6ac01a-7f27-83b8-a6ad-072cbbd7ff0b",
+    "modules": "fecac01a-7f27-82da-a391-877e9630421e"
+  },
+  "projects": [
+    {
+      "pageId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "parentProjectId": null,
+      "repository": "D:/Projects/RaceAdministration",
+      "focusedChange": "improve-account-input-and-game-presets",
+      "changes": [
+        {
+          "id": "improve-account-input-and-game-presets",
+          "phase": "实施",
+          "tasksComplete": 18,
+          "tasksTotal": 26,
+          "path": "openspec/changes/improve-account-input-and-game-presets"
+        },
+        {
+          "id": "plan-tournament-structure",
+          "phase": "归档",
+          "tasksComplete": 22,
+          "tasksTotal": 22,
+          "path": "openspec/changes/archive/2026-10-04-plan-tournament-structure"
+        },
+        {
+          "id": "deliver-platform-frontend",
+          "phase": "归档",
+          "tasksComplete": 43,
+          "tasksTotal": 43,
+          "path": "openspec/changes/archive/2026-10-04-deliver-platform-frontend"
+        }
+      ]
+    }
+  ],
+  "workItems": [
+    {
+      "pageId": "3f0ac01a-7f27-811e-b1ef-f672171e7bae",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "1.1"
+      ],
+      "scenario": null,
+      "scenarioMappingNote": "综合研究或出口任务，无单一场景对应；任务编号已映射",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8112-9a32-fd8529eaf784",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "1.2"
+      ],
+      "scenario": null,
+      "scenarioMappingNote": "综合研究或出口任务，无单一场景对应；任务编号已映射",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8170-90e6-eb9fcb7fb3ee",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "2.1"
+      ],
+      "scenario": [
+        "account-session",
+        "短密码与长密码"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-815e-8cf9-f0876a4634a1",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "2.2"
+      ],
+      "scenario": [
+        "account-session",
+        "空值与资源上限"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-81d4-8750-d05e7cec3078",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "2.3"
+      ],
+      "scenario": [
+        "account-session",
+        "短密码与长密码"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8195-8ca9-ef912a7ce9d8",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "3.1"
+      ],
+      "scenario": [
+        "friendly-datetime-input",
+        "浏览器时区不同"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8119-bba5-e787907f8167",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "3.2"
+      ],
+      "scenario": [
+        "friendly-datetime-input",
+        "非法日期与冲突"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-811a-aa77-d5fe1f30e775",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "3.3"
+      ],
+      "scenario": [
+        "friendly-datetime-input",
+        "移动端与键盘"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-811e-93a9-c5ee0d0a32a9",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "3.4"
+      ],
+      "scenario": [
+        "friendly-datetime-input",
+        "选择与编辑"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8125-b5d0-d6ccb9590535",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "4.1"
+      ],
+      "scenario": [
+        "game-presets",
+        "统一影之诗与职业并列"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-813d-b5ae-d0182ecd94d3",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "4.2"
+      ],
+      "scenario": [
+        "tournament-catalog",
+        "游戏预设创建与旧赛事"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8181-a0f1-dcc5f3dc92d3",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "4.3"
+      ],
+      "scenario": [
+        "tournament-catalog",
+        "按游戏筛选"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8190-8ea3-c294ebfbc5f1",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "4.4"
+      ],
+      "scenario": [
+        "tournament-catalog",
+        "游戏预设创建与旧赛事"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8197-9e3a-d4a6fb331285",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "5.1"
+      ],
+      "scenario": [
+        "game-presets",
+        "查看样例素材"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-811a-8a58-e2a472b1c503",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "5.2"
+      ],
+      "scenario": [
+        "game-presets",
+        "尚未取得立绘"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8127-b11e-fabae91965c4",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "5.3"
+      ],
+      "scenario": [
+        "game-presets",
+        "跨来源卡片ID不冲突"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-81de-b413-fa4785d9810a",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "5.4"
+      ],
+      "scenario": [
+        "game-presets",
+        "图像失败"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8194-888b-ffab8bd8fbe7",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "5.5"
+      ],
+      "scenario": [
+        "game-presets",
+        "查看样例素材"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8100-8372-cfc502056f86",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "6.1"
+      ],
+      "scenario": null,
+      "scenarioMappingNote": "综合研究或出口任务，无单一场景对应；任务编号已映射",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-81bb-8f61-ca8bbb7d0ba2",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "6.2"
+      ],
+      "scenario": null,
+      "scenarioMappingNote": "综合研究或出口任务，无单一场景对应；任务编号已映射",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f0ac01a-7f27-81ca-95f6-ee0f6a370576",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "6.3"
+      ],
+      "scenario": null,
+      "scenarioMappingNote": "综合研究或出口任务，无单一场景对应；任务编号已映射",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f1ac01a-7f27-81fd-a5fd-c9c7cd368f25",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "7.1"
+      ],
+      "scenario": [
+        "tournament-catalog",
+        "手机HTTP保存"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f1ac01a-7f27-81c9-a0af-caf76c9ffab5",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "7.2"
+      ],
+      "scenario": [
+        "account-session",
+        "修改密码后重新登录"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f1ac01a-7f27-8173-8efa-e3c4b3fa6665",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "7.3"
+      ],
+      "scenario": [
+        "account-session",
+        "资料修改与重启"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f1ac01a-7f27-81e9-8104-d36bc9c66236",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "7.4"
+      ],
+      "scenario": [
+        "account-session",
+        "全量删除"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    },
+    {
+      "pageId": "3f1ac01a-7f27-8182-b883-f0a45b6da957",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "change": "improve-account-input-and-game-presets",
+      "taskIds": [
+        "7.5"
+      ],
+      "scenario": [
+        "account-session",
+        "移动端确认"
+      ],
+      "scenarioMappingNote": "Verified delta scenario",
+      "artifact": "openspec/changes/improve-account-input-and-game-presets/tasks.md"
+    }
+  ],
+  "modules": [
+    {
+      "pageId": "3f0ac01a-7f27-8125-916d-d04fffb8113c",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "capability": "account-session",
+      "scope": "当前反馈增量",
+      "taskIds": [
+        "1.1",
+        "2.1",
+        "2.2",
+        "2.3",
+        "7.2",
+        "7.3",
+        "7.4",
+        "7.5"
+      ]
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8119-998b-f5e68c1d826c",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "capability": "friendly-datetime-input",
+      "scope": "当前反馈增量",
+      "taskIds": [
+        "1.2",
+        "3.1",
+        "3.2",
+        "3.3",
+        "3.4"
+      ]
+    },
+    {
+      "pageId": "3f0ac01a-7f27-813f-8670-c8487ad57a20",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "capability": "tournament-catalog",
+      "scope": "当前反馈增量",
+      "taskIds": [
+        "4.2",
+        "4.3",
+        "4.4"
+      ]
+    },
+    {
+      "pageId": "3f0ac01a-7f27-8141-aeb0-eae5df14a08d",
+      "projectId": "3f0ac01a-7f27-818e-93fb-d1f14def2177",
+      "capability": "game-presets",
+      "scope": "当前反馈增量",
+      "taskIds": [
+        "4.1",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5"
+      ]
+    }
+  ],
+  "iterations": [],
+  "verification": {
+    "status": "verified",
+    "verifiedAt": "2026-10-06",
+    "runId": "20261006-mobile-feedback",
+    "mainProjects": 1,
+    "workItems": 23,
+    "modules": 4,
+    "iterations": 0,
+    "copyViewsAndRelations": true,
+    "concurrencyMergeTested": false
+  }
+}

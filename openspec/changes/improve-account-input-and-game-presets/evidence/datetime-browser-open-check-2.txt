@@ -1,0 +1,69 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test e2e/datetime.spec.ts -g 360 in UTC
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 173ms
+(node:19720) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4564) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  1 e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC (5.8s)
+
+
+  1) e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC ────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.ant-picker-dropdown').visible()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('.ant-picker-dropdown').visible() with timeout 5000ms
+      - waiting for locator('.ant-picker-dropdown').visible()
+
+
+      53 |         await input.focus();
+      54 |         await page.keyboard.press("ArrowDown");
+    > 55 |         await expect(page.locator(".ant-picker-dropdown").filter({ visible: true })).toBeVisible();
+         |                                                                                      ^
+      56 |         await page.keyboard.type("2026-10-05 10:30:00.000");
+      57 |         await page.keyboard.press("Enter");
+      58 |         await keyboardConfirm(page);
+        at D:\Projects\RaceAdministration\frontend\e2e\datetime.spec.ts:55:86
+
+    Error Context: test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC ─────

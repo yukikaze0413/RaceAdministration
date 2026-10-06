@@ -14,7 +14,12 @@ import {
   type ApiFailure,
 } from "../shared/api";
 import { ErrorNotice } from "../shared/ui";
-export type User = { id: string; username: string; displayName: string };
+export type User = {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarUrl?: string | null;
+};
 const Context = createContext<{
   user: User | null;
   ready: boolean;

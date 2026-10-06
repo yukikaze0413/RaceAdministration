@@ -1,5 +1,7 @@
 "use strict";
 const { randomUUID } = require("node:crypto");
+const presets = require("../games/presets.json");
+const gamePreset = (id) => presets.items.find((item) => item.id === id);
 const { transaction } = require("../storage/database");
 const { reject, fields } = require("../http/errors");
 const { text } = require("../auth/accounts");
@@ -53,7 +55,11 @@ function all(db, table) {
 }
 function safeTournament(t) {
   const { ownerId, ...result } = t;
-  return { ...result, runtimeStatus: "not-started" };
+  return {
+    ...result,
+    gameId: result.gameId ?? null,
+    runtimeStatus: "not-started",
+  };
 }
 function write(db, req, operation, id, fn) {
   const user = loginRequired(req),
@@ -91,6 +97,7 @@ function validate(body, table, creating) {
       : [
           "name",
           "game",
+          "gameId",
           "description",
           "location",
           "startsAt",
@@ -115,8 +122,20 @@ function validate(body, table, creating) {
       fieldErrors: [{ path: "/name", message: "名称不能为空。" }],
     });
   if (table === "tournaments") {
+    if (body.gameId != null && !gamePreset(body.gameId))
+      reject(422, "INVALID_INPUT", "游戏预设无效。", {
+        fieldErrors: [{ path: "/gameId", message: "请选择有效游戏预设。" }],
+      });
     if (
-      (creating || body.game !== undefined) &&
+      body.gameId != null &&
+      body.game !== undefined &&
+      body.game !== gamePreset(body.gameId).category
+    )
+      reject(422, "INVALID_INPUT", "游戏与分类不一致。", {
+        fieldErrors: [{ path: "/game", message: "分类必须与游戏预设一致。" }],
+      });
+    if (
+      ((creating && body.gameId == null) || body.game !== undefined) &&
       !["card", "fighting"].includes(body.game)
     )
       reject(422, "INVALID_INPUT", "请选择卡牌或格斗分类。", {
@@ -141,7 +160,11 @@ function validate(body, table, creating) {
         ) ||
         !Number.isFinite(Date.parse(body.startsAt))
       )
-        reject(422, "INVALID_INPUT", "时间应为带时区的ISO8601格式。");
+        reject(422, "INVALID_INPUT", "时间应为带时区的ISO8601格式。", {
+          fieldErrors: [
+            { path: "/startsAt", message: "时间应为带时区的ISO8601格式。" },
+          ],
+        });
       const [year, month, day] = body.startsAt
         .slice(0, 10)
         .split("-")
@@ -152,11 +175,14 @@ function validate(body, table, creating) {
         month < 1 ||
         month > 12
       )
-        reject(422, "INVALID_INPUT", "日期无效。");
+        reject(422, "INVALID_INPUT", "日期无效。", {
+          fieldErrors: [{ path: "/startsAt", message: "日期无效。" }],
+        });
     }
   }
 }
 function mountCatalog(api, { db, send, now = Date.now }) {
+  api.get("/games", (req, res) => send(req, res, presets));
   for (const table of ["series", "tournaments"]) {
     api.post("/" + table, (req, res) => {
       loginRequired(req);
@@ -166,6 +192,7 @@ function mountCatalog(api, { db, send, now = Date.now }) {
           description: "",
           ...(table === "tournaments"
             ? {
+                gameId: null,
                 location: "",
                 seriesId: null,
                 startsAt: null,
@@ -174,6 +201,8 @@ function mountCatalog(api, { db, send, now = Date.now }) {
             : {}),
           ...req.body,
         };
+        if (table === "tournaments" && body.gameId != null)
+          body.game = gamePreset(body.gameId).category;
         if (body.seriesId) {
           const s = load(db, "series", body.seriesId);
           if (s.ownerId !== user.id)
@@ -217,6 +246,21 @@ function mountCatalog(api, { db, send, now = Date.now }) {
         if (req.body.expectedVersion !== current.version)
           reject(409, "VERSION_CONFLICT", "资料版本已变化，请重新读取。");
         const { expectedVersion, ...body } = req.body;
+        if (table === "tournaments") {
+          const effectiveId = Object.hasOwn(body, "gameId")
+            ? body.gameId
+            : current.gameId;
+          const preset = gamePreset(effectiveId);
+          if (preset) {
+            if (body.game !== undefined && body.game !== preset.category)
+              reject(422, "INVALID_INPUT", "游戏与分类不一致。", {
+                fieldErrors: [
+                  { path: "/game", message: "分类必须与游戏预设一致。" },
+                ],
+              });
+            body.game = preset.category;
+          }
+        }
         if (
           body.seriesId &&
           load(db, "series", body.seriesId).ownerId !== actor.id
@@ -240,7 +284,7 @@ function mountCatalog(api, { db, send, now = Date.now }) {
     });
   }
   api.get("/tournaments", (req, res) => {
-    fields(req.query, ["q", "game", "page", "pageSize"], 400);
+    fields(req.query, ["q", "game", "gameId", "page", "pageSize"], 400);
     if (
       req.query.q !== undefined &&
       (typeof req.query.q !== "string" || req.query.q.length > 200)
@@ -248,12 +292,22 @@ function mountCatalog(api, { db, send, now = Date.now }) {
       reject(400, "BAD_REQUEST", "搜索条件无效。");
     if (req.query.game && !["card", "fighting"].includes(req.query.game))
       reject(400, "BAD_REQUEST", "分类无效。");
+    if (
+      req.query.gameId !== undefined &&
+      req.query.gameId !== "unspecified" &&
+      !gamePreset(req.query.gameId)
+    )
+      reject(400, "BAD_REQUEST", "游戏筛选无效。");
     const items = all(db, "tournaments").filter(
       (x) =>
         x.visibility === "public" &&
         (!req.query.q ||
           x.name.toLowerCase().includes(req.query.q.toLowerCase())) &&
-        (!req.query.game || x.game === req.query.game),
+        (!req.query.game || x.game === req.query.game) &&
+        (req.query.gameId === undefined ||
+          (req.query.gameId === "unspecified"
+            ? x.gameId == null
+            : x.gameId === req.query.gameId)),
     );
     send(req, res, pageOf(items.map(safeTournament), req.query));
   });

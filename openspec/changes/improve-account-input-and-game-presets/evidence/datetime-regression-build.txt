@@ -1,0 +1,18 @@
+
+> race-administration-frontend@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 521 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.35 kB │ gzip:   0.28 kB
+dist/assets/tournament-datetime-DtGnZg8c.css    0.60 kB │ gzip:   0.29 kB
+dist/assets/index-BabVaZUh.css                  7.27 kB │ gzip:   2.18 kB
+dist/assets/tournament-datetime-BK8-k-PQ.js   345.85 kB │ gzip: 115.05 kB
+dist/assets/index-BtgAFPsD.js                 372.77 kB │ gzip: 116.25 kB
+
+✓ built in 168ms
+
+Exit code: 0

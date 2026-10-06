@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "2026-10-06.1",
+  "items": [
+    {
+      "id": "street-fighter-6",
+      "displayName": "街霸六",
+      "category": "fighting",
+      "resourceCatalogVersion": "pending",
+      "status": "preset-ready",
+      "runtimeFormats": []
+    },
+    {
+      "id": "shadowverse",
+      "displayName": "影之诗",
+      "category": "card",
+      "resourceCatalogVersion": "pending",
+      "status": "preset-ready",
+      "runtimeFormats": [],
+      "classes": [
+        {
+          "id": "forestcraft",
+          "displayName": "精灵"
+        },
+        {
+          "id": "swordcraft",
+          "displayName": "皇家"
+        },
+        {
+          "id": "runecraft",
+          "displayName": "巫师"
+        },
+        {
+          "id": "dragoncraft",
+          "displayName": "龙族"
+        },
+        {
+          "id": "shadowcraft",
+          "displayName": "死灵"
+        },
+        {
+          "id": "bloodcraft",
+          "displayName": "吸血鬼"
+        },
+        {
+          "id": "nightmare",
+          "displayName": "梦魇"
+        },
+        {
+          "id": "havencraft",
+          "displayName": "主教"
+        },
+        {
+          "id": "portalcraft",
+          "displayName": "复仇者"
+        }
+      ],
+      "neutral": {
+        "id": "neutral",
+        "displayName": "中立"
+      }
+    }
+  ]
+}

@@ -7,8 +7,9 @@
 
 项目 D:\Projects\RaceAdministration。先核查实际 Git 分支、未提交修改与 OpenSpec 活动变更；保留现有修改，不重新初始化、清理或自动提交/推送/部署。
 亲自读取适用AGENTS.md、docs/PRD.md、docs/SDD.md、docs/handoff.md、docs/FORMAT-RESEARCH.md、openspec/config.yaml，再读取本轮所用技能。
+先读 .sdd/notion/config.json、mapping.json 和 docs/notion-sdd-map.md，使用 notion-openspec-sdd-sync 打开实际工作台并完整读取新 T0；阶段出口准备 T1、写前 T2，发现相关并发变化先展示三方差异定稿。不要用历史快照覆盖 Notion，也不要将 Notion Done 自动勾成 OpenSpec 完成。
 
-当前已提交1db793a，活动change improve-account-input-and-game-presets规划完成、实施0/21，见其proposal/design/tasks/research/handoff。反馈包括密码取消长度、成熟认证评估、中文日期时间选择和街霸六/影之诗资源预设；影之诗版别问题未答复，原版只是规划假设。没有授权推送或部署。
+读取Git确认当前HEAD与远端分支，提交前基线为e09ed528。活动change improve-account-input-and-game-presets实施18/26；7.3–7.5已按2026-10-07新要求重核，账户先只读总览再按需弹窗、风格统一工作台，注销仅删除当前拥有赛事，创建默认归本人。78后端/60前端/30Edge、build/typecheck、严格校验和实际LAN360验证通过；见acceptance-account-overview.md与最新tasks/handoff。Notion18/26已完整回读，截图/源代码/文档证据与配置映射纳入本轮提交，本地原始同步快照/浏览器临时输出不提交。用户已授权将本轮成果commit并push到当前chore/openspec-restart；执行结果查看Git日志与远端，后续新提交/部署仍按后续授权。下一项5.1素材台账，再5.2–5.5及6.1–6.3整变更出口。原版/WB通用和死灵/吸血鬼/梦魇并列已确认，不重复询问。
 
 历史首个change plan-tournament-structure 已完成22/22任务、26业务测试通过，正式规格已同步并归档：
 openspec/changes/archive/2026-10-04-plan-tournament-structure。

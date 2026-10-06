@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["experiments/calendar/*.tsx", "calendar-gate.config.ts"]
+}

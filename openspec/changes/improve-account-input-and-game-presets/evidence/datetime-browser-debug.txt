@@ -1,0 +1,186 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test e2e/datetime.spec.ts -g 360 in UTC
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 172ms
+(node:8408) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:24472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24472) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+DATE INPUT DEBUG 026-10-05 10:30:00.000 开始日期时间
+固定UTC偏移
+请选择偏移
+UTC-12:00
+UTC-11:45
+UTC-11:30
+UTC-11:15
+UTC-11:00
+UTC-10:45
+UTC-10:30
+UTC-10:15
+UTC-10:00
+UTC-09:45
+UTC-09:30
+UTC-09:15
+UTC-09:00
+UTC-08:45
+UTC-08:30
+UTC-08:15
+UTC-08:00
+UTC-07:45
+UTC-07:30
+UTC-07:15
+UTC-07:00
+UTC-06:45
+UTC-06:30
+UTC-06:15
+UTC-06:00
+UTC-05:45
+UTC-05:30
+UTC-05:15
+UTC-05:00
+UTC-04:45
+UTC-04:30
+UTC-04:15
+UTC-04:00
+UTC-03:45
+UTC-03:30
+UTC-03:15
+UTC-03:00
+UTC-02:45
+UTC-02:30
+UTC-02:15
+UTC-02:00
+UTC-01:45
+UTC-01:30
+UTC-01:15
+UTC-01:00
+UTC-00:45
+UTC-00:30
+UTC-00:15
+UTC+00:00
+UTC+00:15
+UTC+00:30
+UTC+00:45
+UTC+01:00
+UTC+01:15
+UTC+01:30
+UTC+01:45
+UTC+02:00
+UTC+02:15
+UTC+02:30
+UTC+02:45
+UTC+03:00
+UTC+03:15
+UTC+03:30
+UTC+03:45
+UTC+04:00
+UTC+04:15
+UTC+04:30
+UTC+04:45
+UTC+05:00
+UTC+05:15
+UTC+05:30
+UTC+05:45
+UTC+06:00
+UTC+06:15
+UTC+06:30
+UTC+06:45
+UTC+07:00
+UTC+07:15
+UTC+07:30
+UTC+07:45
+UTC+08:00
+UTC+08:15
+UTC+08:30
+UTC+08:45
+UTC+09:00
+UTC+09:15
+UTC+09:30
+UTC+09:45
+UTC+10:00
+UTC+10:15
+UTC+10:30
+UTC+10:45
+UTC+11:00
+UTC+11:15
+UTC+11:30
+UTC+11:45
+UTC+12:00
+UTC+12:15
+UTC+12:30
+UTC+12:45
+UTC+13:00
+UTC+13:15
+UTC+13:30
+UTC+13:45
+UTC+14:00
+
+时间可留空；固定偏移，不自动处理夏令时。切换偏移保留同一时刻。
+
+请输入有效的日期和时间。
+
+清空开始时间
+  x  1 e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC (5.9s)
+
+
+  1) e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC ────
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  locator('.ant-picker-ok button')
+    Expected: enabled
+    Received: disabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeEnabled" locator('.ant-picker-ok button') with timeout 5000ms
+      - waiting for locator('.ant-picker-ok button')
+        14 × locator resolved to <button disabled type="button" class="ant-btn css-oc1rc0 css-var-root ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-sm">…</button>
+           - unexpected value "disabled"
+
+
+      33 | async function keyboardConfirm(page: Page) {
+      34 |   const confirm = page.locator(".ant-picker-ok button");
+    > 35 |   await expect(confirm).toBeEnabled();
+         |                         ^
+      36 |   for (let n = 0; n < 80 && !(await confirm.evaluate(e => e === document.activeElement)); n++) await page.keyboard.press("Tab");
+      37 |   await expect(confirm).toBeFocused();
+      38 |   await page.keyboard.press("Enter");
+        at keyboardConfirm (D:\Projects\RaceAdministration\frontend\e2e\datetime.spec.ts:35:25)
+        at D:\Projects\RaceAdministration\frontend\e2e\datetime.spec.ts:57:15
+
+    Error Context: test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\datetime-DT1-DT2-calendar--31ee5-with-keyboard-at-360-in-UTC\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\datetime.spec.ts:43:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC ─────

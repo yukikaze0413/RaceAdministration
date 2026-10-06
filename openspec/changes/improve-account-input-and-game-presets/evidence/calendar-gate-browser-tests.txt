@@ -1,0 +1,14 @@
+
+> race-administration-frontend@0.1.0 e2e
+> playwright test e2e/calendar-gate.spec.ts
+
+
+Running 3 tests using 1 worker
+
+(node:8228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360 (2.0s)
+  ok 2 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768 (697ms)
+  ok 3 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440 (644ms)
+
+  3 passed (5.3s)

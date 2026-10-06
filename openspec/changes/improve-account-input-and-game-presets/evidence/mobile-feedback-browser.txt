@@ -1,0 +1,71 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.19s
+(node:18156) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 26 tests using 1 worker
+
+(node:22516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360 (750ms)
+  ok  2 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768 (606ms)
+  ok  3 e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440 (648ms)
+(node:22516) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   4 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC (6.2s)
+(node:31632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31632) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   5 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in UTC (6.4s)
+(node:10324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10324) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   6 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in UTC (6.3s)
+(node:31496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31496) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   7 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in Asia/Shanghai (6.3s)
+(node:7344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7344) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   8 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in Asia/Shanghai (6.4s)
+(node:22416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22416) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x   9 e2e\datetime.spec.ts:62:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in Asia/Shanghai (6.3s)
+(node:24420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24420) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  ok 10 e2e\datetime.spec.ts:154:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement (1.2s)
+  x  11 e2e\datetime.spec.ts:217:1 › DT2 New York DST gap does not affect a fixed +08 wall time; calendar draft cancellation restores original (6.1s)
+(node:19052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19052) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  12 e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 360 (1.0m)
+(node:22480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22480) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  x  13 e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 768 (1.0m)
+(node:25956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25956) ExperimentalWarning: SQLite is an experimental feature and might change at any time
