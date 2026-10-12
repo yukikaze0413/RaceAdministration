@@ -95,14 +95,12 @@ test("actual account → series → event → edit → validate → mapped previ
   await page.getByRole("link", { name: "晋级路由", exact: true }).click();
   await expect(
     page.getByRole("alertdialog", { name: "未保存草稿" }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: "继续编辑" })).toBeFocused();
-  await page.getByRole("button", { name: "继续编辑" }).click();
+  ).toHaveCount(0);
+  await page.getByRole("link", { name: "阶段与小组", exact: true }).click();
   await expect(page.getByLabel("赛制意图").first()).toHaveValue(
     "double-elimination",
   );
   await page.getByRole("link", { name: "晋级路由", exact: true }).click();
-  await page.getByRole("button", { name: "确认切换或离开" }).click();
   await expect(
     page.getByText("版本 1 · 可编辑草稿 · 有未保存修改"),
   ).toBeVisible();
@@ -168,7 +166,9 @@ test("actual account → series → event → edit → validate → mapped previ
   await expect(page.getByLabel("阶段容量").first()).toBeDisabled();
   await page.goto(base + "/tournaments/" + tid + "/stages");
   await expect(
-    page.getByText("以下为冻结结构摘要，赛制运行尚未实现。"),
+    page.getByText(
+      "以下为冻结结构摘要。实际对阵与赛果请查看比赛对阵、排名与赛果页面。",
+    ),
   ).toBeVisible();
   const other = await browser.newContext();
   const b = await other.newPage();
@@ -176,17 +176,8 @@ test("actual account → series → event → edit → validate → mapped previ
   await b.goto(base + "/manage/" + tid + "/overview");
   await expect(b.getByText("没有操作权限", { exact: true })).toBeVisible();
   await other.close();
-  for (const kind of [
-    "registration",
-    "matches",
-    "results",
-    "rounds",
-    "sanctions",
-    "collaborators",
-  ]) {
-    await page.goto(base + "/manage/" + tid + "/" + kind);
-    await expect(page.getByText("功能尚未开放", { exact: true })).toBeVisible();
-  }
+  await page.goto(base + "/manage/" + tid + "/sanctions");
+  await expect(page.getByText("功能尚未开放", { exact: true })).toBeVisible();
   expect(failures).toEqual([]);
   const configuration = await page.request.get(
     base + "/api/v1/tournaments/" + tid + "/configurations/" + cid,
@@ -216,7 +207,9 @@ test("360 / 768 / 1440 layouts, keyboard, deep links and API fallback isolation"
       fullPage: true,
     });
     await page.goto(base + "/manage/" + tid + "/registration");
-    await expect(page.getByText("功能尚未开放", { exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "报名收集表" }),
+    ).toBeVisible();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -315,9 +308,7 @@ test("revoked session clears private UI, password recovery and participation sta
   await page.getByLabel("密码", { exact: true }).fill("browser-test-pass-2026");
   await page.getByRole("button", { name: "登录", exact: true }).click();
   await page.getByRole("button", { name: "我参加的", exact: true }).click();
-  await expect(
-    page.getByRole("alert").getByText("当前尚未提供参赛记录服务。"),
-  ).toBeVisible();
+  await expect(page.getByText("此入口暂无已创建的赛事。")).toBeVisible();
 });
 test("capability failure can be retried and unknown capability never enables configuration writes", async ({
   page,

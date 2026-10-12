@@ -2,13 +2,13 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const { createApp } = require("../../src/app");
+const { listenTestServer } = require("../helpers/http-listener");
 async function fixture(t) {
   const platform = createApp({
     databasePath: ":memory:",
     origins: ["http://localhost:5173"],
   });
-  const server = platform.app.listen(0, "127.0.0.1");
-  await new Promise((r) => server.once("listening", r));
+  const server = await listenTestServer(platform.app);
   t.after(async () => {
     await new Promise((r) => server.close(r));
     platform.close();

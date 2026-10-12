@@ -13,10 +13,22 @@ function createApp({
   now = Date.now,
   secureCookies = false,
   frontendPath = null,
+  demoRoot = null,
+  demoContext = null,
 } = {}) {
+  if (demoContext && databasePath !== ":memory:") {
+    const p = require("node:path"),
+      resolved = p.resolve(databasePath);
+    if (
+      p.basename(p.dirname(resolved)) !== ".reference-demos" ||
+      !/^[a-f0-9]{64}\.sqlite$/.test(p.basename(resolved))
+    )
+      throw Error("参考演示必须使用专属隔离数据库路径");
+  }
   const db = openDatabase(databasePath),
     app = express(),
     api = express.Router();
+  let references;
   app.use("/api/v1", (req, res, next) => {
     req.requestId = randomUUID();
     res.set("Cache-Control", "no-store");
@@ -24,6 +36,31 @@ function createApp({
   });
   app.use("/api/v1", express.json({ limit: "1mb" }), api);
   api.use(require("./platform/http/protections").protections({ origins, now }));
+  api.use((req, res, next) => {
+    if (
+      demoContext &&
+      !["GET", "HEAD", "OPTIONS"].includes(req.method) &&
+      (typeof req.parentAuthorization !== "function" ||
+        req.parentAuthorization() !== true)
+    )
+      reject(
+        401,
+        "AUTH_REQUIRED",
+        "请在原空间重新登录，并从赛事示例进入演示。",
+      );
+    if (
+      demoContext &&
+      ((req.method === "POST" &&
+        ["/auth/register", "/auth/login", "/me/password"].includes(req.path)) ||
+        (["PATCH", "DELETE"].includes(req.method) && req.path === "/me"))
+    )
+      reject(
+        501,
+        "DEMO_ACCOUNT_MANAGED",
+        "演示单位没有成员账号，请回原空间管理账号并重新进入演示。",
+      );
+    next();
+  });
   const send = (req, res, data, status = 200) =>
     res.status(status).json({ data, requestId: req.requestId });
   api.get("/health", (req, res) => {
@@ -39,17 +76,40 @@ function createApp({
     send,
     now,
     secureCookies,
+    cookieName: demoContext ? "race_demo_" + demoContext.id : "race_session",
+    cookiePath: demoContext?.prefix ?? "/",
+    referenceOwnership: {
+      rows: (uid) => references?.ownedRows?.(uid) ?? [],
+      prepare: (rows) => references?.prepareDeletion?.(rows),
+      cleanup: () => references?.cleanup?.() ?? 0,
+    },
   });
   require("./platform/auth/accounts").mountAccounts(api, { db, send, now });
   require("./platform/catalog/catalog").mountCatalog(api, { db, send, now });
   require("./platform/configuration/http").mountConfiguration(api, {
     db,
     send,
+    allowReferenceUnits: !!demoContext,
   });
+  require("./platform/operations/http").mountOperations(api, { db, send, now });
+  require("./platform/schedule/http").mountSchedule(api, { db, send, now });
   require("./platform/http/capabilities").mountCapabilities(api, { db, send });
+  references = require("./platform/reference/http").mountReference(api, app, {
+    db,
+    send,
+    now,
+    origins,
+    secureCookies,
+    frontendPath,
+    databasePath,
+    demoRoot,
+    demoContext,
+  });
   api.use((req, res) => reject(404, "NOT_FOUND", "未找到这个接口。"));
-  app.use("/api/races", express.json(), require("./routes/raceRoutes"));
-  app.use("/api/test", require("./routes/testRoutes"));
+  if (!demoContext) {
+    app.use("/api/races", express.json(), require("./routes/raceRoutes"));
+    app.use("/api/test", require("./routes/testRoutes"));
+  }
   app.use("/api", (req, res) =>
     res.status(404).json({
       error: {
@@ -68,7 +128,7 @@ function createApp({
   ) {
     app.use(express.static(frontendPath, { index: false }));
     const routes =
-      /^\/$|^\/(login|register|forgot-password|tournaments|tournaments\/new|me\/profile|me\/tournaments|me\/series|me\/series\/new)$|^\/me\/series\/[^/]+\/edit$|^\/series\/[^/]+$|^\/tournaments\/[^/]+(\/(stages|matches|standings|registration|results))?$|^\/manage\/[^/]+(\/(overview|settings|templates|registration|matches|results|rounds|sanctions|collaborators)|\/configurations\/[^/]+\/(stages|pools|routes|validation|preview))?$/;
+      /^\/$|^\/(login|register|forgot-password|reference-cases|tournaments|tournaments\/new|me\/profile|me\/tournaments|me\/series|me\/series\/new)$|^\/me\/series\/[^/]+\/edit$|^\/series\/[^/]+$|^\/tournaments\/[^/]+(\/(stages|matches|standings|registration|results|schedule))?$|^\/manage\/[^/]+(\/(overview|settings|templates|registration|matches|results|rounds|sanctions|collaborators|schedule)|\/configurations\/[^/]+\/(stages|pools|routes|validation|preview|graph))?$/;
     app.get(/.*/, (req, res, next) =>
       routes.test(req.path)
         ? res.sendFile(require("node:path").resolve(frontendPath, "index.html"))
@@ -95,6 +155,7 @@ function createApp({
     db,
     close() {
       if (!closed) {
+        references.close();
         db.close();
         closed = true;
       }

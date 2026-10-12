@@ -1,0 +1,146 @@
+[
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\app.js",
+    "sha256": "34CF8A4A06D41160EE30E83583CDAA9D5EE3B64A34FE3EAFE7F89BB18F8F9DAD"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\auth\\profile.js",
+    "sha256": "68C951E162702CDB183AAE2FCC079EA28C09D1B36008CE64AA4639EA8263BEE9"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\catalog\\catalog.js",
+    "sha256": "07989EA6F25E1B7C82D9BAC18CC7E8ED054393A041089A34A00472D9E5FA198C"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\configuration\\http.js",
+    "sha256": "66E9F3C1C8BA48D41EF8D7A7E8A95C40C1413AFC9099E4AF49A23CE1B895120E"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\http\\capabilities.js",
+    "sha256": "603795CACF04C9EE969AB5166FADDAA7A3CC6427547C77B1681E2511B7A0B709"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\storage\\database.js",
+    "sha256": "54EF364102637D8CB48D6F485CABB66F027C4C37E99CCBD45DAD4E1019698651"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\tournament-configuration\\adapters\\sqlite-store.js",
+    "sha256": "3BDDC5AB2812403C6CBBF60E09DD7AD7523937BBB26C3F32AFB03E2E103DFBD2"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\tournament-configuration\\application\\service.js",
+    "sha256": "D0A806AF580446026F09FD8FC39551B84495A3352364914775B6EE433969977D"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\test\\platform\\http.test.js",
+    "sha256": "75FBCC4A3739B8F107C6DA0A55483148DBDCFA7A78C2F8879C4F7A79D2F89D94"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\test\\platform\\tournament-operations.test.js",
+    "sha256": "3DA919950CB7D47E3E662452AED088A91E40F05B0AF9CE39A91A02D056A71728"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\deletion.js",
+    "sha256": "5D92241BDC1B4EE57A66E379987A66AAB64E22F4EF361AB07398E21C4389F484"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\extras.js",
+    "sha256": "9342C2AF0C6703666CB4462FB8FAEBDEFB7866F31422669C32789B9807B362FB"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\http.js",
+    "sha256": "81341ED2A69DDA8BD2D1C92B145387F262FC00B843D3CEC965E310FEE1A7148F"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\presets.js",
+    "sha256": "86DF0102A704885004E3C531BB7B338F926205E4FFCF39A4694B7840D3A72CCA"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\progression.js",
+    "sha256": "747B6C93D2AE1F5B7BFD5C49C5615176EA941B47C3C75F7893BA5EDA317D2418"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\registration.js",
+    "sha256": "C17F67E9098AAEADEE481BD9E4383F75261255F94D37EC2D76C31F78BD5F1DFA"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\round-robin.js",
+    "sha256": "059BE887E3F0B0C07CDCA995CCCE4357DDF862D1B714518BD82257091707C523"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\runtime-http.js",
+    "sha256": "25CB8AC3914576B54D0B17C941BFE2E068C18C3A0E1F8F91DDBC1D9FFE79022D"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\runtime.js",
+    "sha256": "E898F63C30C939C5822F0F78F55B602D62FFAFB479B29435489811E45FEBE5F4"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\backend\\src\\platform\\operations\\state.js",
+    "sha256": "DB590513C0925AFB0774385DE47942385542425CE265A778DDCCD4A77906CFE5"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\collaborators.tsx",
+    "sha256": "CCC9DD7BAA2C9E9F180AD689BBF0F256BE22E16A19E673F685117D87032E2817"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\competition.tsx",
+    "sha256": "441CA0EC9724ED7C19E58BAEBE6F75770AA8EF9C41D2B63CCDB089340611CD12"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\graph.tsx",
+    "sha256": "75C4B614725682072372598215EB4E21405B0D4278210F36B52EA690E57C448B"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\presets.tsx",
+    "sha256": "1E0F50FECE73BB7BDDCD663FF9BAFB9A610A21377487CC657C0B8DD29DBB1754"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\registration.tsx",
+    "sha256": "B9E210AE8DFA8B1AC206065632C9D91749390E08C468169A17E5E0BF2F020F57"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\resource.tsx",
+    "sha256": "7116F310BB05A841CCD1C91F8C24F3CEA720A64194D628E45E7B8730FADD209B"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\tournament\\write.ts",
+    "sha256": "AB45B0398CC35FEF3128E3FDD131D706379EC17CEFB8F1C6548B95EAF267C8D7"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\e2e\\platform.spec.ts",
+    "sha256": "AECBFF3CC119F442802B6739C190B707743D9701F9758AEE46966EF725061AEF"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\e2e\\tournament-workbench.spec.ts",
+    "sha256": "F9342BCF4343FEA4A1EF6219BCCF61C5ED9A9002CE1A805FB007536CF752EAA6"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\README.md",
+    "sha256": "3C522570D79F51DAACE63E65FC282ABA6532A4EE11636F3282315D0E4BEC4C27"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\app\\router.tsx",
+    "sha256": "7029231AB01BAC1387EA89B9B61FA6AA45552D2F1BE158F451DBE4D4251FF793"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\catalog.tsx",
+    "sha256": "8AFDF8D51174F12623D6EC6DACDAB03BE7EAE87770EB5271B9142F2172037AF4"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\configuration\\forms.tsx",
+    "sha256": "8482763743B1B14F00F467B5822A8AD673AEA2869B9AE42E2841837788E3692D"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\configuration\\pages.tsx",
+    "sha256": "0C171E83FF987FFB7C1A605C9F78CE084C9F445B49AA5A3A4F37C8BB59FC7F27"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\features\\operations.tsx",
+    "sha256": "795A8160B9035E2A54A2E57CAC0947DB552673EDF0B8CB390B23C2150A5EEEE0"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\frontend\\src\\styles.css",
+    "sha256": "F043D07C6654E8DF4E8067CC3F99E87A0EC03575894A773669B2D16901709193"
+  }
+]

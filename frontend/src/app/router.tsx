@@ -7,6 +7,7 @@ import {
   Outlet,
   createBrowserRouter,
   useLocation,
+  useOutletContext,
 } from "react-router-dom";
 import { useSession, Protected } from "./session";
 import { ApiFailure } from "../shared/api";
@@ -22,6 +23,9 @@ import {
   PublicStages,
 } from "../features/catalog";
 import { OperationsPage } from "../features/operations";
+import { SchedulePage } from "../features/tournament/schedule";
+import { ReferenceCasesPage } from "../features/reference-cases";
+import { workspacePrefix } from "../shared/workspace";
 import {
   ConfigurationList,
   ConfigurationPage,
@@ -69,13 +73,28 @@ export function AppShell() {
         <nav aria-label="平台导航">
           <NavLink to="/tournaments">赛事发现</NavLink>
           <NavLink to="/me/tournaments">我的赛事</NavLink>
+          {!workspacePrefix() && session.user && (
+            <NavLink to="/reference-cases">赛事示例</NavLink>
+          )}
           {session.user ? (
-            <Link to="/me/profile">{session.user.displayName}</Link>
+            workspacePrefix() ? (
+              <span>{session.user.displayName}</span>
+            ) : (
+              <Link to="/me/profile">{session.user.displayName}</Link>
+            )
+          ) : workspacePrefix() ? (
+            <a href="/reference-cases">重新进入演示</a>
           ) : (
             <Link to="/login">登录 / 注册</Link>
           )}
         </nav>
       </header>
+      {workspacePrefix() && (
+        <aside className="notice">
+          隔离演示空间 · 参考单位仅为标签。
+          <a href="/reference-cases">返回原空间</a>
+        </aside>
+      )}
       <main id="main-content">
         <Resource state={caps}>
           {(data) => (
@@ -130,6 +149,21 @@ export function AppShell() {
     </>
   );
 }
+function ManageLanding() {
+  const event = useOutletContext<any>(),
+    p = event.effectivePermissions ?? {};
+  const target =
+    event.isOwner || p["structure.edit"]
+      ? "overview"
+      : p["registration.review"] || p["registrationSchema.edit"]
+        ? "registration"
+        : p["results.edit"]
+          ? "results"
+          : p["rounds.confirm"]
+            ? "rounds"
+            : "settings";
+  return <Navigate to={target} replace />;
+}
 const gate = (key: string, node: ReactNode) => (
   <CapabilityGate capability={key}>{node}</CapabilityGate>
 );
@@ -140,6 +174,7 @@ export const routeDefinitions = [
     children: [
       { path: "/", element: <Navigate to="/tournaments" replace /> },
       { path: "/tournaments", element: gate("catalog", <CatalogPage />) },
+      { path: "/reference-cases", element: protect(<ReferenceCasesPage />) },
       {
         path: "/login",
         element: gate("accounts", <AccountPage mode="login" />),
@@ -180,6 +215,7 @@ export const routeDefinitions = [
         children: [
           { index: true, element: <TournamentOverview /> },
           { path: "stages", element: <PublicStages /> },
+          { path: "schedule", element: <SchedulePage /> },
           {
             path: "registration",
             element: <OperationsPage kind="registration" publicRegistration />,
@@ -194,7 +230,8 @@ export const routeDefinitions = [
         path: "/manage/:tid",
         element: protect(<TournamentLayout manage />),
         children: [
-          { index: true, element: <Navigate to="overview" replace /> },
+          { index: true, element: <ManageLanding /> },
+          { path: "schedule", element: <SchedulePage manage /> },
           {
             path: "overview",
             element: gate("configuration", <ConfigurationList />),
@@ -238,5 +275,7 @@ export const routeDefinitions = [
   },
 ];
 export function createRouter() {
-  return createBrowserRouter(routeDefinitions);
+  return createBrowserRouter(routeDefinitions, {
+    basename: workspacePrefix() || "/",
+  });
 }

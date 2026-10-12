@@ -1,3 +1,4 @@
+import { workspacePrefix } from "./workspace";
 let identityGeneration = 0;
 export function invalidateIdentityRequests() {
   identityGeneration++;
@@ -46,7 +47,7 @@ export async function api<T = any>(
     controller.abort();
   }, options.timeout ?? 10000);
   try {
-    const response = await fetch("/api/v1" + path, {
+    const response = await fetch(workspacePrefix() + "/api/v1" + path, {
       method: options.method ?? "GET",
       credentials: "same-origin",
       signal: controller.signal,

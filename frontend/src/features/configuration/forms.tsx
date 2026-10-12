@@ -250,7 +250,7 @@ export function StageForms({
     <fieldset disabled={disabled}>
       <legend>阶段与小组</legend>
       <p>
-        六类赛制仅保存结构意图，运行引擎尚未实现。空字段可作为未完整草稿保存。
+        六类赛制标签保存结构意图；单败和单循环可绑定真实运行，其余赛制尚未实现。空字段可作为未完整草稿保存。
       </p>
       {!payload.stages.length && <Empty>尚未添加阶段。</Empty>}
       {payload.stages.map((s: any, i: number) => (
@@ -451,6 +451,7 @@ export function RouteForms({
   disabled: boolean;
 }) {
   const refs = references(payload);
+  const versionTwo = payload.structureVersion === "structure-v2";
   const edit = (i: number, key: string, val: any) =>
     onChange({
       ...payload,
@@ -479,7 +480,13 @@ export function RouteForms({
                     edit(
                       i,
                       key,
-                      refs.find((x) => x.key === e.target.value)?.ref ?? {},
+                      (() => {
+                        const ref =
+                          refs.find((x) => x.key === e.target.value)?.ref ?? {};
+                        return versionTwo && !("poolId" in ref) && r[key]?.port
+                          ? { ...ref, port: r[key].port }
+                          : ref;
+                      })(),
                     )
                   }
                 >
@@ -498,6 +505,80 @@ export function RouteForms({
                 </select>
               </Field>
             ))}
+            {versionTwo &&
+              (["source", "target"] as const).map((side) => {
+                const ref = r[side],
+                  stage = payload.stages.find((s: any) => s.id === ref.stageId),
+                  de = stage?.format === "double-elimination",
+                  truncated =
+                    ["single-elimination", "double-elimination"].includes(
+                      stage?.format,
+                    ) && stage?.qualifyCount > 1;
+                const ports = ref.poolId
+                  ? side === "source"
+                    ? ["seed"]
+                    : []
+                  : side === "source"
+                    ? [
+                        "qualification",
+                        ...(!truncated ? ["rank"] : []),
+                        ...(de && stage?.qualifyCount > 1
+                          ? ["upper", "lower"]
+                          : []),
+                      ]
+                    : de
+                      ? [
+                          "upper",
+                          ...(stage.capacity / stage.groupCount >
+                          stage.groupSize
+                            ? ["lower"]
+                            : []),
+                        ]
+                      : ["seed", "slot"];
+                return (
+                  <Field
+                    key={side}
+                    label={side === "source" ? "来源具名端口" : "目标具名端口"}
+                  >
+                    <select
+                      disabled={!!ref.poolId && side === "target"}
+                      value={ref.port ?? ""}
+                      onChange={(e) => {
+                        const { port, ...rest } = ref;
+                        edit(i, side, {
+                          ...rest,
+                          ...(e.target.value ? { port: e.target.value } : {}),
+                        });
+                      }}
+                    >
+                      <option value="">
+                        {ref.poolId && side === "target"
+                          ? "池汇合入口"
+                          : "默认通道"}
+                      </option>
+                      {ref.port && !ports.includes(ref.port) && (
+                        <option value={ref.port}>不适用：{ref.port}</option>
+                      )}
+                      {ports.map((port) => (
+                        <option key={port} value={port}>
+                          {
+                            (
+                              {
+                                rank: "竞技名次",
+                                qualification: "晋级名额",
+                                upper: "胜者通道",
+                                lower: "败者通道",
+                                seed: "种子",
+                                slot: "绝对席位",
+                              } as Record<string, string>
+                            )[port]
+                          }
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                );
+              })}
             <NumberField
               label="晋级名额"
               path={"/routes/" + i + "/quota"}

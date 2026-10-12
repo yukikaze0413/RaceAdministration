@@ -8,7 +8,7 @@ const descriptions = {
   configuration: "结构草稿、校验、预演与冻结",
   passwordRecovery: "密码恢复",
   participation: "参赛记录",
-  registration: "报名、审批、签到与候补",
+  registration: "个人报名、自定义收集表与审批",
   teamRegistration: "组队报名",
   pairing: "比赛对阵",
   standings: "排名",
@@ -18,18 +18,58 @@ const descriptions = {
   advancement: "整轮确认与晋级",
   sanctions: "处罚与撤销",
   collaboration: "协作者邀请与授权",
+  schedule: "时间编排与公开赛程",
 };
 const capabilities = Object.fromEntries(
   Object.entries(descriptions).map(([key, label]) => [
     key,
     {
-      status: ["accounts", "catalog", "configuration"].includes(key)
+      status: [
+        "accounts",
+        "catalog",
+        "configuration",
+        "participation",
+        "registration",
+        "pairing",
+        "standings",
+        "formatRuntime",
+        "schedule",
+        "scoring",
+        "advancement",
+        "collaboration",
+      ].includes(key)
         ? "implemented"
         : "unavailable",
-      reasonCode: ["accounts", "catalog", "configuration"].includes(key)
+      reasonCode: [
+        "accounts",
+        "catalog",
+        "configuration",
+        "participation",
+        "registration",
+        "pairing",
+        "standings",
+        "formatRuntime",
+        "schedule",
+        "scoring",
+        "advancement",
+        "collaboration",
+      ].includes(key)
         ? null
         : "FEATURE_NOT_IMPLEMENTED",
-      message: ["accounts", "catalog", "configuration"].includes(key)
+      message: [
+        "accounts",
+        "catalog",
+        "configuration",
+        "participation",
+        "registration",
+        "pairing",
+        "standings",
+        "formatRuntime",
+        "schedule",
+        "scoring",
+        "advancement",
+        "collaboration",
+      ].includes(key)
         ? label + "已可用。"
         : "当前尚未提供" + label + "服务。",
     },
@@ -77,13 +117,34 @@ function mountCapabilities(api, { db, send }) {
     send(req, res, {
       version: 1,
       capabilities,
-      effectivePermissions: { view: true, configure: owner, manage: owner },
+      effectivePermissions: {
+        view: true,
+        ...require("../operations/state").effective(
+          db,
+          req.params.tid,
+          req.user?.id,
+        ),
+      },
     });
   });
   api.post("/auth/password-reset", (req, res) =>
     unavailable("passwordRecovery"),
   );
-  for (const [method, path, key, access] of endpoints)
+  for (const [method, path, key, access] of endpoints.filter(
+    ([method, path, key]) =>
+      ![
+        "registration",
+        "pairing",
+        "standings",
+        "formatRuntime",
+        "schedule",
+        "scoring",
+        "advancement",
+        "collaboration",
+      ].includes(key) ||
+      path.endsWith("check-in") ||
+      (method === "delete" && path.startsWith("registrations")),
+  ))
     api[method]("/tournaments/:tid/" + path, (req, res) => {
       if (access === "member") loginRequired(req);
       visible(db, req, req.params.tid, access === "owner");

@@ -4,8 +4,19 @@ import { api, failure, ApiFailure } from "../shared/api";
 import { ErrorNotice, Field, safeReturn } from "../shared/ui";
 import { useSession, type User } from "../app/session";
 import { AccountSettings } from "./account-settings";
+import { workspacePrefix } from "../shared/workspace";
 type Mode = "login" | "register" | "profile" | "recovery";
 export function AccountPage({ mode }: { mode: Mode }) {
+  if (workspacePrefix())
+    return (
+      <>
+        <h1>演示空间由原空间管理</h1>
+        <p>
+          请回到赛事示例，重新打开已创建的演示。参考单位没有独立的成员账号。
+        </p>
+        <a href="/reference-cases">返回赛事示例</a>
+      </>
+    );
   return mode === "profile" ? <AccountSettings /> : <AccountForm mode={mode} />;
 }
 function AccountForm({ mode }: { mode: Exclude<Mode, "profile"> }) {
@@ -61,7 +72,11 @@ function AccountForm({ mode }: { mode: Exclude<Mode, "profile"> }) {
         </p>
       )}
       {query.has("accountDeleted") && (
-        <p role="status">账号及相关数据已永久删除。</p>
+        <p role="status">
+          {query.has("demoCleanupPending")
+            ? "账号已删除。演示文件清理已排队，服务会继续重试。"
+            : "账号及相关数据已永久删除。"}
+        </p>
       )}
       {mode === "recovery" ? (
         <p>

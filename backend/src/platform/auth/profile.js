@@ -19,6 +19,7 @@ async function verifyPassword(user, password) {
     invalid("/currentPassword", "当前密码不正确。");
 }
 function currentUser(db, req, now) {
+  require("./sessions").loginRequired(req);
   if (!req.user) reject(401, "AUTH_REQUIRED", "请先登录，再继续操作。");
   const row = db.prepare("SELECT data FROM users WHERE id=?").get(req.user.id);
   const session = db
@@ -63,7 +64,7 @@ async function avatar(value) {
     invalid("/avatar", "图片无法读取，请选择静态 PNG、JPEG 或 WebP 图片。");
   }
 }
-function deletionPreview(db, user) {
+function deletionPreview(db, user, demoRows = []) {
   const series = db
     .prepare("SELECT * FROM series WHERE ownerId=? ORDER BY id")
     .all(user.id);
@@ -118,20 +119,58 @@ function deletionPreview(db, user) {
     configurations: 0,
     snapshots: 0,
     catalogRequests: requests.length,
+    referenceDemos: demoRows.length,
   };
   for (const row of aggregates) {
     const d = JSON.parse(row.data);
     counts.configurations += (d.configurations || []).length;
     counts.snapshots += (d.snapshots || []).length;
   }
+  const operationRows = require("../operations/deletion").deletionRows(
+    db,
+    user.id,
+  );
+  const scheduleRows = require("../schedule/store").deletionRows(db, user.id);
+  counts.schedules = scheduleRows.filter((r) => r.ownerId === user.id).length;
+  counts.registrations = operationRows.reduce(
+    (n, r) =>
+      n +
+      JSON.parse(r.data).registrations.filter(
+        (x) => r.ownerId === user.id || x.userId === user.id,
+      ).length,
+    0,
+  );
+  counts.collaborations = operationRows.filter(
+    (r) => JSON.parse(r.data).collaborators[user.id],
+  ).length;
   const token = createHash("sha256")
     .update(
-      JSON.stringify([user, series, events, aggregates, sessions, requests]),
+      JSON.stringify([
+        user,
+        series,
+        events,
+        aggregates,
+        sessions,
+        requests,
+        operationRows,
+        scheduleRows,
+        demoRows,
+      ]),
     )
     .digest("hex");
   return { counts, token };
 }
-function mountProfile(api, { db, send, now, cookieOptions }) {
+function mountProfile(
+  api,
+  {
+    db,
+    send,
+    now,
+    cookieOptions,
+    cookieName = "race_session",
+    referenceOwnership,
+  },
+) {
   api.patch("/me", async (req, res) => {
     if (!req.user) reject(401, "AUTH_REQUIRED", "请先登录，再继续操作。");
     fields(req.body, ["displayName", "username", "currentPassword", "avatar"]);
@@ -181,7 +220,15 @@ function mountProfile(api, { db, send, now, cookieOptions }) {
     send(req, res, publicUser(next));
   });
   api.get("/me/deletion-preview", (req, res) =>
-    send(req, res, deletionPreview(db, currentUser(db, req, now))),
+    send(
+      req,
+      res,
+      deletionPreview(
+        db,
+        currentUser(db, req, now),
+        referenceOwnership?.rows(req.user?.id) ?? [],
+      ),
+    ),
   );
   api.delete("/me", async (req, res) => {
     if (!req.user) reject(401, "AUTH_REQUIRED", "请先登录，再继续操作。");
@@ -191,7 +238,8 @@ function mountProfile(api, { db, send, now, cookieOptions }) {
     await verifyPassword(req.user, req.body.currentPassword);
     transaction(db, () => {
       const user = currentUser(db, req, now),
-        preview = deletionPreview(db, user);
+        demoRows = referenceOwnership?.rows(user.id) ?? [],
+        preview = deletionPreview(db, user, demoRows);
       if (
         typeof req.body.expectedToken !== "string" ||
         preview.token !== req.body.expectedToken
@@ -201,6 +249,9 @@ function mountProfile(api, { db, send, now, cookieOptions }) {
           "DELETION_CHANGED",
           "待删除的数据已变化，请取消并重新查看注销范围。",
         );
+      referenceOwnership?.prepare(demoRows);
+      require("../operations/deletion").cleanup(db, user.id);
+      require("../schedule/store").cleanup(db, user.id);
       db.prepare("DELETE FROM catalog_requests WHERE actorId=?").run(user.id);
       db.prepare("DELETE FROM sessions WHERE userId=?").run(user.id);
       db.prepare(
@@ -210,8 +261,12 @@ function mountProfile(api, { db, send, now, cookieOptions }) {
       db.prepare("DELETE FROM series WHERE ownerId=?").run(user.id);
       db.prepare("DELETE FROM users WHERE id=?").run(user.id);
     });
-    res.clearCookie("race_session", cookieOptions);
-    send(req, res, { deleted: true });
+    const demoCleanupPending = referenceOwnership?.cleanup() ?? 0;
+    res.clearCookie(cookieName, cookieOptions);
+    send(req, res, {
+      deleted: true,
+      ...(demoCleanupPending ? { demoCleanupPending } : {}),
+    });
   });
 }
 module.exports = { mountProfile };

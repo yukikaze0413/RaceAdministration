@@ -7,6 +7,7 @@ function compare(a,b){return a<b?-1:a>b?1:0;}
 function validateStructure(payload,tournamentId='T') {
  const diagnostics=[];let c;
  try{c=parseStructure(payload,tournamentId);}catch(e){return {structureValid:false,previewReady:false,runtimeReady:false,diagnostics:e.diagnostics};}
+ if(c.structureVersion==="structure-v2")return require("./validation-v2").validateStructureV2(c,tournamentId);
  const add=(code,path,reason,id,severity='error',details={},routeId)=>diagnostics.push(diagnostic(code,path,reason,id,severity,details,routeId));
  const required=(v,path,id)=>{if(v==null)add('CONFIG_REQUIRED',path,'缺少必需配置',id);};
  const stages=new Map(c.stages.map(s=>[s.id,s])),pools=new Map(c.pools.map(p=>[p.id,p]));

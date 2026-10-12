@@ -1,0 +1,185 @@
+
+> race-administration-backend@1.0.0 test
+> node --test test/tournament-configuration/*.test.js test/platform/*.test.js
+
+(node:24724) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ rename preserves stable identity and ownership, requires password and unique username (1338.5509ms)
+✔ avatar normalizes raster to bounded WebP and rejects SVG/corruption without writes (170.4352ms)
+✔ permanent deletion removes all owned rows and snapshots, preserves other account, releases username (548.4261ms)
+{"requestId":"08ec5722-fefc-4bbb-b71c-482954e060cc","status":503,"code":"STORE_FAILURE"}
+✔ changed preview and storage fault never partially delete account (248.9907ms)
+✔ cross-account historical references block deletion without changing either owner (362.8395ms)
+✔ deleted account cannot be resurrected by a password change already in flight (228.851ms)
+✔ profile and deletion require session and trusted Origin, and share the credential rate limit (126.0514ms)
+✔ account deletion uses current ownership, preserving an event given away and deleting an event now received (260.8382ms)
+(node:35152) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ account password change preserves identity and owned event, revokes every session and accepts raw new password (1368.9439ms)
+✔ password update rejects anonymous, wrong current password, empty new password and foreign Origin without writes (231.6202ms)
+✔ concurrent password changes apply once, without a stale credential overwrite (399.0205ms)
+✔ login already in flight cannot create a session from a password replaced during hashing (255.1967ms)
+(node:25828) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ DT2 invalid date has a field error and does not write a record or successful request (825.8859ms)
+✔ DT1 real HTTP creates both hand-calculated instants and preserves milliseconds on name-only edit (189.1089ms)
+✔ DT2 date version conflict leaves the stored instant intact (192.1499ms)
+(node:38652) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ FP1 authenticated format catalog exposes server defaults without runtime claims (804.3254ms)
+✔ TS7 valid v2 save retries once, strict invalid writes remain atomic and compile-pending cannot freeze (290.0784ms)
+✔ TS7 v1 cannot be replaced in place by a v2 payload (192.3273ms)
+(node:44288) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ GP1 one Shadowverse preset has nine distinct classes and separate neutral category (3.5024ms)
+✔ TC1 game preset creation derives classification and replays same request (785.9978ms)
+✔ TC1 inconsistent preset/category is atomically rejected (188.6811ms)
+✔ TC1 partial game edit derives new classification and rejects category-only contradiction (226.3277ms)
+✔ TC1 old JSON reads as unspecified without rewriting old idempotency results (171.3783ms)
+✔ TC2 public game filters intersect classification, paginate and exclude private records (193.2583ms)
+✔ GP1 games catalog is public versioned data and does not write tournaments (197.687ms)
+✔ TC1 unknown IDs, ownership and same-version races leave no partial writes (326.0945ms)
+✔ GP1 game/catalog updates do not change frozen structure or enable runtime (139.0268ms)
+✔ TC1 new/old game records, sessions and historical request survive SQLite restart (186.8035ms)
+(node:43332) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ CE3: unknown new API is safe JSON 404 with a server request identifier (452.3765ms)
+✔ foundation: health reports durable storage without exposing paths (30.7613ms)
+✔ AC1: register persists a unique account and never returns credential material (318.9331ms)
+✔ AC2: session restores, rotates, expires, and logout revokes the old cookie (450.6918ms)
+✔ AC3: foreign origins and credential floods are rejected without writing users (33.0142ms)
+✔ CE3: malformed JSON and oversized input retain the error envelope (19.1136ms)
+✔ TC1-4: independent tournaments persist, protect private data, and reject stale edits (306.527ms)
+✔ CW/TS: templates, validation and frozen snapshots use trusted HTTP identity (183.0454ms)
+✔ CE1/2: every unavailable endpoint authorizes before returning 501 and writes nothing (363.1433ms)
+✔ persistence: account, metadata, frozen snapshot and request replay survive reopening SQLite (235.8094ms)
+{"requestId":"9eb91f91-281f-49bf-b260-78ace6bd7664","status":503,"code":"STORE_FAILURE"}
+✔ SQLite structure transaction rolls back a real commit failure and resolves same-version competition (132.796ms)
+{"requestId":"2b3a19fd-df8b-400a-bcc5-59226f4278d6","status":500,"code":"INTERNAL_ERROR"}
+{"requestId":"3ed3db63-92bb-4dfd-864d-10d1a3b10e22","status":503,"code":"STORE_UNAVAILABLE"}
+✔ error isolation: unexpected exceptions are sanitized, unavailable storage is 503 (7.6869ms)
+{"requestId":"63d38280-9713-4264-8ca9-a57d8986ecce","status":503,"code":"STORE_FAILURE"}
+✔ input, visibility, page limits and metadata commit failures retain durable invariants (298.5121ms)
+✔ structure HTTP rejects forged identity, foreign configuration IDs and chooses the latest safe snapshot (141.3042ms)
+✔ migration errors preserve the original file and refuse to open an invalid database (2.5601ms)
+(node:34944) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ AC1 feedback: one-character password registers and logs in unchanged (422.5461ms)
+✔ AC1 feedback: 1025-character password registers and logs in unchanged (203.9482ms)
+✔ AC1 feedback: preserves 12 characters through hashing and login (219.7133ms)
+✔ AC1 feedback: preserves 129 characters through hashing and login (220.6957ms)
+✔ AC1 feedback: preserves Unicode through hashing and login (251.2467ms)
+✔ AC1 feedback: preserves surrounding spaces through hashing and login (196.4786ms)
+✔ AC1 feedback: preserves whitespace only through hashing and login (132.1659ms)
+✔ AC1 feedback: empty and non-string passwords never create users or sessions (23.837ms)
+✔ AC1 feedback: old persisted scrypt parameters and stable identity survive restart (61.9162ms)
+✔ AC1 feedback: credential request body limit, uniform errors and rate limit remain (42.6765ms)
+✔ AC1 feedback: malformed credential JSON and storage failure logs omit submitted secrets (6.6874ms)
+✔ documented npm-start entry serves an empty durable platform and same-origin build (999.396ms)
+(node:22600) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ FP1 server creates four independent GSL groups and retry returns one stage (664.249ms)
+✔ TS7 expanding two groups to four preserves existing IDs and references on retry (188.3306ms)
+✔ FP1 shrink needs an impact review, cancel leaves routes/roster/layout unchanged (200.168ms)
+✔ FP1 ordinary PUT cannot bypass destructive stage review (191.3892ms)
+✔ TO1 clearing affected registration assignment additionally requires registration.review (358.669ms)
+✔ TO1 replay of a confirmed roster-affecting change still checks current secondary permission (294.8708ms)
+✔ FP2 explicit null descriptor values do not silently select defaults (139.0541ms)
+✔ FP1 changing format reports invalidated references and clears stale runtime settings on explicit approval (127.7563ms)
+✔ FP1 dependency changes invalidate prior review without any structural application (194.9006ms)
+✔ FP1 locked roster and existing runtime are reported and never modified (136.0169ms)
+{"requestId":"71c662fc-2531-4f3c-bcaf-d548a4c9c5a3","status":503,"code":"STORE_FAILURE"}
+✔ TS7 structure, registrations, layout and success key all roll back on dependent-store failure (124.8535ms)
+✔ TS7 concurrent expansions produce one version and preserve referenced original groups (116.5289ms)
+✔ TS7 added group identities and original response survive SQLite reconnection (249.8301ms)
+(node:40596) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ TO1 管理者可分配报分权限但不能使其获得推进权 (722.1017ms)
+✔ TO2 自定义收集表发布、校验和旧版本答案保留 (313.7641ms)
+✔ TO3 六人单败按种子轮空，整轮推进，五场决出冠军 (991.7409ms)
+✔ TO4 五人单循环每对一次，休赛不计分，十场决出冠军 (763.0647ms)
+✔ TO5 八人两组循环交叉晋级，全部来源完成才生成四强，共十五场 (976.7037ms)
+✔ TO1 结构协作者可以操作私有配置，撤权后重试亦拒绝 (206.6635ms)
+✔ TO6 可运行预设产生独立草稿，布局保存不更改结构版本 (107.9657ms)
+✔ TO7 预设创建提交失败不遗留配置，原键重试只创建一次 (110.4382ms)
+✔ TO5 三人循环同分先阻塞，再按管理员留因排序完成 (423.1981ms)
+✖ TO7 注销参赛者清除报名答案并保留他人锁定赛果 (2.3727ms)
+✔ TO3 显式seed映射按目标种子位置而非输入数组顺序 (0.2532ms)
+{"requestId":"5827bd2e-ed1e-4cb2-9a02-7aeecbb7eb29","status":503,"code":"STORE_FAILURE"}
+✔ TO7 确认故障回滚，重启回放与不同键竞争仅推进一次 (364.395ms)
+✔ TO3 初始单败1号与8号种子保留八槽结构 (328.5006ms)
+✔ TO7 公开排名裁定投影不泄露管理员账号标识 (0.3352ms)
+✔ TO5 固定同分集合小积分相同后按整场净胜局区分 (0.2763ms)
+✔ TO1 被拒报名不授予私有赛事访问，但可读取自己的拒绝记录 (203.3218ms)
+✔ TO1 资料管理员可保留创建者所属系列编辑赛事名称 (206.4513ms)
+✔ CLI:validate/preview/demo使用应用JSON契约及exit code (771.069ms)
+✔ FP1 v2 default single stage derives capacity and BO without changing input (5.1634ms)
+✔ FP1 all versioned defaults derive total entrants independently (6.281ms)
+✔ FP3 lower half entrants count toward total and capacity limit (1.8592ms)
+✔ FP2 business-incomplete draft persists but ratio error blocks validation (4.2868ms)
+✔ CV5 valid v2 stage validates without claiming runnable engine (1.0852ms)
+✔ FP2 all rules diagnose independent illegal combinations and permit segmented 12-to-3 (6.2793ms)
+✔ FP1 multiple independent roots cannot silently exceed 64 unique entrants (1.6095ms)
+✔ FP2 invalid half-size can be saved as incomplete draft without fictional fractional entrants (1.977ms)
+✔ TS7 absent or null routing collections are typed configuration errors (1.246ms)
+✔ FP2 round and role BO overrides are preserved without sharing mutable defaults (2.0028ms)
+✔ FP1 catalog callers cannot mutate the validation schema used by later drafts (1.4029ms)
+✔ TS4:复验后冻结快照，保留限制、未开赛且拒绝再编辑 (13.8632ms)
+✔ TS5:全部写操作规范化幂等，响应丢失重试先于版本检查 (10.3871ms)
+✔ TS5:同版本并发编辑/冻结与双冻结仅有一次状态转换 (3.4711ms)
+✔ TS5:快照/配置/幂等任一步故障均回滚，失败重试可成功 (8.0251ms)
+✔ TS5:历史只读报告不能替代冻结内部复验 (2.4206ms)
+✔ TS5:仓库无法复制事务响应时也不提交候选状态 (0.3466ms)
+✔ R05/R07:模板→校验→预演→冻结→拒改与手写E6一致 (16.5643ms)
+✔ PR2/PR4:池等待全部上游并按来源优先级重排，保留原种子和DQ (17.0194ms)
+✔ PR1/PR2:池不去重且跨规则成绩不可比 (1.4324ms)
+✔ PR3:指定目标只读取完整上游闭包，池链保留全部输入 (1.456ms)
+✔ PR4/CV2:应用预演深拷贝不写配置，成功样例仅令previewReady为true (6.6551ms)
+✔ CV4/PR3:非法或未完成来源阻断预演且输入不变 (18.5694ms)
+✔ PR1:3–0筛选后全序取p/q，r未入选且数组置换不改变输出 (1.3243ms)
+✔ PR1/PR3:名额不足、缺排序值和未破同分整体失败 (1.0881ms)
+✔ E6/PR2:四组分流与跳阶段符合独立expected (2.0292ms)
+✔ PR2:同一目标阶段两组重复身份整体拒绝 (0.513ms)
+✔ CV1/CV4:条件性交集在样例中命中则拒绝，不能复制到不同后续阶段 (0.2925ms)
+✔ TS1:个人草稿保存独立阶段与稳定引用 (1.7481ms)
+✔ TS1:拒绝非法类型、未知字段、重复ID及跨赛事引用 (1.0086ms)
+✔ TS2:可信授权隔离并提供独立版本草稿 (4.4985ms)
+✔ TS3:版本化模板改写内部引用，双实例隔离及请求重试返回原实例 (23.4596ms)
+✔ CV1:静态拒绝循环、容量、位置及筛选冲突且定位稳定 (12.816ms)
+✔ CV2/CV3:六类意图仅结构通过并保留未来来源与运行限制 (1.4541ms)
+✔ CV3:受授权的报告有配置版本，真实配对明确不可用 (3.9863ms)
+✔ E7:三条各2人路由到4槽，报告6人超额与明确路径 (0.4047ms)
+ℹ tests 122
+ℹ suites 0
+ℹ pass 121
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6630.1274
+
+✖ failing tests:
+
+test at test\platform\tournament-operations.test.js:803:1
+✖ TO7 注销参赛者清除报名答案并保留他人锁定赛果 (2.3727ms)
+  TypeError: fetch failed
+      at node:internal/deps/undici/undici:15845:13
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async request (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:20:15)
+      at async Object.account (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:40:13)
+      at async setupEvent (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:186:9)
+      at async TestContext.<anonymous> (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:804:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    [cause]: Error: bad port
+        at makeNetworkError (node:internal/deps/undici/undici:10147:35)
+        at mainFetch (node:internal/deps/undici/undici:11515:22)
+        at fetching (node:internal/deps/undici/undici:11502:7)
+        at fetch (node:internal/deps/undici/undici:11368:20)
+        at fetch (node:internal/deps/undici/undici:15843:10)
+        at fetch (node:internal/bootstrap/web/exposed-window-or-worker:83:12)
+        at request (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:20:21)
+        at Object.account (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:40:19)
+        at setupEvent (D:\Projects\RaceAdministration\backend\test\platform\tournament-operations.test.js:186:17)
+        at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+  }

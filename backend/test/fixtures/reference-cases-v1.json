@@ -1,0 +1,5342 @@
+{
+  "version": "reference-oracle-v1",
+  "timeMeaning": "演示预计时间，不是历史或实际开赛时间",
+  "scoreRandom": "LCG32(1664525,1013904223)，高位浮点取胜侧与败方局数；GF1显式强制两分支但仍消耗两次随机数",
+  "cases": [
+    {
+      "id": "shadow-cup-v1",
+      "seed": 2026100801,
+      "entrantCount": 32,
+      "rounds": [
+        {
+          "number": 1,
+          "matches": [
+            {
+              "id": "swiss/1/1",
+              "entrants": [
+                1,
+                17
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 17,
+              "loser": 1,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/2",
+              "entrants": [
+                2,
+                18
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 18,
+              "loser": 2,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/3",
+              "entrants": [
+                3,
+                19
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 3,
+              "loser": 19,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/4",
+              "entrants": [
+                4,
+                20
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 20,
+              "loser": 4,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/5",
+              "entrants": [
+                5,
+                21
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 21,
+              "loser": 5,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/6",
+              "entrants": [
+                6,
+                22
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 6,
+              "loser": 22,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/7",
+              "entrants": [
+                7,
+                23
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 23,
+              "loser": 7,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/8",
+              "entrants": [
+                8,
+                24
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 8,
+              "loser": 24,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/9",
+              "entrants": [
+                9,
+                25
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 25,
+              "loser": 9,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/10",
+              "entrants": [
+                10,
+                26
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 10,
+              "loser": 26,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/11",
+              "entrants": [
+                11,
+                27
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 11,
+              "loser": 27,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/12",
+              "entrants": [
+                12,
+                28
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 28,
+              "loser": 12,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/13",
+              "entrants": [
+                13,
+                29
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 29,
+              "loser": 13,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/14",
+              "entrants": [
+                14,
+                30
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 14,
+              "loser": 30,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/15",
+              "entrants": [
+                15,
+                31
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 15,
+              "loser": 31,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/1/16",
+              "entrants": [
+                16,
+                32
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 16,
+              "loser": 32,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "standings": [
+            {
+              "seed": 3,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                19
+              ],
+              "bhPoints": 0,
+              "rank": 1
+            },
+            {
+              "seed": 6,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                22
+              ],
+              "bhPoints": 0,
+              "rank": 2
+            },
+            {
+              "seed": 11,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                27
+              ],
+              "bhPoints": 0,
+              "rank": 3
+            },
+            {
+              "seed": 14,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                30
+              ],
+              "bhPoints": 0,
+              "rank": 4
+            },
+            {
+              "seed": 15,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                31
+              ],
+              "bhPoints": 0,
+              "rank": 5
+            },
+            {
+              "seed": 18,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                2
+              ],
+              "bhPoints": 0,
+              "rank": 6
+            },
+            {
+              "seed": 20,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                4
+              ],
+              "bhPoints": 0,
+              "rank": 7
+            },
+            {
+              "seed": 21,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                5
+              ],
+              "bhPoints": 0,
+              "rank": 8
+            },
+            {
+              "seed": 29,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 2,
+              "opponents": [
+                13
+              ],
+              "bhPoints": 0,
+              "rank": 9
+            },
+            {
+              "seed": 8,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                24
+              ],
+              "bhPoints": 0,
+              "rank": 10
+            },
+            {
+              "seed": 10,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                26
+              ],
+              "bhPoints": 0,
+              "rank": 11
+            },
+            {
+              "seed": 16,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                32
+              ],
+              "bhPoints": 0,
+              "rank": 12
+            },
+            {
+              "seed": 17,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                1
+              ],
+              "bhPoints": 0,
+              "rank": 13
+            },
+            {
+              "seed": 23,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                7
+              ],
+              "bhPoints": 0,
+              "rank": 14
+            },
+            {
+              "seed": 25,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                9
+              ],
+              "bhPoints": 0,
+              "rank": 15
+            },
+            {
+              "seed": 28,
+              "wins": 1,
+              "losses": 0,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                12
+              ],
+              "bhPoints": 0,
+              "rank": 16
+            },
+            {
+              "seed": 1,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                17
+              ],
+              "bhPoints": 3,
+              "rank": 17
+            },
+            {
+              "seed": 7,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                23
+              ],
+              "bhPoints": 3,
+              "rank": 18
+            },
+            {
+              "seed": 9,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                25
+              ],
+              "bhPoints": 3,
+              "rank": 19
+            },
+            {
+              "seed": 12,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                28
+              ],
+              "bhPoints": 3,
+              "rank": 20
+            },
+            {
+              "seed": 24,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                8
+              ],
+              "bhPoints": 3,
+              "rank": 21
+            },
+            {
+              "seed": 26,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                10
+              ],
+              "bhPoints": 3,
+              "rank": 22
+            },
+            {
+              "seed": 32,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -1,
+              "opponents": [
+                16
+              ],
+              "bhPoints": 3,
+              "rank": 23
+            },
+            {
+              "seed": 2,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                18
+              ],
+              "bhPoints": 3,
+              "rank": 24
+            },
+            {
+              "seed": 4,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                20
+              ],
+              "bhPoints": 3,
+              "rank": 25
+            },
+            {
+              "seed": 5,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                21
+              ],
+              "bhPoints": 3,
+              "rank": 26
+            },
+            {
+              "seed": 13,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                29
+              ],
+              "bhPoints": 3,
+              "rank": 27
+            },
+            {
+              "seed": 19,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                3
+              ],
+              "bhPoints": 3,
+              "rank": 28
+            },
+            {
+              "seed": 22,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                6
+              ],
+              "bhPoints": 3,
+              "rank": 29
+            },
+            {
+              "seed": 27,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                11
+              ],
+              "bhPoints": 3,
+              "rank": 30
+            },
+            {
+              "seed": 30,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                14
+              ],
+              "bhPoints": 3,
+              "rank": 31
+            },
+            {
+              "seed": 31,
+              "wins": 0,
+              "losses": 1,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                15
+              ],
+              "bhPoints": 3,
+              "rank": 32
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "matches": [
+            {
+              "id": "swiss/2/1",
+              "entrants": [
+                1,
+                2
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 2,
+              "loser": 1,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/2",
+              "entrants": [
+                3,
+                6
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 6,
+              "loser": 3,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/3",
+              "entrants": [
+                4,
+                5
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 4,
+              "loser": 5,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/4",
+              "entrants": [
+                7,
+                9
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 9,
+              "loser": 7,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/5",
+              "entrants": [
+                8,
+                10
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 10,
+              "loser": 8,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/6",
+              "entrants": [
+                11,
+                14
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 11,
+              "loser": 14,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/7",
+              "entrants": [
+                12,
+                13
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 13,
+              "loser": 12,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/8",
+              "entrants": [
+                15,
+                16
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 16,
+              "loser": 15,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/9",
+              "entrants": [
+                17,
+                18
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 17,
+              "loser": 18,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/10",
+              "entrants": [
+                19,
+                22
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 19,
+              "loser": 22,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/11",
+              "entrants": [
+                20,
+                21
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 20,
+              "loser": 21,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/12",
+              "entrants": [
+                23,
+                25
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 25,
+              "loser": 23,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/13",
+              "entrants": [
+                24,
+                26
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 26,
+              "loser": 24,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/14",
+              "entrants": [
+                27,
+                30
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 30,
+              "loser": 27,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/15",
+              "entrants": [
+                28,
+                29
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 28,
+              "loser": 29,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/2/16",
+              "entrants": [
+                31,
+                32
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 31,
+              "loser": 32,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "standings": [
+            {
+              "seed": 20,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                4,
+                21
+              ],
+              "bhPoints": 6,
+              "rank": 1
+            },
+            {
+              "seed": 10,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                26,
+                8
+              ],
+              "bhPoints": 6,
+              "rank": 2
+            },
+            {
+              "seed": 25,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                9,
+                23
+              ],
+              "bhPoints": 6,
+              "rank": 3
+            },
+            {
+              "seed": 6,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                22,
+                3
+              ],
+              "bhPoints": 3,
+              "rank": 4
+            },
+            {
+              "seed": 11,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                27,
+                14
+              ],
+              "bhPoints": 3,
+              "rank": 5
+            },
+            {
+              "seed": 16,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                32,
+                15
+              ],
+              "bhPoints": 3,
+              "rank": 6
+            },
+            {
+              "seed": 17,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                1,
+                18
+              ],
+              "bhPoints": 3,
+              "rank": 7
+            },
+            {
+              "seed": 28,
+              "wins": 2,
+              "losses": 0,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                12,
+                29
+              ],
+              "bhPoints": 3,
+              "rank": 8
+            },
+            {
+              "seed": 3,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                19,
+                6
+              ],
+              "bhPoints": 9,
+              "rank": 9
+            },
+            {
+              "seed": 14,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                30,
+                11
+              ],
+              "bhPoints": 9,
+              "rank": 10
+            },
+            {
+              "seed": 29,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                13,
+                28
+              ],
+              "bhPoints": 9,
+              "rank": 11
+            },
+            {
+              "seed": 15,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                31,
+                16
+              ],
+              "bhPoints": 9,
+              "rank": 12
+            },
+            {
+              "seed": 18,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                2,
+                17
+              ],
+              "bhPoints": 9,
+              "rank": 13
+            },
+            {
+              "seed": 9,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                25,
+                7
+              ],
+              "bhPoints": 6,
+              "rank": 14
+            },
+            {
+              "seed": 21,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 1,
+              "opponents": [
+                5,
+                20
+              ],
+              "bhPoints": 6,
+              "rank": 15
+            },
+            {
+              "seed": 4,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                20,
+                5
+              ],
+              "bhPoints": 6,
+              "rank": 16
+            },
+            {
+              "seed": 8,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                24,
+                10
+              ],
+              "bhPoints": 6,
+              "rank": 17
+            },
+            {
+              "seed": 23,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                7,
+                25
+              ],
+              "bhPoints": 6,
+              "rank": 18
+            },
+            {
+              "seed": 26,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                10,
+                24
+              ],
+              "bhPoints": 6,
+              "rank": 19
+            },
+            {
+              "seed": 13,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                29,
+                12
+              ],
+              "bhPoints": 3,
+              "rank": 20
+            },
+            {
+              "seed": 30,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                14,
+                27
+              ],
+              "bhPoints": 3,
+              "rank": 21
+            },
+            {
+              "seed": 2,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                18,
+                1
+              ],
+              "bhPoints": 3,
+              "rank": 22
+            },
+            {
+              "seed": 19,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                3,
+                22
+              ],
+              "bhPoints": 3,
+              "rank": 23
+            },
+            {
+              "seed": 31,
+              "wins": 1,
+              "losses": 1,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                15,
+                32
+              ],
+              "bhPoints": 3,
+              "rank": 24
+            },
+            {
+              "seed": 1,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                17,
+                2
+              ],
+              "bhPoints": 9,
+              "rank": 25
+            },
+            {
+              "seed": 32,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                16,
+                31
+              ],
+              "bhPoints": 9,
+              "rank": 26
+            },
+            {
+              "seed": 12,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -3,
+              "opponents": [
+                28,
+                13
+              ],
+              "bhPoints": 9,
+              "rank": 27
+            },
+            {
+              "seed": 22,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -3,
+              "opponents": [
+                6,
+                19
+              ],
+              "bhPoints": 9,
+              "rank": 28
+            },
+            {
+              "seed": 27,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -4,
+              "opponents": [
+                11,
+                30
+              ],
+              "bhPoints": 9,
+              "rank": 29
+            },
+            {
+              "seed": 24,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -2,
+              "opponents": [
+                8,
+                26
+              ],
+              "bhPoints": 6,
+              "rank": 30
+            },
+            {
+              "seed": 7,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -3,
+              "opponents": [
+                23,
+                9
+              ],
+              "bhPoints": 6,
+              "rank": 31
+            },
+            {
+              "seed": 5,
+              "wins": 0,
+              "losses": 2,
+              "points": 0,
+              "netGames": -4,
+              "opponents": [
+                21,
+                4
+              ],
+              "bhPoints": 6,
+              "rank": 32
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "matches": [
+            {
+              "id": "swiss/3/1",
+              "entrants": [
+                1,
+                5
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 5,
+              "loser": 1,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/2",
+              "entrants": [
+                2,
+                3
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 3,
+              "loser": 2,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/3",
+              "entrants": [
+                4,
+                8
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 4,
+              "loser": 8,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/4",
+              "entrants": [
+                6,
+                10
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 10,
+              "loser": 6,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/5",
+              "entrants": [
+                7,
+                12
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 7,
+              "loser": 12,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/6",
+              "entrants": [
+                9,
+                13
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 9,
+              "loser": 13,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/7",
+              "entrants": [
+                11,
+                16
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 11,
+              "loser": 16,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/8",
+              "entrants": [
+                14,
+                15
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 14,
+              "loser": 15,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/9",
+              "entrants": [
+                17,
+                20
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 20,
+              "loser": 17,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/10",
+              "entrants": [
+                18,
+                19
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 19,
+              "loser": 18,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/11",
+              "entrants": [
+                21,
+                23
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 23,
+              "loser": 21,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/12",
+              "entrants": [
+                22,
+                24
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 22,
+              "loser": 24,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/13",
+              "entrants": [
+                25,
+                28
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 28,
+              "loser": 25,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/14",
+              "entrants": [
+                26,
+                29
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 29,
+              "loser": 26,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/15",
+              "entrants": [
+                27,
+                32
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 32,
+              "loser": 27,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/3/16",
+              "entrants": [
+                30,
+                31
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 31,
+              "loser": 30,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "standings": [
+            {
+              "seed": 20,
+              "wins": 3,
+              "losses": 0,
+              "points": 9,
+              "netGames": 4,
+              "opponents": [
+                4,
+                21,
+                17
+              ],
+              "bhPoints": 15,
+              "rank": 1
+            },
+            {
+              "seed": 11,
+              "wins": 3,
+              "losses": 0,
+              "points": 9,
+              "netGames": 4,
+              "opponents": [
+                27,
+                14,
+                16
+              ],
+              "bhPoints": 12,
+              "rank": 2
+            },
+            {
+              "seed": 10,
+              "wins": 3,
+              "losses": 0,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                26,
+                8,
+                6
+              ],
+              "bhPoints": 12,
+              "rank": 3
+            },
+            {
+              "seed": 28,
+              "wins": 3,
+              "losses": 0,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                12,
+                29,
+                25
+              ],
+              "bhPoints": 12,
+              "rank": 4
+            },
+            {
+              "seed": 25,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                9,
+                23,
+                28
+              ],
+              "bhPoints": 21,
+              "rank": 5
+            },
+            {
+              "seed": 6,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                22,
+                3,
+                10
+              ],
+              "bhPoints": 18,
+              "rank": 6
+            },
+            {
+              "seed": 3,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                19,
+                6,
+                2
+              ],
+              "bhPoints": 15,
+              "rank": 7
+            },
+            {
+              "seed": 14,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 3,
+              "opponents": [
+                30,
+                11,
+                15
+              ],
+              "bhPoints": 15,
+              "rank": 8
+            },
+            {
+              "seed": 16,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                32,
+                15,
+                11
+              ],
+              "bhPoints": 15,
+              "rank": 9
+            },
+            {
+              "seed": 29,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                13,
+                28,
+                26
+              ],
+              "bhPoints": 15,
+              "rank": 10
+            },
+            {
+              "seed": 4,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                20,
+                5,
+                8
+              ],
+              "bhPoints": 15,
+              "rank": 11
+            },
+            {
+              "seed": 9,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                25,
+                7,
+                13
+              ],
+              "bhPoints": 12,
+              "rank": 12
+            },
+            {
+              "seed": 17,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                1,
+                18,
+                20
+              ],
+              "bhPoints": 12,
+              "rank": 13
+            },
+            {
+              "seed": 23,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                7,
+                25,
+                21
+              ],
+              "bhPoints": 12,
+              "rank": 14
+            },
+            {
+              "seed": 19,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                3,
+                22,
+                18
+              ],
+              "bhPoints": 12,
+              "rank": 15
+            },
+            {
+              "seed": 31,
+              "wins": 2,
+              "losses": 1,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                15,
+                32,
+                30
+              ],
+              "bhPoints": 9,
+              "rank": 16
+            },
+            {
+              "seed": 21,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                5,
+                20,
+                23
+              ],
+              "bhPoints": 18,
+              "rank": 17
+            },
+            {
+              "seed": 15,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                31,
+                16,
+                14
+              ],
+              "bhPoints": 18,
+              "rank": 18
+            },
+            {
+              "seed": 8,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                24,
+                10,
+                4
+              ],
+              "bhPoints": 15,
+              "rank": 19
+            },
+            {
+              "seed": 18,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                2,
+                17,
+                19
+              ],
+              "bhPoints": 15,
+              "rank": 20
+            },
+            {
+              "seed": 26,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                10,
+                24,
+                29
+              ],
+              "bhPoints": 15,
+              "rank": 21
+            },
+            {
+              "seed": 32,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": 0,
+              "opponents": [
+                16,
+                31,
+                27
+              ],
+              "bhPoints": 12,
+              "rank": 22
+            },
+            {
+              "seed": 13,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                29,
+                12,
+                9
+              ],
+              "bhPoints": 12,
+              "rank": 23
+            },
+            {
+              "seed": 30,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -1,
+              "opponents": [
+                14,
+                27,
+                31
+              ],
+              "bhPoints": 12,
+              "rank": 24
+            },
+            {
+              "seed": 7,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                23,
+                9,
+                12
+              ],
+              "bhPoints": 12,
+              "rank": 25
+            },
+            {
+              "seed": 22,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                6,
+                19,
+                24
+              ],
+              "bhPoints": 12,
+              "rank": 26
+            },
+            {
+              "seed": 2,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -3,
+              "opponents": [
+                18,
+                1,
+                3
+              ],
+              "bhPoints": 9,
+              "rank": 27
+            },
+            {
+              "seed": 5,
+              "wins": 1,
+              "losses": 2,
+              "points": 3,
+              "netGames": -3,
+              "opponents": [
+                21,
+                4,
+                1
+              ],
+              "bhPoints": 9,
+              "rank": 28
+            },
+            {
+              "seed": 12,
+              "wins": 0,
+              "losses": 3,
+              "points": 0,
+              "netGames": -4,
+              "opponents": [
+                28,
+                13,
+                7
+              ],
+              "bhPoints": 15,
+              "rank": 29
+            },
+            {
+              "seed": 27,
+              "wins": 0,
+              "losses": 3,
+              "points": 0,
+              "netGames": -6,
+              "opponents": [
+                11,
+                30,
+                32
+              ],
+              "bhPoints": 15,
+              "rank": 30
+            },
+            {
+              "seed": 1,
+              "wins": 0,
+              "losses": 3,
+              "points": 0,
+              "netGames": -3,
+              "opponents": [
+                17,
+                2,
+                5
+              ],
+              "bhPoints": 12,
+              "rank": 31
+            },
+            {
+              "seed": 24,
+              "wins": 0,
+              "losses": 3,
+              "points": 0,
+              "netGames": -3,
+              "opponents": [
+                8,
+                26,
+                22
+              ],
+              "bhPoints": 9,
+              "rank": 32
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "matches": [
+            {
+              "id": "swiss/4/1",
+              "entrants": [
+                1,
+                12
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 12,
+              "loser": 1,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/2",
+              "entrants": [
+                2,
+                5
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 2,
+              "loser": 5,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/3",
+              "entrants": [
+                3,
+                4
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 4,
+              "loser": 3,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/4",
+              "entrants": [
+                6,
+                9
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 6,
+              "loser": 9,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/5",
+              "entrants": [
+                7,
+                8
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 7,
+              "loser": 8,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/6",
+              "entrants": [
+                10,
+                11
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 10,
+              "loser": 11,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/7",
+              "entrants": [
+                13,
+                15
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 13,
+              "loser": 15,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/8",
+              "entrants": [
+                14,
+                16
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 16,
+              "loser": 14,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/9",
+              "entrants": [
+                17,
+                19
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 19,
+              "loser": 17,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/10",
+              "entrants": [
+                18,
+                21
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 21,
+              "loser": 18,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/11",
+              "entrants": [
+                20,
+                28
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 28,
+              "loser": 20,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/12",
+              "entrants": [
+                22,
+                26
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 26,
+              "loser": 22,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/13",
+              "entrants": [
+                23,
+                29
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 29,
+              "loser": 23,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/14",
+              "entrants": [
+                24,
+                27
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 27,
+              "loser": 24,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/15",
+              "entrants": [
+                25,
+                31
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 25,
+              "loser": 31,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/4/16",
+              "entrants": [
+                30,
+                32
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 30,
+              "loser": 32,
+              "wave": 4,
+              "startsAt": "2026-11-01T14:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "standings": [
+            {
+              "seed": 28,
+              "wins": 4,
+              "losses": 0,
+              "points": 12,
+              "netGames": 4,
+              "opponents": [
+                12,
+                29,
+                25,
+                20
+              ],
+              "bhPoints": 30,
+              "rank": 1
+            },
+            {
+              "seed": 10,
+              "wins": 4,
+              "losses": 0,
+              "points": 12,
+              "netGames": 5,
+              "opponents": [
+                26,
+                8,
+                6,
+                11
+              ],
+              "bhPoints": 27,
+              "rank": 2
+            },
+            {
+              "seed": 20,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                4,
+                21,
+                17,
+                28
+              ],
+              "bhPoints": 33,
+              "rank": 3
+            },
+            {
+              "seed": 25,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                9,
+                23,
+                28,
+                31
+              ],
+              "bhPoints": 30,
+              "rank": 4
+            },
+            {
+              "seed": 29,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                13,
+                28,
+                26,
+                23
+              ],
+              "bhPoints": 30,
+              "rank": 5
+            },
+            {
+              "seed": 11,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 2,
+              "opponents": [
+                27,
+                14,
+                16,
+                10
+              ],
+              "bhPoints": 30,
+              "rank": 6
+            },
+            {
+              "seed": 6,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                22,
+                3,
+                10,
+                9
+              ],
+              "bhPoints": 27,
+              "rank": 7
+            },
+            {
+              "seed": 16,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 4,
+              "opponents": [
+                32,
+                15,
+                11,
+                14
+              ],
+              "bhPoints": 21,
+              "rank": 8
+            },
+            {
+              "seed": 4,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 2,
+              "opponents": [
+                20,
+                5,
+                8,
+                3
+              ],
+              "bhPoints": 21,
+              "rank": 9
+            },
+            {
+              "seed": 19,
+              "wins": 3,
+              "losses": 1,
+              "points": 9,
+              "netGames": 1,
+              "opponents": [
+                3,
+                22,
+                18,
+                17
+              ],
+              "bhPoints": 18,
+              "rank": 10
+            },
+            {
+              "seed": 3,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 2,
+              "opponents": [
+                19,
+                6,
+                2,
+                4
+              ],
+              "bhPoints": 33,
+              "rank": 11
+            },
+            {
+              "seed": 9,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                25,
+                7,
+                13,
+                6
+              ],
+              "bhPoints": 30,
+              "rank": 12
+            },
+            {
+              "seed": 23,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                7,
+                25,
+                21,
+                29
+              ],
+              "bhPoints": 30,
+              "rank": 13
+            },
+            {
+              "seed": 14,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                30,
+                11,
+                15,
+                16
+              ],
+              "bhPoints": 27,
+              "rank": 14
+            },
+            {
+              "seed": 26,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                10,
+                24,
+                29,
+                22
+              ],
+              "bhPoints": 24,
+              "rank": 15
+            },
+            {
+              "seed": 17,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                1,
+                18,
+                20,
+                19
+              ],
+              "bhPoints": 21,
+              "rank": 16
+            },
+            {
+              "seed": 21,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                5,
+                20,
+                23,
+                18
+              ],
+              "bhPoints": 21,
+              "rank": 17
+            },
+            {
+              "seed": 13,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                29,
+                12,
+                9,
+                15
+              ],
+              "bhPoints": 21,
+              "rank": 18
+            },
+            {
+              "seed": 31,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": -2,
+              "opponents": [
+                15,
+                32,
+                30,
+                25
+              ],
+              "bhPoints": 21,
+              "rank": 19
+            },
+            {
+              "seed": 30,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 1,
+              "opponents": [
+                14,
+                27,
+                31,
+                32
+              ],
+              "bhPoints": 18,
+              "rank": 20
+            },
+            {
+              "seed": 7,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                23,
+                9,
+                12,
+                8
+              ],
+              "bhPoints": 18,
+              "rank": 21
+            },
+            {
+              "seed": 2,
+              "wins": 2,
+              "losses": 2,
+              "points": 6,
+              "netGames": -2,
+              "opponents": [
+                18,
+                1,
+                3,
+                5
+              ],
+              "bhPoints": 12,
+              "rank": 22
+            },
+            {
+              "seed": 18,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                2,
+                17,
+                19,
+                21
+              ],
+              "bhPoints": 27,
+              "rank": 23
+            },
+            {
+              "seed": 8,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -3,
+              "opponents": [
+                24,
+                10,
+                4,
+                7
+              ],
+              "bhPoints": 27,
+              "rank": 24
+            },
+            {
+              "seed": 15,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -3,
+              "opponents": [
+                31,
+                16,
+                14,
+                13
+              ],
+              "bhPoints": 27,
+              "rank": 25
+            },
+            {
+              "seed": 32,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                16,
+                31,
+                27,
+                30
+              ],
+              "bhPoints": 24,
+              "rank": 26
+            },
+            {
+              "seed": 12,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -3,
+              "opponents": [
+                28,
+                13,
+                7,
+                1
+              ],
+              "bhPoints": 24,
+              "rank": 27
+            },
+            {
+              "seed": 22,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -4,
+              "opponents": [
+                6,
+                19,
+                24,
+                26
+              ],
+              "bhPoints": 24,
+              "rank": 28
+            },
+            {
+              "seed": 5,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -4,
+              "opponents": [
+                21,
+                4,
+                1,
+                2
+              ],
+              "bhPoints": 21,
+              "rank": 29
+            },
+            {
+              "seed": 27,
+              "wins": 1,
+              "losses": 3,
+              "points": 3,
+              "netGames": -4,
+              "opponents": [
+                11,
+                30,
+                32,
+                24
+              ],
+              "bhPoints": 18,
+              "rank": 30
+            },
+            {
+              "seed": 1,
+              "wins": 0,
+              "losses": 4,
+              "points": 0,
+              "netGames": -4,
+              "opponents": [
+                17,
+                2,
+                5,
+                12
+              ],
+              "bhPoints": 18,
+              "rank": 31
+            },
+            {
+              "seed": 24,
+              "wins": 0,
+              "losses": 4,
+              "points": 0,
+              "netGames": -5,
+              "opponents": [
+                8,
+                26,
+                22,
+                27
+              ],
+              "bhPoints": 15,
+              "rank": 32
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "matches": [
+            {
+              "id": "swiss/5/1",
+              "entrants": [
+                1,
+                24
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 1,
+              "loser": 24,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/2",
+              "entrants": [
+                2,
+                7
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 2,
+              "loser": 7,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/3",
+              "entrants": [
+                3,
+                9
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 3,
+              "loser": 9,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/4",
+              "entrants": [
+                4,
+                6
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 6,
+              "loser": 4,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/5",
+              "entrants": [
+                5,
+                8
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 5,
+              "loser": 8,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/6",
+              "entrants": [
+                10,
+                28
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 10,
+              "loser": 28,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/7",
+              "entrants": [
+                11,
+                19
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 19,
+              "loser": 11,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/8",
+              "entrants": [
+                12,
+                15
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 12,
+              "loser": 15,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/9",
+              "entrants": [
+                13,
+                14
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 13,
+              "loser": 14,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/10",
+              "entrants": [
+                16,
+                20
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 20,
+              "loser": 16,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/11",
+              "entrants": [
+                17,
+                21
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 17,
+              "loser": 21,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/12",
+              "entrants": [
+                18,
+                27
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 18,
+              "loser": 27,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/13",
+              "entrants": [
+                22,
+                32
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 32,
+              "loser": 22,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/14",
+              "entrants": [
+                23,
+                30
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 30,
+              "loser": 23,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/15",
+              "entrants": [
+                25,
+                29
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 25,
+              "loser": 29,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "swiss/5/16",
+              "entrants": [
+                26,
+                31
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 31,
+              "loser": 26,
+              "wave": 5,
+              "startsAt": "2026-11-01T16:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "standings": [
+            {
+              "seed": 10,
+              "wins": 5,
+              "losses": 0,
+              "points": 15,
+              "netGames": 7,
+              "opponents": [
+                26,
+                8,
+                6,
+                11,
+                28
+              ],
+              "bhPoints": 42,
+              "rank": 1
+            },
+            {
+              "seed": 28,
+              "wins": 4,
+              "losses": 1,
+              "points": 12,
+              "netGames": 2,
+              "opponents": [
+                12,
+                29,
+                25,
+                20,
+                10
+              ],
+              "bhPoints": 54,
+              "rank": 2
+            },
+            {
+              "seed": 20,
+              "wins": 4,
+              "losses": 1,
+              "points": 12,
+              "netGames": 4,
+              "opponents": [
+                4,
+                21,
+                17,
+                28,
+                16
+              ],
+              "bhPoints": 45,
+              "rank": 3
+            },
+            {
+              "seed": 25,
+              "wins": 4,
+              "losses": 1,
+              "points": 12,
+              "netGames": 5,
+              "opponents": [
+                9,
+                23,
+                28,
+                31,
+                29
+              ],
+              "bhPoints": 42,
+              "rank": 4
+            },
+            {
+              "seed": 6,
+              "wins": 4,
+              "losses": 1,
+              "points": 12,
+              "netGames": 4,
+              "opponents": [
+                22,
+                3,
+                10,
+                9,
+                4
+              ],
+              "bhPoints": 42,
+              "rank": 5
+            },
+            {
+              "seed": 19,
+              "wins": 4,
+              "losses": 1,
+              "points": 12,
+              "netGames": 3,
+              "opponents": [
+                3,
+                22,
+                18,
+                17,
+                11
+              ],
+              "bhPoints": 36,
+              "rank": 6
+            },
+            {
+              "seed": 3,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 4,
+              "opponents": [
+                19,
+                6,
+                2,
+                4,
+                9
+              ],
+              "bhPoints": 48,
+              "rank": 7
+            },
+            {
+              "seed": 29,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 1,
+              "opponents": [
+                13,
+                28,
+                26,
+                23,
+                25
+              ],
+              "bhPoints": 45,
+              "rank": 8
+            },
+            {
+              "seed": 11,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 0,
+              "opponents": [
+                27,
+                14,
+                16,
+                10,
+                19
+              ],
+              "bhPoints": 45,
+              "rank": 9
+            },
+            {
+              "seed": 4,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 1,
+              "opponents": [
+                20,
+                5,
+                8,
+                3,
+                6
+              ],
+              "bhPoints": 42,
+              "rank": 10
+            },
+            {
+              "seed": 17,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                1,
+                18,
+                20,
+                19,
+                21
+              ],
+              "bhPoints": 39,
+              "rank": 11
+            },
+            {
+              "seed": 16,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 3,
+              "opponents": [
+                32,
+                15,
+                11,
+                14,
+                20
+              ],
+              "bhPoints": 36,
+              "rank": 12
+            },
+            {
+              "seed": 31,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 0,
+              "opponents": [
+                15,
+                32,
+                30,
+                25,
+                26
+              ],
+              "bhPoints": 36,
+              "rank": 13
+            },
+            {
+              "seed": 13,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 2,
+              "opponents": [
+                29,
+                12,
+                9,
+                15,
+                14
+              ],
+              "bhPoints": 30,
+              "rank": 14
+            },
+            {
+              "seed": 30,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": 2,
+              "opponents": [
+                14,
+                27,
+                31,
+                32,
+                23
+              ],
+              "bhPoints": 30,
+              "rank": 15
+            },
+            {
+              "seed": 2,
+              "wins": 3,
+              "losses": 2,
+              "points": 9,
+              "netGames": -1,
+              "opponents": [
+                18,
+                1,
+                3,
+                5,
+                7
+              ],
+              "bhPoints": 30,
+              "rank": 16
+            },
+            {
+              "seed": 9,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                25,
+                7,
+                13,
+                6,
+                3
+              ],
+              "bhPoints": 48,
+              "rank": 17
+            },
+            {
+              "seed": 23,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                7,
+                25,
+                21,
+                29,
+                30
+              ],
+              "bhPoints": 42,
+              "rank": 18
+            },
+            {
+              "seed": 18,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": 0,
+              "opponents": [
+                2,
+                17,
+                19,
+                21,
+                27
+              ],
+              "bhPoints": 39,
+              "rank": 19
+            },
+            {
+              "seed": 14,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                30,
+                11,
+                15,
+                16,
+                13
+              ],
+              "bhPoints": 39,
+              "rank": 20
+            },
+            {
+              "seed": 21,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                5,
+                20,
+                23,
+                18,
+                17
+              ],
+              "bhPoints": 39,
+              "rank": 21
+            },
+            {
+              "seed": 26,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                10,
+                24,
+                29,
+                22,
+                31
+              ],
+              "bhPoints": 36,
+              "rank": 22
+            },
+            {
+              "seed": 32,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                16,
+                31,
+                27,
+                30,
+                22
+              ],
+              "bhPoints": 33,
+              "rank": 23
+            },
+            {
+              "seed": 12,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -2,
+              "opponents": [
+                28,
+                13,
+                7,
+                1,
+                15
+              ],
+              "bhPoints": 33,
+              "rank": 24
+            },
+            {
+              "seed": 7,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -1,
+              "opponents": [
+                23,
+                9,
+                12,
+                8,
+                2
+              ],
+              "bhPoints": 30,
+              "rank": 25
+            },
+            {
+              "seed": 5,
+              "wins": 2,
+              "losses": 3,
+              "points": 6,
+              "netGames": -3,
+              "opponents": [
+                21,
+                4,
+                1,
+                2,
+                8
+              ],
+              "bhPoints": 30,
+              "rank": 26
+            },
+            {
+              "seed": 15,
+              "wins": 1,
+              "losses": 4,
+              "points": 3,
+              "netGames": -4,
+              "opponents": [
+                31,
+                16,
+                14,
+                13,
+                12
+              ],
+              "bhPoints": 39,
+              "rank": 27
+            },
+            {
+              "seed": 8,
+              "wins": 1,
+              "losses": 4,
+              "points": 3,
+              "netGames": -4,
+              "opponents": [
+                24,
+                10,
+                4,
+                7,
+                5
+              ],
+              "bhPoints": 36,
+              "rank": 28
+            },
+            {
+              "seed": 22,
+              "wins": 1,
+              "losses": 4,
+              "points": 3,
+              "netGames": -5,
+              "opponents": [
+                6,
+                19,
+                24,
+                26,
+                32
+              ],
+              "bhPoints": 36,
+              "rank": 29
+            },
+            {
+              "seed": 1,
+              "wins": 1,
+              "losses": 4,
+              "points": 3,
+              "netGames": -2,
+              "opponents": [
+                17,
+                2,
+                5,
+                12,
+                24
+              ],
+              "bhPoints": 30,
+              "rank": 30
+            },
+            {
+              "seed": 27,
+              "wins": 1,
+              "losses": 4,
+              "points": 3,
+              "netGames": -6,
+              "opponents": [
+                11,
+                30,
+                32,
+                24,
+                18
+              ],
+              "bhPoints": 30,
+              "rank": 31
+            },
+            {
+              "seed": 24,
+              "wins": 0,
+              "losses": 5,
+              "points": 0,
+              "netGames": -7,
+              "opponents": [
+                8,
+                26,
+                22,
+                27,
+                1
+              ],
+              "bhPoints": 18,
+              "rank": 32
+            }
+          ]
+        }
+      ],
+      "qualified": [
+        10,
+        28,
+        20,
+        25,
+        6,
+        19,
+        3,
+        29
+      ],
+      "knockoutSeeds": [
+        3,
+        6,
+        10,
+        19,
+        20,
+        25,
+        28,
+        29
+      ],
+      "knockout": [
+        {
+          "number": 1,
+          "matches": [
+            {
+              "id": "single/1/1",
+              "entrants": [
+                3,
+                29
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 3,
+              "loser": 29,
+              "wave": 6,
+              "startsAt": "2026-11-01T18:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "single/1/2",
+              "entrants": [
+                19,
+                20
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 20,
+              "loser": 19,
+              "wave": 6,
+              "startsAt": "2026-11-01T18:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "single/1/3",
+              "entrants": [
+                6,
+                28
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 28,
+              "loser": 6,
+              "wave": 6,
+              "startsAt": "2026-11-01T18:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "single/1/4",
+              "entrants": [
+                10,
+                25
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 25,
+              "loser": 10,
+              "wave": 6,
+              "startsAt": "2026-11-01T18:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "matches": [
+            {
+              "id": "single/2/1",
+              "entrants": [
+                3,
+                20
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 3,
+              "loser": 20,
+              "wave": 7,
+              "startsAt": "2026-11-01T20:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "single/2/2",
+              "entrants": [
+                28,
+                25
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 25,
+              "loser": 28,
+              "wave": 7,
+              "startsAt": "2026-11-01T20:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "matches": [
+            {
+              "id": "single/3/1",
+              "entrants": [
+                3,
+                25
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 25,
+              "loser": 3,
+              "wave": 8,
+              "startsAt": "2026-11-01T22:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ]
+        }
+      ],
+      "champion": 25,
+      "knockoutStandings": [
+        {
+          "seed": 25,
+          "rank": 1,
+          "wins": 3,
+          "actualLosses": 0,
+          "netGames": 5
+        },
+        {
+          "seed": 3,
+          "rank": 2,
+          "wins": 2,
+          "actualLosses": 1,
+          "netGames": 2
+        },
+        {
+          "seed": 20,
+          "rank": 3,
+          "wins": 1,
+          "actualLosses": 1,
+          "netGames": -1
+        },
+        {
+          "seed": 28,
+          "rank": 3,
+          "wins": 1,
+          "actualLosses": 1,
+          "netGames": 0
+        },
+        {
+          "seed": 6,
+          "rank": 5,
+          "wins": 0,
+          "actualLosses": 1,
+          "netGames": -1
+        },
+        {
+          "seed": 10,
+          "rank": 5,
+          "wins": 0,
+          "actualLosses": 1,
+          "netGames": -2
+        },
+        {
+          "seed": 19,
+          "rank": 5,
+          "wins": 0,
+          "actualLosses": 1,
+          "netGames": -1
+        },
+        {
+          "seed": 29,
+          "rank": 5,
+          "wins": 0,
+          "actualLosses": 1,
+          "netGames": -2
+        }
+      ],
+      "matchCount": 87
+    },
+    {
+      "id": "gsl-no-reset-v1",
+      "seed": 2026100802,
+      "entrantCount": 16,
+      "finalReset": false,
+      "forcedFinalSide": 0,
+      "groups": [
+        {
+          "id": "g0",
+          "matches": [
+            {
+              "id": "g0/opening/1/1",
+              "entrants": [
+                1,
+                2
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 2,
+              "loser": 1,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/opening/1/2",
+              "entrants": [
+                3,
+                4
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 4,
+              "loser": 3,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/winners/2/1",
+              "entrants": [
+                2,
+                4
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 4,
+              "loser": 2,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/elimination/2/1",
+              "entrants": [
+                1,
+                3
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 1,
+              "loser": 3,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/decider/3/1",
+              "entrants": [
+                2,
+                1
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 2,
+              "loser": 1,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            4,
+            2,
+            1,
+            3
+          ],
+          "qualified": [
+            4,
+            2
+          ]
+        },
+        {
+          "id": "g1",
+          "matches": [
+            {
+              "id": "g1/opening/1/1",
+              "entrants": [
+                5,
+                6
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 6,
+              "loser": 5,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/opening/1/2",
+              "entrants": [
+                7,
+                8
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 8,
+              "loser": 7,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/winners/2/1",
+              "entrants": [
+                6,
+                8
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 6,
+              "loser": 8,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/elimination/2/1",
+              "entrants": [
+                5,
+                7
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 5,
+              "loser": 7,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/decider/3/1",
+              "entrants": [
+                8,
+                5
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 8,
+              "loser": 5,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            6,
+            8,
+            5,
+            7
+          ],
+          "qualified": [
+            6,
+            8
+          ]
+        },
+        {
+          "id": "g2",
+          "matches": [
+            {
+              "id": "g2/opening/1/1",
+              "entrants": [
+                9,
+                10
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 9,
+              "loser": 10,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/opening/1/2",
+              "entrants": [
+                11,
+                12
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 11,
+              "loser": 12,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/winners/2/1",
+              "entrants": [
+                9,
+                11
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 9,
+              "loser": 11,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/elimination/2/1",
+              "entrants": [
+                10,
+                12
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 10,
+              "loser": 12,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/decider/3/1",
+              "entrants": [
+                11,
+                10
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 11,
+              "loser": 10,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            9,
+            11,
+            10,
+            12
+          ],
+          "qualified": [
+            9,
+            11
+          ]
+        },
+        {
+          "id": "g3",
+          "matches": [
+            {
+              "id": "g3/opening/1/1",
+              "entrants": [
+                13,
+                14
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 14,
+              "loser": 13,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/opening/1/2",
+              "entrants": [
+                15,
+                16
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 16,
+              "loser": 15,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/winners/2/1",
+              "entrants": [
+                14,
+                16
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 16,
+              "loser": 14,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/elimination/2/1",
+              "entrants": [
+                13,
+                15
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 13,
+              "loser": 15,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/decider/3/1",
+              "entrants": [
+                14,
+                13
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 13,
+              "loser": 14,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            16,
+            13,
+            14,
+            15
+          ],
+          "qualified": [
+            16,
+            13
+          ]
+        }
+      ],
+      "entrySeeds": [
+        2,
+        4,
+        6,
+        8,
+        9,
+        11,
+        13,
+        16
+      ],
+      "matches": [
+        {
+          "id": "de/upper/1/1",
+          "entrants": [
+            2,
+            16
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 2,
+          "loser": 16,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/2",
+          "entrants": [
+            8,
+            9
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 9,
+          "loser": 8,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/3",
+          "entrants": [
+            4,
+            13
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 4,
+          "loser": 13,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/4",
+          "entrants": [
+            6,
+            11
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 6,
+          "loser": 11,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/2/1",
+          "entrants": [
+            2,
+            9
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 9,
+          "loser": 2,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/2/2",
+          "entrants": [
+            4,
+            6
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 6,
+          "loser": 4,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/1/1",
+          "entrants": [
+            16,
+            8
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 16,
+          "loser": 8,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/1/2",
+          "entrants": [
+            13,
+            11
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 11,
+          "loser": 13,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/3/1",
+          "entrants": [
+            9,
+            6
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 6,
+          "loser": 9,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/2/1",
+          "entrants": [
+            16,
+            4
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 16,
+          "loser": 4,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/2/2",
+          "entrants": [
+            11,
+            2
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 2,
+          "loser": 11,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/3/1",
+          "entrants": [
+            16,
+            2
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 16,
+          "loser": 2,
+          "wave": 7,
+          "startsAt": "2026-11-01T20:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/4/1",
+          "entrants": [
+            16,
+            9
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 9,
+          "loser": 16,
+          "wave": 8,
+          "startsAt": "2026-11-01T22:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/final/1/1",
+          "entrants": [
+            6,
+            9
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 6,
+          "loser": 9,
+          "wave": 9,
+          "startsAt": "2026-11-02T00:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        }
+      ],
+      "champion": 6,
+      "runnerUp": 9,
+      "losses": {
+        "2": 2,
+        "4": 2,
+        "6": 0,
+        "8": 2,
+        "9": 2,
+        "11": 2,
+        "13": 2,
+        "16": 2
+      },
+      "standings": [
+        {
+          "seed": 6,
+          "rank": 1,
+          "wins": 4,
+          "actualLosses": 0,
+          "netGames": 5
+        },
+        {
+          "seed": 9,
+          "rank": 2,
+          "wins": 3,
+          "actualLosses": 2,
+          "netGames": 1
+        },
+        {
+          "seed": 16,
+          "rank": 3,
+          "wins": 3,
+          "actualLosses": 2,
+          "netGames": 3
+        },
+        {
+          "seed": 2,
+          "rank": 4,
+          "wins": 2,
+          "actualLosses": 2,
+          "netGames": 0
+        },
+        {
+          "seed": 4,
+          "rank": 5,
+          "wins": 1,
+          "actualLosses": 2,
+          "netGames": 0
+        },
+        {
+          "seed": 11,
+          "rank": 5,
+          "wins": 1,
+          "actualLosses": 2,
+          "netGames": -1
+        },
+        {
+          "seed": 8,
+          "rank": 7,
+          "wins": 0,
+          "actualLosses": 2,
+          "netGames": -4
+        },
+        {
+          "seed": 13,
+          "rank": 7,
+          "wins": 0,
+          "actualLosses": 2,
+          "netGames": -4
+        }
+      ],
+      "matchCount": 34
+    },
+    {
+      "id": "gsl-reset-v1",
+      "seed": 2026100802,
+      "entrantCount": 16,
+      "finalReset": true,
+      "forcedFinalSide": 1,
+      "groups": [
+        {
+          "id": "g0",
+          "matches": [
+            {
+              "id": "g0/opening/1/1",
+              "entrants": [
+                1,
+                2
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 2,
+              "loser": 1,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/opening/1/2",
+              "entrants": [
+                3,
+                4
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 4,
+              "loser": 3,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/winners/2/1",
+              "entrants": [
+                2,
+                4
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 4,
+              "loser": 2,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/elimination/2/1",
+              "entrants": [
+                1,
+                3
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 1,
+              "loser": 3,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g0/decider/3/1",
+              "entrants": [
+                2,
+                1
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 2,
+              "loser": 1,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            4,
+            2,
+            1,
+            3
+          ],
+          "qualified": [
+            4,
+            2
+          ]
+        },
+        {
+          "id": "g1",
+          "matches": [
+            {
+              "id": "g1/opening/1/1",
+              "entrants": [
+                5,
+                6
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 6,
+              "loser": 5,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/opening/1/2",
+              "entrants": [
+                7,
+                8
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 8,
+              "loser": 7,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/winners/2/1",
+              "entrants": [
+                6,
+                8
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 6,
+              "loser": 8,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/elimination/2/1",
+              "entrants": [
+                5,
+                7
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 5,
+              "loser": 7,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g1/decider/3/1",
+              "entrants": [
+                8,
+                5
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 8,
+              "loser": 5,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            6,
+            8,
+            5,
+            7
+          ],
+          "qualified": [
+            6,
+            8
+          ]
+        },
+        {
+          "id": "g2",
+          "matches": [
+            {
+              "id": "g2/opening/1/1",
+              "entrants": [
+                9,
+                10
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 9,
+              "loser": 10,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/opening/1/2",
+              "entrants": [
+                11,
+                12
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 11,
+              "loser": 12,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/winners/2/1",
+              "entrants": [
+                9,
+                11
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 9,
+              "loser": 11,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/elimination/2/1",
+              "entrants": [
+                10,
+                12
+              ],
+              "scores": [
+                2,
+                1
+              ],
+              "winner": 10,
+              "loser": 12,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g2/decider/3/1",
+              "entrants": [
+                11,
+                10
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 11,
+              "loser": 10,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            9,
+            11,
+            10,
+            12
+          ],
+          "qualified": [
+            9,
+            11
+          ]
+        },
+        {
+          "id": "g3",
+          "matches": [
+            {
+              "id": "g3/opening/1/1",
+              "entrants": [
+                13,
+                14
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 14,
+              "loser": 13,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/opening/1/2",
+              "entrants": [
+                15,
+                16
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 16,
+              "loser": 15,
+              "wave": 1,
+              "startsAt": "2026-11-01T08:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/winners/2/1",
+              "entrants": [
+                14,
+                16
+              ],
+              "scores": [
+                1,
+                2
+              ],
+              "winner": 16,
+              "loser": 14,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/elimination/2/1",
+              "entrants": [
+                13,
+                15
+              ],
+              "scores": [
+                2,
+                0
+              ],
+              "winner": 13,
+              "loser": 15,
+              "wave": 2,
+              "startsAt": "2026-11-01T10:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            },
+            {
+              "id": "g3/decider/3/1",
+              "entrants": [
+                14,
+                13
+              ],
+              "scores": [
+                0,
+                2
+              ],
+              "winner": 13,
+              "loser": 14,
+              "wave": 3,
+              "startsAt": "2026-11-01T12:00:00.000Z",
+              "durationMinutes": 60,
+              "minRestMinutes": 15
+            }
+          ],
+          "ranking": [
+            16,
+            13,
+            14,
+            15
+          ],
+          "qualified": [
+            16,
+            13
+          ]
+        }
+      ],
+      "entrySeeds": [
+        2,
+        4,
+        6,
+        8,
+        9,
+        11,
+        13,
+        16
+      ],
+      "matches": [
+        {
+          "id": "de/upper/1/1",
+          "entrants": [
+            2,
+            16
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 2,
+          "loser": 16,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/2",
+          "entrants": [
+            8,
+            9
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 9,
+          "loser": 8,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/3",
+          "entrants": [
+            4,
+            13
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 4,
+          "loser": 13,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/1/4",
+          "entrants": [
+            6,
+            11
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 6,
+          "loser": 11,
+          "wave": 4,
+          "startsAt": "2026-11-01T14:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/2/1",
+          "entrants": [
+            2,
+            9
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 9,
+          "loser": 2,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/2/2",
+          "entrants": [
+            4,
+            6
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 6,
+          "loser": 4,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/1/1",
+          "entrants": [
+            16,
+            8
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 16,
+          "loser": 8,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/1/2",
+          "entrants": [
+            13,
+            11
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 11,
+          "loser": 13,
+          "wave": 5,
+          "startsAt": "2026-11-01T16:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/upper/3/1",
+          "entrants": [
+            9,
+            6
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 6,
+          "loser": 9,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/2/1",
+          "entrants": [
+            16,
+            4
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "winner": 16,
+          "loser": 4,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/2/2",
+          "entrants": [
+            11,
+            2
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 2,
+          "loser": 11,
+          "wave": 6,
+          "startsAt": "2026-11-01T18:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/3/1",
+          "entrants": [
+            16,
+            2
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "winner": 16,
+          "loser": 2,
+          "wave": 7,
+          "startsAt": "2026-11-01T20:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/lower/4/1",
+          "entrants": [
+            16,
+            9
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 9,
+          "loser": 16,
+          "wave": 8,
+          "startsAt": "2026-11-01T22:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/final/1/1",
+          "entrants": [
+            6,
+            9
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "winner": 9,
+          "loser": 6,
+          "wave": 9,
+          "startsAt": "2026-11-02T00:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        },
+        {
+          "id": "de/final/2/1",
+          "entrants": [
+            6,
+            9
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "winner": 9,
+          "loser": 6,
+          "wave": 10,
+          "startsAt": "2026-11-02T02:00:00.000Z",
+          "durationMinutes": 60,
+          "minRestMinutes": 15
+        }
+      ],
+      "champion": 9,
+      "runnerUp": 6,
+      "losses": {
+        "2": 2,
+        "4": 2,
+        "6": 2,
+        "8": 2,
+        "9": 1,
+        "11": 2,
+        "13": 2,
+        "16": 2
+      },
+      "standings": [
+        {
+          "seed": 9,
+          "rank": 1,
+          "wins": 5,
+          "actualLosses": 1,
+          "netGames": 5
+        },
+        {
+          "seed": 6,
+          "rank": 2,
+          "wins": 3,
+          "actualLosses": 2,
+          "netGames": 1
+        },
+        {
+          "seed": 16,
+          "rank": 3,
+          "wins": 3,
+          "actualLosses": 2,
+          "netGames": 3
+        },
+        {
+          "seed": 2,
+          "rank": 4,
+          "wins": 2,
+          "actualLosses": 2,
+          "netGames": 0
+        },
+        {
+          "seed": 4,
+          "rank": 5,
+          "wins": 1,
+          "actualLosses": 2,
+          "netGames": 0
+        },
+        {
+          "seed": 11,
+          "rank": 5,
+          "wins": 1,
+          "actualLosses": 2,
+          "netGames": -1
+        },
+        {
+          "seed": 8,
+          "rank": 7,
+          "wins": 0,
+          "actualLosses": 2,
+          "netGames": -4
+        },
+        {
+          "seed": 13,
+          "rank": 7,
+          "wins": 0,
+          "actualLosses": 2,
+          "netGames": -4
+        }
+      ],
+      "matchCount": 35
+    }
+  ]
+}

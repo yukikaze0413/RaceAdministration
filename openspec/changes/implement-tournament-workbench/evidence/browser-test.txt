@@ -1,0 +1,76 @@
+
+> race-administration-frontend@0.1.0 e2e
+> npm run calendar:build && playwright test --reporter=line
+
+
+> race-administration-frontend@0.1.0 calendar:build
+> tsc -p tsconfig.calendar-gate.json && vite build --config calendar-gate.config.ts
+
+vite v8.3.2 building client environment for production...
+transforming...
+✓ 1487 modules transformed.
+rendering chunks...
+computing gzip size...
+../output/calendar-gate-dist/index.html                   0.36 kB │ gzip:   0.29 kB
+../output/calendar-gate-dist/assets/index-B-7eWZCf.css    0.54 kB │ gzip:   0.33 kB
+../output/calendar-gate-dist/assets/index-CDhLovpA.js   560.36 kB │ gzip: 181.77 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 178ms
+(node:27752) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 41 tests using 1 worker
+
+(node:36440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+(node:36440) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+
+[1/41] e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 360
+[2/41] e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 768
+[3/41] e2e\account-lifecycle.spec.ts:52:3 › account avatar rename persistence and permanent deletion at 1440
+[4/41] e2e\account-lifecycle.spec.ts:203:1 › overview cancels pending preview, retries failure and confirms logout separately
+[5/41] e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 360
+[6/41] e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 768
+[7/41] e2e\calendar-gate.spec.ts:18:3 › calendar gate: Chinese popup, keyboard commit/cancel and clear at 1440
+[8/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in UTC
+[9/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in UTC
+[10/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in UTC
+[11/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 360 in Asia/Shanghai
+[12/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 768 in Asia/Shanghai
+[13/41] e2e\datetime.spec.ts:65:5 › DT1/DT2 calendar create/edit/clear with keyboard at 1440 in Asia/Shanghai
+[14/41] e2e\datetime.spec.ts:157:1 › DT2 invalid date blocks save; conflict preserves local time/offset until explicit replacement
+[15/41] e2e\datetime.spec.ts:220:1 › DT2 New York DST gap does not affect a fixed +08 wall time; calendar draft cancellation restores original
+[16/41] e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 360
+[17/41] e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 768
+[18/41] e2e\game-presets.spec.ts:51:3 › TC1/TC2 preset create/restart/edit/filter at 1440
+[19/41] e2e\game-presets.spec.ts:120:1 › GP3 directory failure and TC1 conflict preserve local game until confirmation
+[20/41] e2e\game-presets.spec.ts:173:1 › account settings changes password, requires new login and provides logout
+[21/41] e2e\password.spec.ts:44:3 › AC1 feedback: actual 1-character registration and login at 360px
+[22/41] e2e\password.spec.ts:44:3 › AC1 feedback: actual 1025-character registration and login at 1440px
+[23/41] e2e\platform.spec.ts:56:1 › actual account → series → event → edit → validate → mapped preview → freeze → denied other owner
+[24/41] e2e\platform.spec.ts:189:1 › 360 / 768 / 1440 layouts, keyboard, deep links and API fallback isolation
+[25/41] e2e\platform.spec.ts:231:1 › read version conflicts recover and small-screen diagnostics focus the correct form field
+[26/41] e2e\platform.spec.ts:287:1 › revoked session clears private UI, password recovery and participation stay explicit
+[27/41] e2e\platform.spec.ts:315:1 › capability failure can be retried and unknown capability never enables configuration writes
+[28/41] e2e\platform.spec.ts:358:1 › metadata edits update context, visibility remains real, and profile saves without losing confirmation
+[29/41] e2e\platform.spec.ts:394:1 › preview failure removes old allocations, pool sample retains DQ, and narrow tables scroll inside their region
+[30/41] e2e\platform.spec.ts:444:1 › page render errors recover, unknown pages are 404, and malformed responses never become empty data
+[31/41] e2e\tournament-workbench.spec.ts:38:1 › 报名页面真实发布自定义收集表
+[32/41] e2e\tournament-workbench.spec.ts:49:1 › 可运行预设创建后可通过具名端口重连并保存画布
+[33/41] e2e\tournament-workbench.spec.ts:62:1 › 整轮推进页面提供真实开赛与规则操作
+[34/41] e2e\tournament-workbench.spec.ts:71:3 › 真实两人赛事从报名到冠军 360
+[35/41] e2e\tournament-workbench.spec.ts:71:3 › 真实两人赛事从报名到冠军 768
+[36/41] e2e\tournament-workbench.spec.ts:71:3 › 真实两人赛事从报名到冠军 1440
+[37/41] e2e\tournament-workbench.spec.ts:145:1 › 布局409重读保留本地缩放，明确确认后覆盖新版本
+[38/41] e2e\tournament-workbench.spec.ts:176:1 › 报名字段409重读保留本地字段
+[39/41] e2e\tournament-workbench.spec.ts:201:1 › 画布连接限制容量且键盘表单保存真实晋级路径
+[40/41] e2e\tournament-workbench.spec.ts:231:1 › 协作者编辑授权与撤权，报分权限不显示推进入口
+[41/41] e2e\tournament-workbench.spec.ts:277:1 › 画布卡片键盘移动与三宽度布局
+  41 passed (53.8s)

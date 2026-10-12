@@ -1,0 +1,2535 @@
+{
+  "version": "cologne2026-historical-observations-v1",
+  "status": "pending",
+  "entrantKind": "reference-unit",
+  "readDate": "2026-10-10",
+  "method": "Factual table transcription through public web reader; no original HTML bytes claimed. Ordinary automated source fetch returned 403 and stopped.",
+  "missing": [
+    "official event seeding and supplement/adjustment records",
+    "complete UTC scheduled/actual starts and source timezone",
+    "official corroboration of each historical series",
+    "dedicated rule adapter and runtime replay"
+  ],
+  "sourceDateConflicts": [
+    {
+      "pair": [
+        "Spirit",
+        "9z"
+      ],
+      "eventOverview": "2026-06-13",
+      "resultsListing": "2026-06-14",
+      "matchPage": "2026-06-13",
+      "url": "https://www.hltv.org/matches/2394986/spirit-vs-9z-iem-cologne-major-2026",
+      "resolution": "match page and overview date used for observation; conflicting listing preserved; no actual instant inferred"
+    },
+    {
+      "pair": [
+        "Falcons",
+        "Vitality"
+      ],
+      "resultsListing": "2026-06-20",
+      "matchPage": "2026-06-19",
+      "url": "https://www.hltv.org/matches/2394999/falcons-vs-vitality-iem-cologne-major-2026",
+      "resolution": "match page date used for observation; conflicting listing preserved; no actual instant inferred"
+    }
+  ],
+  "stages": [
+    {
+      "id": "stage1",
+      "sourceUrl": "https://www.hltv.org/events/9028/iem-cologne-major-2026-stage-1",
+      "standings": [
+        {
+          "name": "BETBOOM",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "B8",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "M80",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "MIBR",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "GamerLegion",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "BIG",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "FlyQuest",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "TYLOO",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "NRG",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "Liquid",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "Lynn Vision",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "HEROIC",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "Sharks",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "THUNDER dOWNUNDER",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 3
+        },
+        {
+          "name": "SINNERS",
+          "wins": 0,
+          "losses": 3
+        }
+      ],
+      "matches": [
+        {
+          "observationId": "cologne2026-1-1",
+          "entrantNames": [
+            "BETBOOM",
+            "Gaimin Gladiators"
+          ],
+          "displayScores": [
+            13,
+            4
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-2",
+          "entrantNames": [
+            "BETBOOM",
+            "Liquid"
+          ],
+          "displayScores": [
+            13,
+            9
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-3",
+          "entrantNames": [
+            "BETBOOM",
+            "GamerLegion"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-4",
+          "entrantNames": [
+            "B8",
+            "TYLOO"
+          ],
+          "displayScores": [
+            13,
+            6
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-5",
+          "entrantNames": [
+            "B8",
+            "THUNDER dOWNUNDER"
+          ],
+          "displayScores": [
+            13,
+            11
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-6",
+          "entrantNames": [
+            "B8",
+            "M80"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-7",
+          "entrantNames": [
+            "M80",
+            "Lynn Vision"
+          ],
+          "displayScores": [
+            13,
+            8
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-8",
+          "entrantNames": [
+            "M80",
+            "Sharks"
+          ],
+          "displayScores": [
+            13,
+            6
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-9",
+          "entrantNames": [
+            "M80",
+            "NRG"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-10",
+          "entrantNames": [
+            "MIBR",
+            "THUNDER dOWNUNDER"
+          ],
+          "displayScores": [
+            6,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-11",
+          "entrantNames": [
+            "MIBR",
+            "TYLOO"
+          ],
+          "displayScores": [
+            16,
+            14
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-12",
+          "entrantNames": [
+            "MIBR",
+            "Liquid"
+          ],
+          "displayScores": [
+            13,
+            10
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-13",
+          "entrantNames": [
+            "MIBR",
+            "Lynn Vision"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-14",
+          "entrantNames": [
+            "GamerLegion",
+            "NRG"
+          ],
+          "displayScores": [
+            13,
+            10
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-15",
+          "entrantNames": [
+            "GamerLegion",
+            "FlyQuest"
+          ],
+          "displayScores": [
+            13,
+            11
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-16",
+          "entrantNames": [
+            "GamerLegion",
+            "BIG"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-17",
+          "entrantNames": [
+            "FlyQuest",
+            "SINNERS"
+          ],
+          "displayScores": [
+            16,
+            14
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-18",
+          "entrantNames": [
+            "FlyQuest",
+            "NRG"
+          ],
+          "displayScores": [
+            10,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-19",
+          "entrantNames": [
+            "FlyQuest",
+            "THUNDER dOWNUNDER"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-20",
+          "entrantNames": [
+            "FlyQuest",
+            "Liquid"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-05",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-21",
+          "entrantNames": [
+            "BIG",
+            "Liquid"
+          ],
+          "displayScores": [
+            10,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-22",
+          "entrantNames": [
+            "BIG",
+            "Gaimin Gladiators"
+          ],
+          "displayScores": [
+            13,
+            1
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-23",
+          "entrantNames": [
+            "BIG",
+            "THUNDER dOWNUNDER"
+          ],
+          "displayScores": [
+            13,
+            7
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-24",
+          "entrantNames": [
+            "BIG",
+            "NRG"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-05",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-25",
+          "entrantNames": [
+            "TYLOO",
+            "SINNERS"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-26",
+          "entrantNames": [
+            "TYLOO",
+            "Sharks"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-27",
+          "entrantNames": [
+            "TYLOO",
+            "Lynn Vision"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-05",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-28",
+          "entrantNames": [
+            "Liquid",
+            "HEROIC"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-04",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-29",
+          "entrantNames": [
+            "NRG",
+            "SINNERS"
+          ],
+          "displayScores": [
+            13,
+            6
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-30",
+          "entrantNames": [
+            "Lynn Vision",
+            "HEROIC"
+          ],
+          "displayScores": [
+            13,
+            11
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-31",
+          "entrantNames": [
+            "Lynn Vision",
+            "Sharks"
+          ],
+          "displayScores": [
+            13,
+            5
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-32",
+          "entrantNames": [
+            "HEROIC",
+            "Gaimin Gladiators"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-03",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-1-33",
+          "entrantNames": [
+            "HEROIC",
+            "Sharks"
+          ],
+          "displayScores": [
+            10,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-02",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        }
+      ]
+    },
+    {
+      "id": "stage2",
+      "sourceUrl": "https://www.hltv.org/events/9029/iem-cologne-major-2026-stage-2",
+      "standings": [
+        {
+          "name": "Spirit",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "FUT",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "G2",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "BETBOOM",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "9z",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "Legacy",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "Monte",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "B8",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "paiN",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "BIG",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "TYLOO",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "MIBR",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "Astralis",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "M80",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "GamerLegion",
+          "wins": 0,
+          "losses": 3
+        },
+        {
+          "name": "FlyQuest",
+          "wins": 0,
+          "losses": 3
+        }
+      ],
+      "matches": [
+        {
+          "observationId": "cologne2026-2-1",
+          "entrantNames": [
+            "Spirit",
+            "BETBOOM"
+          ],
+          "displayScores": [
+            13,
+            5
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-2",
+          "entrantNames": [
+            "Spirit",
+            "MIBR"
+          ],
+          "displayScores": [
+            13,
+            1
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-3",
+          "entrantNames": [
+            "Spirit",
+            "9z"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-4",
+          "entrantNames": [
+            "FUT",
+            "B8"
+          ],
+          "displayScores": [
+            13,
+            11
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-5",
+          "entrantNames": [
+            "FUT",
+            "TYLOO"
+          ],
+          "displayScores": [
+            13,
+            9
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-6",
+          "entrantNames": [
+            "FUT",
+            "G2"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-7",
+          "entrantNames": [
+            "G2",
+            "M80"
+          ],
+          "displayScores": [
+            13,
+            8
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-8",
+          "entrantNames": [
+            "G2",
+            "Monte"
+          ],
+          "displayScores": [
+            22,
+            19
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-9",
+          "entrantNames": [
+            "G2",
+            "BIG"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-10",
+          "entrantNames": [
+            "BETBOOM",
+            "GamerLegion"
+          ],
+          "displayScores": [
+            13,
+            9
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-11",
+          "entrantNames": [
+            "BETBOOM",
+            "M80"
+          ],
+          "displayScores": [
+            13,
+            2
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-12",
+          "entrantNames": [
+            "BETBOOM",
+            "Monte"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-13",
+          "entrantNames": [
+            "9z",
+            "FlyQuest"
+          ],
+          "displayScores": [
+            13,
+            9
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-14",
+          "entrantNames": [
+            "9z",
+            "Astralis"
+          ],
+          "displayScores": [
+            13,
+            5
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-15",
+          "entrantNames": [
+            "9z",
+            "TYLOO"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-16",
+          "entrantNames": [
+            "Legacy",
+            "MIBR"
+          ],
+          "displayScores": [
+            8,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-17",
+          "entrantNames": [
+            "Legacy",
+            "FlyQuest"
+          ],
+          "displayScores": [
+            13,
+            7
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-18",
+          "entrantNames": [
+            "Legacy",
+            "Monte"
+          ],
+          "displayScores": [
+            11,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-19",
+          "entrantNames": [
+            "Legacy",
+            "M80"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-20",
+          "entrantNames": [
+            "Legacy",
+            "TYLOO"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-09",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-21",
+          "entrantNames": [
+            "Monte",
+            "BIG"
+          ],
+          "displayScores": [
+            13,
+            8
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-22",
+          "entrantNames": [
+            "Monte",
+            "paiN"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-09",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-23",
+          "entrantNames": [
+            "B8",
+            "M80"
+          ],
+          "displayScores": [
+            10,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-24",
+          "entrantNames": [
+            "B8",
+            "GamerLegion"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-25",
+          "entrantNames": [
+            "B8",
+            "MIBR"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-26",
+          "entrantNames": [
+            "B8",
+            "BIG"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-09",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-27",
+          "entrantNames": [
+            "paiN",
+            "TYLOO"
+          ],
+          "displayScores": [
+            9,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-28",
+          "entrantNames": [
+            "paiN",
+            "BIG"
+          ],
+          "displayScores": [
+            9,
+            13
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            0,
+            1
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-29",
+          "entrantNames": [
+            "paiN",
+            "FlyQuest"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-30",
+          "entrantNames": [
+            "paiN",
+            "Astralis"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-08",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-31",
+          "entrantNames": [
+            "BIG",
+            "MIBR"
+          ],
+          "displayScores": [
+            13,
+            8
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-32",
+          "entrantNames": [
+            "TYLOO",
+            "Astralis"
+          ],
+          "displayScores": [
+            13,
+            6
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-07",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-2-33",
+          "entrantNames": [
+            "Astralis",
+            "GamerLegion"
+          ],
+          "displayScores": [
+            13,
+            4
+          ],
+          "displayScoreMeaning": "map-rounds",
+          "scores": [
+            1,
+            0
+          ],
+          "bestOf": 1,
+          "sourceDate": "2026-06-06",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        }
+      ]
+    },
+    {
+      "id": "stage3",
+      "sourceUrl": "https://www.hltv.org/events/8301/iem-cologne-major-2026",
+      "standings": [
+        {
+          "name": "FURIA",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "Spirit",
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "name": "Aurora",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "Vitality",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "Falcons",
+          "wins": 3,
+          "losses": 1
+        },
+        {
+          "name": "G2",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "BETBOOM",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "9z",
+          "wins": 3,
+          "losses": 2
+        },
+        {
+          "name": "The MongolZ",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "Natus Vincere",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "FUT",
+          "wins": 2,
+          "losses": 3
+        },
+        {
+          "name": "MOUZ",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "Monte",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "Legacy",
+          "wins": 1,
+          "losses": 3
+        },
+        {
+          "name": "PARIVISION",
+          "wins": 0,
+          "losses": 3
+        },
+        {
+          "name": "B8",
+          "wins": 0,
+          "losses": 3
+        }
+      ],
+      "matches": [
+        {
+          "observationId": "cologne2026-3-1",
+          "entrantNames": [
+            "Natus Vincere",
+            "Spirit"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-2",
+          "entrantNames": [
+            "Falcons",
+            "G2"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-3",
+          "entrantNames": [
+            "Aurora",
+            "Monte"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-4",
+          "entrantNames": [
+            "FURIA",
+            "B8"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-5",
+          "entrantNames": [
+            "Vitality",
+            "FUT"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-6",
+          "entrantNames": [
+            "MOUZ",
+            "Legacy"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-7",
+          "entrantNames": [
+            "The MongolZ",
+            "BETBOOM"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-8",
+          "entrantNames": [
+            "PARIVISION",
+            "9z"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-11",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-9",
+          "entrantNames": [
+            "Aurora",
+            "Spirit"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-10",
+          "entrantNames": [
+            "Vitality",
+            "9z"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-11",
+          "entrantNames": [
+            "Falcons",
+            "BETBOOM"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-12",
+          "entrantNames": [
+            "Natus Vincere",
+            "Legacy"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-13",
+          "entrantNames": [
+            "FUT",
+            "G2"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-14",
+          "entrantNames": [
+            "PARIVISION",
+            "Monte"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-15",
+          "entrantNames": [
+            "FURIA",
+            "MOUZ"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-16",
+          "entrantNames": [
+            "The MongolZ",
+            "B8"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-12",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-17",
+          "entrantNames": [
+            "BETBOOM",
+            "FURIA"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-18",
+          "entrantNames": [
+            "PARIVISION",
+            "Legacy"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-19",
+          "entrantNames": [
+            "Vitality",
+            "MOUZ"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-20",
+          "entrantNames": [
+            "Falcons",
+            "Monte"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-21",
+          "entrantNames": [
+            "Aurora",
+            "G2"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-22",
+          "entrantNames": [
+            "Natus Vincere",
+            "The MongolZ"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-23",
+          "entrantNames": [
+            "B8",
+            "FUT"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-24",
+          "entrantNames": [
+            "Natus Vincere",
+            "Falcons"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-25",
+          "entrantNames": [
+            "G2",
+            "Legacy"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-26",
+          "entrantNames": [
+            "BETBOOM",
+            "Vitality"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-27",
+          "entrantNames": [
+            "Aurora",
+            "9z"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-28",
+          "entrantNames": [
+            "MOUZ",
+            "FUT"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-29",
+          "entrantNames": [
+            "The MongolZ",
+            "Monte"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-14",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-30",
+          "entrantNames": [
+            "Spirit",
+            "9z"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-13",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-31",
+          "entrantNames": [
+            "Natus Vincere",
+            "G2"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-15",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-32",
+          "entrantNames": [
+            "BETBOOM",
+            "FUT"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-15",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-3-33",
+          "entrantNames": [
+            "9z",
+            "The MongolZ"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-15",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        }
+      ]
+    },
+    {
+      "id": "playoffs",
+      "sourceUrl": "https://www.hltv.org/results?event=8301",
+      "standings": null,
+      "matches": [
+        {
+          "observationId": "cologne2026-4-1",
+          "entrantNames": [
+            "9z",
+            "FURIA"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-18",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-2",
+          "entrantNames": [
+            "Aurora",
+            "BETBOOM"
+          ],
+          "displayScores": [
+            2,
+            0
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            0
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-18",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-3",
+          "entrantNames": [
+            "G2",
+            "Spirit"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-19",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-4",
+          "entrantNames": [
+            "Spirit",
+            "Falcons"
+          ],
+          "displayScores": [
+            1,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            1,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-20",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-5",
+          "entrantNames": [
+            "Aurora",
+            "FURIA"
+          ],
+          "displayScores": [
+            0,
+            2
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            2
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-20",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-6",
+          "entrantNames": [
+            "Falcons",
+            "Vitality"
+          ],
+          "displayScores": [
+            2,
+            1
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            2,
+            1
+          ],
+          "bestOf": 3,
+          "sourceDate": "2026-06-19",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        },
+        {
+          "observationId": "cologne2026-4-7",
+          "entrantNames": [
+            "FURIA",
+            "Falcons"
+          ],
+          "displayScores": [
+            0,
+            3
+          ],
+          "displayScoreMeaning": "series-game-wins",
+          "scores": [
+            0,
+            3
+          ],
+          "bestOf": 5,
+          "sourceDate": "2026-06-21",
+          "sourceDateMeaning": "displayed date; timezone and scheduled/actual semantics unverified",
+          "actualStartedAt": null,
+          "scheduledAt": null
+        }
+      ]
+    }
+  ]
+}

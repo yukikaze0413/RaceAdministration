@@ -1,0 +1,37 @@
+{
+  "openspec": {
+    "exitCode": 0,
+    "command": "openspec validate optimize-tournament-planning-and-schedules --strict"
+  },
+  "date": "2026-10-08",
+  "backend": {
+    "exitCode": 0,
+    "tests": 95,
+    "command": "npm test",
+    "cwd": "backend",
+    "skipped": 0,
+    "passed": 95,
+    "failed": 0
+  },
+  "implementationFilesChanged": false,
+  "task": "0.1",
+  "sourceHashes": {
+    "backend/src/tournament-configuration/application/service.js": "D0A806AF580446026F09FD8FC39551B84495A3352364914775B6EE433969977D",
+    "backend/src/platform/operations/progression.js": "747B6C93D2AE1F5B7BFD5C49C5615176EA941B47C3C75F7893BA5EDA317D2418",
+    "backend/src/tournament-configuration/domain/canonical.js": "3134AD8D0963A1603FFFB937DA15AE2F55DD5742D2ACE22E440279C7A54C2DB8",
+    "backend/src/platform/operations/runtime.js": "E898F63C30C939C5822F0F78F55B602D62FFAFB479B29435489811E45FEBE5F4",
+    "backend/src/tournament-configuration/domain/structure.js": "60E377DF99916EFBF761B4E21C6B0708511A226DEC6FB0359AC2546E9D87E163",
+    "backend/test/platform/tournament-operations.test.js": "3DA919950CB7D47E3E662452AED088A91E40F05B0AF9CE39A91A02D056A71728",
+    "backend/src/platform/operations/runtime-http.js": "25CB8AC3914576B54D0B17C941BFE2E068C18C3A0E1F8F91DDBC1D9FFE79022D",
+    "backend/src/platform/operations/presets.js": "86DF0102A704885004E3C531BB7B338F926205E4FFCF39A4694B7840D3A72CCA",
+    "backend/src/platform/operations/registration.js": "C17F67E9098AAEADEE481BD9E4383F75261255F94D37EC2D76C31F78BD5F1DFA"
+  },
+  "independentReview": {
+    "status": "no-blocking-findings",
+    "correctedSourceReferences": [
+      "presets.js:56",
+      "runtime-http.js:108",
+      "progression.js:15"
+    ]
+  }
+}

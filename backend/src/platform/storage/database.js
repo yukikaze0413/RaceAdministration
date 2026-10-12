@@ -14,9 +14,11 @@ function openDatabase(path) {
  CREATE TABLE IF NOT EXISTS sessions(tokenHash TEXT PRIMARY KEY,userId TEXT NOT NULL REFERENCES users(id),expiresAt INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS series(id TEXT PRIMARY KEY,ownerId TEXT NOT NULL REFERENCES users(id),data TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS tournaments(id TEXT PRIMARY KEY,ownerId TEXT NOT NULL REFERENCES users(id),data TEXT NOT NULL);
+ CREATE TABLE IF NOT EXISTS operations_aggregates(tournamentId TEXT PRIMARY KEY REFERENCES tournaments(id),data TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS structure_aggregates(tournamentId TEXT PRIMARY KEY REFERENCES tournaments(id),data TEXT NOT NULL);
+ CREATE TABLE IF NOT EXISTS schedule_aggregates(tournamentId TEXT PRIMARY KEY REFERENCES tournaments(id) ON DELETE CASCADE,version INTEGER NOT NULL,data TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS catalog_requests(actorId TEXT NOT NULL REFERENCES users(id),requestKey TEXT NOT NULL,fingerprint TEXT NOT NULL,result TEXT NOT NULL,PRIMARY KEY(actorId,requestKey));
- INSERT OR IGNORE INTO schema_migrations VALUES(1); COMMIT;`);
+ INSERT OR IGNORE INTO schema_migrations VALUES(1); INSERT OR IGNORE INTO schema_migrations VALUES(2); COMMIT;`);
     return db;
   } catch (e) {
     db.close();

@@ -9,8 +9,27 @@ async function fixture(t, options = {}) {
     origins: ["http://localhost:5173"],
     ...options,
   });
-  const server = platform.app.listen(0, "127.0.0.1");
-  await new Promise((r) => server.once("listening", r));
+  let server;
+  // Avoid ephemeral low ports rejected by Fetch on this Windows host.
+  for (let attempt = 0; attempt < 30; attempt++) {
+    server = platform.app.listen(
+      25000 + Math.floor(Math.random() * 30000),
+      "127.0.0.1",
+    );
+    const ready = await new Promise((resolve, reject) => {
+      server.once("listening", () => resolve(true));
+      server.once("error", (error) =>
+        ["EADDRINUSE", "EACCES"].includes(error.code)
+          ? resolve(false)
+          : reject(error),
+      );
+    });
+    if (ready) break;
+    if (attempt === 29) {
+      platform.close();
+      throw new Error("No available high test port");
+    }
+  }
   t.after(async () => {
     await new Promise((r) => server.close(r));
     platform.close();

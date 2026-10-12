@@ -2,10 +2,10 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const { createApp } = require("../../src/app");
+const { listenTestServer } = require("../helpers/http-listener");
 async function fixture(t) {
   const p = createApp({ origins: ["http://localhost:5173"] }),
-    s = p.app.listen(0, "127.0.0.1");
-  await new Promise((r) => s.once("listening", r));
+    s = await listenTestServer(p.app);
   t.after(
     () =>
       new Promise((r) => {

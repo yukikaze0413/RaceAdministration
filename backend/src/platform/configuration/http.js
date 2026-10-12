@@ -11,30 +11,55 @@ const {
 const {
   listTemplates,
 } = require("../../tournament-configuration/domain/templates");
-function mountConfiguration(api, { db, send }) {
-  const store = createSqliteStore(db),
+function mountConfiguration(api, { db, send, allowReferenceUnits = false }) {
+  const store = createSqliteStore(
+      db,
+      ({ actorId, parentAuthorization }, tid, action = "structure.edit") =>
+        (!parentAuthorization || parentAuthorization() === true) &&
+        require("../operations/state").can(db, tid, actorId, action),
+    ),
     service = createService({
       store,
-      authorize: ({ actorId }, tid) => {
+      allowReferenceUnits,
+      authorize: ({ actorId, parentAuthorization }, tid) => {
+        if (parentAuthorization && parentAuthorization() !== true) return false;
         const row = db
           .prepare("SELECT ownerId FROM tournaments WHERE id=?")
           .get(tid);
-        return row?.ownerId === actorId;
+        return require("../operations/state").can(
+          db,
+          tid,
+          actorId,
+          "structure.edit",
+        );
       },
     });
   api.get("/templates", (req, res) => {
     loginRequired(req);
     send(req, res, listTemplates());
   });
+  api.get("/formats", (req, res) => {
+    loginRequired(req);
+    send(
+      req,
+      res,
+      require("../../tournament-configuration/domain/formats/registry").formatCatalog(),
+    );
+  });
   const base = "/tournaments/:tid/configurations";
   function params(req) {
-    visible(db, req, req.params.tid, true);
+    visible(db, req, req.params.tid, "structure.edit");
     const key = req.get("Idempotency-Key");
     if (key && key.length > 200) reject(422, "INVALID_INPUT", "请求键过长。");
     return {
       tournamentId: req.params.tid,
       id: req.params.cid,
-      trustedContext: { actorId: req.user.id },
+      trustedContext: {
+        actorId: req.user.id,
+        ...(typeof req.parentAuthorization === "function"
+          ? { parentAuthorization: req.parentAuthorization }
+          : {}),
+      },
       requestKey: key,
     };
   }
@@ -63,6 +88,72 @@ function mountConfiguration(api, { db, send }) {
       201,
     );
   });
+  api.post(base + "/:cid/copy-upgrade", async (req, res) => {
+    const p = params(req);
+    fields(req.body, ["expectedVersion"]);
+    send(
+      req,
+      res,
+      await service.copyUpgrade({
+        ...p,
+        expectedVersion: req.body.expectedVersion,
+      }),
+      201,
+    );
+  });
+  api.post(base + "/:cid/stages", async (req, res) => {
+    const p = params(req);
+    fields(req.body, ["expectedVersion", "stage"]);
+    send(
+      req,
+      res,
+      await service.addStage({
+        ...p,
+        expectedVersion: req.body.expectedVersion,
+        payload: req.body.stage,
+      }),
+    );
+  });
+  api.post(base + "/:cid/stages/:sid/plan", async (req, res) => {
+    const p = params(req);
+    fields(req.body, ["expectedVersion", "changes"]);
+    send(
+      req,
+      res,
+      await service.planStageChange({
+        ...p,
+        expectedVersion: req.body.expectedVersion,
+        payload: { stageId: req.params.sid, changes: req.body.changes },
+      }),
+    );
+  });
+  api.post(base + "/:cid/stages/:sid/apply", async (req, res) => {
+    const p = params(req);
+    fields(req.body, [
+      "expectedVersion",
+      "changes",
+      "confirmed",
+      "confirmationToken",
+    ]);
+    send(
+      req,
+      res,
+      await service.applyStageChange({
+        ...p,
+        expectedVersion: req.body.expectedVersion,
+        payload: {
+          stageId: req.params.sid,
+          changes: req.body.changes,
+          ...(req.body.confirmed !== undefined
+            ? { confirmed: req.body.confirmed }
+            : {}),
+          ...(req.body.confirmationToken !== undefined
+            ? { confirmationToken: req.body.confirmationToken }
+            : {}),
+        },
+      }),
+    );
+  });
   api.post(base + "/from-template", async (req, res) => {
     const p = params(req);
     fields(req.body, ["templateId", "templateVersion"]);
@@ -82,6 +173,7 @@ function mountConfiguration(api, { db, send }) {
     send(req, res, await service.replaceDraft({ ...p, ...req.body }));
   });
   for (const [suffix, method, allowed] of [
+    ["graph-plan", "graphPlan", ["expectedVersion", "payload"]],
     [
       "validate",
       "validateConfiguration",
@@ -99,11 +191,19 @@ function mountConfiguration(api, { db, send }) {
   api.get("/tournaments/:tid/stages", async (req, res) => {
     visible(db, req, req.params.tid);
     const state = await store.read(req.params.tid);
-    const snapshot = [...state.snapshots.values()].sort(
-      (a, b) =>
-        b.frozenAt.localeCompare(a.frozenAt) ||
-        b.snapshotId.localeCompare(a.snapshotId),
-    )[0];
+    const snapshot = [...state.snapshots.values()]
+      .filter(
+        (s) =>
+          !req.query.configurationId ||
+          s.configurationId === req.query.configurationId,
+      )
+      .sort(
+        (a, b) =>
+          b.frozenAt.localeCompare(a.frozenAt) ||
+          b.snapshotId.localeCompare(a.snapshotId),
+      )[0];
+    if (req.query.configurationId && !snapshot)
+      reject(404, "NOT_FOUND", "未找到此赛事的冻结配置。");
     if (!snapshot)
       return send(req, res, {
         availability: "no-frozen-configuration",
@@ -114,14 +214,56 @@ function mountConfiguration(api, { db, send }) {
       configurationId: snapshot.configurationId,
       version: snapshot.version,
       frozenAt: snapshot.frozenAt,
-      runtimeReady: false,
+      runtimeReady: snapshot.runtimeReady,
+      ...(snapshot.structure.structureVersion === "structure-v2"
+        ? { structureVersion: "structure-v2" }
+        : {}),
       items: snapshot.structure.stages.map((s) => ({
         id: s.id,
         order: s.order,
         capacity: s.capacity,
         formatIntent: s.formatIntent,
+        ...(snapshot.structure.structureVersion === "structure-v2"
+          ? {
+              name: s.name,
+              format: s.format,
+              ruleVersion: s.ruleVersion,
+              isRoot: !snapshot.structure.routes.some(
+                (r) => r.target.stageId === s.id,
+              ),
+              inputs: snapshot.plan.units
+                .filter((u) => u.stageId === s.id)
+                .map((u) => ({ groupId: u.groupId, ports: u.inputs })),
+            }
+          : {}),
         groups: s.groups.map((g) => ({ id: g.id, capacity: g.capacity })),
       })),
+    });
+  });
+  api.get("/tournaments/:tid/entry-configurations", async (req, res) => {
+    visible(db, req, req.params.tid);
+    require("../operations/state").requirePermission(
+      db,
+      req,
+      req.params.tid,
+      "registration.review",
+    );
+    const state = await store.read(req.params.tid);
+    send(req, res, {
+      items: [...state.configurations.values()]
+        .filter((c) => c.snapshot)
+        .sort(
+          (a, b) =>
+            b.snapshot.frozenAt.localeCompare(a.snapshot.frozenAt) ||
+            b.id.localeCompare(a.id),
+        )
+        .map((c) => ({
+          id: c.id,
+          version: c.version,
+          structureVersion: c.structureVersion,
+          label: c.stages.map((s) => s.name ?? "阶段" + s.order).join(" → "),
+          frozenAt: c.snapshot.frozenAt,
+        })),
     });
   });
 }

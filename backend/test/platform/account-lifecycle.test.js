@@ -3,10 +3,10 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const sharp = require("sharp");
 const { createApp } = require("../../src/app");
+const { listenTestServer } = require("../helpers/http-listener");
 async function fixture(t) {
   const p = createApp({ origins: ["http://localhost:5173"] }),
-    s = p.app.listen(0, "127.0.0.1");
-  await new Promise((r) => s.once("listening", r));
+    s = await listenTestServer(p.app);
   t.after(
     () =>
       new Promise((r) => {
@@ -340,8 +340,7 @@ test("profile and deletion require session and trusted Origin, and share the cre
   );
   const preview = await req("/me/deletion-preview", null, a.cookie, "GET");
   // Exercise the existing fixture's real HTTP Origin path directly through a fresh local listener.
-  const extra = p.app.listen(0, "127.0.0.1");
-  await new Promise((resolve) => extra.once("listening", resolve));
+  const extra = await listenTestServer(p.app);
   const foreign = await fetch(
     "http://127.0.0.1:" + extra.address().port + "/api/v1/me",
     {
@@ -419,16 +418,14 @@ test("account deletion uses current ownership, preserving an event given away an
     [sent.id, b.id],
     [received.id, a.id],
   ])
-    p.db
-      .prepare("INSERT INTO structure_aggregates VALUES(?,?)")
-      .run(
-        id,
-        JSON.stringify({
-          configurations: [["c", {}]],
-          snapshots: [["s", { frozenBy: owner }]],
-          requests: [],
-        }),
-      );
+    p.db.prepare("INSERT INTO structure_aggregates VALUES(?,?)").run(
+      id,
+      JSON.stringify({
+        configurations: [["c", {}]],
+        snapshots: [["s", { frozenBy: owner }]],
+        requests: [],
+      }),
+    );
   const sentBefore = p.db
     .prepare("SELECT data FROM tournaments WHERE id=?")
     .get(sent.id).data;

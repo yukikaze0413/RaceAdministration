@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { api, ApiFailure, failure, type Diagnostic } from "./api";
+import { workspacePrefix } from "./workspace";
 export function ErrorNotice({
   error,
   onRetry,
@@ -52,7 +53,10 @@ export function ErrorNotice({
         <Link
           to={
             "/login?returnTo=" +
-            encodeURIComponent(location.pathname + location.search)
+            encodeURIComponent(
+              location.pathname.slice(workspacePrefix().length) +
+                location.search,
+            )
           }
         >
           重新登录

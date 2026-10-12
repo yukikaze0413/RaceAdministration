@@ -5,7 +5,10 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
-    proxy: { "/api": "http://127.0.0.1:5000" },
+    proxy: {
+      "/api": "http://127.0.0.1:5000",
+      "^/demos/[a-f0-9]{64}/api(?:/|$)": "http://127.0.0.1:5000",
+    },
   },
   test: {
     environment: "jsdom",

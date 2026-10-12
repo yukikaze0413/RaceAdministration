@@ -33,6 +33,8 @@ export type Tournament = {
   visibility: "private" | "public";
   version: number;
   isOwner?: boolean;
+  effectivePermissions?: Record<string, boolean>;
+  runtimeStatus?: string;
   onSaved?: (t: any) => void;
 };
 function EventList({ items }: { items: Tournament[] }) {
@@ -44,7 +46,13 @@ function EventList({ items }: { items: Tournament[] }) {
             <span className="tag">
               {gameName(t.gameId)} · {t.game === "card" ? "卡牌" : "格斗"}
             </span>
-            <span className="muted">基础资料 · 尚未开赛</span>
+            <span className="muted">
+              {t.runtimeStatus === "completed"
+                ? "赛事已完成"
+                : t.runtimeStatus === "running"
+                  ? "赛事进行中"
+                  : "基础资料 · 尚未开赛"}
+            </span>
           </div>
           <h2>
             <Link to={"/tournaments/" + t.id}>{t.name}</Link>
@@ -249,9 +257,7 @@ export function MyTournaments() {
                 <ul>
                   {data.items.map((t: Tournament) => (
                     <li key={t.id}>
-                      <Link to={"/manage/" + t.id + "/overview"}>
-                        管理 {t.name}
-                      </Link>
+                      <Link to={"/manage/" + t.id}>管理 {t.name}</Link>
                     </li>
                   ))}
                 </ul>
@@ -669,7 +675,9 @@ export function TournamentLayout({ manage = false }: { manage?: boolean }) {
           ...(updated?.id === original.id ? updated : {}),
           onSaved: setUpdated,
         };
-        return manage && !event.isOwner ? (
+        return manage &&
+          !event.isOwner &&
+          !event.effectivePermissions?.manage ? (
           <ErrorNotice
             error={
               new ApiFailure("只有赛事创建者可以管理。", {
@@ -690,16 +698,38 @@ export function TournamentLayout({ manage = false }: { manage?: boolean }) {
                     ["settings", "基础资料"],
                     ["templates", "赛制模板"],
                     ["registration", "报名与名单"],
-                    ["matches", "对阵与逐局"],
+                    ["matches", "比赛对阵"],
                     ["results", "赛果"],
                     ["rounds", "整轮推进"],
+                    ["schedule", "时间编排"],
                     ["sanctions", "处罚"],
                     ["collaborators", "协作者"],
-                  ].map(([path, label]) => (
-                    <NavLink key={path} to={"/manage/" + tid + "/" + path}>
-                      {label}
-                    </NavLink>
-                  ))}
+                  ]
+                    .filter(([path]) => {
+                      if (!manage || event.isOwner) return true;
+                      const p = event.effectivePermissions ?? {};
+                      const required: Record<string, string[]> = {
+                        overview: ["structure.edit"],
+                        settings: ["metadata.edit"],
+                        templates: ["structure.edit"],
+                        registration: [
+                          "registrationSchema.edit",
+                          "registration.review",
+                        ],
+                        matches: ["results.edit", "rounds.confirm"],
+                        results: ["results.edit"],
+                        rounds: ["rounds.confirm"],
+                        schedule: ["structure.edit", "results.edit"],
+                        sanctions: [],
+                        collaborators: ["collaborators.manage"],
+                      };
+                      return required[path]?.some((k) => p[k]);
+                    })
+                    .map(([path, label]) => (
+                      <NavLink key={path} to={"/manage/" + tid + "/" + path}>
+                        {label}
+                      </NavLink>
+                    ))}
                 </nav>
               </aside>
             )}
@@ -711,15 +741,19 @@ export function TournamentLayout({ manage = false }: { manage?: boolean }) {
                   {event.visibility === "public" ? "公开" : "私有"}
                 </span>
                 <h1>{event.name}</h1>
-                <p>尚未开赛 · 结构配置不代表赛制运行</p>
-                <Link
-                  to={
-                    manage
-                      ? "/tournaments/" + tid
-                      : "/manage/" + tid + "/overview"
-                  }
-                >
-                  {manage ? "查看赛事主页" : event.isOwner ? "管理赛事" : ""}
+                <p>
+                  {event.runtimeStatus === "completed"
+                    ? "赛事已完成"
+                    : event.runtimeStatus === "running"
+                      ? "赛事进行中"
+                      : "尚未开赛 · 先设置报名与赛制"}
+                </p>
+                <Link to={manage ? "/tournaments/" + tid : "/manage/" + tid}>
+                  {manage
+                    ? "查看赛事主页"
+                    : event.isOwner || event.effectivePermissions?.manage
+                      ? "管理赛事"
+                      : ""}
                 </Link>
               </header>
               {!manage && (
@@ -729,15 +763,36 @@ export function TournamentLayout({ manage = false }: { manage?: boolean }) {
                     ["stages", "阶段"],
                     ["matches", "对阵"],
                     ["standings", "排名"],
-                  ].map(([path, label]) => (
-                    <NavLink
-                      end
-                      key={path}
-                      to={"/tournaments/" + tid + (path ? "/" + path : "")}
-                    >
-                      {label}
-                    </NavLink>
-                  ))}
+                    ["schedule", "赛程"],
+                  ]
+                    .filter(([path]) => {
+                      if (!manage || event.isOwner) return true;
+                      const p = event.effectivePermissions ?? {};
+                      const required: Record<string, string[]> = {
+                        overview: ["structure.edit"],
+                        settings: ["metadata.edit"],
+                        templates: ["structure.edit"],
+                        registration: [
+                          "registrationSchema.edit",
+                          "registration.review",
+                        ],
+                        matches: ["results.edit", "rounds.confirm"],
+                        results: ["results.edit"],
+                        rounds: ["rounds.confirm"],
+                        sanctions: [],
+                        collaborators: ["collaborators.manage"],
+                      };
+                      return required[path]?.some((k) => p[k]);
+                    })
+                    .map(([path, label]) => (
+                      <NavLink
+                        end
+                        key={path}
+                        to={"/tournaments/" + tid + (path ? "/" + path : "")}
+                      >
+                        {label}
+                      </NavLink>
+                    ))}
                 </nav>
               )}
               <Outlet context={event} />
@@ -790,7 +845,9 @@ export function PublicStages() {
                 配置 {data.configurationId.slice(0, 8)} · 版本 {data.version} ·{" "}
                 {new Date(data.frozenAt).toLocaleString()}
               </p>
-              <p className="warning">以下为冻结结构摘要，赛制运行尚未实现。</p>
+              <p className="warning">
+                以下为冻结结构摘要。实际对阵与赛果请查看比赛对阵、排名与赛果页面。
+              </p>
               {data.items.map((s: any) => (
                 <article className="panel" key={s.id}>
                   <h3>

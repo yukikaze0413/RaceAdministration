@@ -726,3 +726,208 @@ button.danger {
     padding: 16px;
   }
 }
+
+/* Tournament composition and live competition reuse the workbench palette. */
+.preset-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+}
+.field-editor {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.field-editor:last-of-type {
+  border-bottom: 0;
+}
+.graph-viewport {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  height: 640px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  background-color: #eef3fa;
+  background-image: radial-gradient(#c9d5e5 1px, transparent 1px);
+  background-size: 20px 20px;
+  touch-action: pan-x pan-y;
+}
+.graph-world {
+  position: relative;
+  transform-origin: 0 0;
+}
+.graph-world > svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+.graph-node {
+  position: absolute;
+  width: 280px;
+  border: 1px solid #9faec3;
+  border-top: 4px solid var(--primary);
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 4px 10px #172b4d15;
+}
+.graph-node > p {
+  font-size: 14px;
+  margin: 8px 0;
+}
+.graph-drag {
+  width: 100%;
+  font-weight: 700;
+  cursor: grab;
+  touch-action: none;
+  background: #eef3fa;
+  border: 0;
+}
+.graph-ports {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.graph-ports > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.graph-ports button {
+  padding: 4px 8px;
+  font-size: 14px;
+  min-height: 32px;
+}
+.graph-ports button[aria-pressed="true"] {
+  background: #2458b8;
+  color: #fff;
+}
+.graph-edge {
+  fill: none;
+  stroke: #2458b8;
+  stroke-width: 2.5;
+}
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.match-card {
+  padding: 18px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 6px;
+}
+.match-card.locked {
+  border-left-color: #538568;
+}
+.match-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+.match-line strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.match-line > span {
+  font-weight: 700;
+  min-width: 32px;
+  text-align: right;
+}
+.score-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.round-block {
+  padding: 12px 0 24px;
+  border-bottom: 1px solid var(--border);
+}
+.competition-unit {
+  margin: 28px 0;
+}
+.winner {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2458b8;
+}
+@media (max-width: 600px) {
+  .graph-viewport {
+    height: 480px;
+  }
+  .graph-ports button {
+    min-height: 44px;
+  }
+  .match-grid {
+    grid-template-columns: 1fr;
+  }
+  .score-inputs {
+    gap: 8px;
+  }
+}
+
+.competition-unit table { min-width: 100%; }
+.competition-unit caption { text-align: left; padding: 10px; font-weight: 600; }
+@media(max-width:600px){.competition-unit th,.competition-unit td{padding:8px;}}
+
+/* Format-specific parameter editor: preserve the existing workbench tokens. */
+.parameter-workbench { min-width: 0; }
+.parameter-workbench .parameter-summary { border-left: 3px solid var(--primary); background: #edf3fc; padding: 12px 16px; font-weight: 600; }
+.parameter-advanced { margin: 20px 0; border-top: 1px solid var(--border); padding-top: 14px; }
+.parameter-advanced > summary { cursor: pointer; font-weight: 600; }
+.parameter-nested { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.parameter-nested > legend { font-size: 17px; }
+.parameter-nested ol { padding-inline-start: 24px; }
+.parameter-nested li { margin: 12px 0; }
+.parameter-round { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 12px; }
+.parameter-compare { margin: 16px 0; }
+.parameter-compare > div { padding: 8px 0; border-bottom: 1px solid var(--border); }
+.parameter-compare dt { font-weight: 600; }
+.parameter-compare dd { margin-inline-start: 0; overflow-wrap: anywhere; }
+.parameter-workbench dialog { max-height: calc(100dvh - 40px); overflow-y: auto; }
+.parameter-workbench [aria-pressed="true"] { border-color: var(--primary); background: #edf3fc; }
+@media(max-width:600px) { .parameter-round { grid-template-columns: minmax(0,1fr); } .parameter-workbench .actions > button { max-width:100%; } }
+.competition-unit .swiss-standings { min-width: 760px; }
+.swiss-standings th { white-space: nowrap; }
+.swiss-standings td:nth-child(2) { min-width: 140px; }
+
+.plan-editor { min-width: 0; }
+.plan-node { position: absolute; border: 1px solid var(--border); border-radius: 8px; background: #fff; padding: 10px; overflow: hidden; }
+.plan-node-title { display: flex; align-items: center; gap: 6px; }
+.plan-node-title input[type="checkbox"] { width:18px; height:18px; min-width:18px; min-height:18px; flex:0 0 18px; margin:0; padding:0; }
+.plan-node .graph-drag { flex: 1; min-width: 0; padding: 2px; }
+.plan-read-title { flex:1; min-width:0; font-size:14px; padding:4px; background:#eef3fa; border-radius:4px; }
+.plan-node p { margin: 5px 0; font-size: 13px; }
+.plan-source { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plan-node-status { color: var(--muted); }
+.plan-condition { border: 2px dashed #b45309; }
+.plan-condition-hint { color: #92400e; }
+.plan-edge-loser { stroke: #b45309; }
+.plan-edge-condition,.plan-edge-window { stroke-dasharray: 6 4; }
+.plan-list { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit,minmax(min(100%,280px),1fr)); }
+.plan-list-node { position: static; min-width: 0; height: auto; }
+.plan-list-node .plan-source { white-space: normal; overflow-wrap: anywhere; }
+.plan-open { margin-top: 6px; }
+.plan-port-buttons { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px; margin-top:4px; }
+.plan-port-buttons button { min-width:0; font-size:11px; padding:3px; overflow-wrap:anywhere; }
+.plan-port-buttons button[aria-pressed=true] { outline:2px solid #2458b8; }
+.plan-connection { min-width:0; margin-block:12px; }
+.plan-connection select,.plan-connection input { width:100%; min-width:0; }
+.plan-connection li { overflow-wrap:anywhere; }
+.schedule-page,.schedule-editor { min-width:0; }
+.schedule-editor { margin-block:16px; }
+.schedule-match-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:12px; }
+.schedule-match { min-width:0; border:1px solid var(--border); border-radius:8px; padding:12px; background:white; }
+.schedule-match h4,.schedule-match p { overflow-wrap:anywhere; }
+.schedule-time-slot { margin-block:20px; }
+.schedule-round { margin-block:16px; }
+.schedule-round > summary { cursor:pointer; font-weight:700; padding:12px 0; }
+.schedule-pending { display:flex; align-items:center; gap:10px; margin-block:8px; min-height:44px; }
+.schedule-pending input { width:18px; min-width:18px; min-height:18px; height:18px; flex:0 0 18px; }
+.schedule-editor fieldset { min-width:0; margin-block:12px; }
+@media(max-width:600px){.plan-editor .actions { align-items: stretch; }.plan-editor .actions > * { max-width:100%; }.plan-list { grid-template-columns: minmax(0,1fr); }}

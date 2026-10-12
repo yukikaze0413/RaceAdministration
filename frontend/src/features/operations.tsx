@@ -1,3 +1,6 @@
+import { CompetitionPage } from "./tournament/competition";
+import { CollaboratorsPage } from "./tournament/collaborators";
+import { RegistrationPage } from "./tournament/registration";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, failure, type ApiFailure } from "../shared/api";
@@ -76,7 +79,7 @@ const modules: Record<
     ],
   },
 };
-export function OperationsPage({
+function LegacyOperationsPage({
   kind,
   publicRegistration = false,
 }: {
@@ -150,4 +153,16 @@ export function OperationsPage({
       </div>
     </section>
   );
+}
+
+export function OperationsPage(props: {
+  kind: string;
+  publicRegistration?: boolean;
+}) {
+  if (props.kind === "registration")
+    return <RegistrationPage manage={!props.publicRegistration} />;
+  if (["matches", "results", "rounds", "standings"].includes(props.kind))
+    return <CompetitionPage kind={props.kind} />;
+  if (props.kind === "collaborators") return <CollaboratorsPage />;
+  return <LegacyOperationsPage {...props} />;
 }

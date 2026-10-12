@@ -16,9 +16,20 @@ function visible(db, req, id, manage = false) {
   if (manage) loginRequired(req);
   const record = load(db, "tournaments", id);
   const owner = record.ownerId === req.user?.id;
-  if (!owner && record.visibility !== "public")
+  if (
+    !owner &&
+    record.visibility !== "public" &&
+    !require("../operations/state").member(db, id, req.user?.id)
+  )
     reject(404, "NOT_FOUND", "未找到这场赛事。");
-  if (manage && !owner)
+  if (
+    manage &&
+    !owner &&
+    !(
+      typeof manage === "string" &&
+      require("../operations/state").can(db, id, req.user?.id, manage)
+    )
+  )
     reject(403, "FORBIDDEN", "只有赛事创建者可以管理这场赛事。");
   return record;
 }
@@ -182,6 +193,12 @@ function validate(body, table, creating) {
   }
 }
 function mountCatalog(api, { db, send, now = Date.now }) {
+  const decorate = (t) => ({
+    ...safeTournament(t),
+    runtimeStatus:
+      require("../operations/state").read(db, t.id).runtime?.status ??
+      "not-started",
+  });
   api.get("/games", (req, res) => send(req, res, presets));
   for (const table of ["series", "tournaments"]) {
     api.post("/" + table, (req, res) => {
@@ -236,12 +253,19 @@ function mountCatalog(api, { db, send, now = Date.now }) {
       const user = loginRequired(req),
         original =
           table === "tournaments"
-            ? visible(db, req, req.params.id, true)
+            ? visible(db, req, req.params.id, "metadata.edit")
             : load(db, table, req.params.id);
-      if (original.ownerId !== user.id)
+      if (table === "series" && original.ownerId !== user.id)
         reject(403, "FORBIDDEN", "只能修改自己的系列。");
       validate(req.body, table, false);
       const record = write(db, req, "edit-" + table, req.params.id, (actor) => {
+        if (table === "tournaments")
+          require("../operations/state").requirePermission(
+            db,
+            req,
+            req.params.id,
+            "metadata.edit",
+          );
         const current = load(db, table, req.params.id);
         if (req.body.expectedVersion !== current.version)
           reject(409, "VERSION_CONFLICT", "资料版本已变化，请重新读取。");
@@ -263,7 +287,7 @@ function mountCatalog(api, { db, send, now = Date.now }) {
         }
         if (
           body.seriesId &&
-          load(db, "series", body.seriesId).ownerId !== actor.id
+          load(db, "series", body.seriesId).ownerId !== current.ownerId
         )
           reject(403, "FORBIDDEN", "不能关联他人的系列。");
         if (body.startsAt)
@@ -309,12 +333,20 @@ function mountCatalog(api, { db, send, now = Date.now }) {
             ? x.gameId == null
             : x.gameId === req.query.gameId)),
     );
-    send(req, res, pageOf(items.map(safeTournament), req.query));
+    send(req, res, pageOf(items.map(decorate), req.query));
   });
   api.get("/tournaments/:id", (req, res) =>
     send(req, res, {
       ...safeTournament(visible(db, req, req.params.id)),
       isOwner: visible(db, req, req.params.id).ownerId === req.user?.id,
+      effectivePermissions: require("../operations/state").effective(
+        db,
+        req.params.id,
+        req.user?.id,
+      ),
+      runtimeStatus:
+        require("../operations/state").read(db, req.params.id).runtime
+          ?.status ?? "not-started",
     }),
   );
   api.get("/me/tournaments", (req, res) => {
@@ -323,17 +355,22 @@ function mountCatalog(api, { db, send, now = Date.now }) {
     const relation = req.query.relation || "created";
     if (!["created", "managed", "joined"].includes(relation))
       reject(400, "BAD_REQUEST", "赛事关系无效。");
-    if (relation === "joined")
-      reject(501, "FEATURE_NOT_IMPLEMENTED", "当前尚未提供参赛记录服务。", {
-        capability: "participation",
-      });
     send(
       req,
       res,
       pageOf(
         all(db, "tournaments")
-          .filter((x) => x.ownerId === user.id)
-          .map(safeTournament),
+          .filter((x) =>
+            relation === "joined"
+              ? require("../operations/state")
+                  .read(db, x.id)
+                  .registrations.some((r) => r.userId === user.id)
+              : x.ownerId === user.id ||
+                (relation === "managed" &&
+                  require("../operations/state").effective(db, x.id, user.id)
+                    .manage),
+          )
+          .map(decorate),
         req.query,
       ),
     );
@@ -368,7 +405,7 @@ function mountCatalog(api, { db, send, now = Date.now }) {
             description: series.description,
           }),
       isOwner: owner,
-      ...pageOf(entries.map(safeTournament), req.query),
+      ...pageOf(entries.map(decorate), req.query),
     });
   });
 }

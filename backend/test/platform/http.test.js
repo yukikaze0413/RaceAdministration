@@ -8,8 +8,26 @@ async function fixture(t, options = {}) {
     origins: ["http://localhost:5173"],
     ...options,
   });
-  const server = platform.app.listen(0, "127.0.0.1");
-  await new Promise((r) => server.once("listening", r));
+  let server;
+  for (let attempt = 0; attempt < 30; attempt++) {
+    server = platform.app.listen(
+      25000 + Math.floor(Math.random() * 30000),
+      "127.0.0.1",
+    );
+    const ready = await new Promise((resolve, reject) => {
+      server.once("listening", () => resolve(true));
+      server.once("error", (error) =>
+        ["EADDRINUSE", "EACCES"].includes(error.code)
+          ? resolve(false)
+          : reject(error),
+      );
+    });
+    if (ready) break;
+    if (attempt === 29) {
+      platform.close();
+      throw new Error("No available high test port");
+    }
+  }
   t.after(async () => {
     await new Promise((r) => server.close(r));
     platform.close();
@@ -445,6 +463,14 @@ test("CE1/2: every unavailable endpoint authorizes before returning 501 and writ
     ["PATCH", "collaborators/u", "owner"],
     ["DELETE", "collaborators/u", "owner"],
   ];
+  const remaining = endpoints.filter(
+    ([method, path]) =>
+      path === "teams" ||
+      path.endsWith("check-in") ||
+      (method === "DELETE" && path.startsWith("registrations")) ||
+      path.endsWith("/games") ||
+      path.startsWith("sanctions"),
+  );
   const state = () =>
     [
       "users",
@@ -454,7 +480,7 @@ test("CE1/2: every unavailable endpoint authorizes before returning 501 and writ
       "catalog_requests",
     ].map((table) => platform.db.prepare("SELECT * FROM " + table).all());
   const before = state();
-  for (const [method, path, access] of endpoints) {
+  for (const [method, path, access] of remaining) {
     const url = "/tournaments/" + id + "/" + path,
       body = method === "GET" ? undefined : {};
     assert.equal(
@@ -480,7 +506,7 @@ test("CE1/2: every unavailable endpoint authorizes before returning 501 and writ
     { ...owner, "Idempotency-Key": "public" },
   );
   const published = state();
-  for (const [method, path, access] of endpoints) {
+  for (const [method, path, access] of remaining) {
     const url = "/tournaments/" + id + "/" + path,
       body = method === "GET" ? undefined : {};
     assert.equal(
@@ -503,7 +529,7 @@ test("CE1/2: every unavailable endpoint authorizes before returning 501 and writ
   const caps = await request("/capabilities");
   assert.equal(caps.status, 200);
   assert.equal(caps.data.data.capabilities.configuration.status, "implemented");
-  assert.equal(caps.data.data.capabilities.registration.status, "unavailable");
+  assert.equal(caps.data.data.capabilities.registration.status, "implemented");
   const effective = await request(
     "/tournaments/" + id + "/capabilities",
     "GET",

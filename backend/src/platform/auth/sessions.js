@@ -5,25 +5,38 @@ const { hash, publicUser } = require("./accounts");
 const { reject, fields } = require("../http/errors");
 const digest = (t) => createHash("sha256").update(t).digest("hex");
 function loginRequired(req) {
+  if (
+    typeof req.parentAuthorization === "function" &&
+    req.parentAuthorization() !== true
+  )
+    reject(401, "AUTH_REQUIRED", "原空间登录已变化，请重新进入演示。");
   if (!req.user) reject(401, "AUTH_REQUIRED", "请先登录，再继续操作。");
   return req.user;
 }
 function mountSessions(
   api,
-  { db, send, now = Date.now, secureCookies = false },
+  {
+    db,
+    send,
+    now = Date.now,
+    secureCookies = false,
+    cookieName = "race_session",
+    cookiePath = "/",
+    referenceOwnership,
+  },
 ) {
   const cookieOptions = {
     httpOnly: true,
     sameSite: "lax",
     secure: secureCookies,
-    path: "/",
+    path: cookiePath,
   };
   api.use((req, res, next) => {
     const token = req.headers.cookie
       ?.split(";")
       .map((x) => x.trim())
-      .find((x) => x.startsWith("race_session="))
-      ?.slice(13);
+      .find((x) => x.startsWith(cookieName + "="))
+      ?.slice(cookieName.length + 1);
     req.sessionHash = token ? digest(token) : null;
     req.user = null;
     if (req.sessionHash) {
@@ -74,7 +87,11 @@ function mountSessions(
       const latest = db
         .prepare("SELECT data FROM users WHERE id=?")
         .get(user.id);
-      if (!latest || JSON.parse(latest.data).passwordHash !== user.passwordHash || JSON.parse(latest.data).username !== user.username)
+      if (
+        !latest ||
+        JSON.parse(latest.data).passwordHash !== user.passwordHash ||
+        JSON.parse(latest.data).username !== user.username
+      )
         reject(401, "INVALID_CREDENTIALS", "用户名或密码不正确。");
 
       if (req.sessionHash)
@@ -87,7 +104,7 @@ function mountSessions(
         now() + 7 * 24 * 3600 * 1000,
       );
     });
-    res.cookie("race_session", token, {
+    res.cookie(cookieName, token, {
       ...cookieOptions,
       maxAge: 7 * 24 * 3600 * 1000,
     });
@@ -99,7 +116,7 @@ function mountSessions(
   api.post("/auth/logout", (req, res) => {
     if (req.sessionHash)
       db.prepare("DELETE FROM sessions WHERE tokenHash=?").run(req.sessionHash);
-    res.clearCookie("race_session", cookieOptions);
+    res.clearCookie(cookieName, cookieOptions);
     send(req, res, { loggedOut: true });
   });
 
@@ -138,7 +155,8 @@ function mountSessions(
     );
     transaction(db, () => {
       const row = db.prepare("SELECT data FROM users WHERE id=?").get(user.id);
-      if (!row) reject(409, "CREDENTIAL_CHANGED", "账号凭据已变化，请重新登录。");
+      if (!row)
+        reject(409, "CREDENTIAL_CHANGED", "账号凭据已变化，请重新登录。");
       const current = JSON.parse(row.data);
       const session = db
         .prepare(
@@ -157,10 +175,17 @@ function mountSessions(
       );
       db.prepare("DELETE FROM sessions WHERE userId=?").run(user.id);
     });
-    res.clearCookie("race_session", cookieOptions);
+    res.clearCookie(cookieName, cookieOptions);
     send(req, res, { passwordChanged: true, requiresLogin: true });
   });
 
-  require("./profile").mountProfile(api, { db, send, now, cookieOptions });
+  require("./profile").mountProfile(api, {
+    db,
+    send,
+    now,
+    cookieOptions,
+    cookieName,
+    referenceOwnership,
+  });
 }
 module.exports = { mountSessions, loginRequired };

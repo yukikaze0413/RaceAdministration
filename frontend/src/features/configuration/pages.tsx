@@ -1,12 +1,17 @@
-import { useEffect, useReducer, useRef, useState } from "react";
 import {
-  Link,
-  useBlocker,
-  useBeforeUnload,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+  ConfigurationSession,
+  useSessionState,
+  sameValue,
+  ParameterLeaveGuard,
+  useSessionAccess,
+  saveSessionLayout,
+} from "./session";
+import { UpgradeDraft } from "./upgrade";
+import { ParameterWorkbench } from "./parameters";
+import { GraphEditor } from "../tournament/graph";
+import { RuntimePresets } from "../tournament/presets";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   api,
   failure,
@@ -26,7 +31,15 @@ export const emptyStructure = {
   routes: [],
 };
 function payloadOf(c: any) {
-  const { id, tournamentId, version, state, snapshot, ...payload } = c;
+  const {
+    id,
+    tournamentId,
+    version,
+    state,
+    snapshot,
+    upgradeOrigin,
+    ...payload
+  } = c;
   return payload;
 }
 export function ConfigurationList() {
@@ -35,22 +48,45 @@ export function ConfigurationList() {
     state = useResource(url),
     write = useWrite(),
     navigate = useNavigate();
-  async function create() {
-    const result = await write.run(url, "POST", { payload: emptyStructure });
+  const lastCreate = useRef(false);
+  async function create(parameters = false) {
+    lastCreate.current = parameters;
+    const payload = parameters
+      ? {
+          ...emptyStructure,
+          structureVersion: "structure-v2",
+          routingVersion: "routing-v2",
+        }
+      : emptyStructure;
+    const result = await write.run(url, "POST", { payload });
     if (result)
       navigate("/manage/" + tid + "/configurations/" + result.id + "/stages");
   }
   return (
     <>
       <h2>结构配置</h2>
-      <p>每份配置拥有独立版本。冻结只锁定结构，运行引擎尚未实现。</p>
+      <p>
+        每份配置拥有独立版本。冻结只锁定结构；单败与循环可在名单锁定后前往整轮推进开赛。
+      </p>
       <div className="actions">
-        <button className="primary" disabled={write.busy} onClick={create}>
+        <button
+          className="primary"
+          disabled={write.busy}
+          onClick={() => create(true)}
+        >
+          新建赛制配置
+        </button>
+        <button disabled={write.busy} onClick={() => create(false)}>
           新建空草稿
         </button>
         <Link to={"/manage/" + tid + "/templates"}>从模板创建</Link>
       </div>
-      {write.error && <ErrorNotice error={write.error} onRetry={create} />}
+      {write.error && (
+        <ErrorNotice
+          error={write.error}
+          onRetry={() => create(lastCreate.current)}
+        />
+      )}
       <Resource state={state}>
         {(items) =>
           items.length ? (
@@ -95,10 +131,11 @@ export function TemplatesPage() {
   }
   return (
     <>
+      <RuntimePresets />
       <h2>赛制结构模板</h2>
       <p>
         创建独立草稿，所有内部 ID
-        会重新生成；模板不包含真实名单，也不提供比赛运行。
+        会重新生成；结构模板不含真实名单，可运行预设另行选择。
       </p>
       {write.error && <ErrorNotice error={write.error} />}
       <Resource state={state}>
@@ -135,12 +172,22 @@ export function ConfigurationPage() {
     url = "/tournaments/" + tid + "/configurations/" + cid,
     state = useResource(url);
   if (
-    !["stages", "pools", "routes", "validation", "preview"].includes(tab ?? "")
+    !["stages", "pools", "routes", "validation", "preview", "graph"].includes(
+      tab ?? "",
+    )
   )
     return <h2>页面不存在</h2>;
   return (
     <Resource state={state}>
-      {(c) => <Editor key={c.id} initial={c} url={url} />}
+      {(c) => (
+        <ConfigurationSession key={c.tournamentId + "/" + c.id}>
+          {c.structureVersion === "structure-v2" ? (
+            <ParameterWorkbench key={c.id} initial={c} url={url} />
+          ) : (
+            <Editor key={c.id} initial={c} url={url} />
+          )}
+        </ConfigurationSession>
+      )}
     </Resource>
   );
 }
@@ -156,43 +203,37 @@ function reducer(state: any, action: any) {
   return { ...state, report: action.report };
 }
 export function Editor({ initial, url }: { initial: any; url: string }) {
-  const [{ saved, draft, report }, dispatch] = useReducer(reducer, {
-      saved: initial,
-      draft: payloadOf(initial),
-      report: null,
-    }),
+  const [sessionState, setSessionState] = useSessionState<any>(
+      "legacy-editor",
+      {
+        saved: initial,
+        draft: payloadOf(initial),
+        report: null,
+      },
+    ),
     write = useWrite(),
     [readError, setReadError] = useState<ApiFailure | null>(null),
     [server, setServer] = useState<any>(null),
     [checking, setChecking] = useState(false),
     [confirm, setConfirm] = useState(false),
     [notice, setNotice] = useState(""),
+    [layoutDirty, setLayoutDirty] = useSessionState("layout-dirty", false),
     [pendingDiagnostic, setPendingDiagnostic] = useState<Diagnostic | null>(
       null,
     );
-  const lastWrite = useRef<"save" | "freeze">("save");
+  const { saved, draft, report } = sessionState;
+  const dispatch = (action: any) =>
+    setSessionState((current: any) => reducer(current, action));
+  const lastWrite = useRef<"save" | "freeze" | "layout">("save");
   const navigate = useNavigate(),
     location = useLocation(),
     { tid, cid } = useParams(),
     prefix = "/manage/" + tid + "/configurations/" + cid,
     tab = location.pathname.split("/").at(-1),
-    dirty = JSON.stringify(draft) !== JSON.stringify(payloadOf(saved)),
+    dirty = !sameValue(draft, payloadOf(saved)),
     frozen = saved.state === "structure-frozen",
-    dialog = useRef<HTMLDialogElement>(null),
-    dirtyDialog = useRef<HTMLDialogElement>(null);
-  const blocker = useBlocker(
-    ({ nextLocation }) => dirty && nextLocation.pathname !== location.pathname,
-  );
-  useEffect(() => {
-    if (blocker.state === "blocked") dirtyDialog.current?.showModal();
-    else dirtyDialog.current?.close();
-  }, [blocker.state]);
-  useBeforeUnload((event) => {
-    if (dirty) {
-      event.preventDefault();
-      event.returnValue = "";
-    }
-  });
+    dialog = useRef<HTMLDialogElement>(null);
+  const sessionCache = useSessionAccess();
   useEffect(() => {
     if (confirm) dialog.current?.showModal();
     else dialog.current?.close();
@@ -214,7 +255,22 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
       dispatch({ type: "saved", configuration: c });
       setServer(null);
       setNotice("草稿已保存。");
+      return c;
     }
+  }
+  async function saveAllConfiguration() {
+    const current = dirty ? await save() : saved;
+    if (!current) return false;
+    if (layoutDirty) {
+      lastWrite.current = "layout";
+      if (!(await saveSessionLayout(sessionCache, write, url, current)))
+        return false;
+      setLayoutDirty(false);
+    }
+    return current;
+  }
+  async function saveAll() {
+    return !!(await saveAllConfiguration());
   }
   async function validate() {
     if (dirty) return;
@@ -242,17 +298,29 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
       setReadError(failure(e));
     }
   }
-  async function freeze() {
+  async function saveAndFreeze() {
+    const current = await saveAllConfiguration();
+    if (current) await freeze(current);
+  }
+  function discardAndFreeze() {
+    dispatch({ type: "saved", configuration: saved });
+    setLayoutDirty(false);
+    sessionCache.set("graph-dirty", false);
+    if (sessionCache.get("graph-baseline"))
+      sessionCache.set("graph-layout", sessionCache.get("graph-baseline"));
+    void freeze(saved);
+  }
+  async function freeze(source = saved) {
     lastWrite.current = "freeze";
     setConfirm(false);
     const snapshot = await write.run(url + "/freeze", "POST", {
-      expectedVersion: saved.version,
+      expectedVersion: source.version,
     });
     if (snapshot) {
       dispatch({
         type: "saved",
         configuration: {
-          ...saved,
+          ...source,
           state: "structure-frozen",
           version: snapshot.version,
           snapshot,
@@ -315,9 +383,15 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
           <Link to={"/manage/" + tid + "/overview"}>配置列表</Link>
         </div>
       </div>
+      <UpgradeDraft
+        configuration={saved}
+        url={url}
+        unavailable={dirty || layoutDirty || write.busy}
+      />
       {notice && <p role="status">{notice}</p>}
       <nav className="tabs">
         {[
+          ["graph", "赛制画布"],
           ["stages", "阶段与小组"],
           ["pools", "选手池"],
           ["routes", "晋级路由"],
@@ -337,13 +411,19 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
         <ErrorNotice
           error={write.error}
           onRetry={
-            write.error.status === 409
-              ? reread
-              : write.error.retryable
-                ? lastWrite.current === "freeze"
-                  ? freeze
-                  : save
-                : undefined
+            write.error.status === 409 || write.error.retryable
+              ? () => {
+                  if (lastWrite.current === "layout") {
+                    if (write.error?.status === 409) {
+                      navigate(prefix + "/graph");
+                      sessionCache.get("graph-reload")?.();
+                      write.clearError();
+                    } else void saveAll();
+                  } else if (write.error?.status === 409) void reread();
+                  else if (lastWrite.current === "freeze") void freeze(saved);
+                  else void save();
+                }
+              : undefined
           }
           onLocate={locate}
         />
@@ -368,6 +448,21 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
             <pre>{JSON.stringify(draft, null, 2)}</pre>
           </details>
           <button
+            disabled={write.busy}
+            onClick={() => {
+              setSessionState((current: any) => ({
+                ...current,
+                saved: server,
+                report: null,
+              }));
+              setServer(null);
+              write.clearError();
+              setReadError(null);
+            }}
+          >
+            保留本地结构并使用新版本
+          </button>
+          <button
             onClick={() => {
               if (window.confirm("确认用服务器结构替换本地未保存内容？")) {
                 dispatch({ type: "saved", configuration: server });
@@ -379,6 +474,30 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
             使用服务器结构
           </button>
         </section>
+      )}
+      {tab === "graph" && (
+        <GraphEditor
+          payload={
+            draft.structureVersion === "structure-v2"
+              ? {
+                  ...draft,
+                  id: saved.id,
+                  tournamentId: saved.tournamentId,
+                  version: saved.version,
+                }
+              : draft
+          }
+          disabled={frozen || write.busy}
+          onChange={(next) =>
+            edit(
+              draft.structureVersion === "structure-v2"
+                ? payloadOf(next)
+                : next,
+            )
+          }
+          url={url}
+          onLayoutDirty={setLayoutDirty}
+        />
       )}
       {tab === "stages" && (
         <StageForms
@@ -405,7 +524,7 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
         <>
           <h3>结构校验</h3>
           <p>
-            校验与预演分别报告，运行就绪始终为“尚未实现”。冻结会在事务内重新校验，无法解冻。
+            校验与预演分别报告，这里仅验证结构；真实运行规则与名单在整轮推进中复验。冻结会在事务内重新校验，无法解冻。
           </p>
           <div className="actions">
             <button
@@ -415,10 +534,7 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
               {checking ? "校验中…" : "校验已保存版本"}
             </button>
             {!frozen && (
-              <button
-                disabled={dirty || write.busy}
-                onClick={() => setConfirm(true)}
-              >
+              <button disabled={write.busy} onClick={() => setConfirm(true)}>
                 冻结结构…
               </button>
             )}
@@ -478,25 +594,31 @@ export function Editor({ initial, url }: { initial: any; url: string }) {
           <button autoFocus onClick={() => setConfirm(false)}>
             取消
           </button>
-          <button className="primary" disabled={write.busy} onClick={freeze}>
-            确认冻结
-          </button>
+          {dirty || layoutDirty ? (
+            <>
+              <button
+                className="primary"
+                disabled={write.busy}
+                onClick={saveAndFreeze}
+              >
+                保存并冻结
+              </button>
+              <button disabled={write.busy} onClick={discardAndFreeze}>
+                舍弃并冻结已保存版本
+              </button>
+            </>
+          ) : (
+            <button
+              className="primary"
+              disabled={write.busy}
+              onClick={() => void freeze(saved)}
+            >
+              确认冻结
+            </button>
+          )}
         </div>
       </dialog>
-      <dialog
-        ref={dirtyDialog}
-        role="alertdialog"
-        aria-label="未保存草稿"
-        className="warning"
-        onCancel={() => blocker.reset?.()}
-      >
-        <h2>草稿尚未保存</h2>
-        <p>切换栏目时保留当前草稿；离开此配置会丢失输入。</p>
-        <button autoFocus onClick={() => blocker.reset?.()}>
-          继续编辑
-        </button>
-        <button onClick={() => blocker.proceed?.()}>确认切换或离开</button>
-      </dialog>
+      <ParameterLeaveGuard dirty={dirty || layoutDirty} onSave={saveAll} />
     </section>
   );
 }

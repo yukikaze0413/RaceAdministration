@@ -23,7 +23,7 @@
 ## 当前代码
 
 backend/ 隔离保留原有 Express 内存 CRUD 原型，同时已接入新平台账号、赛事资料、结构配置与SQLite持久化。
-中文前端、本地认证、持久化和创建者权限已交付；报名、报分、实际赛制运行与协作者权限仍待后续切片。
+中文前端、本地认证、持久化和创建者权限已交付；个人报名、自定义收集表、实际单败/循环运行、协作者权限与整轮推进已交付。
 [旧 API 示例](docs/API.md) 仅作参考；旧技术栈尚未重新确认。
 
 旧流程、课程和学习笔记已移出当前工作树，可从 Git 历史恢复。
@@ -42,3 +42,7 @@ backend/ 隔离保留原有 Express 内存 CRUD 原型，同时已接入新平�
 ## 前端反馈SDD进度（2026-10-07）
 
 活动[变更](openspec/changes/improve-account-input-and-game-presets/proposal.md)实施18/26：密码、分类→游戏、日期/时区与HTTP保存已修复；账户页统一工作台风格，先展示资料再按需编辑，头像/名称/用户名可修改、ID固定。注销仅删除当前拥有的赛事及关联数据，创建默认归本人。78后端/60前端/30Edge及build/typecheck通过。素材五项和完整出口三项仍未完成；见[任务](openspec/changes/improve-account-input-and-game-presets/tasks.md)与[最新账户验收](openspec/changes/improve-account-input-and-game-presets/acceptance-account-overview.md)。
+
+## 赛事工作台（2026-10-07）
+
+赛事管理新增卡片连线、可运行预设、报名与名单、协作者、对阵/赛果和整轮推进。历史结构演示的未开赛说明仅描述旧切片。当前能力与操作见[赛事操作说明](docs/TOURNAMENT-OPERATIONS-API.md)，工程验收95后端/60前端/41Edge见[验收记录](openspec/changes/implement-tournament-workbench/acceptance.md)。本地构建预览 http://127.0.0.1:5000 。新变更12/12完成，业务接受、正式规格同步与归档尚未进行。

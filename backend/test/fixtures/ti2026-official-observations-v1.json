@@ -1,0 +1,3413 @@
+{
+  "version": "ti2026-official-observations-v1",
+  "status": "pending",
+  "entrantKind": "reference-unit",
+  "leagueId": 19719,
+  "missing": [
+    "初始分组独立名单及种子/组织者裁定记录（官方节点标签与首轮实际对阵已保存）",
+    "配对距离优化的确定性算法及官方人工调整记录",
+    "对手局胜率加权/取整公式的官方定义（现仅16队数据重算一致）",
+    "主赛种子到首轮槽位映射与抛硬币裁定记录"
+  ],
+  "verifiedRuleText": {
+    "url": "https://www.dota2.com/esports/ti15/tirules?l=english",
+    "readDate": "2026-10-10",
+    "title": "The International 2026",
+    "transcript": "evidence/reference-sources/ti2026-rules-rendered.txt",
+    "publicationDate": null,
+    "rankingOrder": [
+      "series-wins",
+      "series-losses",
+      "opponents-series-wins",
+      "game-win-percentage",
+      "opponents-game-win-percentage",
+      "average-game-duration",
+      "coin-toss"
+    ],
+    "grouping": "R1 organizer pairing in two groups; R2/R3 same initial group; R4 opposite group",
+    "roundFive": "maximize ranking distance in elimination matches",
+    "elimination": "3-2 teams choose remaining 2-3 opponents in Swiss rank order",
+    "playoffSeeding": "eight qualifiers ordered by final Swiss ranking",
+    "limitation": "Published prose does not specify a deterministic optimization algorithm or weighted percentage rounding formula."
+  },
+  "sources": [
+    {
+      "id": "ti2026-official-steam",
+      "url": "https://store.steampowered.com/oldnews/?appgroupname=Dota..&appids=570&feed=steam_community_announcements",
+      "readAt": "2026-10-09T14:24:59.487Z",
+      "sha256": "a4b8e20a2991bbc20840abab6b1e24d4929c4f063dea4401adf533a802f10e18"
+    },
+    {
+      "id": "ti2026-valve-league",
+      "url": "https://www.dota2.com/webapi/IDOTA2League/GetLeagueData/v001?league_id=19719&delay_seconds=0",
+      "readAt": "2026-10-09T14:34:23.668Z",
+      "sha256": "098fe6681a4ccffd05e45083eaa74a6bf592803b16c94980802718f3918ac206"
+    },
+    {
+      "id": "ti2026-cn-schedule",
+      "url": "https://www.dota2.com.cn/international2026/getMatchScheduleGrouped?schedule_key=ti2026&swiss_format=ti_road",
+      "readAt": "2026-10-09T14:34:24.969Z",
+      "sha256": "aacec96b9ebb140518bc795d9fca71e7856c35dd82c89934a0e7fd43afe667da"
+    },
+    {
+      "id": "ti2026-official-rules-page",
+      "url": "https://www.dota2.com/esports/ti15/tirules?l=english",
+      "readAt": "2026-10-10T07:06:54.019Z",
+      "sha256": "b68eed12c366035f5932fb781e32163a99a910c4968f27c2e60f511ecc34128c"
+    }
+  ],
+  "teams": [
+    {
+      "id": 2163,
+      "name": "Team Liquid",
+      "cnId": 3530,
+      "cnNames": [
+        "Liquid"
+      ]
+    },
+    {
+      "id": 726228,
+      "name": "Vici Gaming",
+      "cnId": 3507,
+      "cnNames": [
+        "VG"
+      ]
+    },
+    {
+      "id": 2586976,
+      "name": "OG",
+      "cnId": 3522,
+      "cnNames": [
+        "OG"
+      ]
+    },
+    {
+      "id": 5017210,
+      "name": "Team Resilience",
+      "cnId": 23887,
+      "cnNames": [
+        "Team Resilience"
+      ]
+    },
+    {
+      "id": 7119388,
+      "name": "Team Spirit",
+      "cnId": 3552,
+      "cnNames": [
+        "Spirit"
+      ]
+    },
+    {
+      "id": 8255888,
+      "name": "BETBOOM TEAM",
+      "cnId": 20782,
+      "cnNames": [
+        "BB"
+      ]
+    },
+    {
+      "id": 8261500,
+      "name": "Xtreme Gaming",
+      "cnId": 19629,
+      "cnNames": [
+        "XG"
+      ]
+    },
+    {
+      "id": 9247354,
+      "name": "Team Falcons",
+      "cnId": 19563,
+      "cnNames": [
+        "Falcons"
+      ]
+    },
+    {
+      "id": 9467224,
+      "name": "Aurora Gaming",
+      "cnId": 3903,
+      "cnNames": [
+        "Aurora"
+      ]
+    },
+    {
+      "id": 9572001,
+      "name": "TEAM VISION",
+      "cnId": 22887,
+      "cnNames": [
+        "PVISION"
+      ]
+    },
+    {
+      "id": 9823272,
+      "name": "Team Yandex",
+      "cnId": 23531,
+      "cnNames": [
+        "Yandex"
+      ]
+    },
+    {
+      "id": 9964962,
+      "name": "GamerLegion",
+      "cnId": 23696,
+      "cnNames": [
+        "Gamerlegion"
+      ]
+    },
+    {
+      "id": 10136357,
+      "name": "Nigma Galaxy ",
+      "cnId": 18412,
+      "cnNames": [
+        "Nigma Galaxy"
+      ]
+    },
+    {
+      "id": 10149530,
+      "name": "HULIGANI",
+      "cnId": 22084,
+      "cnNames": [
+        "HULIGANI"
+      ]
+    },
+    {
+      "id": 10150413,
+      "name": "Iron Wing",
+      "cnId": 22296,
+      "cnNames": [
+        "1W"
+      ]
+    },
+    {
+      "id": 10150538,
+      "name": "LGD Gaming",
+      "cnId": 3505,
+      "cnNames": [
+        "LGD"
+      ]
+    }
+  ],
+  "observedInitialPairing": {
+    "sourceId": "ti2026-valve-league",
+    "sourcePath": "node_groups[0].node_groups[0].nodes[*].name/team_id_1/team_id_2",
+    "status": "official-labelled-pairing-table",
+    "matches": [
+      {
+        "nodeId": 1,
+        "label": "Match 1.A",
+        "groupLabel": "A",
+        "entrantIds": [
+          9247354,
+          10150538
+        ]
+      },
+      {
+        "nodeId": 2,
+        "label": "Match 2.A",
+        "groupLabel": "A",
+        "entrantIds": [
+          10150413,
+          10136357
+        ]
+      },
+      {
+        "nodeId": 3,
+        "label": "Match 3.A",
+        "groupLabel": "A",
+        "entrantIds": [
+          8255888,
+          2586976
+        ]
+      },
+      {
+        "nodeId": 4,
+        "label": "Match 4.A",
+        "groupLabel": "A",
+        "entrantIds": [
+          9572001,
+          5017210
+        ]
+      },
+      {
+        "nodeId": 5,
+        "label": "Match 1.B",
+        "groupLabel": "B",
+        "entrantIds": [
+          7119388,
+          8261500
+        ]
+      },
+      {
+        "nodeId": 6,
+        "label": "Match 2.B",
+        "groupLabel": "B",
+        "entrantIds": [
+          2163,
+          726228
+        ]
+      },
+      {
+        "nodeId": 7,
+        "label": "Match 3.B",
+        "groupLabel": "B",
+        "entrantIds": [
+          9467224,
+          9964962
+        ]
+      },
+      {
+        "nodeId": 8,
+        "label": "Match 4.B",
+        "groupLabel": "B",
+        "entrantIds": [
+          9823272,
+          10149530
+        ]
+      }
+    ],
+    "limitation": "A/B is interpreted from literal official node names, corroborated by later same/cross-group matches. No separate initial numeric seed table or organizer decision audit is present."
+  },
+  "phases": [
+    {
+      "id": 2,
+      "name": "Swiss",
+      "metadata": {
+        "name": "Swiss",
+        "node_group_id": 2,
+        "parent_node_group_id": 1,
+        "incoming_node_group_ids": [],
+        "advancing_node_group_id": 4,
+        "advancing_team_count": 3,
+        "team_count": 16,
+        "node_group_type": 3,
+        "default_node_type": 2,
+        "round": 2,
+        "max_rounds": 5,
+        "win_loss_limit": 4,
+        "is_tiebreaker": false,
+        "is_final_group": false,
+        "is_completed": true,
+        "phase": 0,
+        "region": 0,
+        "start_time": 0,
+        "end_time": 0,
+        "secondary_advancing_node_group_id": 3,
+        "secondary_advancing_team_count": 10,
+        "tertiary_advancing_node_group_id": 0,
+        "tertiary_advancing_team_count": 0,
+        "elimination_dpc_points": 0
+      },
+      "standings": [
+        {
+          "standing": 1,
+          "team_id": 9572001,
+          "team_name": "TEAM VISION",
+          "team_tag": "VSN",
+          "wins": 4,
+          "losses": 0,
+          "score": "400000000000000",
+          "team_abbreviation": "VSN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 80,
+          "tiebreak_opponent_match_wins": 10,
+          "tiebreak_opponent_game_win_pct": 50,
+          "tiebreak_coinflip": 1526651838,
+          "tiebereak_average_game_length": 3059
+        },
+        {
+          "standing": 2,
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_tag": "Liquid",
+          "wins": 4,
+          "losses": 1,
+          "score": "399000000000000",
+          "team_abbreviation": "LIQ",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 64,
+          "tiebreak_opponent_match_wins": 13,
+          "tiebreak_opponent_game_win_pct": 50,
+          "tiebreak_coinflip": 441988602,
+          "tiebereak_average_game_length": 2587
+        },
+        {
+          "standing": 2,
+          "team_id": 10136357,
+          "team_name": "Nigma Galaxy ",
+          "team_tag": "NGX",
+          "wins": 4,
+          "losses": 1,
+          "score": "399000000000000",
+          "team_abbreviation": "NGX",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 80,
+          "tiebreak_opponent_match_wins": 12,
+          "tiebreak_opponent_game_win_pct": 44,
+          "tiebreak_coinflip": 1087694219,
+          "tiebereak_average_game_length": 3228
+        },
+        {
+          "standing": 3,
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_tag": "TSpirit",
+          "wins": 3,
+          "losses": 2,
+          "score": "298000000000000",
+          "team_abbreviation": "TS",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 54,
+          "tiebreak_opponent_match_wins": 16,
+          "tiebreak_opponent_game_win_pct": 61,
+          "tiebreak_coinflip": 1382308480,
+          "tiebereak_average_game_length": 2907
+        },
+        {
+          "standing": 3,
+          "team_id": 10150413,
+          "team_name": "Iron Wing",
+          "team_tag": "IW",
+          "wins": 3,
+          "losses": 2,
+          "score": "298000000000000",
+          "team_abbreviation": "IW",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 57,
+          "tiebreak_opponent_match_wins": 15,
+          "tiebreak_opponent_game_win_pct": 56,
+          "tiebreak_coinflip": 526631604,
+          "tiebereak_average_game_length": 2901
+        },
+        {
+          "standing": 3,
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_tag": "FLCN",
+          "wins": 3,
+          "losses": 2,
+          "score": "298000000000000",
+          "team_abbreviation": "FLCN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 53,
+          "tiebreak_opponent_match_wins": 14,
+          "tiebreak_opponent_game_win_pct": 55,
+          "tiebreak_coinflip": 475604286,
+          "tiebereak_average_game_length": 3010
+        },
+        {
+          "standing": 3,
+          "team_id": 9467224,
+          "team_name": "Aurora Gaming",
+          "team_tag": "Aurora",
+          "wins": 3,
+          "losses": 2,
+          "score": "298000000000000",
+          "team_abbreviation": "AUR",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 58,
+          "tiebreak_opponent_match_wins": 13,
+          "tiebreak_opponent_game_win_pct": 52,
+          "tiebreak_coinflip": 1007190362,
+          "tiebereak_average_game_length": 2493
+        },
+        {
+          "standing": 3,
+          "team_id": 10150538,
+          "team_name": "LGD Gaming",
+          "team_tag": "LGD",
+          "wins": 3,
+          "losses": 2,
+          "score": "298000000000000",
+          "team_abbreviation": "LGD",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 53,
+          "tiebreak_opponent_match_wins": 12,
+          "tiebreak_opponent_game_win_pct": 49,
+          "tiebreak_coinflip": 275982752,
+          "tiebereak_average_game_length": 3275
+        },
+        {
+          "standing": 4,
+          "team_id": 8255888,
+          "team_name": "BETBOOM TEAM",
+          "team_tag": "BETBOOM",
+          "wins": 2,
+          "losses": 3,
+          "score": "197000000000000",
+          "team_abbreviation": "BB",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 41,
+          "tiebreak_opponent_match_wins": 14,
+          "tiebreak_opponent_game_win_pct": 53,
+          "tiebreak_coinflip": 1110802892,
+          "tiebereak_average_game_length": 2773
+        },
+        {
+          "standing": 4,
+          "team_id": 726228,
+          "team_name": "Vici Gaming",
+          "team_tag": "VG",
+          "wins": 2,
+          "losses": 3,
+          "score": "197000000000000",
+          "team_abbreviation": "VG",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 33,
+          "tiebreak_opponent_match_wins": 13,
+          "tiebreak_opponent_game_win_pct": 54,
+          "tiebreak_coinflip": 2024918991,
+          "tiebereak_average_game_length": 3000
+        },
+        {
+          "standing": 4,
+          "team_id": 9823272,
+          "team_name": "Team Yandex",
+          "team_tag": "TY",
+          "wins": 2,
+          "losses": 3,
+          "score": "197000000000000",
+          "team_abbreviation": "YAN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 50,
+          "tiebreak_opponent_match_wins": 12,
+          "tiebreak_opponent_game_win_pct": 52,
+          "tiebreak_coinflip": 1632879415,
+          "tiebereak_average_game_length": 2412
+        },
+        {
+          "standing": 4,
+          "team_id": 5017210,
+          "team_name": "Team Resilience",
+          "team_tag": "Resilience",
+          "wins": 2,
+          "losses": 3,
+          "score": "197000000000000",
+          "team_abbreviation": "RES",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 53,
+          "tiebreak_opponent_match_wins": 11,
+          "tiebreak_opponent_game_win_pct": 45,
+          "tiebreak_coinflip": 2000659483,
+          "tiebereak_average_game_length": 2794
+        },
+        {
+          "standing": 4,
+          "team_id": 9964962,
+          "team_name": "GamerLegion",
+          "team_tag": "GL",
+          "wins": 2,
+          "losses": 3,
+          "score": "197000000000000",
+          "team_abbreviation": "GL",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 50,
+          "tiebreak_opponent_match_wins": 10,
+          "tiebreak_opponent_game_win_pct": 39,
+          "tiebreak_coinflip": 1188862473,
+          "tiebereak_average_game_length": 2787
+        },
+        {
+          "standing": 5,
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_tag": "XG",
+          "wins": 1,
+          "losses": 4,
+          "score": "96000000000000",
+          "team_abbreviation": "XG",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 27,
+          "tiebreak_opponent_match_wins": 10,
+          "tiebreak_opponent_game_win_pct": 47,
+          "tiebreak_coinflip": 1711586312,
+          "tiebereak_average_game_length": 2620
+        },
+        {
+          "standing": 5,
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_tag": "OG",
+          "wins": 1,
+          "losses": 4,
+          "score": "96000000000000",
+          "team_abbreviation": "OG",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 18,
+          "tiebreak_opponent_match_wins": 10,
+          "tiebreak_opponent_game_win_pct": 49,
+          "tiebreak_coinflip": 1711909607,
+          "tiebereak_average_game_length": 2808
+        },
+        {
+          "standing": 6,
+          "team_id": 10149530,
+          "team_name": "HULIGANI",
+          "team_tag": "HU",
+          "wins": 0,
+          "losses": 4,
+          "score": "-4000000000000",
+          "team_abbreviation": "HU",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 20,
+          "tiebreak_opponent_match_wins": 6,
+          "tiebreak_opponent_game_win_pct": 33,
+          "tiebreak_coinflip": 302826910,
+          "tiebereak_average_game_length": 2751
+        }
+      ],
+      "ignoredPlaceholderIds": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "matches": [
+        {
+          "nodeId": 1,
+          "label": "Match 1.A",
+          "seriesId": 1130024,
+          "entrantIds": [
+            9247354,
+            10150538
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T02:00:00.000Z",
+          "actualStartedAt": "2026-08-13T02:49:15.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8942993144",
+              "winnerId": 10150538,
+              "durationSeconds": 2446
+            },
+            {
+              "matchId": "8943034557",
+              "winnerId": 9247354,
+              "durationSeconds": 2256
+            },
+            {
+              "matchId": "8943072784",
+              "winnerId": 9247354,
+              "durationSeconds": 2640
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367881,
+            "time": "2026-08-13T03:03:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 2,
+          "label": "Match 2.A",
+          "seriesId": 1130028,
+          "entrantIds": [
+            10150413,
+            10136357
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T02:00:00.000Z",
+          "actualStartedAt": "2026-08-13T03:18:55.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943000927",
+              "winnerId": 10150413,
+              "durationSeconds": 1649
+            },
+            {
+              "matchId": "8943038404",
+              "winnerId": 10150413,
+              "durationSeconds": 3264
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367882,
+            "time": "2026-08-13T03:18:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 3,
+          "label": "Match 3.A",
+          "seriesId": 1130032,
+          "entrantIds": [
+            8255888,
+            2586976
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T02:00:00.000Z",
+          "actualStartedAt": "2026-08-13T03:24:51.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943013334",
+              "winnerId": 8255888,
+              "durationSeconds": 2722
+            },
+            {
+              "matchId": "8943055466",
+              "winnerId": 8255888,
+              "durationSeconds": 2215
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367883,
+            "time": "2026-08-13T03:38:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 4,
+          "label": "Match 4.A",
+          "seriesId": 1130027,
+          "entrantIds": [
+            9572001,
+            5017210
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T02:00:00.000Z",
+          "actualStartedAt": "2026-08-13T03:13:09.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943010675",
+              "winnerId": 9572001,
+              "durationSeconds": 2517
+            },
+            {
+              "matchId": "8943053016",
+              "winnerId": 5017210,
+              "durationSeconds": 2898
+            },
+            {
+              "matchId": "8943098449",
+              "winnerId": 9572001,
+              "durationSeconds": 1946
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367884,
+            "time": "2026-08-13T03:33:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 5,
+          "label": "Match 1.B",
+          "seriesId": 1130051,
+          "entrantIds": [
+            7119388,
+            8261500
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T05:00:00.000Z",
+          "actualStartedAt": "2026-08-13T06:48:43.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943143428",
+              "winnerId": 7119388,
+              "durationSeconds": 3054
+            },
+            {
+              "matchId": "8943200897",
+              "winnerId": 7119388,
+              "durationSeconds": 2908
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367885,
+            "time": "2026-08-13T07:18:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 6,
+          "label": "Match 2.B",
+          "seriesId": 1130045,
+          "entrantIds": [
+            2163,
+            726228
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T05:00:00.000Z",
+          "actualStartedAt": "2026-08-13T05:56:53.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943091110",
+              "winnerId": 2163,
+              "durationSeconds": 3610
+            },
+            {
+              "matchId": "8943148045",
+              "winnerId": 2163,
+              "durationSeconds": 2286
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367886,
+            "time": "2026-08-13T05:57:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 7,
+          "label": "Match 3.B",
+          "seriesId": 1130047,
+          "entrantIds": [
+            9467224,
+            9964962
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T05:00:00.000Z",
+          "actualStartedAt": "2026-08-13T06:01:40.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943097729",
+              "winnerId": 9467224,
+              "durationSeconds": 4369
+            },
+            {
+              "matchId": "8943171995",
+              "winnerId": 9467224,
+              "durationSeconds": 2574
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367887,
+            "time": "2026-08-13T06:09:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 8,
+          "label": "Match 4.B",
+          "seriesId": 1130053,
+          "entrantIds": [
+            9823272,
+            10149530
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T05:00:00.000Z",
+          "actualStartedAt": "2026-08-13T07:16:59.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943142948",
+              "winnerId": 9823272,
+              "durationSeconds": 1515
+            },
+            {
+              "matchId": "8943182700",
+              "winnerId": 9823272,
+              "durationSeconds": 2927
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367888,
+            "time": "2026-08-13T07:18:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 28,
+          "label": "Match 5.A",
+          "seriesId": 1130069,
+          "entrantIds": [
+            9572001,
+            9247354
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T08:00:00.000Z",
+          "actualStartedAt": "2026-08-13T10:06:45.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943267925",
+              "winnerId": 9247354,
+              "durationSeconds": 2690
+            },
+            {
+              "matchId": "8943364918",
+              "winnerId": 9572001,
+              "durationSeconds": 3075
+            },
+            {
+              "matchId": "8943477775",
+              "winnerId": 9572001,
+              "durationSeconds": 5678
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367890,
+            "time": "2026-08-13T10:06:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 29,
+          "label": "Match 6.A",
+          "seriesId": 1130060,
+          "entrantIds": [
+            8255888,
+            10150413
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T08:00:00.000Z",
+          "actualStartedAt": "2026-08-13T08:43:14.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943202720",
+              "winnerId": 8255888,
+              "durationSeconds": 3237
+            },
+            {
+              "matchId": "8943278347",
+              "winnerId": 10150413,
+              "durationSeconds": 2681
+            },
+            {
+              "matchId": "8943357930",
+              "winnerId": 8255888,
+              "durationSeconds": 4164
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367889,
+            "time": "2026-08-13T08:43:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 30,
+          "label": "Match 7.A",
+          "seriesId": 1130063,
+          "entrantIds": [
+            10150538,
+            5017210
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T08:00:00.000Z",
+          "actualStartedAt": "2026-08-13T09:13:46.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943235603",
+              "winnerId": 5017210,
+              "durationSeconds": 3923
+            },
+            {
+              "matchId": "8943332564",
+              "winnerId": 10150538,
+              "durationSeconds": 4566
+            },
+            {
+              "matchId": "8943466067",
+              "winnerId": 10150538,
+              "durationSeconds": 4282
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367893,
+            "time": "2026-08-13T09:17:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 31,
+          "label": "Match 8.A",
+          "seriesId": 1130066,
+          "entrantIds": [
+            10136357,
+            2586976
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-13T08:00:00.000Z",
+          "actualStartedAt": "2026-08-13T09:32:32.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8943244303",
+              "winnerId": 10136357,
+              "durationSeconds": 3227
+            },
+            {
+              "matchId": "8943324841",
+              "winnerId": 10136357,
+              "durationSeconds": 4461
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367892,
+            "time": "2026-08-13T09:32:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 32,
+          "label": "Match 5.B",
+          "seriesId": 1130278,
+          "entrantIds": [
+            7119388,
+            9467224
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T02:00:00.000Z",
+          "actualStartedAt": "2026-08-14T02:02:14.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944475884",
+              "winnerId": 7119388,
+              "durationSeconds": 2526
+            },
+            {
+              "matchId": "8944521792",
+              "winnerId": 7119388,
+              "durationSeconds": 2619
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367899,
+            "time": "2026-08-14T02:02:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 33,
+          "label": "Match 6.B",
+          "seriesId": 1130281,
+          "entrantIds": [
+            9823272,
+            2163
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T02:00:00.000Z",
+          "actualStartedAt": "2026-08-14T02:02:06.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944475950",
+              "winnerId": 9823272,
+              "durationSeconds": 3147
+            },
+            {
+              "matchId": "8944525313",
+              "winnerId": 2163,
+              "durationSeconds": 2377
+            },
+            {
+              "matchId": "8944570404",
+              "winnerId": 2163,
+              "durationSeconds": 2290
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367898,
+            "time": "2026-08-14T02:02:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 34,
+          "label": "Match 7.B",
+          "seriesId": 1130282,
+          "entrantIds": [
+            8261500,
+            9964962
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T02:00:00.000Z",
+          "actualStartedAt": "2026-08-14T02:01:23.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944476051",
+              "winnerId": 9964962,
+              "durationSeconds": 1293
+            },
+            {
+              "matchId": "8944506550",
+              "winnerId": 9964962,
+              "durationSeconds": 2832
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367901,
+            "time": "2026-08-14T02:01:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 35,
+          "label": "Match 8.B",
+          "seriesId": 1130279,
+          "entrantIds": [
+            10149530,
+            726228
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T02:00:00.000Z",
+          "actualStartedAt": "2026-08-14T02:00:25.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944475901",
+              "winnerId": 10149530,
+              "durationSeconds": 2828
+            },
+            {
+              "matchId": "8944521919",
+              "winnerId": 726228,
+              "durationSeconds": 2704
+            },
+            {
+              "matchId": "8944566156",
+              "winnerId": 726228,
+              "durationSeconds": 3255
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367900,
+            "time": "2026-08-14T02:00:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 36,
+          "label": "Match 9.A",
+          "seriesId": 1130305,
+          "entrantIds": [
+            8255888,
+            9572001
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T05:00:00.000Z",
+          "actualStartedAt": "2026-08-14T04:33:51.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944565060",
+              "winnerId": 9572001,
+              "durationSeconds": 2214
+            },
+            {
+              "matchId": "8944612322",
+              "winnerId": 9572001,
+              "durationSeconds": 4116
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367902,
+            "time": "2026-08-14T04:33:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 37,
+          "label": "Match 10.A",
+          "seriesId": 1130309,
+          "entrantIds": [
+            10150413,
+            9247354
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T05:00:00.000Z",
+          "actualStartedAt": "2026-08-14T05:47:22.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944611964",
+              "winnerId": 10150413,
+              "durationSeconds": 4085
+            },
+            {
+              "matchId": "8944695348",
+              "winnerId": 9247354,
+              "durationSeconds": 2841
+            },
+            {
+              "matchId": "8944764687",
+              "winnerId": 10150413,
+              "durationSeconds": 2895
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367903,
+            "time": "2026-08-14T05:47:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 38,
+          "label": "Match 11.A",
+          "seriesId": 1130301,
+          "entrantIds": [
+            10150538,
+            10136357
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T05:00:00.000Z",
+          "actualStartedAt": "2026-08-14T04:11:37.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944553935",
+              "winnerId": 10136357,
+              "durationSeconds": 3012
+            },
+            {
+              "matchId": "8944602781",
+              "winnerId": 10136357,
+              "durationSeconds": 3750
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367904,
+            "time": "2026-08-14T04:11:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 39,
+          "label": "Match 12.A",
+          "seriesId": 1130312,
+          "entrantIds": [
+            5017210,
+            2586976
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T05:00:00.000Z",
+          "actualStartedAt": "2026-08-14T06:10:26.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944628326",
+              "winnerId": 5017210,
+              "durationSeconds": 3276
+            },
+            {
+              "matchId": "8944692094",
+              "winnerId": 5017210,
+              "durationSeconds": 1961
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367905,
+            "time": "2026-08-14T06:10:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 40,
+          "label": "Match 9.B",
+          "seriesId": 1130320,
+          "entrantIds": [
+            2163,
+            7119388
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T08:00:00.000Z",
+          "actualStartedAt": "2026-08-14T07:26:23.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944680063",
+              "winnerId": 7119388,
+              "durationSeconds": 3068
+            },
+            {
+              "matchId": "8944752572",
+              "winnerId": 2163,
+              "durationSeconds": 2171
+            },
+            {
+              "matchId": "8944819470",
+              "winnerId": 7119388,
+              "durationSeconds": 2954
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367906,
+            "time": "2026-08-14T07:26:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 41,
+          "label": "Match 10.B",
+          "seriesId": 1130328,
+          "entrantIds": [
+            9467224,
+            9823272
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T08:00:00.000Z",
+          "actualStartedAt": "2026-08-14T10:24:53.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944841068",
+              "winnerId": 9823272,
+              "durationSeconds": 2528
+            },
+            {
+              "matchId": "8944931337",
+              "winnerId": 9467224,
+              "durationSeconds": 2421
+            },
+            {
+              "matchId": "8945052416",
+              "winnerId": 9467224,
+              "durationSeconds": 2032
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367909,
+            "time": "2026-08-14T10:24:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 42,
+          "label": "Match 11.B",
+          "seriesId": 1130317,
+          "entrantIds": [
+            726228,
+            9964962
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T08:00:00.000Z",
+          "actualStartedAt": "2026-08-14T07:04:32.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944676424",
+              "winnerId": 9964962,
+              "durationSeconds": 3170
+            },
+            {
+              "matchId": "8944742846",
+              "winnerId": 726228,
+              "durationSeconds": 3791
+            },
+            {
+              "matchId": "8944834423",
+              "winnerId": 726228,
+              "durationSeconds": 2277
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367908,
+            "time": "2026-08-14T07:14:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 43,
+          "label": "Match 12.B",
+          "seriesId": 1130324,
+          "entrantIds": [
+            8261500,
+            10149530
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-14T08:00:00.000Z",
+          "actualStartedAt": "2026-08-14T08:36:26.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8944738770",
+              "winnerId": 8261500,
+              "durationSeconds": 2887
+            },
+            {
+              "matchId": "8944814087",
+              "winnerId": 8261500,
+              "durationSeconds": 2338
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367907,
+            "time": "2026-08-14T08:36:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 44,
+          "label": "Match 13",
+          "seriesId": 1130536,
+          "entrantIds": [
+            2586976,
+            10149530
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T02:00:00.000Z",
+          "actualStartedAt": "2026-08-15T02:00:17.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946161801",
+              "winnerId": 2586976,
+              "durationSeconds": 3655
+            },
+            {
+              "matchId": "8946227017",
+              "winnerId": 10149530,
+              "durationSeconds": 2959
+            },
+            {
+              "matchId": "8946283971",
+              "winnerId": 2586976,
+              "durationSeconds": 2445
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367924,
+            "time": "2026-08-15T02:00:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 45,
+          "label": "Match 14",
+          "seriesId": 1130535,
+          "entrantIds": [
+            10150538,
+            8261500
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T02:00:00.000Z",
+          "actualStartedAt": "2026-08-15T02:01:26.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946161784",
+              "winnerId": 8261500,
+              "durationSeconds": 3544
+            },
+            {
+              "matchId": "8946231092",
+              "winnerId": 10150538,
+              "durationSeconds": 2947
+            },
+            {
+              "matchId": "8946288549",
+              "winnerId": 10150538,
+              "durationSeconds": 2840
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367927,
+            "time": "2026-08-15T02:01:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 46,
+          "label": "Match 15",
+          "seriesId": 1130534,
+          "entrantIds": [
+            9247354,
+            9964962
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T02:00:00.000Z",
+          "actualStartedAt": "2026-08-15T02:00:22.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946161660",
+              "winnerId": 9247354,
+              "durationSeconds": 3832
+            },
+            {
+              "matchId": "8946228708",
+              "winnerId": 9964962,
+              "durationSeconds": 2867
+            },
+            {
+              "matchId": "8946285985",
+              "winnerId": 9247354,
+              "durationSeconds": 2477
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367925,
+            "time": "2026-08-15T02:00:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 47,
+          "label": "Match 16",
+          "seriesId": 1130533,
+          "entrantIds": [
+            5017210,
+            9823272
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T02:00:00.000Z",
+          "actualStartedAt": "2026-08-15T02:02:08.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946161629",
+              "winnerId": 5017210,
+              "durationSeconds": 3844
+            },
+            {
+              "matchId": "8946228107",
+              "winnerId": 9823272,
+              "durationSeconds": 1102
+            },
+            {
+              "matchId": "8946260898",
+              "winnerId": 9823272,
+              "durationSeconds": 1820
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367926,
+            "time": "2026-08-15T02:02:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 48,
+          "label": "Match 17",
+          "seriesId": 1130567,
+          "entrantIds": [
+            7119388,
+            9572001
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T05:00:00.000Z",
+          "actualStartedAt": "2026-08-15T06:19:27.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946351114",
+              "winnerId": 9572001,
+              "durationSeconds": 2231
+            },
+            {
+              "matchId": "8946428867",
+              "winnerId": 9572001,
+              "durationSeconds": 3230
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367910,
+            "time": "2026-08-15T06:19:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 49,
+          "label": "Match 18",
+          "seriesId": 1130564,
+          "entrantIds": [
+            10150413,
+            2163
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T05:00:00.000Z",
+          "actualStartedAt": "2026-08-15T06:02:18.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946337070",
+              "winnerId": 10150413,
+              "durationSeconds": 2802
+            },
+            {
+              "matchId": "8946414154",
+              "winnerId": 2163,
+              "durationSeconds": 2380
+            },
+            {
+              "matchId": "8946495628",
+              "winnerId": 2163,
+              "durationSeconds": 2843
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367913,
+            "time": "2026-08-15T06:02:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 50,
+          "label": "Match 19",
+          "seriesId": 1130566,
+          "entrantIds": [
+            8255888,
+            9467224
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T05:00:00.000Z",
+          "actualStartedAt": "2026-08-15T06:09:56.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946343023",
+              "winnerId": 9467224,
+              "durationSeconds": 2527
+            },
+            {
+              "matchId": "8946416702",
+              "winnerId": 9467224,
+              "durationSeconds": 2030
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367911,
+            "time": "2026-08-15T06:09:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 51,
+          "label": "Match 20",
+          "seriesId": 1130559,
+          "entrantIds": [
+            10136357,
+            726228
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T05:00:00.000Z",
+          "actualStartedAt": "2026-08-15T05:26:24.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946303764",
+              "winnerId": 10136357,
+              "durationSeconds": 3327
+            },
+            {
+              "matchId": "8946386614",
+              "winnerId": 10136357,
+              "durationSeconds": 2377
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367912,
+            "time": "2026-08-15T05:26:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 52,
+          "label": "Match 21",
+          "seriesId": 1130619,
+          "entrantIds": [
+            5017210,
+            8261500
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T08:00:00.000Z",
+          "actualStartedAt": "2026-08-15T09:33:29.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946552436",
+              "winnerId": 5017210,
+              "durationSeconds": 2052
+            },
+            {
+              "matchId": "8946650558",
+              "winnerId": 5017210,
+              "durationSeconds": 2135
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367915,
+            "time": "2026-08-15T09:33:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 53,
+          "label": "Match 22",
+          "seriesId": 1130622,
+          "entrantIds": [
+            2586976,
+            9964962
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T08:00:00.000Z",
+          "actualStartedAt": "2026-08-15T09:34:29.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946563158",
+              "winnerId": 9964962,
+              "durationSeconds": 2069
+            },
+            {
+              "matchId": "8946649932",
+              "winnerId": 9964962,
+              "durationSeconds": 1904
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367916,
+            "time": "2026-08-15T09:34:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 54,
+          "label": "Match 23",
+          "seriesId": 1130625,
+          "entrantIds": [
+            10150538,
+            726228
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T08:00:00.000Z",
+          "actualStartedAt": "2026-08-15T09:41:07.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946572751",
+              "winnerId": 10150538,
+              "durationSeconds": 3226
+            },
+            {
+              "matchId": "8946690366",
+              "winnerId": 10150538,
+              "durationSeconds": 3153
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367917,
+            "time": "2026-08-15T09:41:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 55,
+          "label": "Match 24",
+          "seriesId": 1130641,
+          "entrantIds": [
+            8255888,
+            9247354
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T08:00:00.000Z",
+          "actualStartedAt": "2026-08-15T10:41:46.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946648249",
+              "winnerId": 9247354,
+              "durationSeconds": 2350
+            },
+            {
+              "matchId": "8946758310",
+              "winnerId": 8255888,
+              "durationSeconds": 2323
+            },
+            {
+              "matchId": "8946889239",
+              "winnerId": 9247354,
+              "durationSeconds": 2697
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367928,
+            "time": "2026-08-15T10:41:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 56,
+          "label": "Match 25",
+          "seriesId": 1130669,
+          "entrantIds": [
+            2163,
+            9467224
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T11:00:00.000Z",
+          "actualStartedAt": "2026-08-15T11:52:38.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946740853",
+              "winnerId": 9467224,
+              "durationSeconds": 1656
+            },
+            {
+              "matchId": "8946860406",
+              "winnerId": 2163,
+              "durationSeconds": 2130
+            },
+            {
+              "matchId": "8946996385",
+              "winnerId": 2163,
+              "durationSeconds": 2512
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367919,
+            "time": "2026-08-15T11:52:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 57,
+          "label": "Match 26",
+          "seriesId": 1130710,
+          "entrantIds": [
+            10136357,
+            7119388
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T11:00:00.000Z",
+          "actualStartedAt": "2026-08-15T12:56:15.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946858055",
+              "winnerId": 10136357,
+              "durationSeconds": 3556
+            },
+            {
+              "matchId": "8947050343",
+              "winnerId": 10136357,
+              "durationSeconds": 3661
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367920,
+            "time": "2026-08-15T12:56:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 58,
+          "label": "Match 27",
+          "seriesId": 1130665,
+          "entrantIds": [
+            9823272,
+            10150413
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-15T11:00:00.000Z",
+          "actualStartedAt": "2026-08-15T11:44:37.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8946735226",
+              "winnerId": 10150413,
+              "durationSeconds": 2388
+            },
+            {
+              "matchId": "8946872708",
+              "winnerId": 9823272,
+              "durationSeconds": 2131
+            },
+            {
+              "matchId": "8947008125",
+              "winnerId": 10150413,
+              "durationSeconds": 3254
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367918,
+            "time": "2026-08-15T11:44:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Elimination Round",
+      "metadata": {
+        "name": "Elimination Round",
+        "node_group_id": 3,
+        "parent_node_group_id": 1,
+        "incoming_node_group_ids": [
+          2
+        ],
+        "advancing_node_group_id": 4,
+        "advancing_team_count": 5,
+        "team_count": 10,
+        "node_group_type": 9,
+        "default_node_type": 2,
+        "round": 1,
+        "max_rounds": 0,
+        "win_loss_limit": 0,
+        "is_tiebreaker": false,
+        "is_final_group": false,
+        "is_completed": true,
+        "phase": 0,
+        "region": 0,
+        "start_time": 1786777200,
+        "end_time": 1786863600,
+        "secondary_advancing_node_group_id": 0,
+        "secondary_advancing_team_count": 0,
+        "tertiary_advancing_node_group_id": 0,
+        "tertiary_advancing_team_count": 0,
+        "elimination_dpc_points": 0
+      },
+      "standings": [
+        {
+          "standing": 1,
+          "team_id": 10150413,
+          "team_name": "Iron Wing",
+          "team_tag": "IW",
+          "wins": 1,
+          "losses": 0,
+          "score": "100000000000000",
+          "team_abbreviation": "IW",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 100,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 846791864,
+          "tiebereak_average_game_length": 2133
+        },
+        {
+          "standing": 1,
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_tag": "FLCN",
+          "wins": 1,
+          "losses": 0,
+          "score": "100000000000000",
+          "team_abbreviation": "FLCN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 100,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 751286406,
+          "tiebereak_average_game_length": 2508
+        },
+        {
+          "standing": 1,
+          "team_id": 8255888,
+          "team_name": "BETBOOM TEAM",
+          "team_tag": "BETBOOM",
+          "wins": 1,
+          "losses": 0,
+          "score": "100000000000000",
+          "team_abbreviation": "BB",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 100,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 1401243786,
+          "tiebereak_average_game_length": 2878
+        },
+        {
+          "standing": 1,
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_tag": "TSpirit",
+          "wins": 1,
+          "losses": 0,
+          "score": "100000000000000",
+          "team_abbreviation": "TS",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 66,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 33,
+          "tiebreak_coinflip": 409537465,
+          "tiebereak_average_game_length": 2368
+        },
+        {
+          "standing": 1,
+          "team_id": 9823272,
+          "team_name": "Team Yandex",
+          "team_tag": "TY",
+          "wins": 1,
+          "losses": 0,
+          "score": "100000000000000",
+          "team_abbreviation": "YAN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 66,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 33,
+          "tiebreak_coinflip": 1398638300,
+          "tiebereak_average_game_length": 2767
+        },
+        {
+          "standing": 2,
+          "team_id": 5017210,
+          "team_name": "Team Resilience",
+          "team_tag": "Resilience",
+          "wins": 0,
+          "losses": 1,
+          "score": "-1000000000000",
+          "team_abbreviation": "RES",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 33,
+          "tiebreak_opponent_match_wins": 1,
+          "tiebreak_opponent_game_win_pct": 66,
+          "tiebreak_coinflip": 1084729152,
+          "tiebereak_average_game_length": 2368
+        },
+        {
+          "standing": 2,
+          "team_id": 10150538,
+          "team_name": "LGD Gaming",
+          "team_tag": "LGD",
+          "wins": 0,
+          "losses": 1,
+          "score": "-1000000000000",
+          "team_abbreviation": "LGD",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 33,
+          "tiebreak_opponent_match_wins": 1,
+          "tiebreak_opponent_game_win_pct": 66,
+          "tiebreak_coinflip": 750987453,
+          "tiebereak_average_game_length": 2767
+        },
+        {
+          "standing": 2,
+          "team_id": 9964962,
+          "team_name": "GamerLegion",
+          "team_tag": "GL",
+          "wins": 0,
+          "losses": 1,
+          "score": "-1000000000000",
+          "team_abbreviation": "GL",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 1,
+          "tiebreak_opponent_game_win_pct": 100,
+          "tiebreak_coinflip": 481453125,
+          "tiebereak_average_game_length": 2133
+        },
+        {
+          "standing": 2,
+          "team_id": 726228,
+          "team_name": "Vici Gaming",
+          "team_tag": "VG",
+          "wins": 0,
+          "losses": 1,
+          "score": "-1000000000000",
+          "team_abbreviation": "VG",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 1,
+          "tiebreak_opponent_game_win_pct": 100,
+          "tiebreak_coinflip": 64289979,
+          "tiebereak_average_game_length": 2508
+        },
+        {
+          "standing": 2,
+          "team_id": 9467224,
+          "team_name": "Aurora Gaming",
+          "team_tag": "Aurora",
+          "wins": 0,
+          "losses": 1,
+          "score": "-1000000000000",
+          "team_abbreviation": "AUR",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 1,
+          "tiebreak_opponent_game_win_pct": 100,
+          "tiebreak_coinflip": 1091521780,
+          "tiebereak_average_game_length": 2878
+        }
+      ],
+      "ignoredPlaceholderIds": [],
+      "matches": [
+        {
+          "nodeId": 9,
+          "label": "Match 28",
+          "seriesId": 1130919,
+          "entrantIds": [
+            9247354,
+            726228
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-16T02:00:00.000Z",
+          "actualStartedAt": "2026-08-16T02:00:06.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8947983249",
+              "winnerId": 9247354,
+              "durationSeconds": 2446
+            },
+            {
+              "matchId": "8948040486",
+              "winnerId": 9247354,
+              "durationSeconds": 2570
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367930,
+            "time": "2026-08-16T02:00:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 10,
+          "label": "Match 29",
+          "seriesId": 1130934,
+          "entrantIds": [
+            9467224,
+            8255888
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-16T03:00:00.000Z",
+          "actualStartedAt": "2026-08-16T03:00:00.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8948026518",
+              "winnerId": 8255888,
+              "durationSeconds": 3512
+            },
+            {
+              "matchId": "8948094765",
+              "winnerId": 8255888,
+              "durationSeconds": 2244
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367929,
+            "time": "2026-08-16T03:00:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 11,
+          "label": "Match 30",
+          "seriesId": 1130941,
+          "entrantIds": [
+            7119388,
+            5017210
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-16T05:00:00.000Z",
+          "actualStartedAt": "2026-08-16T04:32:38.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8948094346",
+              "winnerId": 7119388,
+              "durationSeconds": 1774
+            },
+            {
+              "matchId": "8948151326",
+              "winnerId": 5017210,
+              "durationSeconds": 2947
+            },
+            {
+              "matchId": "8948235815",
+              "winnerId": 7119388,
+              "durationSeconds": 2384
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367931,
+            "time": "2026-08-16T04:32:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 12,
+          "label": "Match 31",
+          "seriesId": 1130950,
+          "entrantIds": [
+            10150413,
+            9964962
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-16T06:00:00.000Z",
+          "actualStartedAt": "2026-08-16T05:46:32.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8948155771",
+              "winnerId": 10150413,
+              "durationSeconds": 2221
+            },
+            {
+              "matchId": "8948244379",
+              "winnerId": 10150413,
+              "durationSeconds": 2045
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367933,
+            "time": "2026-08-16T05:46:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 13,
+          "label": "Match 32",
+          "seriesId": 1130974,
+          "entrantIds": [
+            10150538,
+            9823272
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-16T08:00:00.000Z",
+          "actualStartedAt": "2026-08-16T08:08:05.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8948311007",
+              "winnerId": 10150538,
+              "durationSeconds": 1886
+            },
+            {
+              "matchId": "8948420293",
+              "winnerId": 9823272,
+              "durationSeconds": 2325
+            },
+            {
+              "matchId": "8948533452",
+              "winnerId": 9823272,
+              "durationSeconds": 4092
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367932,
+            "time": "2026-08-16T08:08:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Playoff",
+      "metadata": {
+        "name": "Playoff",
+        "node_group_id": 5,
+        "parent_node_group_id": 4,
+        "incoming_node_group_ids": [],
+        "advancing_node_group_id": 0,
+        "advancing_team_count": 0,
+        "team_count": 8,
+        "node_group_type": 6,
+        "default_node_type": 2,
+        "round": 1,
+        "max_rounds": 0,
+        "win_loss_limit": 0,
+        "is_tiebreaker": false,
+        "is_final_group": true,
+        "is_completed": true,
+        "phase": 0,
+        "region": 0,
+        "start_time": 0,
+        "end_time": 0,
+        "secondary_advancing_node_group_id": 0,
+        "secondary_advancing_team_count": 0,
+        "tertiary_advancing_node_group_id": 0,
+        "tertiary_advancing_team_count": 0,
+        "elimination_dpc_points": 0
+      },
+      "standings": [
+        {
+          "standing": 1,
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_tag": "TSpirit",
+          "wins": 0,
+          "losses": 0,
+          "score": "8",
+          "team_abbreviation": "TS",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 2,
+          "team_id": 9572001,
+          "team_name": "TEAM VISION",
+          "team_tag": "VSN",
+          "wins": 0,
+          "losses": 0,
+          "score": "5",
+          "team_abbreviation": "VSN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 3,
+          "team_id": 9823272,
+          "team_name": "Team Yandex",
+          "team_tag": "TY",
+          "wins": 0,
+          "losses": 0,
+          "score": "4",
+          "team_abbreviation": "YAN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 4,
+          "team_id": 8255888,
+          "team_name": "BETBOOM TEAM",
+          "team_tag": "BETBOOM",
+          "wins": 0,
+          "losses": 0,
+          "score": "3",
+          "team_abbreviation": "BB",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 5,
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_tag": "Liquid",
+          "wins": 0,
+          "losses": 0,
+          "score": "2",
+          "team_abbreviation": "LIQ",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 5,
+          "team_id": 10136357,
+          "team_name": "Nigma Galaxy ",
+          "team_tag": "NGX",
+          "wins": 0,
+          "losses": 0,
+          "score": "2",
+          "team_abbreviation": "NGX",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 7,
+          "team_id": 10150413,
+          "team_name": "Iron Wing",
+          "team_tag": "IW",
+          "wins": 0,
+          "losses": 0,
+          "score": "1",
+          "team_abbreviation": "IW",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        },
+        {
+          "standing": 7,
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_tag": "FLCN",
+          "wins": 0,
+          "losses": 0,
+          "score": "1",
+          "team_abbreviation": "FLCN",
+          "is_pro": true,
+          "tiebreak_game_win_pct": 0,
+          "tiebreak_opponent_match_wins": 0,
+          "tiebreak_opponent_game_win_pct": 0,
+          "tiebreak_coinflip": 0,
+          "tiebereak_average_game_length": 0
+        }
+      ],
+      "ignoredPlaceholderIds": [],
+      "matches": [
+        {
+          "nodeId": 14,
+          "label": "Match 1",
+          "seriesId": 1132142,
+          "entrantIds": [
+            10150413,
+            7119388
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-20T02:00:00.000Z",
+          "actualStartedAt": "2026-08-20T02:26:47.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 18,
+          "losingNodeId": 22,
+          "games": [
+            {
+              "matchId": "8955197224",
+              "winnerId": 7119388,
+              "durationSeconds": 3744
+            },
+            {
+              "matchId": "8955247801",
+              "winnerId": 7119388,
+              "durationSeconds": 2646
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367938,
+            "time": "2026-08-20T02:36:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 15,
+          "label": "Match 2",
+          "seriesId": 1132161,
+          "entrantIds": [
+            9572001,
+            8255888
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-20T05:00:00.000Z",
+          "actualStartedAt": "2026-08-20T05:48:16.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 18,
+          "losingNodeId": 22,
+          "games": [
+            {
+              "matchId": "8955304019",
+              "winnerId": 9572001,
+              "durationSeconds": 4647
+            },
+            {
+              "matchId": "8955383956",
+              "winnerId": 8255888,
+              "durationSeconds": 3060
+            },
+            {
+              "matchId": "8955456108",
+              "winnerId": 9572001,
+              "durationSeconds": 1859
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367939,
+            "time": "2026-08-20T05:48:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 16,
+          "label": "Match 3",
+          "seriesId": 1132178,
+          "entrantIds": [
+            2163,
+            9823272
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-20T08:00:00.000Z",
+          "actualStartedAt": "2026-08-20T10:22:42.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 19,
+          "losingNodeId": 23,
+          "games": [
+            {
+              "matchId": "8955549026",
+              "winnerId": 9823272,
+              "durationSeconds": 3268
+            },
+            {
+              "matchId": "8955653541",
+              "winnerId": 9823272,
+              "durationSeconds": 2308
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367940,
+            "time": "2026-08-20T10:29:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 17,
+          "label": "Match 4",
+          "seriesId": 1132197,
+          "entrantIds": [
+            10136357,
+            9247354
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-20T11:00:00.000Z",
+          "actualStartedAt": "2026-08-20T13:22:02.000Z",
+          "incomingNodeIds": [
+            0,
+            0
+          ],
+          "winningNodeId": 19,
+          "losingNodeId": 23,
+          "games": [
+            {
+              "matchId": "8955796155",
+              "winnerId": 9247354,
+              "durationSeconds": 2501
+            },
+            {
+              "matchId": "8955934230",
+              "winnerId": 10136357,
+              "durationSeconds": 2408
+            },
+            {
+              "matchId": "8956096810",
+              "winnerId": 10136357,
+              "durationSeconds": 3598
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367941,
+            "time": "2026-08-20T13:22:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 18,
+          "label": "Match 7",
+          "seriesId": 1132388,
+          "entrantIds": [
+            7119388,
+            9572001
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-21T08:00:00.000Z",
+          "actualStartedAt": "2026-08-21T10:20:07.000Z",
+          "incomingNodeIds": [
+            14,
+            15
+          ],
+          "winningNodeId": 20,
+          "losingNodeId": 25,
+          "games": [
+            {
+              "matchId": "8957180942",
+              "winnerId": 9572001,
+              "durationSeconds": 2570
+            },
+            {
+              "matchId": "8957272720",
+              "winnerId": 7119388,
+              "durationSeconds": 1714
+            },
+            {
+              "matchId": "8957364447",
+              "winnerId": 9572001,
+              "durationSeconds": 2813
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367946,
+            "time": "2026-08-21T10:20:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 19,
+          "label": "Match 8",
+          "seriesId": 1132426,
+          "entrantIds": [
+            9823272,
+            10136357
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-21T11:00:00.000Z",
+          "actualStartedAt": "2026-08-21T14:12:01.000Z",
+          "incomingNodeIds": [
+            16,
+            17
+          ],
+          "winningNodeId": 20,
+          "losingNodeId": 24,
+          "games": [
+            {
+              "matchId": "8957527957",
+              "winnerId": 10136357,
+              "durationSeconds": 4493
+            },
+            {
+              "matchId": "8957749452",
+              "winnerId": 9823272,
+              "durationSeconds": 2688
+            },
+            {
+              "matchId": "8957890399",
+              "winnerId": 9823272,
+              "durationSeconds": 3672
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367947,
+            "time": "2026-08-21T14:12:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 20,
+          "label": "Match 11",
+          "seriesId": 1132678,
+          "entrantIds": [
+            9572001,
+            9823272
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-22T08:00:00.000Z",
+          "actualStartedAt": "2026-08-22T08:47:09.000Z",
+          "incomingNodeIds": [
+            18,
+            19
+          ],
+          "winningNodeId": 21,
+          "losingNodeId": 27,
+          "games": [
+            {
+              "matchId": "8958842370",
+              "winnerId": 9572001,
+              "durationSeconds": 3163
+            },
+            {
+              "matchId": "8958950792",
+              "winnerId": 9823272,
+              "durationSeconds": 2685
+            },
+            {
+              "matchId": "8959067169",
+              "winnerId": 9572001,
+              "durationSeconds": 2963
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367948,
+            "time": "2026-08-22T08:47:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 21,
+          "label": "Match 14",
+          "seriesId": 1133004,
+          "entrantIds": [
+            9572001,
+            7119388
+          ],
+          "scores": [
+            2,
+            3
+          ],
+          "nodeType": 3,
+          "scheduledAt": "2026-08-23T05:00:00.000Z",
+          "actualStartedAt": "2026-08-23T06:15:58.000Z",
+          "incomingNodeIds": [
+            20,
+            27
+          ],
+          "winningNodeId": 0,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8960577698",
+              "winnerId": 7119388,
+              "durationSeconds": 2775
+            },
+            {
+              "matchId": "8960655084",
+              "winnerId": 9572001,
+              "durationSeconds": 3869
+            },
+            {
+              "matchId": "8960762254",
+              "winnerId": 7119388,
+              "durationSeconds": 2756
+            },
+            {
+              "matchId": "8960882635",
+              "winnerId": 9572001,
+              "durationSeconds": 2658
+            },
+            {
+              "matchId": "8960991322",
+              "winnerId": 7119388,
+              "durationSeconds": 3862
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367937,
+            "time": "2026-08-23T06:15:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 22,
+          "label": "Match 5",
+          "seriesId": 1132343,
+          "entrantIds": [
+            10150413,
+            8255888
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-21T02:00:00.000Z",
+          "actualStartedAt": "2026-08-21T02:09:25.000Z",
+          "incomingNodeIds": [
+            14,
+            15
+          ],
+          "winningNodeId": 24,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8956780728",
+              "winnerId": 10150413,
+              "durationSeconds": 2327
+            },
+            {
+              "matchId": "8956821666",
+              "winnerId": 8255888,
+              "durationSeconds": 2858
+            },
+            {
+              "matchId": "8956877335",
+              "winnerId": 8255888,
+              "durationSeconds": 2503
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367942,
+            "time": "2026-08-21T02:09:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 23,
+          "label": "Match 6",
+          "seriesId": 1132374,
+          "entrantIds": [
+            2163,
+            9247354
+          ],
+          "scores": [
+            2,
+            1
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-21T05:00:00.000Z",
+          "actualStartedAt": "2026-08-21T06:16:16.000Z",
+          "incomingNodeIds": [
+            16,
+            17
+          ],
+          "winningNodeId": 25,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8956943534",
+              "winnerId": 9247354,
+              "durationSeconds": 3351
+            },
+            {
+              "matchId": "8957013760",
+              "winnerId": 2163,
+              "durationSeconds": 2057
+            },
+            {
+              "matchId": "8957086928",
+              "winnerId": 2163,
+              "durationSeconds": 2533
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367943,
+            "time": "2026-08-21T06:16:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 24,
+          "label": "Match 10",
+          "seriesId": 1132647,
+          "entrantIds": [
+            10136357,
+            8255888
+          ],
+          "scores": [
+            1,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-22T05:00:00.000Z",
+          "actualStartedAt": "2026-08-22T05:02:29.000Z",
+          "incomingNodeIds": [
+            19,
+            22
+          ],
+          "winningNodeId": 26,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8958607830",
+              "winnerId": 8255888,
+              "durationSeconds": 2338
+            },
+            {
+              "matchId": "8958667855",
+              "winnerId": 10136357,
+              "durationSeconds": 2171
+            },
+            {
+              "matchId": "8958734008",
+              "winnerId": 8255888,
+              "durationSeconds": 2610
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367944,
+            "time": "2026-08-22T05:02:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 25,
+          "label": "Match 9",
+          "seriesId": 1132622,
+          "entrantIds": [
+            7119388,
+            2163
+          ],
+          "scores": [
+            2,
+            0
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-22T02:00:00.000Z",
+          "actualStartedAt": "2026-08-22T02:12:24.000Z",
+          "incomingNodeIds": [
+            18,
+            23
+          ],
+          "winningNodeId": 26,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8958478716",
+              "winnerId": 7119388,
+              "durationSeconds": 2974
+            },
+            {
+              "matchId": "8958538533",
+              "winnerId": 7119388,
+              "durationSeconds": 2601
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367945,
+            "time": "2026-08-22T02:12:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 26,
+          "label": "Match 12",
+          "seriesId": 1132773,
+          "entrantIds": [
+            8255888,
+            7119388
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-22T11:00:00.000Z",
+          "actualStartedAt": "2026-08-22T13:08:09.000Z",
+          "incomingNodeIds": [
+            24,
+            25
+          ],
+          "winningNodeId": 27,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8959222564",
+              "winnerId": 7119388,
+              "durationSeconds": 2128
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367949,
+            "time": "2026-08-22T13:08:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        },
+        {
+          "nodeId": 27,
+          "label": "Match 13",
+          "seriesId": 1132977,
+          "entrantIds": [
+            9823272,
+            7119388
+          ],
+          "scores": [
+            0,
+            2
+          ],
+          "nodeType": 2,
+          "scheduledAt": "2026-08-23T02:00:00.000Z",
+          "actualStartedAt": "2026-08-23T02:11:09.000Z",
+          "incomingNodeIds": [
+            20,
+            26
+          ],
+          "winningNodeId": 21,
+          "losingNodeId": 0,
+          "games": [
+            {
+              "matchId": "8960365292",
+              "winnerId": 7119388,
+              "durationSeconds": 2245
+            },
+            {
+              "matchId": "8960411225",
+              "winnerId": 7119388,
+              "durationSeconds": 2059
+            }
+          ],
+          "cnComparison": {
+            "status": "scores-agree",
+            "matchId": 3367936,
+            "time": "2026-08-23T02:11:00.000Z",
+            "timeMeaning": "来源matchTime未明确实际/预计；不写actualStartedAt"
+          }
+        }
+      ]
+    }
+  ],
+  "crossCheck": {
+    "valveSeriesCount": 58,
+    "cnSeriesCount": 58,
+    "matchedCnIds": 58,
+    "conflicts": []
+  },
+  "nameBoundary": "保留双方原名与ID。公告BoomBoys等名称与数据BETBOOM TEAM/BB存在名称差异，未据此宣称官方历史名称一致。"
+}

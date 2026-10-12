@@ -219,7 +219,7 @@ export function AccountSettings() {
     e.preventDefault();
     if (!preview || !ack) return;
     await run(async () => {
-      await api("/me", {
+      const result = await api("/me", {
         method: "DELETE",
         body: {
           currentPassword: deletePassword,
@@ -227,7 +227,10 @@ export function AccountSettings() {
           expectedToken: preview.token,
         },
       });
-      leave("/login?accountDeleted=1");
+      leave(
+        "/login?accountDeleted=1" +
+          (result.demoCleanupPending ? "&demoCleanupPending=1" : ""),
+      );
     });
   }
   function avatarImage(url: string | null | undefined) {
@@ -547,6 +550,8 @@ export function AccountSettings() {
                       tournaments: "当前拥有的赛事",
                       configurations: "赛事配置",
                       snapshots: "冻结快照",
+                      schedules: "赛事时间计划",
+                      referenceDemos: "独立演示空间",
                       catalogRequests: "目录请求记录",
                     }).map(([key, label]) => (
                       <div key={key}>

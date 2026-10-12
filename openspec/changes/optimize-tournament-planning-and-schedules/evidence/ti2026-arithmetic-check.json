@@ -1,0 +1,540 @@
+{
+  "status": "observed-arithmetic-agrees",
+  "teamCount": 16,
+  "seriesCount": 39,
+  "gameCount": 97,
+  "limitation": "Weighted opponent game percentage and floor precision match all 16 observed values. This is an inference from frozen data, not a published official formula or proof for other inputs. No initial grouping, seed, pairing optimization or coin-toss outcomes are inferred.",
+  "teams": [
+    {
+      "teamId": 2163,
+      "name": "Team Liquid",
+      "nodeIds": [
+        6,
+        33,
+        40,
+        49,
+        56
+      ],
+      "calculated": {
+        "wins": 4,
+        "losses": 1,
+        "opponentWins": 13,
+        "gameWinPercentage": 64,
+        "weightedOpponentGameWinPercentage": 50,
+        "averageDuration": 2587
+      },
+      "weightedOpponentRatio": {
+        "numerator": 32,
+        "denominator": 63
+      },
+      "arithmeticOpponentPercentage": 50.67099567099567
+    },
+    {
+      "teamId": 726228,
+      "name": "Vici Gaming",
+      "nodeIds": [
+        6,
+        35,
+        42,
+        51,
+        54
+      ],
+      "calculated": {
+        "wins": 2,
+        "losses": 3,
+        "opponentWins": 13,
+        "gameWinPercentage": 33,
+        "weightedOpponentGameWinPercentage": 54,
+        "averageDuration": 3000
+      },
+      "weightedOpponentRatio": {
+        "numerator": 32,
+        "denominator": 59
+      },
+      "arithmeticOpponentPercentage": 53.62637362637363
+    },
+    {
+      "teamId": 2586976,
+      "name": "OG",
+      "nodeIds": [
+        3,
+        31,
+        39,
+        44,
+        53
+      ],
+      "calculated": {
+        "wins": 1,
+        "losses": 4,
+        "opponentWins": 10,
+        "gameWinPercentage": 18,
+        "weightedOpponentGameWinPercentage": 49,
+        "averageDuration": 2808
+      },
+      "weightedOpponentRatio": {
+        "numerator": 28,
+        "denominator": 57
+      },
+      "arithmeticOpponentPercentage": 49.1025641025641
+    },
+    {
+      "teamId": 5017210,
+      "name": "Team Resilience",
+      "nodeIds": [
+        4,
+        30,
+        39,
+        47,
+        52
+      ],
+      "calculated": {
+        "wins": 2,
+        "losses": 3,
+        "opponentWins": 11,
+        "gameWinPercentage": 53,
+        "weightedOpponentGameWinPercentage": 45,
+        "averageDuration": 2794
+      },
+      "weightedOpponentRatio": {
+        "numerator": 27,
+        "denominator": 59
+      },
+      "arithmeticOpponentPercentage": 45.86013986013986
+    },
+    {
+      "teamId": 7119388,
+      "name": "Team Spirit",
+      "nodeIds": [
+        5,
+        32,
+        40,
+        48,
+        57
+      ],
+      "calculated": {
+        "wins": 3,
+        "losses": 2,
+        "opponentWins": 16,
+        "gameWinPercentage": 54,
+        "weightedOpponentGameWinPercentage": 61,
+        "averageDuration": 2907
+      },
+      "weightedOpponentRatio": {
+        "numerator": 35,
+        "denominator": 57
+      },
+      "arithmeticOpponentPercentage": 61.97835497835498
+    },
+    {
+      "teamId": 8255888,
+      "name": "BETBOOM TEAM",
+      "nodeIds": [
+        3,
+        29,
+        36,
+        50,
+        55
+      ],
+      "calculated": {
+        "wins": 2,
+        "losses": 3,
+        "opponentWins": 14,
+        "gameWinPercentage": 41,
+        "weightedOpponentGameWinPercentage": 53,
+        "averageDuration": 2773
+      },
+      "weightedOpponentRatio": {
+        "numerator": 33,
+        "denominator": 62
+      },
+      "arithmeticOpponentPercentage": 53.3982683982684
+    },
+    {
+      "teamId": 8261500,
+      "name": "Xtreme Gaming",
+      "nodeIds": [
+        5,
+        34,
+        43,
+        45,
+        52
+      ],
+      "calculated": {
+        "wins": 1,
+        "losses": 4,
+        "opponentWins": 10,
+        "gameWinPercentage": 27,
+        "weightedOpponentGameWinPercentage": 47,
+        "averageDuration": 2620
+      },
+      "weightedOpponentRatio": {
+        "numerator": 28,
+        "denominator": 59
+      },
+      "arithmeticOpponentPercentage": 46.44755244755245
+    },
+    {
+      "teamId": 9247354,
+      "name": "Team Falcons",
+      "nodeIds": [
+        1,
+        28,
+        37,
+        46,
+        55
+      ],
+      "calculated": {
+        "wins": 3,
+        "losses": 2,
+        "opponentWins": 14,
+        "gameWinPercentage": 53,
+        "weightedOpponentGameWinPercentage": 55,
+        "averageDuration": 3010
+      },
+      "weightedOpponentRatio": {
+        "numerator": 34,
+        "denominator": 61
+      },
+      "arithmeticOpponentPercentage": 56.53113553113553
+    },
+    {
+      "teamId": 9467224,
+      "name": "Aurora Gaming",
+      "nodeIds": [
+        7,
+        32,
+        41,
+        50,
+        56
+      ],
+      "calculated": {
+        "wins": 3,
+        "losses": 2,
+        "opponentWins": 13,
+        "gameWinPercentage": 58,
+        "weightedOpponentGameWinPercentage": 52,
+        "averageDuration": 2493
+      },
+      "weightedOpponentRatio": {
+        "numerator": 33,
+        "denominator": 63
+      },
+      "arithmeticOpponentPercentage": 52.0995670995671
+    },
+    {
+      "teamId": 9572001,
+      "name": "TEAM VISION",
+      "nodeIds": [
+        4,
+        28,
+        36,
+        48
+      ],
+      "calculated": {
+        "wins": 4,
+        "losses": 0,
+        "opponentWins": 10,
+        "gameWinPercentage": 80,
+        "weightedOpponentGameWinPercentage": 50,
+        "averageDuration": 3059
+      },
+      "weightedOpponentRatio": {
+        "numerator": 26,
+        "denominator": 51
+      },
+      "arithmeticOpponentPercentage": 50.84790209790209
+    },
+    {
+      "teamId": 9823272,
+      "name": "Team Yandex",
+      "nodeIds": [
+        8,
+        33,
+        41,
+        47,
+        58
+      ],
+      "calculated": {
+        "wins": 2,
+        "losses": 3,
+        "opponentWins": 12,
+        "gameWinPercentage": 50,
+        "weightedOpponentGameWinPercentage": 52,
+        "averageDuration": 2412
+      },
+      "weightedOpponentRatio": {
+        "numerator": 33,
+        "denominator": 63
+      },
+      "arithmeticOpponentPercentage": 50.72161172161172
+    },
+    {
+      "teamId": 9964962,
+      "name": "GamerLegion",
+      "nodeIds": [
+        7,
+        34,
+        42,
+        46,
+        53
+      ],
+      "calculated": {
+        "wins": 2,
+        "losses": 3,
+        "opponentWins": 10,
+        "gameWinPercentage": 50,
+        "weightedOpponentGameWinPercentage": 39,
+        "averageDuration": 2787
+      },
+      "weightedOpponentRatio": {
+        "numerator": 24,
+        "denominator": 61
+      },
+      "arithmeticOpponentPercentage": 38.09090909090909
+    },
+    {
+      "teamId": 10136357,
+      "name": "Nigma Galaxy ",
+      "nodeIds": [
+        2,
+        31,
+        38,
+        51,
+        57
+      ],
+      "calculated": {
+        "wins": 4,
+        "losses": 1,
+        "opponentWins": 12,
+        "gameWinPercentage": 80,
+        "weightedOpponentGameWinPercentage": 44,
+        "averageDuration": 3228
+      },
+      "weightedOpponentRatio": {
+        "numerator": 27,
+        "denominator": 61
+      },
+      "arithmeticOpponentPercentage": 43.40992340992341
+    },
+    {
+      "teamId": 10149530,
+      "name": "HULIGANI",
+      "nodeIds": [
+        8,
+        35,
+        43,
+        44
+      ],
+      "calculated": {
+        "wins": 0,
+        "losses": 4,
+        "opponentWins": 6,
+        "gameWinPercentage": 20,
+        "weightedOpponentGameWinPercentage": 33,
+        "averageDuration": 2751
+      },
+      "weightedOpponentRatio": {
+        "numerator": 16,
+        "denominator": 48
+      },
+      "arithmeticOpponentPercentage": 32.1969696969697
+    },
+    {
+      "teamId": 10150413,
+      "name": "Iron Wing",
+      "nodeIds": [
+        2,
+        29,
+        37,
+        49,
+        58
+      ],
+      "calculated": {
+        "wins": 3,
+        "losses": 2,
+        "opponentWins": 15,
+        "gameWinPercentage": 57,
+        "weightedOpponentGameWinPercentage": 56,
+        "averageDuration": 2901
+      },
+      "weightedOpponentRatio": {
+        "numerator": 37,
+        "denominator": 65
+      },
+      "arithmeticOpponentPercentage": 57.857142857142854
+    },
+    {
+      "teamId": 10150538,
+      "name": "LGD Gaming",
+      "nodeIds": [
+        1,
+        30,
+        38,
+        45,
+        54
+      ],
+      "calculated": {
+        "wins": 3,
+        "losses": 2,
+        "opponentWins": 12,
+        "gameWinPercentage": 53,
+        "weightedOpponentGameWinPercentage": 49,
+        "averageDuration": 3275
+      },
+      "weightedOpponentRatio": {
+        "numerator": 30,
+        "denominator": 61
+      },
+      "arithmeticOpponentPercentage": 49.55710955710956
+    }
+  ],
+  "groupAndSeedingObservations": {
+    "initialGroups": {
+      "2163": "B",
+      "726228": "B",
+      "2586976": "A",
+      "5017210": "A",
+      "7119388": "B",
+      "8255888": "A",
+      "8261500": "B",
+      "9247354": "A",
+      "9467224": "B",
+      "9572001": "A",
+      "9823272": "B",
+      "9964962": "B",
+      "10136357": "A",
+      "10149530": "B",
+      "10150413": "A",
+      "10150538": "A"
+    },
+    "groupingMeaning": "A/B interpreted from official first-round match labels; not a separately published numeric initial seed table.",
+    "roundNodeIds": [
+      [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      [
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ]
+    ],
+    "allSameRecord": true,
+    "roundTwoThreeSameGroup": true,
+    "roundFourOppositeGroup": true,
+    "repeatOpponentCount": 0,
+    "qualifiedSwissOrder": [
+      {
+        "id": 9572001,
+        "name": "TEAM VISION",
+        "seed": 1
+      },
+      {
+        "id": 2163,
+        "name": "Team Liquid",
+        "seed": 2
+      },
+      {
+        "id": 10136357,
+        "name": "Nigma Galaxy ",
+        "seed": 3
+      },
+      {
+        "id": 7119388,
+        "name": "Team Spirit",
+        "seed": 4
+      },
+      {
+        "id": 10150413,
+        "name": "Iron Wing",
+        "seed": 5
+      },
+      {
+        "id": 9247354,
+        "name": "Team Falcons",
+        "seed": 6
+      },
+      {
+        "id": 8255888,
+        "name": "BETBOOM TEAM",
+        "seed": 7
+      },
+      {
+        "id": 9823272,
+        "name": "Team Yandex",
+        "seed": 8
+      }
+    ],
+    "observedPlayoffSeedPairs": [
+      {
+        "nodeId": 14,
+        "seedPair": [
+          5,
+          4
+        ]
+      },
+      {
+        "nodeId": 15,
+        "seedPair": [
+          1,
+          7
+        ]
+      },
+      {
+        "nodeId": 16,
+        "seedPair": [
+          2,
+          8
+        ]
+      },
+      {
+        "nodeId": 17,
+        "seedPair": [
+          3,
+          6
+        ]
+      }
+    ],
+    "limitation": "Observed playoff pairings are preserved literally. Do not assume 1-vs-8/2-vs-7. Elimination match order does not prove opponent-selection action order; no choice audit was published in these records."
+  }
+}

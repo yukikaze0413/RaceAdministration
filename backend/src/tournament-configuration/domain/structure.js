@@ -30,6 +30,7 @@ function parseSort(sort,path) {
 }
 function parseStructure(payload,tournamentId) {
  object(payload,['entrantKind','structureVersion','routingVersion','templateOrigin','stages','pools','routes'],'');
+ if(payload.structureVersion==='structure-v2')return require('./structure-v2').parseStructureV2(payload,tournamentId);
  if(payload.entrantKind!=='individual')fail('/entrantKind','仅支持个人');
  if(payload.structureVersion!=='structure-v1')fail('/structureVersion','未知结构版本');
  if(payload.routingVersion!=='routing-v1')fail('/routingVersion','未知路由版本');

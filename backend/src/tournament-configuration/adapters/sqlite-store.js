@@ -10,7 +10,7 @@ function decode(row) {
     ? Object.fromEntries(keys.map((k) => [k, new Map(JSON.parse(row.data)[k])]))
     : empty();
 }
-function createSqliteStore(db) {
+function createSqliteStore(db, authorizeWrite = null) {
   function read(id) {
     return decode(
       db
@@ -33,11 +33,26 @@ function createSqliteStore(db) {
     async read(id) {
       return guard(() => structuredClone(read(id)));
     },
-    async transaction(id, operation) {
+    readDependencies(id) {
+      return guard(() =>
+        structuredClone(
+          require("../../platform/operations/state").read(db, id),
+        ),
+      );
+    },
+    async transaction(id, operation, context) {
       return guard(() =>
         transaction(db, () => {
+          if (authorizeWrite && (!context || !authorizeWrite(context, id)))
+            throw new ConfigurationError("FORBIDDEN", "没有本赛事操作权限");
+          const dependencies = structuredClone(
+            require("../../platform/operations/state").read(db, id),
+          );
+          const dependencyBefore = JSON.stringify(dependencies);
+          const canWrite = (action) =>
+            !!authorizeWrite && authorizeWrite(context, id, action);
           const candidate = structuredClone(read(id)),
-            result = operation(candidate);
+            result = operation(candidate, dependencies, canWrite);
           if (result?.then)
             throw Error("Configuration operation must be synchronous");
           const serialized = JSON.stringify(
@@ -47,6 +62,12 @@ function createSqliteStore(db) {
           db.prepare(
             "INSERT INTO structure_aggregates VALUES(?,?) ON CONFLICT(tournamentId) DO UPDATE SET data=excluded.data",
           ).run(id, serialized);
+          if (JSON.stringify(dependencies) !== dependencyBefore)
+            require("../../platform/operations/state").save(
+              db,
+              id,
+              dependencies,
+            );
           return response;
         }),
       );

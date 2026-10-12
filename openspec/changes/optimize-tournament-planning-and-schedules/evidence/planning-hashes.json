@@ -1,0 +1,66 @@
+[
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\acceptance-plan.md",
+    "sha256": "D864BF8BA9FAC91D2D93D4B831BE3A89FECB0E899F88BAE9BFB8D6C03B34343D"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\design.md",
+    "sha256": "F0F6F83F61DF20805A219E0E54E302414987B6B05C2F15F59F112548E017F389"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\handoff.md",
+    "sha256": "78FEC14FE3FF223B5C05CEA367B9728940750C1605741ED00B01398EE2FFB997"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\module-plan.md",
+    "sha256": "312393D4198C4B7BDD695B5CDB29DA61A96242610068AD698108446DE4125F4E"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\parameters.md",
+    "sha256": "F2753C9441B387CB9AFC5E94616B68C3704597C3C9385BE2426B797A3C4FF453"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\proposal.md",
+    "sha256": "DD395256E225F68C0A892274F84DC7F77FC9549BCCD298AACBCC3D6AAE96ECBB"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\research.md",
+    "sha256": "0457602431DA446ACD065F598F8230E9181AAD937066837FB0A753D6BD268C5E"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\tasks.md",
+    "sha256": "542848E1BA17C720163080DAF79AC599310B4F9898FD2EBEF9442D4B8BC9650F"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\configuration-validation\\spec.md",
+    "sha256": "09F89BEABD5E8654F74EC2EEDBBF1BD08771822851C2E6AD6DD4EABAE0FFFCFF"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\configuration-workbench\\spec.md",
+    "sha256": "26FE12F538234BA4EA30FFBD62C8C5F7D0B1B5FA4C896A4109360D514510FBA9"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\extended-format-runtime\\spec.md",
+    "sha256": "C0A4DC10C91C98C663C8AED698D38ED02D74DD17F509B6EC2725D7CE5E89420D"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\progression-routing\\spec.md",
+    "sha256": "27086E08A1B682154CCAB4280216E4B2D3D7376F770BCB27CB12D0FAD75237E7"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\stage-format-parameters\\spec.md",
+    "sha256": "9AEF86A30F534202FCD4065E9BA3BAD45DF09AB89D9CD0EC018F9B6C28E9E7D4"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\tournament-reference-cases\\spec.md",
+    "sha256": "BE60346A23398683495BE9604A016A9834C2BDB18598EACD0D0FAD59D2F63E91"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\tournament-schedule\\spec.md",
+    "sha256": "E87C54445884BD311A89B59BBBBFE191BB9CFE63C568D07892EAC2CFB8C9028E"
+  },
+  {
+    "path": "D:\\Projects\\RaceAdministration\\openspec\\changes\\optimize-tournament-planning-and-schedules\\specs\\tournament-structure\\spec.md",
+    "sha256": "DAC3ED877D644B78C0693941A2E5463D3D702772A4366980A6BAA8E488BDDE7B"
+  }
+]

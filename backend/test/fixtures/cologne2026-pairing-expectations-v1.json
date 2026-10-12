@@ -1,0 +1,3104 @@
+{
+  "version": 2,
+  "status": "historical-pairing-observations",
+  "method": "Expected pairs from frozen historical facts, complete 16-team input and DS independently calculated from past observed scores. No production imports.",
+  "limitation": "All 24 first-round pairs agree with May4 global standing and published final record/DS/initial-seed inheritance. ESL's explicit snapshot-adoption date and official adjustment records remain unverified; do not treat the agreement as that missing announcement.",
+  "cases": [
+    {
+      "stage": "stage1",
+      "round": 1,
+      "rows": [
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "HEROIC",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 3,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 5,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "M80",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "SINNERS",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "NRG",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 9,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Sharks",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 11,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 12,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Liquid",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Lynn Vision",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 14,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "THUNDER dOWNUNDER",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 15,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 16,
+          "opponents": [],
+          "ds": 0
+        }
+      ],
+      "expectedPairs": [
+        [
+          "GamerLegion",
+          "NRG"
+        ],
+        [
+          "B8",
+          "TYLOO"
+        ],
+        [
+          "HEROIC",
+          "Sharks"
+        ],
+        [
+          "BETBOOM",
+          "Gaimin Gladiators"
+        ],
+        [
+          "BIG",
+          "Liquid"
+        ],
+        [
+          "M80",
+          "Lynn Vision"
+        ],
+        [
+          "MIBR",
+          "THUNDER dOWNUNDER"
+        ],
+        [
+          "FlyQuest",
+          "SINNERS"
+        ]
+      ]
+    },
+    {
+      "stage": "stage1",
+      "round": 2,
+      "rows": [
+        {
+          "entrantId": "GamerLegion",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "NRG"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "TYLOO"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "HEROIC",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 3,
+          "opponents": [
+            "Sharks"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "Gaimin Gladiators"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "Liquid"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "M80",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [
+            "Lynn Vision"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "THUNDER dOWNUNDER"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "SINNERS",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "NRG",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 9,
+          "opponents": [
+            "GamerLegion"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 10,
+          "opponents": [
+            "B8"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Sharks",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 11,
+          "opponents": [
+            "HEROIC"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 12,
+          "opponents": [
+            "BETBOOM"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Liquid",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [
+            "BIG"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Lynn Vision",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "M80"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "THUNDER dOWNUNDER",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 15,
+          "opponents": [
+            "MIBR"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 16,
+          "opponents": [
+            "SINNERS"
+          ],
+          "ds": -1
+        }
+      ],
+      "expectedPairs": [
+        [
+          "BETBOOM",
+          "Liquid"
+        ],
+        [
+          "B8",
+          "THUNDER dOWNUNDER"
+        ],
+        [
+          "M80",
+          "Sharks"
+        ],
+        [
+          "MIBR",
+          "TYLOO"
+        ],
+        [
+          "GamerLegion",
+          "FlyQuest"
+        ],
+        [
+          "BIG",
+          "Gaimin Gladiators"
+        ],
+        [
+          "NRG",
+          "SINNERS"
+        ],
+        [
+          "Lynn Vision",
+          "HEROIC"
+        ]
+      ]
+    },
+    {
+      "stage": "stage1",
+      "round": 3,
+      "rows": [
+        {
+          "entrantId": "GamerLegion",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "NRG",
+            "FlyQuest"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "B8",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "TYLOO",
+            "THUNDER dOWNUNDER"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "HEROIC",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 3,
+          "opponents": [
+            "Sharks",
+            "Lynn Vision"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "Gaimin Gladiators",
+            "Liquid"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "Liquid",
+            "Gaimin Gladiators"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "M80",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [
+            "Lynn Vision",
+            "Sharks"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "THUNDER dOWNUNDER",
+            "TYLOO"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "SINNERS",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "NRG"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "NRG",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 9,
+          "opponents": [
+            "GamerLegion",
+            "SINNERS"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 10,
+          "opponents": [
+            "B8",
+            "MIBR"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Sharks",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 11,
+          "opponents": [
+            "HEROIC",
+            "M80"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 12,
+          "opponents": [
+            "BETBOOM",
+            "BIG"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Liquid",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 13,
+          "opponents": [
+            "BIG",
+            "BETBOOM"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Lynn Vision",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "M80",
+            "HEROIC"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "THUNDER dOWNUNDER",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 15,
+          "opponents": [
+            "MIBR",
+            "B8"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 16,
+          "opponents": [
+            "SINNERS",
+            "GamerLegion"
+          ],
+          "ds": 0
+        }
+      ],
+      "expectedPairs": [
+        [
+          "BETBOOM",
+          "GamerLegion"
+        ],
+        [
+          "B8",
+          "M80"
+        ],
+        [
+          "MIBR",
+          "Liquid"
+        ],
+        [
+          "FlyQuest",
+          "NRG"
+        ],
+        [
+          "BIG",
+          "THUNDER dOWNUNDER"
+        ],
+        [
+          "TYLOO",
+          "SINNERS"
+        ],
+        [
+          "Lynn Vision",
+          "Sharks"
+        ],
+        [
+          "HEROIC",
+          "Gaimin Gladiators"
+        ]
+      ]
+    },
+    {
+      "stage": "stage1",
+      "round": 4,
+      "rows": [
+        {
+          "entrantId": "GamerLegion",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 1,
+          "opponents": [
+            "NRG",
+            "FlyQuest",
+            "BETBOOM"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "B8",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "TYLOO",
+            "THUNDER dOWNUNDER",
+            "M80"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "HEROIC",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 3,
+          "opponents": [
+            "Sharks",
+            "Lynn Vision",
+            "Gaimin Gladiators"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "Gaimin Gladiators",
+            "Liquid",
+            "GamerLegion"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "Liquid",
+            "Gaimin Gladiators",
+            "THUNDER dOWNUNDER"
+          ],
+          "ds": -5
+        },
+        {
+          "entrantId": "M80",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "Lynn Vision",
+            "Sharks",
+            "B8"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "THUNDER dOWNUNDER",
+            "TYLOO",
+            "Liquid"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "SINNERS",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "NRG",
+            "TYLOO"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "NRG",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 9,
+          "opponents": [
+            "GamerLegion",
+            "SINNERS",
+            "FlyQuest"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 10,
+          "opponents": [
+            "B8",
+            "MIBR",
+            "SINNERS"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Sharks",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 11,
+          "opponents": [
+            "HEROIC",
+            "M80",
+            "Lynn Vision"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 12,
+          "opponents": [
+            "BETBOOM",
+            "BIG",
+            "HEROIC"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "Liquid",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 13,
+          "opponents": [
+            "BIG",
+            "BETBOOM",
+            "MIBR"
+          ],
+          "ds": 5
+        },
+        {
+          "entrantId": "Lynn Vision",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "M80",
+            "HEROIC",
+            "Sharks"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "THUNDER dOWNUNDER",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 15,
+          "opponents": [
+            "MIBR",
+            "B8",
+            "BIG"
+          ],
+          "ds": 5
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 16,
+          "opponents": [
+            "SINNERS",
+            "GamerLegion",
+            "NRG"
+          ],
+          "ds": -1
+        }
+      ],
+      "expectedPairs": [
+        [
+          "M80",
+          "NRG"
+        ],
+        [
+          "MIBR",
+          "Lynn Vision"
+        ],
+        [
+          "GamerLegion",
+          "BIG"
+        ],
+        [
+          "FlyQuest",
+          "THUNDER dOWNUNDER"
+        ],
+        [
+          "TYLOO",
+          "Sharks"
+        ],
+        [
+          "Liquid",
+          "HEROIC"
+        ]
+      ]
+    },
+    {
+      "stage": "stage1",
+      "round": 5,
+      "rows": [
+        {
+          "entrantId": "GamerLegion",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 1,
+          "opponents": [
+            "NRG",
+            "FlyQuest",
+            "BETBOOM",
+            "BIG"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "B8",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "TYLOO",
+            "THUNDER dOWNUNDER",
+            "M80"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "HEROIC",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 3,
+          "opponents": [
+            "Sharks",
+            "Lynn Vision",
+            "Gaimin Gladiators",
+            "Liquid"
+          ],
+          "ds": -5
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "Gaimin Gladiators",
+            "Liquid",
+            "GamerLegion"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 5,
+          "opponents": [
+            "Liquid",
+            "Gaimin Gladiators",
+            "THUNDER dOWNUNDER",
+            "GamerLegion"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "M80",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "Lynn Vision",
+            "Sharks",
+            "B8",
+            "NRG"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "THUNDER dOWNUNDER",
+            "TYLOO",
+            "Liquid",
+            "Lynn Vision"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "SINNERS",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "NRG",
+            "TYLOO"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "NRG",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "GamerLegion",
+            "SINNERS",
+            "FlyQuest",
+            "M80"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 10,
+          "opponents": [
+            "B8",
+            "MIBR",
+            "SINNERS",
+            "Sharks"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Sharks",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 11,
+          "opponents": [
+            "HEROIC",
+            "M80",
+            "Lynn Vision",
+            "TYLOO"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Gaimin Gladiators",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 12,
+          "opponents": [
+            "BETBOOM",
+            "BIG",
+            "HEROIC"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Liquid",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 13,
+          "opponents": [
+            "BIG",
+            "BETBOOM",
+            "MIBR",
+            "HEROIC"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "Lynn Vision",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 14,
+          "opponents": [
+            "M80",
+            "HEROIC",
+            "Sharks",
+            "MIBR"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "THUNDER dOWNUNDER",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 15,
+          "opponents": [
+            "MIBR",
+            "B8",
+            "BIG",
+            "FlyQuest"
+          ],
+          "ds": 5
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 16,
+          "opponents": [
+            "SINNERS",
+            "GamerLegion",
+            "NRG",
+            "THUNDER dOWNUNDER"
+          ],
+          "ds": -3
+        }
+      ],
+      "expectedPairs": [
+        [
+          "FlyQuest",
+          "Liquid"
+        ],
+        [
+          "BIG",
+          "NRG"
+        ],
+        [
+          "TYLOO",
+          "Lynn Vision"
+        ]
+      ]
+    },
+    {
+      "stage": "stage2",
+      "round": 1,
+      "rows": [
+        {
+          "entrantId": "FUT",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Astralis",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 3,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "G2",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 5,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "paiN",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "9z",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 9,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 11,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "M80",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 12,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 14,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 15,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 16,
+          "opponents": [],
+          "ds": 0
+        }
+      ],
+      "expectedPairs": [
+        [
+          "FUT",
+          "B8"
+        ],
+        [
+          "Spirit",
+          "BETBOOM"
+        ],
+        [
+          "Astralis",
+          "GamerLegion"
+        ],
+        [
+          "G2",
+          "M80"
+        ],
+        [
+          "Legacy",
+          "MIBR"
+        ],
+        [
+          "paiN",
+          "TYLOO"
+        ],
+        [
+          "Monte",
+          "BIG"
+        ],
+        [
+          "9z",
+          "FlyQuest"
+        ]
+      ]
+    },
+    {
+      "stage": "stage2",
+      "round": 2,
+      "rows": [
+        {
+          "entrantId": "FUT",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "B8"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "BETBOOM"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Astralis",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 3,
+          "opponents": [
+            "GamerLegion"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "G2",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "M80"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "MIBR"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "paiN",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "TYLOO"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [
+            "BIG"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "9z",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 9,
+          "opponents": [
+            "FUT"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 10,
+          "opponents": [
+            "Spirit"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 11,
+          "opponents": [
+            "Astralis"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "M80",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 12,
+          "opponents": [
+            "G2"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [
+            "Legacy"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 14,
+          "opponents": [
+            "paiN"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 15,
+          "opponents": [
+            "Monte"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 16,
+          "opponents": [
+            "9z"
+          ],
+          "ds": 1
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Spirit",
+          "MIBR"
+        ],
+        [
+          "FUT",
+          "TYLOO"
+        ],
+        [
+          "G2",
+          "Monte"
+        ],
+        [
+          "BETBOOM",
+          "GamerLegion"
+        ],
+        [
+          "9z",
+          "Astralis"
+        ],
+        [
+          "Legacy",
+          "FlyQuest"
+        ],
+        [
+          "B8",
+          "M80"
+        ],
+        [
+          "paiN",
+          "BIG"
+        ]
+      ]
+    },
+    {
+      "stage": "stage2",
+      "round": 3,
+      "rows": [
+        {
+          "entrantId": "FUT",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "B8",
+            "TYLOO"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "BETBOOM",
+            "MIBR"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Astralis",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 3,
+          "opponents": [
+            "GamerLegion",
+            "9z"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "G2",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [
+            "M80",
+            "Monte"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "MIBR",
+            "FlyQuest"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "paiN",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 6,
+          "opponents": [
+            "TYLOO",
+            "BIG"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "BIG",
+            "G2"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "9z",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "Astralis"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "FUT",
+            "M80"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 10,
+          "opponents": [
+            "Spirit",
+            "GamerLegion"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 11,
+          "opponents": [
+            "Astralis",
+            "BETBOOM"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "M80",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 12,
+          "opponents": [
+            "G2",
+            "B8"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 13,
+          "opponents": [
+            "Legacy",
+            "Spirit"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "paiN",
+            "FUT"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 15,
+          "opponents": [
+            "Monte",
+            "paiN"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 16,
+          "opponents": [
+            "9z",
+            "Legacy"
+          ],
+          "ds": 2
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Spirit",
+          "9z"
+        ],
+        [
+          "FUT",
+          "G2"
+        ],
+        [
+          "BETBOOM",
+          "M80"
+        ],
+        [
+          "Legacy",
+          "Monte"
+        ],
+        [
+          "B8",
+          "GamerLegion"
+        ],
+        [
+          "paiN",
+          "FlyQuest"
+        ],
+        [
+          "BIG",
+          "MIBR"
+        ],
+        [
+          "TYLOO",
+          "Astralis"
+        ]
+      ]
+    },
+    {
+      "stage": "stage2",
+      "round": 4,
+      "rows": [
+        {
+          "entrantId": "FUT",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "B8",
+            "TYLOO",
+            "G2"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "BETBOOM",
+            "MIBR",
+            "9z"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Astralis",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 3,
+          "opponents": [
+            "GamerLegion",
+            "9z",
+            "TYLOO"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "G2",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 4,
+          "opponents": [
+            "M80",
+            "Monte",
+            "FUT"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 5,
+          "opponents": [
+            "MIBR",
+            "FlyQuest",
+            "Monte"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "paiN",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 6,
+          "opponents": [
+            "TYLOO",
+            "BIG",
+            "FlyQuest"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 7,
+          "opponents": [
+            "BIG",
+            "G2",
+            "Legacy"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "9z",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "Astralis",
+            "Spirit"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "FUT",
+            "M80",
+            "GamerLegion"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 10,
+          "opponents": [
+            "Spirit",
+            "GamerLegion",
+            "M80"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 11,
+          "opponents": [
+            "Astralis",
+            "BETBOOM",
+            "B8"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "M80",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 12,
+          "opponents": [
+            "G2",
+            "B8",
+            "BETBOOM"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 13,
+          "opponents": [
+            "Legacy",
+            "Spirit",
+            "BIG"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "paiN",
+            "FUT",
+            "Astralis"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 15,
+          "opponents": [
+            "Monte",
+            "paiN",
+            "MIBR"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 16,
+          "opponents": [
+            "9z",
+            "Legacy",
+            "paiN"
+          ],
+          "ds": -1
+        }
+      ],
+      "expectedPairs": [
+        [
+          "G2",
+          "BIG"
+        ],
+        [
+          "BETBOOM",
+          "Monte"
+        ],
+        [
+          "9z",
+          "TYLOO"
+        ],
+        [
+          "Legacy",
+          "M80"
+        ],
+        [
+          "B8",
+          "MIBR"
+        ],
+        [
+          "paiN",
+          "Astralis"
+        ]
+      ]
+    },
+    {
+      "stage": "stage2",
+      "round": 5,
+      "rows": [
+        {
+          "entrantId": "FUT",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "B8",
+            "TYLOO",
+            "G2"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [
+            "BETBOOM",
+            "MIBR",
+            "9z"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Astralis",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 3,
+          "opponents": [
+            "GamerLegion",
+            "9z",
+            "TYLOO",
+            "paiN"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "G2",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 4,
+          "opponents": [
+            "M80",
+            "Monte",
+            "FUT",
+            "BIG"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 5,
+          "opponents": [
+            "MIBR",
+            "FlyQuest",
+            "Monte",
+            "M80"
+          ],
+          "ds": -7
+        },
+        {
+          "entrantId": "paiN",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 6,
+          "opponents": [
+            "TYLOO",
+            "BIG",
+            "FlyQuest",
+            "Astralis"
+          ],
+          "ds": -5
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 7,
+          "opponents": [
+            "BIG",
+            "G2",
+            "Legacy",
+            "BETBOOM"
+          ],
+          "ds": 4
+        },
+        {
+          "entrantId": "9z",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 8,
+          "opponents": [
+            "FlyQuest",
+            "Astralis",
+            "Spirit",
+            "TYLOO"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "B8",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "FUT",
+            "M80",
+            "GamerLegion",
+            "MIBR"
+          ],
+          "ds": -4
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 10,
+          "opponents": [
+            "Spirit",
+            "GamerLegion",
+            "M80",
+            "Monte"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "GamerLegion",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 11,
+          "opponents": [
+            "Astralis",
+            "BETBOOM",
+            "B8"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "M80",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 12,
+          "opponents": [
+            "G2",
+            "B8",
+            "BETBOOM",
+            "Legacy"
+          ],
+          "ds": 4
+        },
+        {
+          "entrantId": "MIBR",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 13,
+          "opponents": [
+            "Legacy",
+            "Spirit",
+            "BIG",
+            "B8"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "TYLOO",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 14,
+          "opponents": [
+            "paiN",
+            "FUT",
+            "Astralis",
+            "9z"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "BIG",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 15,
+          "opponents": [
+            "Monte",
+            "paiN",
+            "MIBR",
+            "G2"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "FlyQuest",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 16,
+          "opponents": [
+            "9z",
+            "Legacy",
+            "paiN"
+          ],
+          "ds": 2
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Legacy",
+          "TYLOO"
+        ],
+        [
+          "Monte",
+          "paiN"
+        ],
+        [
+          "B8",
+          "BIG"
+        ]
+      ]
+    },
+    {
+      "stage": "stage3",
+      "round": 1,
+      "rows": [
+        {
+          "entrantId": "Vitality",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Natus Vincere",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 2,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Falcons",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 3,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "The MongolZ",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 4,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "PARIVISION",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 5,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Aurora",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "FURIA",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "MOUZ",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "FUT",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 9,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "G2",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 11,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 12,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "9z",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 14,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 15,
+          "opponents": [],
+          "ds": 0
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 0,
+          "losses": 0,
+          "initialSeed": 16,
+          "opponents": [],
+          "ds": 0
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Vitality",
+          "FUT"
+        ],
+        [
+          "Natus Vincere",
+          "Spirit"
+        ],
+        [
+          "Falcons",
+          "G2"
+        ],
+        [
+          "The MongolZ",
+          "BETBOOM"
+        ],
+        [
+          "PARIVISION",
+          "9z"
+        ],
+        [
+          "Aurora",
+          "Monte"
+        ],
+        [
+          "FURIA",
+          "B8"
+        ],
+        [
+          "MOUZ",
+          "Legacy"
+        ]
+      ]
+    },
+    {
+      "stage": "stage3",
+      "round": 2,
+      "rows": [
+        {
+          "entrantId": "Vitality",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 1,
+          "opponents": [
+            "FUT"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Natus Vincere",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 2,
+          "opponents": [
+            "Spirit"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Falcons",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 3,
+          "opponents": [
+            "G2"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "The MongolZ",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 4,
+          "opponents": [
+            "BETBOOM"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "PARIVISION",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 5,
+          "opponents": [
+            "9z"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Aurora",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 6,
+          "opponents": [
+            "Monte"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "FURIA",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [
+            "B8"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "MOUZ",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 8,
+          "opponents": [
+            "Legacy"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "FUT",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 9,
+          "opponents": [
+            "Vitality"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [
+            "Natus Vincere"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "G2",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 11,
+          "opponents": [
+            "Falcons"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 12,
+          "opponents": [
+            "The MongolZ"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "9z",
+          "wins": 1,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [
+            "PARIVISION"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "Aurora"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 15,
+          "opponents": [
+            "FURIA"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 0,
+          "losses": 1,
+          "initialSeed": 16,
+          "opponents": [
+            "MOUZ"
+          ],
+          "ds": 1
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Aurora",
+          "Spirit"
+        ],
+        [
+          "Vitality",
+          "9z"
+        ],
+        [
+          "Falcons",
+          "BETBOOM"
+        ],
+        [
+          "Natus Vincere",
+          "Legacy"
+        ],
+        [
+          "FUT",
+          "G2"
+        ],
+        [
+          "PARIVISION",
+          "Monte"
+        ],
+        [
+          "FURIA",
+          "MOUZ"
+        ],
+        [
+          "The MongolZ",
+          "B8"
+        ]
+      ]
+    },
+    {
+      "stage": "stage3",
+      "round": 3,
+      "rows": [
+        {
+          "entrantId": "Vitality",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 1,
+          "opponents": [
+            "FUT",
+            "9z"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Natus Vincere",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 2,
+          "opponents": [
+            "Spirit",
+            "Legacy"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Falcons",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 3,
+          "opponents": [
+            "G2",
+            "BETBOOM"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "The MongolZ",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 4,
+          "opponents": [
+            "BETBOOM",
+            "B8"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "PARIVISION",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 5,
+          "opponents": [
+            "9z",
+            "Monte"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Aurora",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "Monte",
+            "Spirit"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "FURIA",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [
+            "B8",
+            "MOUZ"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "MOUZ",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 8,
+          "opponents": [
+            "Legacy",
+            "FURIA"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "FUT",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "Vitality",
+            "G2"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [
+            "Natus Vincere",
+            "Aurora"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "G2",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 11,
+          "opponents": [
+            "Falcons",
+            "FUT"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 12,
+          "opponents": [
+            "The MongolZ",
+            "Falcons"
+          ],
+          "ds": 0
+        },
+        {
+          "entrantId": "9z",
+          "wins": 2,
+          "losses": 0,
+          "initialSeed": 13,
+          "opponents": [
+            "PARIVISION",
+            "Vitality"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 1,
+          "losses": 1,
+          "initialSeed": 14,
+          "opponents": [
+            "Aurora",
+            "PARIVISION"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 15,
+          "opponents": [
+            "FURIA",
+            "The MongolZ"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 0,
+          "losses": 2,
+          "initialSeed": 16,
+          "opponents": [
+            "MOUZ",
+            "Natus Vincere"
+          ],
+          "ds": 0
+        }
+      ],
+      "expectedPairs": [
+        [
+          "BETBOOM",
+          "FURIA"
+        ],
+        [
+          "PARIVISION",
+          "Legacy"
+        ],
+        [
+          "Vitality",
+          "MOUZ"
+        ],
+        [
+          "Falcons",
+          "Monte"
+        ],
+        [
+          "Aurora",
+          "G2"
+        ],
+        [
+          "Natus Vincere",
+          "The MongolZ"
+        ],
+        [
+          "B8",
+          "FUT"
+        ],
+        [
+          "Spirit",
+          "9z"
+        ]
+      ]
+    },
+    {
+      "stage": "stage3",
+      "round": 4,
+      "rows": [
+        {
+          "entrantId": "Vitality",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 1,
+          "opponents": [
+            "FUT",
+            "9z",
+            "MOUZ"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Natus Vincere",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 2,
+          "opponents": [
+            "Spirit",
+            "Legacy",
+            "The MongolZ"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Falcons",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 3,
+          "opponents": [
+            "G2",
+            "BETBOOM",
+            "Monte"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "The MongolZ",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 4,
+          "opponents": [
+            "BETBOOM",
+            "B8",
+            "Natus Vincere"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "PARIVISION",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 5,
+          "opponents": [
+            "9z",
+            "Monte",
+            "Legacy"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "Aurora",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "Monte",
+            "Spirit",
+            "G2"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "FURIA",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [
+            "B8",
+            "MOUZ",
+            "BETBOOM"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "MOUZ",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 8,
+          "opponents": [
+            "Legacy",
+            "FURIA",
+            "Vitality"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "FUT",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "Vitality",
+            "G2",
+            "B8"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [
+            "Natus Vincere",
+            "Aurora",
+            "9z"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "G2",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 11,
+          "opponents": [
+            "Falcons",
+            "FUT",
+            "Aurora"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 12,
+          "opponents": [
+            "The MongolZ",
+            "Falcons",
+            "FURIA"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "9z",
+          "wins": 2,
+          "losses": 1,
+          "initialSeed": 13,
+          "opponents": [
+            "PARIVISION",
+            "Vitality",
+            "Spirit"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 14,
+          "opponents": [
+            "Aurora",
+            "PARIVISION",
+            "Falcons"
+          ],
+          "ds": -1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 15,
+          "opponents": [
+            "FURIA",
+            "The MongolZ",
+            "FUT"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 1,
+          "losses": 2,
+          "initialSeed": 16,
+          "opponents": [
+            "MOUZ",
+            "Natus Vincere",
+            "PARIVISION"
+          ],
+          "ds": -3
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Natus Vincere",
+          "Falcons"
+        ],
+        [
+          "G2",
+          "Legacy"
+        ],
+        [
+          "BETBOOM",
+          "Vitality"
+        ],
+        [
+          "Aurora",
+          "9z"
+        ],
+        [
+          "MOUZ",
+          "FUT"
+        ],
+        [
+          "The MongolZ",
+          "Monte"
+        ]
+      ]
+    },
+    {
+      "stage": "stage3",
+      "round": 5,
+      "rows": [
+        {
+          "entrantId": "Vitality",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 1,
+          "opponents": [
+            "FUT",
+            "9z",
+            "MOUZ",
+            "BETBOOM"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "Natus Vincere",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 2,
+          "opponents": [
+            "Spirit",
+            "Legacy",
+            "The MongolZ",
+            "Falcons"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "Falcons",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 3,
+          "opponents": [
+            "G2",
+            "BETBOOM",
+            "Monte",
+            "Natus Vincere"
+          ],
+          "ds": -2
+        },
+        {
+          "entrantId": "The MongolZ",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 4,
+          "opponents": [
+            "BETBOOM",
+            "B8",
+            "Natus Vincere",
+            "Monte"
+          ],
+          "ds": -5
+        },
+        {
+          "entrantId": "PARIVISION",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 5,
+          "opponents": [
+            "9z",
+            "Monte",
+            "Legacy"
+          ],
+          "ds": -4
+        },
+        {
+          "entrantId": "Aurora",
+          "wins": 3,
+          "losses": 1,
+          "initialSeed": 6,
+          "opponents": [
+            "Monte",
+            "Spirit",
+            "G2",
+            "9z"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "FURIA",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 7,
+          "opponents": [
+            "B8",
+            "MOUZ",
+            "BETBOOM"
+          ],
+          "ds": -5
+        },
+        {
+          "entrantId": "MOUZ",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 8,
+          "opponents": [
+            "Legacy",
+            "FURIA",
+            "Vitality",
+            "FUT"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "FUT",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 9,
+          "opponents": [
+            "Vitality",
+            "G2",
+            "B8",
+            "MOUZ"
+          ],
+          "ds": -3
+        },
+        {
+          "entrantId": "Spirit",
+          "wins": 3,
+          "losses": 0,
+          "initialSeed": 10,
+          "opponents": [
+            "Natus Vincere",
+            "Aurora",
+            "9z"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "G2",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 11,
+          "opponents": [
+            "Falcons",
+            "FUT",
+            "Aurora",
+            "Legacy"
+          ],
+          "ds": 2
+        },
+        {
+          "entrantId": "BETBOOM",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 12,
+          "opponents": [
+            "The MongolZ",
+            "Falcons",
+            "FURIA",
+            "Vitality"
+          ],
+          "ds": 7
+        },
+        {
+          "entrantId": "9z",
+          "wins": 2,
+          "losses": 2,
+          "initialSeed": 13,
+          "opponents": [
+            "PARIVISION",
+            "Vitality",
+            "Spirit",
+            "Aurora"
+          ],
+          "ds": 4
+        },
+        {
+          "entrantId": "Monte",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 14,
+          "opponents": [
+            "Aurora",
+            "PARIVISION",
+            "Falcons",
+            "The MongolZ"
+          ],
+          "ds": 1
+        },
+        {
+          "entrantId": "B8",
+          "wins": 0,
+          "losses": 3,
+          "initialSeed": 15,
+          "opponents": [
+            "FURIA",
+            "The MongolZ",
+            "FUT"
+          ],
+          "ds": 3
+        },
+        {
+          "entrantId": "Legacy",
+          "wins": 1,
+          "losses": 3,
+          "initialSeed": 16,
+          "opponents": [
+            "MOUZ",
+            "Natus Vincere",
+            "PARIVISION",
+            "G2"
+          ],
+          "ds": -5
+        }
+      ],
+      "expectedPairs": [
+        [
+          "Natus Vincere",
+          "G2"
+        ],
+        [
+          "BETBOOM",
+          "FUT"
+        ],
+        [
+          "9z",
+          "The MongolZ"
+        ]
+      ]
+    }
+  ]
+}

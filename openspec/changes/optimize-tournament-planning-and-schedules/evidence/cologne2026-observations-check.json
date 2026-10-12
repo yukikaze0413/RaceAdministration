@@ -1,0 +1,2970 @@
+{
+  "status": "observations-internally-consistent",
+  "fixtureSha256": "01988681ef702afd70da8a295b3a10ba9659e703acffa5767fcb1bcc99e9e6e5",
+  "stageSeriesCounts": [
+    33,
+    33,
+    33,
+    7
+  ],
+  "seriesCount": 106,
+  "uniqueEntrants": 32,
+  "reports": [
+    {
+      "stageId": "stage1",
+      "seriesCount": 33,
+      "entrants": [
+        "BETBOOM",
+        "B8",
+        "M80",
+        "MIBR",
+        "GamerLegion",
+        "BIG",
+        "FlyQuest",
+        "TYLOO",
+        "NRG",
+        "Liquid",
+        "Lynn Vision",
+        "HEROIC",
+        "Sharks",
+        "THUNDER dOWNUNDER",
+        "Gaimin Gladiators",
+        "SINNERS"
+      ],
+      "qualifiers": [
+        "BETBOOM",
+        "B8",
+        "M80",
+        "MIBR",
+        "GamerLegion",
+        "BIG",
+        "FlyQuest",
+        "TYLOO"
+      ]
+    },
+    {
+      "stageId": "stage2",
+      "seriesCount": 33,
+      "entrants": [
+        "Spirit",
+        "FUT",
+        "G2",
+        "BETBOOM",
+        "9z",
+        "Legacy",
+        "Monte",
+        "B8",
+        "paiN",
+        "BIG",
+        "TYLOO",
+        "MIBR",
+        "Astralis",
+        "M80",
+        "GamerLegion",
+        "FlyQuest"
+      ],
+      "qualifiers": [
+        "Spirit",
+        "FUT",
+        "G2",
+        "BETBOOM",
+        "9z",
+        "Legacy",
+        "Monte",
+        "B8"
+      ]
+    },
+    {
+      "stageId": "stage3",
+      "seriesCount": 33,
+      "entrants": [
+        "FURIA",
+        "Spirit",
+        "Aurora",
+        "Vitality",
+        "Falcons",
+        "G2",
+        "BETBOOM",
+        "9z",
+        "The MongolZ",
+        "Natus Vincere",
+        "FUT",
+        "MOUZ",
+        "Monte",
+        "Legacy",
+        "PARIVISION",
+        "B8"
+      ],
+      "qualifiers": [
+        "FURIA",
+        "Spirit",
+        "Aurora",
+        "Vitality",
+        "Falcons",
+        "G2",
+        "BETBOOM",
+        "9z"
+      ]
+    }
+  ],
+  "invitedBySetDifference": [
+    [
+      "BETBOOM",
+      "B8",
+      "M80",
+      "MIBR",
+      "GamerLegion",
+      "BIG",
+      "FlyQuest",
+      "TYLOO",
+      "NRG",
+      "Liquid",
+      "Lynn Vision",
+      "HEROIC",
+      "Sharks",
+      "THUNDER dOWNUNDER",
+      "Gaimin Gladiators",
+      "SINNERS"
+    ],
+    [
+      "Spirit",
+      "FUT",
+      "G2",
+      "9z",
+      "Legacy",
+      "Monte",
+      "paiN",
+      "Astralis"
+    ],
+    [
+      "FURIA",
+      "Aurora",
+      "Vitality",
+      "Falcons",
+      "The MongolZ",
+      "Natus Vincere",
+      "MOUZ",
+      "PARIVISION"
+    ]
+  ],
+  "inviteMeaning": "Stage2/3 set differences from observed qualifier and entrant lists, not an official invitation seed table.",
+  "playoff": {
+    "champion": "Falcons",
+    "runnerUp": "FURIA",
+    "singleLossEliminationAgrees": true
+  },
+  "sourceDateConflicts": [
+    {
+      "pair": [
+        "Spirit",
+        "9z"
+      ],
+      "eventOverview": "2026-06-13",
+      "resultsListing": "2026-06-14",
+      "matchPage": "2026-06-13",
+      "url": "https://www.hltv.org/matches/2394986/spirit-vs-9z-iem-cologne-major-2026",
+      "resolution": "match page and overview date used for observation; conflicting listing preserved; no actual instant inferred"
+    },
+    {
+      "pair": [
+        "Falcons",
+        "Vitality"
+      ],
+      "resultsListing": "2026-06-20",
+      "matchPage": "2026-06-19",
+      "url": "https://www.hltv.org/matches/2394999/falcons-vs-vitality-iem-cologne-major-2026",
+      "resolution": "match page date used for observation; conflicting listing preserved; no actual instant inferred"
+    }
+  ],
+  "limitation": "Internal consistency does not verify official pairing, seeding, adjustments, scheduled or actual instants, nor establish runtime support.",
+  "preEventSnapshotCandidate": {
+    "date": "2026-05-04",
+    "sourceGitBlob": "32a9a4a31b2119916881cbfb5ebbb17fa50a6570",
+    "teams": {
+      "BETBOOM": {
+        "rank": 21,
+        "points": 1471,
+        "name": "BetBoom",
+        "roster": "Boombl4, FL4MUS, Magnojez, S1ren, zorte"
+      },
+      "B8": {
+        "rank": 16,
+        "points": 1547,
+        "name": "B8",
+        "roster": "alex666, esenthial, kensizor, npl, s1zzi"
+      },
+      "M80": {
+        "rank": 24,
+        "points": 1417,
+        "name": "M80",
+        "roster": "JBa, Lake, s1n, slaxz-, Swisher"
+      },
+      "MIBR": {
+        "rank": 27,
+        "points": 1402,
+        "name": "MIBR",
+        "roster": "brnz4n, insani, kl1m, LNZ, venomzera"
+      },
+      "GamerLegion": {
+        "rank": 13,
+        "points": 1566,
+        "name": "GamerLegion",
+        "roster": "hypex, PR, REZ, Snax, Tauson"
+      },
+      "BIG": {
+        "rank": 23,
+        "points": 1445,
+        "name": "BIG",
+        "roster": "blameF, faveN, gr1ks, JDC, tabseN"
+      },
+      "FlyQuest": {
+        "rank": 74,
+        "points": 1164,
+        "name": "FlyQuest",
+        "roster": "INS, jks, nettik, story, Vexite"
+      },
+      "TYLOO": {
+        "rank": 34,
+        "points": 1348,
+        "name": "TYLOO",
+        "roster": "JamYoung, Jee, Mercury, Moseyuh, Zero"
+      },
+      "NRG": {
+        "rank": 31,
+        "points": 1375,
+        "name": "NRG",
+        "roster": "br0, Grim, nitr0, oSee, Sonic"
+      },
+      "Liquid": {
+        "rank": 47,
+        "points": 1267,
+        "name": "Liquid",
+        "roster": "EliGE, malbsMd, NAF, siuhy, ultimate"
+      },
+      "Lynn Vision": {
+        "rank": 49,
+        "points": 1249,
+        "name": "Lynn Vision",
+        "roster": "C4LLM3SU3, EmiliaQAQ, Starry, Westmelon, z4KR"
+      },
+      "HEROIC": {
+        "rank": 20,
+        "points": 1482,
+        "name": "HEROIC",
+        "roster": "Chr1zN, nilo, susp, xfl0ud, yxngstxr"
+      },
+      "Sharks": {
+        "rank": 37,
+        "points": 1334,
+        "name": "Sharks",
+        "roster": "doc, gafolo, koala, maxxkor, rdnzao"
+      },
+      "THUNDER dOWNUNDER": {
+        "rank": 56,
+        "points": 1224,
+        "name": "THUNDER dOWNUNDER",
+        "roster": "aliStair, asap, dexter, Liazz, TjP"
+      },
+      "Gaimin Gladiators": {
+        "rank": 40,
+        "points": 1319,
+        "name": "Gaimin Gladiators",
+        "roster": "felps, HEN1, JOTA, Luken, NEKIZ"
+      },
+      "SINNERS": {
+        "rank": 30,
+        "points": 1379,
+        "name": "SINNERS",
+        "roster": "beastik, kisserek, MoDo, SHOCK, stressarN"
+      },
+      "Spirit": {
+        "rank": 5,
+        "points": 1807,
+        "name": "Spirit",
+        "roster": "donk, magixx, sh1ro, tN1R, zont1x"
+      },
+      "FUT": {
+        "rank": 4,
+        "points": 1808,
+        "name": "FUT",
+        "roster": "cmtry, dem0n, dziugss, Krabeni, lauNX"
+      },
+      "G2": {
+        "rank": 12,
+        "points": 1673,
+        "name": "G2",
+        "roster": "HeavyGod, huNter-, MATYS, NertZ, SunPayus"
+      },
+      "9z": {
+        "rank": 19,
+        "points": 1508,
+        "name": "9z",
+        "roster": "dgt, HUASOPEEK, luchov, max, meyern"
+      },
+      "Legacy": {
+        "rank": 14,
+        "points": 1562,
+        "name": "Legacy",
+        "roster": "arT, dumau, latto, n1ssim, saadzin"
+      },
+      "Monte": {
+        "rank": 18,
+        "points": 1529,
+        "name": "Monte",
+        "roster": "afro, AZUWU, Bymas, Gizmy, Rainwaker"
+      },
+      "paiN": {
+        "rank": 17,
+        "points": 1532,
+        "name": "paiN",
+        "roster": "biguzera, nqz, piriajr, snow, vsm"
+      },
+      "Astralis": {
+        "rank": 6,
+        "points": 1800,
+        "name": "Astralis",
+        "roster": "HooXi, jabbi, phzy, ryu, Staehr"
+      },
+      "FURIA": {
+        "rank": 10,
+        "points": 1730,
+        "name": "FURIA",
+        "roster": "FalleN, KSCERATO, molodoy, YEKINDAR, yuurih"
+      },
+      "Aurora": {
+        "rank": 9,
+        "points": 1742,
+        "name": "Aurora",
+        "roster": "MAJ3R, soulfly, Wicadia, woxic, XANTARES"
+      },
+      "Vitality": {
+        "rank": 1,
+        "points": 2081,
+        "name": "Vitality",
+        "roster": "apEX, flameZ, mezii, ropz, ZywOo"
+      },
+      "Falcons": {
+        "rank": 3,
+        "points": 1823,
+        "name": "Falcons",
+        "roster": "kyousuke, kyxsan, m0NESY, NiKo, TeSeS"
+      },
+      "The MongolZ": {
+        "rank": 7,
+        "points": 1791,
+        "name": "The MongolZ",
+        "roster": "910, bLitz, cobrazera, mzinho, Techno"
+      },
+      "Natus Vincere": {
+        "rank": 2,
+        "points": 1885,
+        "name": "Natus Vincere",
+        "roster": "Aleksib, b1t, iM, makazze, w0nderful"
+      },
+      "MOUZ": {
+        "rank": 11,
+        "points": 1730,
+        "name": "MOUZ",
+        "roster": "Brollan, Jimpphat, Spinx, torzsi, xertioN"
+      },
+      "PARIVISION": {
+        "rank": 8,
+        "points": 1747,
+        "name": "PARIVISION",
+        "roster": "BELCHONOKK, Jame, nota, xiELO, zweih"
+      }
+    },
+    "stages": [
+      {
+        "stageId": "stage1",
+        "initialSeedCandidate": [
+          "GamerLegion",
+          "B8",
+          "HEROIC",
+          "BETBOOM",
+          "BIG",
+          "M80",
+          "MIBR",
+          "SINNERS",
+          "NRG",
+          "TYLOO",
+          "Sharks",
+          "Gaimin Gladiators",
+          "Liquid",
+          "Lynn Vision",
+          "THUNDER dOWNUNDER",
+          "FlyQuest"
+        ],
+        "firstPairs": [
+          [
+            "GamerLegion",
+            "NRG"
+          ],
+          [
+            "B8",
+            "TYLOO"
+          ],
+          [
+            "HEROIC",
+            "Sharks"
+          ],
+          [
+            "BETBOOM",
+            "Gaimin Gladiators"
+          ],
+          [
+            "BIG",
+            "Liquid"
+          ],
+          [
+            "M80",
+            "Lynn Vision"
+          ],
+          [
+            "MIBR",
+            "THUNDER dOWNUNDER"
+          ],
+          [
+            "SINNERS",
+            "FlyQuest"
+          ]
+        ],
+        "allFirstPairsAgree": true,
+        "qualifiedFinalSeedCandidate": [
+          "B8",
+          "BETBOOM",
+          "GamerLegion",
+          "M80",
+          "MIBR",
+          "TYLOO",
+          "BIG",
+          "FlyQuest"
+        ],
+        "difficulty": {
+          "GamerLegion": 4,
+          "B8": 1,
+          "HEROIC": -7,
+          "BETBOOM": -2,
+          "BIG": -5,
+          "M80": -1,
+          "MIBR": -3,
+          "SINNERS": 1,
+          "NRG": 3,
+          "TYLOO": -1,
+          "Sharks": 0,
+          "Gaimin Gladiators": 2,
+          "Liquid": 5,
+          "Lynn Vision": 1,
+          "THUNDER dOWNUNDER": 7,
+          "FlyQuest": -5
+        },
+        "pairingChecks": [
+          {
+            "round": 1,
+            "agrees": true,
+            "expected": [
+              [
+                "GamerLegion",
+                "NRG"
+              ],
+              [
+                "B8",
+                "TYLOO"
+              ],
+              [
+                "HEROIC",
+                "Sharks"
+              ],
+              [
+                "BETBOOM",
+                "Gaimin Gladiators"
+              ],
+              [
+                "BIG",
+                "Liquid"
+              ],
+              [
+                "M80",
+                "Lynn Vision"
+              ],
+              [
+                "MIBR",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "SINNERS",
+                "FlyQuest"
+              ]
+            ],
+            "observed": [
+              [
+                "GamerLegion",
+                "NRG"
+              ],
+              [
+                "B8",
+                "TYLOO"
+              ],
+              [
+                "HEROIC",
+                "Sharks"
+              ],
+              [
+                "BETBOOM",
+                "Gaimin Gladiators"
+              ],
+              [
+                "BIG",
+                "Liquid"
+              ],
+              [
+                "M80",
+                "Lynn Vision"
+              ],
+              [
+                "MIBR",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "FlyQuest",
+                "SINNERS"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "GamerLegion",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 1
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 2
+              },
+              {
+                "name": "HEROIC",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 3
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 4
+              },
+              {
+                "name": "BIG",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 5
+              },
+              {
+                "name": "M80",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 6
+              },
+              {
+                "name": "MIBR",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 7
+              },
+              {
+                "name": "SINNERS",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 8
+              },
+              {
+                "name": "NRG",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 9
+              },
+              {
+                "name": "TYLOO",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "Sharks",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 11
+              },
+              {
+                "name": "Gaimin Gladiators",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 12
+              },
+              {
+                "name": "Liquid",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 13
+              },
+              {
+                "name": "Lynn Vision",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "THUNDER dOWNUNDER",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 15
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "agrees": true,
+            "expected": [
+              [
+                "GamerLegion",
+                "FlyQuest"
+              ],
+              [
+                "B8",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "BETBOOM",
+                "Liquid"
+              ],
+              [
+                "M80",
+                "Sharks"
+              ],
+              [
+                "HEROIC",
+                "Lynn Vision"
+              ],
+              [
+                "BIG",
+                "Gaimin Gladiators"
+              ],
+              [
+                "MIBR",
+                "TYLOO"
+              ],
+              [
+                "SINNERS",
+                "NRG"
+              ]
+            ],
+            "observed": [
+              [
+                "BETBOOM",
+                "Liquid"
+              ],
+              [
+                "B8",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "M80",
+                "Sharks"
+              ],
+              [
+                "MIBR",
+                "TYLOO"
+              ],
+              [
+                "GamerLegion",
+                "FlyQuest"
+              ],
+              [
+                "BIG",
+                "Gaimin Gladiators"
+              ],
+              [
+                "NRG",
+                "SINNERS"
+              ],
+              [
+                "Lynn Vision",
+                "HEROIC"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "GamerLegion",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 1
+              },
+              {
+                "name": "B8",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 2
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 4
+              },
+              {
+                "name": "M80",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 6
+              },
+              {
+                "name": "Sharks",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 11
+              },
+              {
+                "name": "Liquid",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 13
+              },
+              {
+                "name": "THUNDER dOWNUNDER",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 15
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 16
+              },
+              {
+                "name": "HEROIC",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 3
+              },
+              {
+                "name": "BIG",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 5
+              },
+              {
+                "name": "MIBR",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 7
+              },
+              {
+                "name": "SINNERS",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 8
+              },
+              {
+                "name": "NRG",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 9
+              },
+              {
+                "name": "TYLOO",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 10
+              },
+              {
+                "name": "Gaimin Gladiators",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 12
+              },
+              {
+                "name": "Lynn Vision",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 14
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "agrees": true,
+            "expected": [
+              [
+                "GamerLegion",
+                "BETBOOM"
+              ],
+              [
+                "M80",
+                "B8"
+              ],
+              [
+                "Liquid",
+                "MIBR"
+              ],
+              [
+                "THUNDER dOWNUNDER",
+                "BIG"
+              ],
+              [
+                "NRG",
+                "FlyQuest"
+              ],
+              [
+                "Sharks",
+                "Lynn Vision"
+              ],
+              [
+                "TYLOO",
+                "SINNERS"
+              ],
+              [
+                "Gaimin Gladiators",
+                "HEROIC"
+              ]
+            ],
+            "observed": [
+              [
+                "BETBOOM",
+                "GamerLegion"
+              ],
+              [
+                "B8",
+                "M80"
+              ],
+              [
+                "MIBR",
+                "Liquid"
+              ],
+              [
+                "FlyQuest",
+                "NRG"
+              ],
+              [
+                "BIG",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "TYLOO",
+                "SINNERS"
+              ],
+              [
+                "Lynn Vision",
+                "Sharks"
+              ],
+              [
+                "HEROIC",
+                "Gaimin Gladiators"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "GamerLegion",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 1
+              },
+              {
+                "name": "M80",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 6
+              },
+              {
+                "name": "B8",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 2
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 4
+              },
+              {
+                "name": "Liquid",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 13
+              },
+              {
+                "name": "THUNDER dOWNUNDER",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 15
+              },
+              {
+                "name": "NRG",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 9
+              },
+              {
+                "name": "Sharks",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 11
+              },
+              {
+                "name": "Lynn Vision",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 16
+              },
+              {
+                "name": "BIG",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 5
+              },
+              {
+                "name": "MIBR",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 7
+              },
+              {
+                "name": "TYLOO",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 10
+              },
+              {
+                "name": "Gaimin Gladiators",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 12
+              },
+              {
+                "name": "HEROIC",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 3
+              },
+              {
+                "name": "SINNERS",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 8
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "agrees": true,
+            "expected": [
+              [
+                "GamerLegion",
+                "BIG"
+              ],
+              [
+                "M80",
+                "NRG"
+              ],
+              [
+                "Lynn Vision",
+                "MIBR"
+              ],
+              [
+                "Liquid",
+                "HEROIC"
+              ],
+              [
+                "THUNDER dOWNUNDER",
+                "FlyQuest"
+              ],
+              [
+                "TYLOO",
+                "Sharks"
+              ]
+            ],
+            "observed": [
+              [
+                "M80",
+                "NRG"
+              ],
+              [
+                "MIBR",
+                "Lynn Vision"
+              ],
+              [
+                "GamerLegion",
+                "BIG"
+              ],
+              [
+                "FlyQuest",
+                "THUNDER dOWNUNDER"
+              ],
+              [
+                "TYLOO",
+                "Sharks"
+              ],
+              [
+                "Liquid",
+                "HEROIC"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "GamerLegion",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 3,
+                "initialSeed": 1
+              },
+              {
+                "name": "M80",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 3,
+                "initialSeed": 6
+              },
+              {
+                "name": "Lynn Vision",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 14
+              },
+              {
+                "name": "MIBR",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -3,
+                "initialSeed": 7
+              },
+              {
+                "name": "NRG",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -3,
+                "initialSeed": 9
+              },
+              {
+                "name": "BIG",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -5,
+                "initialSeed": 5
+              },
+              {
+                "name": "Liquid",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 5,
+                "initialSeed": 13
+              },
+              {
+                "name": "THUNDER dOWNUNDER",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 5,
+                "initialSeed": 15
+              },
+              {
+                "name": "TYLOO",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 1,
+                "initialSeed": 10
+              },
+              {
+                "name": "Sharks",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 1,
+                "initialSeed": 11
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 16
+              },
+              {
+                "name": "HEROIC",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 3
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "agrees": true,
+            "expected": [
+              [
+                "Liquid",
+                "FlyQuest"
+              ],
+              [
+                "NRG",
+                "BIG"
+              ],
+              [
+                "TYLOO",
+                "Lynn Vision"
+              ]
+            ],
+            "observed": [
+              [
+                "FlyQuest",
+                "Liquid"
+              ],
+              [
+                "BIG",
+                "NRG"
+              ],
+              [
+                "TYLOO",
+                "Lynn Vision"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Liquid",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 3,
+                "initialSeed": 13
+              },
+              {
+                "name": "NRG",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 1,
+                "initialSeed": 9
+              },
+              {
+                "name": "TYLOO",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "Lynn Vision",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "BIG",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 5
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 16
+              }
+            ]
+          }
+        ],
+        "allRoundPairingsAgree": true
+      },
+      {
+        "stageId": "stage2",
+        "initialSeedCandidate": [
+          "FUT",
+          "Spirit",
+          "Astralis",
+          "G2",
+          "Legacy",
+          "paiN",
+          "Monte",
+          "9z",
+          "B8",
+          "BETBOOM",
+          "GamerLegion",
+          "M80",
+          "MIBR",
+          "TYLOO",
+          "BIG",
+          "FlyQuest"
+        ],
+        "firstPairs": [
+          [
+            "FUT",
+            "B8"
+          ],
+          [
+            "Spirit",
+            "BETBOOM"
+          ],
+          [
+            "Astralis",
+            "GamerLegion"
+          ],
+          [
+            "G2",
+            "M80"
+          ],
+          [
+            "Legacy",
+            "MIBR"
+          ],
+          [
+            "paiN",
+            "TYLOO"
+          ],
+          [
+            "Monte",
+            "BIG"
+          ],
+          [
+            "9z",
+            "FlyQuest"
+          ]
+        ],
+        "allFirstPairsAgree": true,
+        "qualifiedFinalSeedCandidate": [
+          "FUT",
+          "Spirit",
+          "G2",
+          "BETBOOM",
+          "9z",
+          "Monte",
+          "B8",
+          "Legacy"
+        ],
+        "difficulty": {
+          "FUT": 2,
+          "Spirit": 2,
+          "Astralis": -3,
+          "G2": 1,
+          "Legacy": -7,
+          "paiN": -6,
+          "Monte": 3,
+          "9z": -3,
+          "B8": -5,
+          "BETBOOM": -1,
+          "GamerLegion": 1,
+          "M80": 6,
+          "MIBR": 4,
+          "TYLOO": 3,
+          "BIG": 1,
+          "FlyQuest": 2
+        },
+        "pairingChecks": [
+          {
+            "round": 1,
+            "agrees": true,
+            "expected": [
+              [
+                "FUT",
+                "B8"
+              ],
+              [
+                "Spirit",
+                "BETBOOM"
+              ],
+              [
+                "Astralis",
+                "GamerLegion"
+              ],
+              [
+                "G2",
+                "M80"
+              ],
+              [
+                "Legacy",
+                "MIBR"
+              ],
+              [
+                "paiN",
+                "TYLOO"
+              ],
+              [
+                "Monte",
+                "BIG"
+              ],
+              [
+                "9z",
+                "FlyQuest"
+              ]
+            ],
+            "observed": [
+              [
+                "FUT",
+                "B8"
+              ],
+              [
+                "Spirit",
+                "BETBOOM"
+              ],
+              [
+                "Astralis",
+                "GamerLegion"
+              ],
+              [
+                "G2",
+                "M80"
+              ],
+              [
+                "Legacy",
+                "MIBR"
+              ],
+              [
+                "paiN",
+                "TYLOO"
+              ],
+              [
+                "Monte",
+                "BIG"
+              ],
+              [
+                "9z",
+                "FlyQuest"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "FUT",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 1
+              },
+              {
+                "name": "Spirit",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 2
+              },
+              {
+                "name": "Astralis",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 3
+              },
+              {
+                "name": "G2",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 4
+              },
+              {
+                "name": "Legacy",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 5
+              },
+              {
+                "name": "paiN",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 6
+              },
+              {
+                "name": "Monte",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 7
+              },
+              {
+                "name": "9z",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 8
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 9
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "GamerLegion",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 11
+              },
+              {
+                "name": "M80",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 12
+              },
+              {
+                "name": "MIBR",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 13
+              },
+              {
+                "name": "TYLOO",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "BIG",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 15
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "agrees": true,
+            "expected": [
+              [
+                "FUT",
+                "TYLOO"
+              ],
+              [
+                "Spirit",
+                "MIBR"
+              ],
+              [
+                "Astralis",
+                "9z"
+              ],
+              [
+                "G2",
+                "Monte"
+              ],
+              [
+                "Legacy",
+                "FlyQuest"
+              ],
+              [
+                "paiN",
+                "BIG"
+              ],
+              [
+                "B8",
+                "M80"
+              ],
+              [
+                "BETBOOM",
+                "GamerLegion"
+              ]
+            ],
+            "observed": [
+              [
+                "Spirit",
+                "MIBR"
+              ],
+              [
+                "FUT",
+                "TYLOO"
+              ],
+              [
+                "G2",
+                "Monte"
+              ],
+              [
+                "BETBOOM",
+                "GamerLegion"
+              ],
+              [
+                "9z",
+                "Astralis"
+              ],
+              [
+                "Legacy",
+                "FlyQuest"
+              ],
+              [
+                "B8",
+                "M80"
+              ],
+              [
+                "paiN",
+                "BIG"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "FUT",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 1
+              },
+              {
+                "name": "Spirit",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 2
+              },
+              {
+                "name": "Astralis",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 3
+              },
+              {
+                "name": "G2",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 4
+              },
+              {
+                "name": "Monte",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 7
+              },
+              {
+                "name": "9z",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 8
+              },
+              {
+                "name": "MIBR",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 13
+              },
+              {
+                "name": "TYLOO",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 14
+              },
+              {
+                "name": "Legacy",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 5
+              },
+              {
+                "name": "paiN",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 6
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 9
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 10
+              },
+              {
+                "name": "GamerLegion",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 11
+              },
+              {
+                "name": "M80",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 12
+              },
+              {
+                "name": "BIG",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 15
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "agrees": true,
+            "expected": [
+              [
+                "Spirit",
+                "9z"
+              ],
+              [
+                "G2",
+                "FUT"
+              ],
+              [
+                "Monte",
+                "Legacy"
+              ],
+              [
+                "MIBR",
+                "BIG"
+              ],
+              [
+                "Astralis",
+                "TYLOO"
+              ],
+              [
+                "BETBOOM",
+                "M80"
+              ],
+              [
+                "B8",
+                "GamerLegion"
+              ],
+              [
+                "FlyQuest",
+                "paiN"
+              ]
+            ],
+            "observed": [
+              [
+                "Spirit",
+                "9z"
+              ],
+              [
+                "FUT",
+                "G2"
+              ],
+              [
+                "BETBOOM",
+                "M80"
+              ],
+              [
+                "Legacy",
+                "Monte"
+              ],
+              [
+                "B8",
+                "GamerLegion"
+              ],
+              [
+                "paiN",
+                "FlyQuest"
+              ],
+              [
+                "BIG",
+                "MIBR"
+              ],
+              [
+                "TYLOO",
+                "Astralis"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Spirit",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 2
+              },
+              {
+                "name": "G2",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 4
+              },
+              {
+                "name": "FUT",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 1
+              },
+              {
+                "name": "9z",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 8
+              },
+              {
+                "name": "Monte",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 7
+              },
+              {
+                "name": "MIBR",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 13
+              },
+              {
+                "name": "Astralis",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 3
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "M80",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 12
+              },
+              {
+                "name": "TYLOO",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "Legacy",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 5
+              },
+              {
+                "name": "BIG",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 15
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 9
+              },
+              {
+                "name": "FlyQuest",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 16
+              },
+              {
+                "name": "paiN",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 6
+              },
+              {
+                "name": "GamerLegion",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 11
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "agrees": true,
+            "expected": [
+              [
+                "G2",
+                "BIG"
+              ],
+              [
+                "Monte",
+                "BETBOOM"
+              ],
+              [
+                "TYLOO",
+                "9z"
+              ],
+              [
+                "MIBR",
+                "B8"
+              ],
+              [
+                "M80",
+                "Legacy"
+              ],
+              [
+                "Astralis",
+                "paiN"
+              ]
+            ],
+            "observed": [
+              [
+                "G2",
+                "BIG"
+              ],
+              [
+                "BETBOOM",
+                "Monte"
+              ],
+              [
+                "9z",
+                "TYLOO"
+              ],
+              [
+                "Legacy",
+                "M80"
+              ],
+              [
+                "B8",
+                "MIBR"
+              ],
+              [
+                "paiN",
+                "Astralis"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "G2",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 3,
+                "initialSeed": 4
+              },
+              {
+                "name": "Monte",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 7
+              },
+              {
+                "name": "TYLOO",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 14
+              },
+              {
+                "name": "9z",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 8
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 10
+              },
+              {
+                "name": "BIG",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 15
+              },
+              {
+                "name": "MIBR",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 3,
+                "initialSeed": 13
+              },
+              {
+                "name": "M80",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 1,
+                "initialSeed": 12
+              },
+              {
+                "name": "Astralis",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 3
+              },
+              {
+                "name": "paiN",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 6
+              },
+              {
+                "name": "B8",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 9
+              },
+              {
+                "name": "Legacy",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 5
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "agrees": true,
+            "expected": [
+              [
+                "Monte",
+                "paiN"
+              ],
+              [
+                "TYLOO",
+                "Legacy"
+              ],
+              [
+                "BIG",
+                "B8"
+              ]
+            ],
+            "observed": [
+              [
+                "Legacy",
+                "TYLOO"
+              ],
+              [
+                "Monte",
+                "paiN"
+              ],
+              [
+                "B8",
+                "BIG"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Monte",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 4,
+                "initialSeed": 7
+              },
+              {
+                "name": "TYLOO",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 3,
+                "initialSeed": 14
+              },
+              {
+                "name": "BIG",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 15
+              },
+              {
+                "name": "B8",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -4,
+                "initialSeed": 9
+              },
+              {
+                "name": "paiN",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -5,
+                "initialSeed": 6
+              },
+              {
+                "name": "Legacy",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -7,
+                "initialSeed": 5
+              }
+            ]
+          }
+        ],
+        "allRoundPairingsAgree": true
+      },
+      {
+        "stageId": "stage3",
+        "initialSeedCandidate": [
+          "Vitality",
+          "Natus Vincere",
+          "Falcons",
+          "The MongolZ",
+          "PARIVISION",
+          "Aurora",
+          "FURIA",
+          "MOUZ",
+          "FUT",
+          "Spirit",
+          "G2",
+          "BETBOOM",
+          "9z",
+          "Monte",
+          "B8",
+          "Legacy"
+        ],
+        "firstPairs": [
+          [
+            "Vitality",
+            "FUT"
+          ],
+          [
+            "Natus Vincere",
+            "Spirit"
+          ],
+          [
+            "Falcons",
+            "G2"
+          ],
+          [
+            "The MongolZ",
+            "BETBOOM"
+          ],
+          [
+            "PARIVISION",
+            "9z"
+          ],
+          [
+            "Aurora",
+            "Monte"
+          ],
+          [
+            "FURIA",
+            "B8"
+          ],
+          [
+            "MOUZ",
+            "Legacy"
+          ]
+        ],
+        "allFirstPairsAgree": true,
+        "qualifiedFinalSeedCandidate": [
+          "Spirit",
+          "FURIA",
+          "Aurora",
+          "Vitality",
+          "Falcons",
+          "BETBOOM",
+          "9z",
+          "G2"
+        ],
+        "difficulty": {
+          "Vitality": -1,
+          "Natus Vincere": 3,
+          "Falcons": -1,
+          "The MongolZ": -4,
+          "PARIVISION": -3,
+          "Aurora": 3,
+          "FURIA": -4,
+          "MOUZ": 2,
+          "FUT": -1,
+          "Spirit": 2,
+          "G2": 0,
+          "BETBOOM": 5,
+          "9z": 3,
+          "Monte": 0,
+          "B8": 1,
+          "Legacy": -5
+        },
+        "pairingChecks": [
+          {
+            "round": 1,
+            "agrees": true,
+            "expected": [
+              [
+                "Vitality",
+                "FUT"
+              ],
+              [
+                "Natus Vincere",
+                "Spirit"
+              ],
+              [
+                "Falcons",
+                "G2"
+              ],
+              [
+                "The MongolZ",
+                "BETBOOM"
+              ],
+              [
+                "PARIVISION",
+                "9z"
+              ],
+              [
+                "Aurora",
+                "Monte"
+              ],
+              [
+                "FURIA",
+                "B8"
+              ],
+              [
+                "MOUZ",
+                "Legacy"
+              ]
+            ],
+            "observed": [
+              [
+                "Vitality",
+                "FUT"
+              ],
+              [
+                "Natus Vincere",
+                "Spirit"
+              ],
+              [
+                "Falcons",
+                "G2"
+              ],
+              [
+                "The MongolZ",
+                "BETBOOM"
+              ],
+              [
+                "PARIVISION",
+                "9z"
+              ],
+              [
+                "Aurora",
+                "Monte"
+              ],
+              [
+                "FURIA",
+                "B8"
+              ],
+              [
+                "MOUZ",
+                "Legacy"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Vitality",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 1
+              },
+              {
+                "name": "Natus Vincere",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 2
+              },
+              {
+                "name": "Falcons",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 3
+              },
+              {
+                "name": "The MongolZ",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 4
+              },
+              {
+                "name": "PARIVISION",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 5
+              },
+              {
+                "name": "Aurora",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 6
+              },
+              {
+                "name": "FURIA",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 7
+              },
+              {
+                "name": "MOUZ",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 8
+              },
+              {
+                "name": "FUT",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 9
+              },
+              {
+                "name": "Spirit",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "G2",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 11
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 12
+              },
+              {
+                "name": "9z",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 13
+              },
+              {
+                "name": "Monte",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 14
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 15
+              },
+              {
+                "name": "Legacy",
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "agrees": true,
+            "expected": [
+              [
+                "Vitality",
+                "9z"
+              ],
+              [
+                "Falcons",
+                "BETBOOM"
+              ],
+              [
+                "Aurora",
+                "Spirit"
+              ],
+              [
+                "FURIA",
+                "MOUZ"
+              ],
+              [
+                "Natus Vincere",
+                "Legacy"
+              ],
+              [
+                "The MongolZ",
+                "B8"
+              ],
+              [
+                "PARIVISION",
+                "Monte"
+              ],
+              [
+                "FUT",
+                "G2"
+              ]
+            ],
+            "observed": [
+              [
+                "Aurora",
+                "Spirit"
+              ],
+              [
+                "Vitality",
+                "9z"
+              ],
+              [
+                "Falcons",
+                "BETBOOM"
+              ],
+              [
+                "Natus Vincere",
+                "Legacy"
+              ],
+              [
+                "FUT",
+                "G2"
+              ],
+              [
+                "PARIVISION",
+                "Monte"
+              ],
+              [
+                "FURIA",
+                "MOUZ"
+              ],
+              [
+                "The MongolZ",
+                "B8"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Vitality",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 1
+              },
+              {
+                "name": "Falcons",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 3
+              },
+              {
+                "name": "Aurora",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 6
+              },
+              {
+                "name": "FURIA",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 7
+              },
+              {
+                "name": "MOUZ",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 8
+              },
+              {
+                "name": "Spirit",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 10
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 12
+              },
+              {
+                "name": "9z",
+                "wins": 1,
+                "losses": 0,
+                "difficulty": -1,
+                "initialSeed": 13
+              },
+              {
+                "name": "Natus Vincere",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 2
+              },
+              {
+                "name": "The MongolZ",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 4
+              },
+              {
+                "name": "PARIVISION",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 5
+              },
+              {
+                "name": "FUT",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 9
+              },
+              {
+                "name": "G2",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 11
+              },
+              {
+                "name": "Monte",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 14
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 15
+              },
+              {
+                "name": "Legacy",
+                "wins": 0,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "agrees": true,
+            "expected": [
+              [
+                "Spirit",
+                "9z"
+              ],
+              [
+                "BETBOOM",
+                "FURIA"
+              ],
+              [
+                "Falcons",
+                "Monte"
+              ],
+              [
+                "Aurora",
+                "G2"
+              ],
+              [
+                "Vitality",
+                "MOUZ"
+              ],
+              [
+                "Natus Vincere",
+                "The MongolZ"
+              ],
+              [
+                "PARIVISION",
+                "Legacy"
+              ],
+              [
+                "B8",
+                "FUT"
+              ]
+            ],
+            "observed": [
+              [
+                "BETBOOM",
+                "FURIA"
+              ],
+              [
+                "PARIVISION",
+                "Legacy"
+              ],
+              [
+                "Vitality",
+                "MOUZ"
+              ],
+              [
+                "Falcons",
+                "Monte"
+              ],
+              [
+                "Aurora",
+                "G2"
+              ],
+              [
+                "Natus Vincere",
+                "The MongolZ"
+              ],
+              [
+                "B8",
+                "FUT"
+              ],
+              [
+                "Spirit",
+                "9z"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "Spirit",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 10
+              },
+              {
+                "name": "BETBOOM",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": 0,
+                "initialSeed": 12
+              },
+              {
+                "name": "FURIA",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 7
+              },
+              {
+                "name": "9z",
+                "wins": 2,
+                "losses": 0,
+                "difficulty": -2,
+                "initialSeed": 13
+              },
+              {
+                "name": "Falcons",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 3
+              },
+              {
+                "name": "Aurora",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 2,
+                "initialSeed": 6
+              },
+              {
+                "name": "Vitality",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 1
+              },
+              {
+                "name": "Natus Vincere",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 2
+              },
+              {
+                "name": "The MongolZ",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 4
+              },
+              {
+                "name": "MOUZ",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": 0,
+                "initialSeed": 8
+              },
+              {
+                "name": "G2",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 11
+              },
+              {
+                "name": "Monte",
+                "wins": 1,
+                "losses": 1,
+                "difficulty": -2,
+                "initialSeed": 14
+              },
+              {
+                "name": "PARIVISION",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 5
+              },
+              {
+                "name": "B8",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 15
+              },
+              {
+                "name": "FUT",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 9
+              },
+              {
+                "name": "Legacy",
+                "wins": 0,
+                "losses": 2,
+                "difficulty": 0,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "agrees": true,
+            "expected": [
+              [
+                "BETBOOM",
+                "Vitality"
+              ],
+              [
+                "Natus Vincere",
+                "Falcons"
+              ],
+              [
+                "Aurora",
+                "9z"
+              ],
+              [
+                "MOUZ",
+                "FUT"
+              ],
+              [
+                "G2",
+                "Legacy"
+              ],
+              [
+                "The MongolZ",
+                "Monte"
+              ]
+            ],
+            "observed": [
+              [
+                "Natus Vincere",
+                "Falcons"
+              ],
+              [
+                "G2",
+                "Legacy"
+              ],
+              [
+                "BETBOOM",
+                "Vitality"
+              ],
+              [
+                "Aurora",
+                "9z"
+              ],
+              [
+                "MOUZ",
+                "FUT"
+              ],
+              [
+                "The MongolZ",
+                "Monte"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "BETBOOM",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 3,
+                "initialSeed": 12
+              },
+              {
+                "name": "Natus Vincere",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 2
+              },
+              {
+                "name": "Aurora",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 6
+              },
+              {
+                "name": "9z",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": 1,
+                "initialSeed": 13
+              },
+              {
+                "name": "Vitality",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 1
+              },
+              {
+                "name": "Falcons",
+                "wins": 2,
+                "losses": 1,
+                "difficulty": -1,
+                "initialSeed": 3
+              },
+              {
+                "name": "MOUZ",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 3,
+                "initialSeed": 8
+              },
+              {
+                "name": "G2",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": 1,
+                "initialSeed": 11
+              },
+              {
+                "name": "The MongolZ",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 4
+              },
+              {
+                "name": "Monte",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -1,
+                "initialSeed": 14
+              },
+              {
+                "name": "FUT",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 9
+              },
+              {
+                "name": "Legacy",
+                "wins": 1,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 16
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "agrees": true,
+            "expected": [
+              [
+                "BETBOOM",
+                "FUT"
+              ],
+              [
+                "9z",
+                "The MongolZ"
+              ],
+              [
+                "Natus Vincere",
+                "G2"
+              ]
+            ],
+            "observed": [
+              [
+                "Natus Vincere",
+                "G2"
+              ],
+              [
+                "BETBOOM",
+                "FUT"
+              ],
+              [
+                "9z",
+                "The MongolZ"
+              ]
+            ],
+            "standingsBefore": [
+              {
+                "name": "BETBOOM",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 7,
+                "initialSeed": 12
+              },
+              {
+                "name": "9z",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 4,
+                "initialSeed": 13
+              },
+              {
+                "name": "Natus Vincere",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 3,
+                "initialSeed": 2
+              },
+              {
+                "name": "G2",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": 2,
+                "initialSeed": 11
+              },
+              {
+                "name": "FUT",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -3,
+                "initialSeed": 9
+              },
+              {
+                "name": "The MongolZ",
+                "wins": 2,
+                "losses": 2,
+                "difficulty": -5,
+                "initialSeed": 4
+              }
+            ]
+          }
+        ],
+        "allRoundPairingsAgree": true
+      }
+    ],
+    "limitation": "All 24 first-round pairs agree with May4 global standing and published final record/DS/initial-seed inheritance. ESL's explicit snapshot-adoption date and official adjustment records remain unverified; do not treat the agreement as that missing announcement."
+  }
+}
