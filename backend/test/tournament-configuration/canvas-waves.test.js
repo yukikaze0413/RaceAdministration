@@ -2,6 +2,28 @@
 const { test } = require("node:test"),
   assert = require("node:assert/strict");
 const G = require("../../src/planning-canvas/graph");
+test("stage name and order change together without changing members", () => {
+  let g = G.migrate(G.sample("single")).graph;
+  g = G.edit(g, { type: "createStage", id: "s2", name: "第二阶段" }).graph;
+  const r = G.edit(g, { type: "updateStage", id: "s2", name: "第一阶段", order: 1 }).graph;
+  assert.equal(r.stages.find((s) => s.id === "s2").order, 1);
+  assert.equal(r.stages.find((s) => s.id === "s2").name, "第一阶段");
+  assert.equal(r.stages.find((s) => s.id !== "s2").order, 2);
+  assert.deepEqual(r.nodes, g.nodes);
+  assert.throws(() => G.edit(g, { type: "updateStage", id: "s2", order: 0 }));
+});
+test("stage members can be removed down to an empty group without deleting nodes or edges", () => {
+  const g = G.migrate(G.sample("single")).graph;
+  const stage = g.stages[0];
+  const empty = G.edit(g, { type: "updateStage", id: stage.id, selected: [] }).graph;
+  assert.deepEqual(empty.stages[0].nodeIds, []);
+  assert.deepEqual(empty.nodes, g.nodes);
+  assert.deepEqual(empty.edges, g.edges);
+  const removed = G.edit(empty, { type: "deleteStage", id: stage.id }).graph;
+  assert.deepEqual(removed.stages, []);
+  assert.deepEqual(removed.nodes, g.nodes);
+  assert.deepEqual(removed.edges, g.edges);
+});
 test("v2 migration preserves original, stage members survive encapsulation and transfer is atomic", () => {
   const old = G.sample("single"),
     original = structuredClone(old);

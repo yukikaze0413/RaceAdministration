@@ -57,6 +57,121 @@ async function fixture(
     rmSync(dir, { recursive: true, force: true });
   }
 }
+test("stage toolbar shortcut, editable members and project deletion", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await fixture(page, async (base, id) => {
+    const tool = page.getByRole("button", { name: "创建阶段", exact: true });
+    await expect(tool).toBeAttached();
+    await expect(page.locator(".canvas-palette")).toContainText("Subgraph");
+    await expect(
+      page
+        .locator(".canvas-palette")
+        .getByRole("button", { name: "创建阶段", exact: true }),
+    ).toBeAttached();
+    await page.getByRole("button", { name: "适应全图", exact: true }).click();
+    await page.locator('[data-canvas-node="M1"] .canvas-drag').click();
+    await page.keyboard.press("Control+Shift+G");
+    await page.getByRole("button", { name: "确认转移阶段成员" }).click();
+    await expect(page.locator("[data-stage-frame]")).toHaveCount(2);
+    await page
+      .getByRole("button", { name: "选择阶段 2 · 阶段 2", exact: true })
+      .last()
+      .click();
+    await page.getByLabel("阶段名称", { exact: true }).fill("决胜阶段");
+    await page.keyboard.press("Control+Shift+G");
+    await expect(page.locator("[data-stage-id]")).toHaveCount(2);
+    await page.getByLabel("阶段顺序", { exact: true }).selectOption("1");
+    await page.getByRole("button", { name: "应用阶段属性" }).click();
+    await expect(
+      page.getByRole("button", { name: "选择阶段 1 · 决胜阶段" }).first(),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "移除 M1", exact: true }).click();
+    await expect(page.getByText("阶段没有成员", { exact: true })).toBeVisible();
+    await expect(page.locator('[data-canvas-node="M1"]')).toBeAttached();
+    await page.getByLabel("添加阶段成员").selectOption("M2");
+    await page.getByRole("button", { name: "添加成员", exact: true }).click();
+    await page.getByRole("button", { name: "取消变更", exact: true }).click();
+    await expect(page.getByText("阶段没有成员", { exact: true })).toBeVisible();
+    await page.getByLabel("添加阶段成员").selectOption("M1");
+    await page.getByRole("button", { name: "添加成员", exact: true }).click();
+    await expect(
+      page.getByRole("button", { name: "移除 M1", exact: true }),
+    ).toBeVisible();
+    await page.screenshot({
+      path: "../output/playwright/canvas-stage-properties-1440.png",
+      fullPage: true,
+    });
+    await page
+      .getByRole("button", { name: "选择阶段 1 · 决胜阶段", exact: true })
+      .first()
+      .click();
+    await page.keyboard.press("Delete");
+    await expect(page.locator("[data-stage-frame]")).toHaveCount(1);
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(9);
+    await page.getByRole("button", { name: "删除项目", exact: true }).click();
+    await page.getByRole("button", { name: "取消删除", exact: true }).click();
+    await expect(page.locator('[data-canvas-node="M1"]')).toBeAttached();
+    await page.getByRole("button", { name: "删除项目", exact: true }).click();
+    let dropped = false;
+    await page.route("**/api/v1/planning-canvases/" + id, async (route) => {
+      if (route.request().method() === "DELETE" && !dropped) {
+        dropped = true;
+        await route.fetch();
+        await route.abort();
+      } else await route.continue();
+    });
+    await page
+      .getByRole("button", { name: "确认删除项目", exact: true })
+      .click();
+    await expect(
+      page.getByRole("button", { name: "取消删除", exact: true }),
+    ).toBeDisabled();
+    await page
+      .getByRole("button", { name: "重试删除项目", exact: true })
+      .click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
+    expect(
+      (
+        await page.request.get(base + "/api/v1/planning-canvases/" + id)
+      ).status(),
+    ).toBe(404);
+  });
+});
+test("deleting another project preserves the current unsaved canvas", async ({
+  page,
+}) => {
+  await fixture(page, async (base, id) => {
+    const other = (
+      await (
+        await page.request.post(base + "/api/v1/planning-canvases", {
+          headers: { Origin: base, "Idempotency-Key": "other-project" },
+          data: {
+            name: "另一个项目",
+            graph: G.migrate(G.sample("single")).graph,
+          },
+        })
+      ).json()
+    ).data;
+    await page.reload();
+    await page.getByRole("button", { name: "Match", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(10);
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(other.id);
+    await page.getByRole("button", { name: "删除项目", exact: true }).click();
+    await expect(
+      page.getByRole("dialog", { name: "删除项目确认" }),
+    ).toContainText("另一个项目");
+    await page
+      .getByRole("button", { name: "确认删除项目", exact: true })
+      .click();
+    await expect(page.getByRole("status")).toContainText("项目已删除");
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(10);
+    await expect(page).toHaveURL(new RegExp("canvas=" + id));
+  });
+});
 for (const width of [360, 768, 1440])
   test(`stage 与 session 完整流程 ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });

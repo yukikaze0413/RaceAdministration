@@ -47,7 +47,7 @@ function mountCanvas(api, { db, send }) {
     });
     return transaction(db, () => {
       loginRequired(req);
-      if (req.params.id) get(req);
+      if (req.params.id && operation !== "delete") get(req);
       if (!db.prepare("SELECT id FROM users WHERE id=?").get(user.id))
         reject(401, "AUTH_REQUIRED", "账号已失效");
       const old = db
@@ -60,6 +60,7 @@ function mountCanvas(api, { db, send }) {
           reject(409, "IDEMPOTENCY_CONFLICT", "原请求键已用于不同内容");
         return JSON.parse(old.result);
       }
+      if (req.params.id && operation === "delete") get(req);
       const result = fn(user);
       db.prepare("INSERT INTO canvas_requests VALUES(?,?,?,?)").run(
         user.id,
@@ -136,6 +137,15 @@ function mountCanvas(api, { db, send }) {
   api.get("/planning-canvases/:id", (req, res) =>
     send(req, res, pack(get(req))),
   );
+  api.delete("/planning-canvases/:id", (req, res) => {
+    fields(req.body, ["expectedVersion"]);
+    send(req, res, write(req, "delete", () => {
+      const row = get(req);
+      current(row, req.body.expectedVersion);
+      db.prepare("DELETE FROM planning_canvases WHERE id=?").run(row.id);
+      return { id: row.id, deleted: true };
+    }));
+  });
   api.put("/planning-canvases/:id", (req, res) => {
     fields(req.body, ["expectedVersion", "graph", "name"]);
     send(

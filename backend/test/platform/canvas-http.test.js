@@ -3,6 +3,23 @@ const { test } = require("node:test"),
   assert = require("node:assert/strict");
 const { event } = require("./formats-v2-fixture"),
   G = require("../../src/planning-canvas/graph");
+test("canvas deletion checks versions and removes schedules with replayable requests", async (t) => {
+  const f = await event(t);
+  const c = (await f.request("/planning-canvases", "POST", {
+    name: "待删除项目", graph: G.migrate(G.sample("single")).graph,
+  }, f.cookie, "delete-create")).data.data;
+  const path = "/planning-canvases/" + c.id;
+  f.platform.db.prepare("INSERT INTO planning_canvas_schedules VALUES(?,?,?)").run(c.id, 1, "{}");
+  assert.equal((await f.request(path, "DELETE", { expectedVersion: 0 }, f.cookie, "delete-stale")).status, 409);
+  assert.equal((await f.request(path, "GET", undefined, f.cookie)).status, 200);
+  const result = await f.request(path, "DELETE", { expectedVersion: 1 }, f.cookie, "delete-once");
+  assert.equal(result.status, 200, JSON.stringify(result.data));
+  assert.deepEqual(result.data.data, { id: c.id, deleted: true });
+  assert.deepEqual((await f.request(path, "DELETE", { expectedVersion: 1 }, f.cookie, "delete-once")).data.data, result.data.data);
+  assert.equal((await f.request(path, "GET", undefined, f.cookie)).status, 404);
+  assert.equal(f.platform.db.prepare("SELECT count(*) n FROM planning_canvas_schedules WHERE canvasId=?").get(c.id).n, 0);
+  assert.equal((await f.request(path, "DELETE", { expectedVersion: 1 }, f.cookie, "delete-new")).status, 404);
+});
 test("canvas invalid edit payload and unknown sample produce client errors rather than server exceptions", async (t) => {
   const f = await event(t);
   for (const action of [
@@ -190,12 +207,14 @@ test("canvas owner permission precedes cache and fingerprint conflict, transacti
   });
   const cookie = login.headers.get("set-cookie").split(";")[0];
   assert.equal((await f.request(path, "GET", undefined, cookie)).status, 403);
+  assert.equal((await f.request(path, "DELETE", { expectedVersion: 2 }, cookie, "delete-forbidden")).status, 403);
   assert.equal(
     (await f.request("/planning-canvases", "GET", undefined, cookie)).data.data
       .length,
     0,
   );
   f.platform.db.exec("DELETE FROM sessions");
+  assert.equal((await f.request(path, "DELETE", { expectedVersion: 2 }, f.cookie, "delete-unauthorized")).status, 401);
   assert.equal(
     (await f.request(path, "PUT", body, f.cookie, "update")).status,
     401,

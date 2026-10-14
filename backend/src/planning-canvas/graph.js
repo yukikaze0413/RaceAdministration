@@ -716,7 +716,8 @@ function edit(graph, action) {
           )
           .map((n) => n.id)
           .sort();
-        if (!members.length) fail("请选择比赛或瑞士轮");
+        if (!members.length && !(action.type === "updateStage" && selected.length === 0))
+          fail("请选择比赛或瑞士轮");
         const impact = g.stages
           .filter((s) => s.id !== action.id)
           .flatMap((s) =>
@@ -754,6 +755,13 @@ function edit(graph, action) {
       } else {
         if (action.name !== undefined) stage.name = action.name;
         stage.nodeIds = members;
+        if (action.order !== undefined) {
+          if (!Number.isSafeInteger(action.order) || action.order < 1 || action.order > g.stages.length)
+            fail("阶段排序非法");
+          const ordered = g.stages.filter((s) => s.id !== stage.id).sort((a, b) => a.order - b.order);
+          ordered.splice(action.order - 1, 0, stage);
+          ordered.forEach((s, i) => (s.order = i + 1));
+        }
       }
     }
   } else if (action.type === "syncBoundaries") {

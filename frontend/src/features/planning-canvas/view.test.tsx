@@ -1,9 +1,39 @@
 import { useState } from "react";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import { afterEach, expect, test } from "vitest";
+import { afterEach, expect, test, vi } from "vitest";
 import { CanvasView } from "./view";
 import type { CanvasGraph } from "./types";
 afterEach(cleanup);
+test("stage title selects the group without selecting or removing its match", () => {
+  const selectStage = vi.fn();
+  const graph = {
+    ...initial,
+    schemaVersion: "canvas-v2",
+    stages: [{ id: "s", name: "预赛", order: 1, nodeIds: ["m"] }],
+  };
+  render(
+    <CanvasView
+      {...({
+        graph,
+        analysis: { nodes: [] },
+        scope: null,
+        selected: [],
+        selectedStage: "s",
+        onStageSelect: selectStage,
+        onSelect: () => {},
+        onEnter: () => {},
+        onPort: () => {},
+        onMove: () => {},
+      } as any)}
+    />,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "选择阶段 1 · 预赛" }));
+  expect(selectStage).toHaveBeenCalledWith("s");
+  expect(document.querySelector('[data-stage-frame="s"]')).toHaveClass(
+    "canvas-stage-selected",
+  );
+  expect(document.querySelector('[data-canvas-node="m"]')).toBeInTheDocument();
+});
 const initial: CanvasGraph = {
   schemaVersion: "canvas-v1",
   nodes: [
@@ -76,15 +106,88 @@ test("canvas keyboard movement changes actual node position and selection while 
   ).toBeNull();
 });
 test("dangling output hiding preserves a seed port connected through a derived subgraph boundary", () => {
-  const source = { id: "src", kind: "source", name: "来源", parentId: "sg", params: { seats: [{ ref: "A", label: "A" }] }, position: { x: 40, y: 40 }, display: { hideDanglingOutputs: true } };
-  const graph: CanvasGraph = { schemaVersion: "canvas-v1", nodes: [source,
-    { id: "sg", kind: "subgraph", name: "子图", params: { boundaries: [{ id: "out", direction: "output", type: "collection", name: "集合", target: { node: "src", port: "collection" } }] }, position: { x: 0, y: 0 } },
-    { id: "p", kind: "pool", name: "P", params: { inputs: ["in:1"] }, position: { x: 400, y: 0 } },
-  ], edges: [{ id: "seed", from: { node: "sg", port: "out:seeds" }, to: { node: "p", port: "sort" } }] };
-  render(<CanvasView graph={graph} analysis={{ nodes: [{ ...source, ports: [
-    { id: "collection", direction: "output", type: "collection", label: "初始席位集合" },
-    { id: "seeds", direction: "output", type: "seed-map", label: "初始种子" },
-  ] }] }} scope="sg" selected={[]} onSelect={() => {}} onEnter={() => {}} onPort={() => {}} onMove={() => {}} />);
-  expect(screen.getByRole("button", { name: "来源 初始种子 输出" })).toBeVisible();
-  expect(screen.queryByRole("button", { name: "来源 初始席位集合 输出" })).toBeNull();
+  const source = {
+    id: "src",
+    kind: "source",
+    name: "来源",
+    parentId: "sg",
+    params: { seats: [{ ref: "A", label: "A" }] },
+    position: { x: 40, y: 40 },
+    display: { hideDanglingOutputs: true },
+  };
+  const graph: CanvasGraph = {
+    schemaVersion: "canvas-v1",
+    nodes: [
+      source,
+      {
+        id: "sg",
+        kind: "subgraph",
+        name: "子图",
+        params: {
+          boundaries: [
+            {
+              id: "out",
+              direction: "output",
+              type: "collection",
+              name: "集合",
+              target: { node: "src", port: "collection" },
+            },
+          ],
+        },
+        position: { x: 0, y: 0 },
+      },
+      {
+        id: "p",
+        kind: "pool",
+        name: "P",
+        params: { inputs: ["in:1"] },
+        position: { x: 400, y: 0 },
+      },
+    ],
+    edges: [
+      {
+        id: "seed",
+        from: { node: "sg", port: "out:seeds" },
+        to: { node: "p", port: "sort" },
+      },
+    ],
+  };
+  render(
+    <CanvasView
+      graph={graph}
+      analysis={{
+        nodes: [
+          {
+            ...source,
+            ports: [
+              {
+                id: "collection",
+                direction: "output",
+                type: "collection",
+                label: "初始席位集合",
+              },
+              {
+                id: "seeds",
+                direction: "output",
+                type: "seed-map",
+                label: "初始种子",
+              },
+            ],
+          },
+        ],
+      }}
+      scope="sg"
+      selected={[]}
+      onSelect={() => {}}
+      onEnter={() => {}}
+      onPort={() => {}}
+      onMove={() => {}}
+    />,
+  );
+  expect(
+    screen.getByRole("button", { name: "来源 初始种子 输出" }),
+  ).toBeVisible();
+  expect(
+    screen.queryByRole("button", { name: "来源 初始席位集合 输出" }),
+  ).toBeNull();
 });

@@ -4,7 +4,7 @@ import { api, failure, requestKey, type ApiFailure } from "../../shared/api";
 import { ErrorNotice, Field } from "../../shared/ui";
 import { CanvasView } from "./view";
 import { Properties } from "./properties";
-import { Stages } from "./stages";
+import { Stages, StageProperties, WaveResults } from "./stages";
 import {
   labels,
   typeLabels,
@@ -29,6 +29,8 @@ export function CanvasLab() {
     [error, setError] = useState<ApiFailure | null>(null),
     [status, setStatus] = useState(""),
     [selected, setSelected] = useState<string[]>([]),
+    [selectedStage, setSelectedStage] = useState<string | null>(null),
+    [deleteRequest, setDeleteRequest] = useState<any>(null),
     [scope, setScope] = useState<string | null>(null),
     [history, setHistory] = useState<CanvasGraph[]>([]),
     [future, setFuture] = useState<CanvasGraph[]>([]),
@@ -58,7 +60,12 @@ export function CanvasLab() {
           new URLSearchParams(nextLocation.search).get("canvas") !==
             loadedCanvas.current)),
   );
-  const locked = busy || pendingSave !== null;
+  const locked = busy || pendingSave !== null || deleteRequest !== null;
+  useEffect(() => {
+    setSelectedStage((id) =>
+      graph?.stages?.some((s) => s.id === id) ? id : null,
+    );
+  }, [graph]);
   useEffect(() => {
     if (loadedCanvas.current === canvasId) return;
     loadedCanvas.current = canvasId;
@@ -68,6 +75,7 @@ export function CanvasLab() {
     setValidation(null);
     setPreview(null);
     setSelected([]);
+    setSelectedStage(null);
     setScope(null);
     setHistory([]);
     setFuture([]);
@@ -197,6 +205,7 @@ export function CanvasLab() {
     try {
       const x = await api("/planning-canvas/samples/" + sample);
       install(x.graph, x.analysis);
+      setSelectedStage(null);
       setSaved(null);
       setName(
         sample === "swiss-eight"
@@ -294,6 +303,7 @@ export function CanvasLab() {
     try {
       const r = await api("/planning-canvases/" + encodeURIComponent(id));
       if (adopt) {
+        setSelectedStage(null);
         const info = await api("/planning-canvas/edit", {
           method: "POST",
           body: { graph: r.graph, action: { type: "syncBoundaries" } },
@@ -361,6 +371,77 @@ export function CanvasLab() {
     if (locked || !selected.length) return;
     void act({ type: "encapsulate", selected, id: requestKey(), name: "子图" });
   };
+  const createStage = () => {
+    if (locked || !selected.length || graph?.schemaVersion !== "canvas-v2")
+      return;
+    void act({
+      type: "createStage",
+      selected,
+      id: requestKey(),
+      name:
+        "阶段 " +
+        (Math.max(0, ...(graph.stages ?? []).map((s) => s.order)) + 1),
+    });
+  };
+  const inspectStage = (id: string) => {
+    setSelectedStage(id);
+    setSelected([]);
+    inspector.current
+      ?.querySelector("#canvas-parameters")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  async function deleteProject() {
+    if (!deleteRequest || busy || actionBusy.current) return;
+    actionBusy.current = true;
+    setBusy(true);
+    setError(null);
+    try {
+      const r = await api(
+        "/planning-canvases/" + encodeURIComponent(deleteRequest.id),
+        {
+          method: "DELETE",
+          body: { expectedVersion: deleteRequest.version },
+          key: deleteRequest.key,
+        },
+      );
+      setDrafts((ds) => ds.filter((d) => d.id !== r.id));
+      if (saved?.id === r.id) {
+        const empty: CanvasGraph = {
+          schemaVersion: "canvas-v2",
+          nodes: [],
+          edges: [],
+          stages: [],
+        };
+        install(
+          empty,
+          { nodes: [], values: {}, diagnostics: [], valid: true },
+          false,
+        );
+        setSaved(null);
+        setRemote(null);
+        setName("未命名项目");
+        setOpenId("");
+        setScope(null);
+        setSelectedStage(null);
+        setHistory([]);
+        setFuture([]);
+        setFrom("");
+        setTo("");
+        setMigration(null);
+        loadedCanvas.current = null;
+        setQuery({}, { replace: true });
+      } else setOpenId(saved?.id ?? "");
+      setDeleteRequest(null);
+      setStatus("项目已删除");
+    } catch (e) {
+      const er = failure(e);
+      setError(er);
+      setDeleteRequest((r: any) => ({ ...r, uncertain: er.retryable }));
+    } finally {
+      setBusy(false);
+      actionBusy.current = false;
+    }
+  }
   async function emptyCanvas(asNew: boolean) {
     if (locked) return;
     setBusy(true);
@@ -369,6 +450,7 @@ export function CanvasLab() {
       install(x.graph, x.analysis, !asNew);
       setScope(null);
       setSelected([]);
+      setSelectedStage(null);
       setFrom("");
       setTo("");
       if (asNew) {
@@ -401,20 +483,35 @@ export function CanvasLab() {
   };
   useEffect(() => {
     const shortcut = (e: KeyboardEvent) => {
-      if (!(e.ctrlKey || e.metaKey) || e.altKey || e.key.toLowerCase() !== "g")
-        return;
       if (
         (e.target as HTMLElement).closest(
           "input:not([type=checkbox]):not([type=radio]), textarea, select, [contenteditable=true]",
         )
       )
         return;
+      if (locked || impact || migration) return;
+      if (
+        e.key === "Delete" &&
+        selectedStage &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey
+      ) {
+        e.preventDefault();
+        if (!e.repeat) void act({ type: "deleteStage", id: selectedStage });
+        return;
+      }
+      if (!(e.ctrlKey || e.metaKey) || e.altKey || e.key.toLowerCase() !== "g")
+        return;
       e.preventDefault();
-      if (!e.repeat) encapsulate();
+      if (!e.repeat) {
+        if (e.shiftKey) createStage();
+        else encapsulate();
+      }
     };
     window.addEventListener("keydown", shortcut);
     return () => window.removeEventListener("keydown", shortcut);
-  }, [graph, selected, locked]);
+  }, [graph, selected, selectedStage, locked, impact, migration]);
   if (!graph || !catalog)
     return (
       <section>
@@ -427,7 +524,8 @@ export function CanvasLab() {
       </section>
     );
   const inScope = graph.nodes.filter((n) => (n.parentId ?? null) === scope),
-    node = graph.nodes.find((n) => n.id === selected.at(-1));
+    node = graph.nodes.find((n) => n.id === selected.at(-1)),
+    stage = graph.stages?.find((s) => s.id === selectedStage);
   const endpoints = (direction: string) =>
     inScope.flatMap((n) =>
       (analysis?.nodes.find((x: CanvasNode) => x.id === n.id)?.ports ?? [])
@@ -438,6 +536,7 @@ export function CanvasLab() {
         })),
     );
   const enter = (id: string) => {
+    setSelectedStage(null);
     setScope(id);
     setSelected([]);
     setFrom("");
@@ -445,6 +544,7 @@ export function CanvasLab() {
   };
   const visibleReport = validation ?? analysis;
   const inspect = (id: string) => {
+    setSelectedStage(null);
     setSelected([id]);
     inspector.current
       ?.querySelector("#canvas-parameters")
@@ -501,6 +601,21 @@ export function CanvasLab() {
         </button>
         <button disabled={locked} onClick={() => requestSwitch("")}>
           新建项目
+        </button>
+        <button
+          disabled={locked || !openId}
+          className="canvas-delete-project"
+          onClick={() => {
+            const target = drafts.find((d) => d.id === openId);
+            if (target)
+              setDeleteRequest({
+                ...target,
+                key: requestKey(),
+                uncertain: false,
+              });
+          }}
+        >
+          删除项目
         </button>
         <Field label="草稿名称">
           <input
@@ -575,6 +690,32 @@ export function CanvasLab() {
         {busy ? "正在处理…" : status || "编辑画布后保存，再验证保存版本。"}
       </p>
       {error && <ErrorNotice error={error} />}{" "}
+      {deleteRequest && (
+        <aside
+          className="notice canvas-switch-confirm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="删除项目确认"
+        >
+          <h2>删除项目“{deleteRequest.name}”？</h2>
+          <p>警告：删除后，保存草稿和排期无法恢复。</p>
+          {saved?.id === deleteRequest.id && dirty && (
+            <p>当前项目的未保存修改也会舍弃。</p>
+          )}
+          {deleteRequest.uncertain && (
+            <p>删除结果尚未确认，请使用原请求重试。</p>
+          )}
+          <button disabled={busy} onClick={() => void deleteProject()}>
+            {deleteRequest.uncertain ? "重试删除项目" : "确认删除项目"}
+          </button>
+          <button
+            disabled={busy || deleteRequest.uncertain}
+            onClick={() => setDeleteRequest(null)}
+          >
+            取消删除
+          </button>
+        </aside>
+      )}
       {switchTarget !== null && (
         <aside
           className="notice canvas-switch-confirm"
@@ -847,6 +988,16 @@ export function CanvasLab() {
             Subgraph · 封装所选
           </button>
           <p className="canvas-small">Ctrl/⌘ 点击多选 · Ctrl/⌘+G 封装</p>
+          {graph.schemaVersion === "canvas-v2" && (
+            <Stages
+              graph={graph}
+              selected={selected}
+              disabled={locked}
+              onCreate={createStage}
+              onSelect={inspectStage}
+              selectedStage={selectedStage}
+            />
+          )}
           {node?.kind === "subgraph" && (
             <>
               <button disabled={locked} onClick={() => enter(node.id)}>
@@ -869,6 +1020,7 @@ export function CanvasLab() {
                 const group = graph.nodes.find((n) => n.id === scope);
                 setScope(group?.parentId ?? null);
                 setSelected([]);
+                setSelectedStage(null);
               }}
             >
               返回上层
@@ -882,14 +1034,20 @@ export function CanvasLab() {
             analysis={analysis}
             scope={scope}
             selected={selected}
+            selectedStage={selectedStage}
+            onStageSelect={inspectStage}
             disabled={locked}
             onInspect={inspect}
-            onBoxSelect={setSelected}
-            onSelect={(id) =>
+            onBoxSelect={(ids) => {
+              setSelectedStage(null);
+              setSelected(ids);
+            }}
+            onSelect={(id) => {
+              setSelectedStage(null);
               setSelected((s) =>
                 s.includes(id) ? s.filter((x) => x !== id) : [...s, id],
-              )
-            }
+              );
+            }}
             onEnter={enter}
             onPort={(end, p) => {
               if (p.direction === "output") {
@@ -936,15 +1094,7 @@ export function CanvasLab() {
           ref={inspector}
           aria-label="卡片参数面板"
         >
-          {graph.schemaVersion === "canvas-v2" && (
-            <Stages
-              graph={graph}
-              selected={selected}
-              disabled={locked}
-              onAction={act}
-              wavePlan={validation?.wavePlan}
-            />
-          )}
+          <WaveResults graph={graph} wavePlan={validation?.wavePlan} />
           <nav className="canvas-dock-nav" aria-label="工具面板导航">
             {[
               ["canvas-parameters", "参数"],
@@ -965,8 +1115,20 @@ export function CanvasLab() {
             ))}
           </nav>
           <section id="canvas-parameters">
-            <h2>卡片参数{node ? " · " + node.name : ""}</h2>
-            {node ? (
+            <h2>
+              {stage
+                ? "Stage 属性 · " + stage.name
+                : "卡片参数" + (node ? " · " + node.name : "")}
+            </h2>
+            {stage ? (
+              <StageProperties
+                key={stage.id}
+                graph={graph}
+                stage={stage}
+                disabled={locked}
+                onAction={act}
+              />
+            ) : node ? (
               <Properties
                 node={node}
                 formats={catalog.formats.formats}
@@ -1068,6 +1230,7 @@ export function CanvasLab() {
                       onClick={() => {
                         const n = graph.nodes.find((n) => n.id === d.objectId);
                         setScope(n?.parentId ?? null);
+                        setSelectedStage(null);
                         setSelected([d.objectId]);
                       }}
                     >

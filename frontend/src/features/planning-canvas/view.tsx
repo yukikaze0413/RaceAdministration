@@ -13,6 +13,8 @@ export function CanvasView({
   onMove,
   onInspect,
   onBoxSelect,
+  selectedStage,
+  onStageSelect,
   disabled = false,
 }: {
   graph: CanvasGraph;
@@ -25,6 +27,8 @@ export function CanvasView({
   onMove: (id: string, x: number, y: number, begin: boolean) => void;
   onInspect?: (id: string) => void;
   onBoxSelect?: (ids: string[]) => void;
+  selectedStage?: string | null;
+  onStageSelect?: (id: string) => void;
   disabled?: boolean;
 }) {
   const viewport = useRef<HTMLDivElement>(null),
@@ -359,7 +363,10 @@ export function CanvasView({
               <div
                 key={stage.id}
                 data-stage-frame={stage.id}
-                className="canvas-stage-frame"
+                className={
+                  "canvas-stage-frame" +
+                  (selectedStage === stage.id ? " canvas-stage-selected" : "")
+                }
                 style={{
                   left: x,
                   top: y,
@@ -367,9 +374,16 @@ export function CanvasView({
                   height: bottom - y,
                 }}
               >
-                <strong>
+                <button
+                  className="canvas-stage-title"
+                  aria-label={`选择阶段 ${stage.order} · ${stage.name}`}
+                  aria-pressed={selectedStage === stage.id}
+                  disabled={disabled}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={() => onStageSelect?.(stage.id)}
+                >
                   Stage {stage.order} · {stage.name}
-                </strong>
+                </button>
               </div>
             );
           })}

@@ -873,13 +873,47 @@ main.canvas-app-main .canvas-lab {
   pointer-events: none;
   box-sizing: border-box;
 }
-.canvas-stage-frame > strong {
+.canvas-stage-frame > .canvas-stage-title {
   position: absolute;
   top: 5px;
   left: 12px;
   color: #d7dfb4;
   font-size: 14px;
   white-space: nowrap;
+  pointer-events: auto;
+  min-height: 28px;
+  cursor: pointer;
+  z-index: 2;
+}
+.canvas-stage-selected {
+  border-color: #70baff;
+  box-shadow: 0 0 0 2px #70baff55;
+}
+.canvas-stage-row button[aria-pressed="true"] {
+  outline: 2px solid #70baff;
+}
+.canvas-stage-row small {
+  display: block;
+  margin-top: 5px;
+}
+.canvas-stage-properties input,
+.canvas-stage-properties select {
+  width: 100%;
+  box-sizing: border-box;
+}
+.canvas-stage-members {
+  list-style: none;
+  padding: 0;
+}
+.canvas-stage-members li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 6px 0;
+}
+.canvas-stage-members span {
+  overflow-wrap: anywhere;
 }
 .canvas-selection-box {
   position: absolute;
