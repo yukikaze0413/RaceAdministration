@@ -25,6 +25,8 @@ import {
 import { OperationsPage } from "../features/operations";
 import { SchedulePage } from "../features/tournament/schedule";
 import { ReferenceCasesPage } from "../features/reference-cases";
+import { CanvasLab } from "../features/planning-canvas";
+import { CanvasSchedulePage } from "../features/planning-canvas/preview-page";
 import { workspacePrefix } from "../shared/workspace";
 import {
   ConfigurationList,
@@ -61,12 +63,13 @@ export function AppShell() {
   const session = useSession(),
     location = useLocation(),
     caps = useResource("/capabilities");
+  const canvasMode = location.pathname.startsWith("/canvas-lab");
   return (
     <>
       <a className="skip" href="#main-content">
         跳到主要内容
       </a>
-      <header className="topbar">
+      <header className={"topbar" + (canvasMode ? " canvas-app-header" : "")}>
         <Link className="brand" to="/tournaments">
           <span className="brand-mark">赛</span>赛事工作台
         </Link>
@@ -95,7 +98,7 @@ export function AppShell() {
           <a href="/reference-cases">返回原空间</a>
         </aside>
       )}
-      <main id="main-content">
+      <main id="main-content" className={canvasMode ? "canvas-app-main" : undefined}>
         <Resource state={caps}>
           {(data) => (
             <>
@@ -120,7 +123,7 @@ export function AppShell() {
                 />
               ) : (
                 <>
-                  <details className="capability-strip">
+                  {!canvasMode && <details className="capability-strip">
                     <summary>平台能力 · 账号、赛事资料、结构配置</summary>
                     <ul>
                       {Object.entries<any>(data.capabilities).map(
@@ -130,7 +133,7 @@ export function AppShell() {
                       )}
                     </ul>
                     <p>未列出的能力默认不可用。</p>
-                  </details>
+                  </details>}
                   <CapabilityContext.Provider value={data}>
                     <PageBoundary
                       path={location.pathname}
@@ -145,7 +148,7 @@ export function AppShell() {
           )}
         </Resource>
       </main>
-      <footer>赛事工作台 · 结构配置与运行能力分开验证</footer>
+      {!canvasMode && <footer>赛事工作台 · 结构配置与运行能力分开验证</footer>}
     </>
   );
 }
@@ -175,6 +178,8 @@ export const routeDefinitions = [
       { path: "/", element: <Navigate to="/tournaments" replace /> },
       { path: "/tournaments", element: gate("catalog", <CatalogPage />) },
       { path: "/reference-cases", element: protect(<ReferenceCasesPage />) },
+      { path: "/canvas-lab", element: protect(<CanvasLab />) },
+      { path: "/canvas-lab/preview", element: protect(<CanvasSchedulePage />) },
       {
         path: "/login",
         element: gate("accounts", <AccountPage mode="login" />),

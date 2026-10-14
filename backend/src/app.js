@@ -93,6 +93,7 @@ function createApp({
   });
   require("./platform/operations/http").mountOperations(api, { db, send, now });
   require("./platform/schedule/http").mountSchedule(api, { db, send, now });
+  require("./planning-canvas/http").mountCanvas(api, { db, send, now });
   require("./platform/http/capabilities").mountCapabilities(api, { db, send });
   references = require("./platform/reference/http").mountReference(api, app, {
     db,
@@ -128,7 +129,7 @@ function createApp({
   ) {
     app.use(express.static(frontendPath, { index: false }));
     const routes =
-      /^\/$|^\/(login|register|forgot-password|reference-cases|tournaments|tournaments\/new|me\/profile|me\/tournaments|me\/series|me\/series\/new)$|^\/me\/series\/[^/]+\/edit$|^\/series\/[^/]+$|^\/tournaments\/[^/]+(\/(stages|matches|standings|registration|results|schedule))?$|^\/manage\/[^/]+(\/(overview|settings|templates|registration|matches|results|rounds|sanctions|collaborators|schedule)|\/configurations\/[^/]+\/(stages|pools|routes|validation|preview|graph))?$/;
+      /^\/$|^\/(login|register|forgot-password|reference-cases|canvas-lab|canvas-lab\/preview|tournaments|tournaments\/new|me\/profile|me\/tournaments|me\/series|me\/series\/new)$|^\/me\/series\/[^/]+\/edit$|^\/series\/[^/]+$|^\/tournaments\/[^/]+(\/(stages|matches|standings|registration|results|schedule))?$|^\/manage\/[^/]+(\/(overview|settings|templates|registration|matches|results|rounds|sanctions|collaborators|schedule)|\/configurations\/[^/]+\/(stages|pools|routes|validation|preview|graph))?$/;
     app.get(/.*/, (req, res, next) =>
       routes.test(req.path)
         ? res.sendFile(require("node:path").resolve(frontendPath, "index.html"))

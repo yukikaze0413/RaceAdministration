@@ -1,0 +1,90 @@
+[
+  {
+    "path": "backend/src/app.js",
+    "sha256": "e78427bf76bbf9fa0b44bc3470825e053efb863afd4e03449e1029c67033c978"
+  },
+  {
+    "path": "backend/src/planning-canvas\\evaluate.js",
+    "sha256": "21c182946dce31210090ff3d3398ba54d205dad3e0cd2afb4920f27d869f9d0e"
+  },
+  {
+    "path": "backend/src/planning-canvas\\graph.js",
+    "sha256": "4c59c9ff1ab87ed4141009af20fa51cf6e8b11e9164cf68a700563e74c14c1ae"
+  },
+  {
+    "path": "backend/src/planning-canvas\\http.js",
+    "sha256": "de9c7e32b5052c199454bfc0d43208ef914c40683ac79885cee7c8aeb4ed75ea"
+  },
+  {
+    "path": "backend/src/planning-canvas\\samples.js",
+    "sha256": "df056d67ce143aff8c0dcba840fcf72af146e55172871b0cc14ce3d458a89bae"
+  },
+  {
+    "path": "backend/src/planning-canvas\\values.js",
+    "sha256": "5b644b581f4e86411f25b88b5bd161b34f01725789c088589447883277c5900a"
+  },
+  {
+    "path": "backend/src/platform/storage/database.js",
+    "sha256": "e049d0ba06efbb669810e6cc49fb7a0701a75233d6070c6f28a614ffb9d9cf1a"
+  },
+  {
+    "path": "backend/test/platform\\canvas-http.test.js",
+    "sha256": "75e1e5fe2d52bdd98fa7c6470b06389b72b9ad168212b0113f54c4ed40ca293e"
+  },
+  {
+    "path": "backend/test/platform\\canvas-restart.test.js",
+    "sha256": "85601623ff5a79963818b461b124bfd3a9eee1441014287aa1875b09327b59b7"
+  },
+  {
+    "path": "backend/test/tournament-configuration\\canvas-boundaries.test.js",
+    "sha256": "723ced48e387e0966682486561239b61eb582b50bef7a609296c2367e85dda4a"
+  },
+  {
+    "path": "backend/test/tournament-configuration\\canvas-graph.test.js",
+    "sha256": "92a9d32fc8cb3ab18bcc5ae834051905bbf4f29d72041c7300a21f47b9cea29c"
+  },
+  {
+    "path": "backend/test/tournament-configuration\\canvas-planning.test.js",
+    "sha256": "5e261778ef533240f57850c56f8a6fde8aa7d199919615858b07d2958637c0f7"
+  },
+  {
+    "path": "backend/test/tournament-configuration\\canvas-values.test.js",
+    "sha256": "3b6199cb6a2a4707a3f10762b63ca3978f67fb53ef1e21eb389bf7c1256a09b7"
+  },
+  {
+    "path": "frontend/e2e\\canvas-lab.spec.ts",
+    "sha256": "b0e61dce70c7d41c9bb49c23b2602ee8735085905ba1e94d91a16ceb3d592b68"
+  },
+  {
+    "path": "frontend/src/app/router.tsx",
+    "sha256": "4179324f6b6638ab6324e1834fbbfa22767876d3de34e46df2c58fd55c0a649c"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\index.tsx",
+    "sha256": "c7600446a000a94c8992d12167cf69ac3803f70548d05a6a4ed84f273f3291fd"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\properties.tsx",
+    "sha256": "7d1c83b7d4f9456033e411c1b103b68e7672315dc658c3074d82e316fcd46bec"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\style.css",
+    "sha256": "dabcb1339d7b059f1eacbc9dbe6eaa005933bb9b7b397d18facbd219b22d7481"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\types.ts",
+    "sha256": "911bc2f7e95ee05c8c59e24674447790f1c74b9fd9bedbb41d4d36634146a93b"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\view.test.tsx",
+    "sha256": "59cc98157deb19a580c0dc68b4ba371f73cd8d141004985676db764cc91ed9ef"
+  },
+  {
+    "path": "frontend/src/features/planning-canvas\\view.tsx",
+    "sha256": "d677ccf8611ece3da890ce8056bacd0814d18ef563a567c765e1db9c9a65b175"
+  },
+  {
+    "path": "scripts/canvas-lab-preview.js",
+    "sha256": "e16925dc13bdba3cb4b9bff5885f21525438634b6b54903a3516b1f14f57bb86"
+  }
+]

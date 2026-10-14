@@ -18,7 +18,10 @@ function openDatabase(path) {
  CREATE TABLE IF NOT EXISTS structure_aggregates(tournamentId TEXT PRIMARY KEY REFERENCES tournaments(id),data TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS schedule_aggregates(tournamentId TEXT PRIMARY KEY REFERENCES tournaments(id) ON DELETE CASCADE,version INTEGER NOT NULL,data TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS catalog_requests(actorId TEXT NOT NULL REFERENCES users(id),requestKey TEXT NOT NULL,fingerprint TEXT NOT NULL,result TEXT NOT NULL,PRIMARY KEY(actorId,requestKey));
- INSERT OR IGNORE INTO schema_migrations VALUES(1); INSERT OR IGNORE INTO schema_migrations VALUES(2); COMMIT;`);
+ CREATE TABLE IF NOT EXISTS planning_canvases(id TEXT PRIMARY KEY,ownerId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,version INTEGER NOT NULL,name TEXT NOT NULL,graph TEXT NOT NULL,validation TEXT);
+ CREATE TABLE IF NOT EXISTS canvas_requests(actorId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,requestKey TEXT NOT NULL,fingerprint TEXT NOT NULL,result TEXT NOT NULL,PRIMARY KEY(actorId,requestKey));
+ CREATE TABLE IF NOT EXISTS planning_canvas_schedules(canvasId TEXT PRIMARY KEY REFERENCES planning_canvases(id) ON DELETE CASCADE,version INTEGER NOT NULL,data TEXT NOT NULL);
+ INSERT OR IGNORE INTO schema_migrations VALUES(1); INSERT OR IGNORE INTO schema_migrations VALUES(2); INSERT OR IGNORE INTO schema_migrations VALUES(3); INSERT OR IGNORE INTO schema_migrations VALUES(4); COMMIT;`);
     return db;
   } catch (e) {
     db.close();
