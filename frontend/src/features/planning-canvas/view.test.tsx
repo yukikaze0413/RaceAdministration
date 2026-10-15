@@ -4,6 +4,53 @@ import { afterEach, expect, test, vi } from "vitest";
 import { CanvasView } from "./view";
 import type { CanvasGraph } from "./types";
 afterEach(cleanup);
+test("only the active input port is highlighted", () => {
+  const node = {
+    id: "m",
+    kind: "match",
+    name: "决赛",
+    params: {},
+    position: { x: 0, y: 0 },
+  };
+  render(
+    <CanvasView
+      {...({
+        graph: {
+          schemaVersion: "canvas-v2",
+          nodes: [node],
+          edges: [],
+          stages: [],
+        },
+        analysis: {
+          nodes: [
+            {
+              ...node,
+              ports: [
+                { id: "A", direction: "input", type: "seat", label: "A" },
+                { id: "W", direction: "output", type: "seat", label: "W" },
+              ],
+            },
+          ],
+        },
+        scope: null,
+        selected: [],
+        selectedFrom: null,
+        selectedTo: { node: "m", port: "A" },
+        onSelect: () => {},
+        onEnter: () => {},
+        onPort: () => {},
+        onMove: () => {},
+      } as any)}
+    />,
+  );
+  expect(screen.getByRole("button", { name: "决赛 A 输入" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  expect(screen.getByRole("button", { name: "决赛 W 输出" })).not.toHaveClass(
+    "canvas-port-selected",
+  );
+});
 test("stage title selects the group without selecting or removing its match", () => {
   const selectStage = vi.fn();
   const graph = {
@@ -28,20 +75,24 @@ test("stage title selects the group without selecting or removing its match", ()
     />,
   );
   fireEvent.click(screen.getByRole("button", { name: "选择阶段 1 · 预赛" }));
-  expect(selectStage).toHaveBeenCalledWith("s");
+  expect(selectStage).toHaveBeenCalledWith("s", false);
+  fireEvent.click(screen.getByRole("button", { name: "选择阶段 1 · 预赛" }), {
+    ctrlKey: true,
+  });
+  expect(selectStage).toHaveBeenCalledWith("s", true);
   expect(document.querySelector('[data-stage-frame="s"]')).toHaveClass(
     "canvas-stage-selected",
   );
   expect(document.querySelector('[data-canvas-node="m"]')).toBeInTheDocument();
 });
 const initial: CanvasGraph = {
-  schemaVersion: "canvas-v1",
+  schemaVersion: "canvas-v2",
   nodes: [
     {
       id: "m",
       kind: "match",
       name: "决赛",
-      params: { bestOf: 3 },
+      params: { matchFormat: "bo3" },
       position: { x: 40, y: 40 },
     },
   ],
@@ -116,7 +167,7 @@ test("dangling output hiding preserves a seed port connected through a derived s
     display: { hideDanglingOutputs: true },
   };
   const graph: CanvasGraph = {
-    schemaVersion: "canvas-v1",
+    schemaVersion: "canvas-v2",
     nodes: [
       source,
       {

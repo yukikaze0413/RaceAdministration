@@ -36,14 +36,24 @@ function units(g, r) {
         });
         ends.set(n.id, n.id);
       }
-    } else if (n.kind === "swiss") {
+    } else if (["swiss", "round-robin"].includes(n.kind)) {
       const windows = r.values[n.id]?.windows ?? [];
       const edge = G.incoming(g, n, "collection"),
         end = edge && G.endpoint(g, edge.from, "output");
       const seats = end ? (r.values[end.node]?.[end.port]?.items ?? []) : [];
-      windows.forEach((_, i) => {
+      windows.forEach((window, i) => {
         const id = n.id + ":round:" + (i + 1);
-        rounds.push({ id, swissNodeId: n.id, number: i + 1 });
+        rounds.push({
+          id,
+          nodeId: n.id,
+          kind: n.kind,
+          number: i + 1,
+          planKey: window.planKey,
+          count: window.count,
+          restCount: window.restCount,
+          fixtures: window.fixtures,
+          rest: window.rest,
+        });
         result.push({
           id,
           nodeId: n.id,

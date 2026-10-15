@@ -10,6 +10,8 @@ function mountCanvas(api, { db, send }) {
     loginRequired(req);
     send(req, res, {
       nodes: G.KINDS.map((k) => require("./samples").node(k, "new-" + k)),
+      matchFormats: require("./match-rules").formats,
+      propertyDefinitions: require("./property-definitions").definitions,
       formats:
         require("../tournament-configuration/domain/formats/registry").formatCatalog(),
     });
@@ -73,19 +75,13 @@ function mountCanvas(api, { db, send }) {
   }
   api.get("/planning-canvas/samples/:name", (req, res) => {
     loginRequired(req);
-    const graph = G.migrate(G.sample(req.params.name)).graph;
+    const graph = G.sample(req.params.name);
     send(req, res, { graph, analysis: G.analyze(graph) });
   });
   api.post("/planning-canvas/analyze", (req, res) => {
     loginRequired(req);
     fields(req.body, ["graph"]);
     send(req, res, G.analyze(req.body.graph));
-  });
-  api.post("/planning-canvas/migrate", (req, res) => {
-    loginRequired(req);
-    fields(req.body, ["graph"]);
-    const r = G.migrate(req.body.graph);
-    send(req, res, { ...r, analysis: G.analyze(r.graph) });
   });
   api.post("/planning-canvas/edit", (req, res) => {
     loginRequired(req);
@@ -224,7 +220,7 @@ function mountCanvas(api, { db, send }) {
       validation.digest !== G.digest(JSON.parse(row.graph)) ||
       validation.wavePlan.plannerVersion !== require("./waves").PLANNER_VERSION
     )
-      reject(409, "VALIDATION_REQUIRED", "请先迁移并验证当前保存版本");
+      reject(409, "VALIDATION_REQUIRED", "请先保存并验证当前画布");
     return validation;
   }
   api.get("/planning-canvases/:id/schedule", (req, res) => {

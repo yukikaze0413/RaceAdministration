@@ -337,6 +337,54 @@ main.canvas-app-main .canvas-lab {
 .canvas-properties .field {
   margin-bottom: 10px;
 }
+.canvas-property-actions {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  background: var(--canvas-paper);
+}
+.canvas-properties .canvas-property-actions h3 {
+  margin: 0;
+}
+.canvas-property-section {
+  margin: 12px 0;
+  padding: 8px;
+  border: 1px solid var(--canvas-line);
+  border-radius: 4px;
+}
+.canvas-property-section > summary {
+  cursor: pointer;
+  padding: 4px 0;
+  font-weight: 600;
+}
+.canvas-property-section > .field {
+  margin-top: 10px;
+}
+.canvas-round-override {
+  display: flex;
+  align-items: end;
+  gap: 6px;
+  margin: 8px 0;
+}
+.canvas-round-override .field {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.canvas-round-override button {
+  flex-shrink: 0;
+}
+.canvas-properties select,
+.canvas-properties input:not([type="checkbox"]) {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
 .canvas-properties textarea {
   width: 100%;
   resize: vertical;
@@ -346,6 +394,11 @@ main.canvas-app-main .canvas-lab {
   margin: 10px 0;
   border: 1px solid var(--canvas-line);
   min-width: 0;
+}
+.canvas-properties legend {
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 600;
 }
 .canvas-properties .canvas-property-lock {
   border: 0;
@@ -754,6 +807,13 @@ main.canvas-app-main .canvas-lab {
 .canvas-app-main .canvas-dock-nav button {
   flex: 1;
 }
+.canvas-app-main .canvas-property-actions {
+  top: 36px;
+  background: #2b3340;
+}
+.canvas-app-main .canvas-property-section {
+  border-color: #424e5e;
+}
 .canvas-app-main .canvas-inspector section {
   scroll-margin-top: 48px;
 }
@@ -889,6 +949,14 @@ main.canvas-app-main .canvas-lab {
   border-color: #70baff;
   box-shadow: 0 0 0 2px #70baff55;
 }
+.canvas-port-selected {
+  outline: 2px solid #70baff;
+  outline-offset: 2px;
+}
+.canvas-app-main .canvas-edges path.canvas-edge-selected {
+  stroke: #bde3ff;
+  stroke-width: 4px;
+}
 .canvas-stage-row button[aria-pressed="true"] {
   outline: 2px solid #70baff;
 }
@@ -943,4 +1011,17 @@ main.canvas-app-main .canvas-lab {
 }
 .canvas-wave-result small {
   overflow-wrap: anywhere;
+}
+.canvas-tiebreakers {
+  padding-left: 24px;
+}
+.canvas-tiebreakers li {
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.canvas-tiebreakers li div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
 }

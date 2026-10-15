@@ -85,7 +85,7 @@ test("wave plan and independent session snapshot survive SQLite restart", async 
   let a, b;
   try {
     a = await event(t, { databasePath });
-    const graph = G.migrate(G.sample("single")).graph;
+    const graph = G.sample("single");
     const saved = (
         await a.request(
           "/planning-canvases",

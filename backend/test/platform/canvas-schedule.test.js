@@ -5,7 +5,7 @@ const { event } = require("./formats-v2-fixture"),
   G = require("../../src/planning-canvas/graph");
 test("validated waves persist, sessions have independent versions and stale snapshots survive revalidation", async (t) => {
   const f = await event(t),
-    graph = G.migrate(G.sample("single")).graph;
+    graph = G.sample("single");
   const c = (
     await f.request(
       "/planning-canvases",
@@ -104,7 +104,7 @@ test("validated waves persist, sessions have independent versions and stale snap
 });
 test("session order, duplicate wave, time dependency and owner checks reject invalid writes", async (t) => {
   const f = await event(t),
-    graph = G.migrate(G.sample("single")).graph;
+    graph = G.sample("single");
   const c = (
       await f.request(
         "/planning-canvases",

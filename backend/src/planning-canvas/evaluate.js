@@ -1,6 +1,7 @@
 "use strict";
 const G = require("./graph"),
   V = require("./values");
+const MatchRules = require("./match-rules");
 function analyze(g, resolutions = {}) {
   const diagnostics = [],
     memo = new Map(),
@@ -121,12 +122,31 @@ function analyze(g, resolutions = {}) {
           );
           break;
         }
-        case "selector": {
+        case "selector-top":
+        case "selector-random": {
           const x = input("collection");
-          if (x)
-            emit(
-              V.select(x.items, n.params.mode, n.params.count, n.params.seed),
+          if (x?.items) {
+            const selected = V.select(
+              x.items,
+              n.kind === "selector-top" ? "top" : "random",
+              n.params.count,
+              n.params.seed,
             );
+            emit(selected);
+            if (n.params.showComplement) {
+              const chosen = new Set(selected.map((s) => s.ref));
+              const rest = x.items.filter((s) => !chosen.has(s.ref));
+              out.complement = collection(rest);
+              out.complementSeeds = {
+                type: "seed-map",
+                mapping: V.seedMap(rest),
+                provenance: rest.map((s) => ({
+                  ref: s.ref,
+                  source: s.provenance ?? null,
+                })),
+              };
+            }
+          }
           break;
         }
         case "generator":
@@ -134,69 +154,32 @@ function analyze(g, resolutions = {}) {
           break;
         case "expander": {
           const x = input("collection");
-          if (x) {
-            if (n.params.count != null && n.params.count !== x.items.length)
-              report(
-                "CAPACITY_MISMATCH",
-                n,
-                "collection",
-                "展开容量与集合数量不一致",
-              );
-            const limit = n.params.count ?? x.items.length;
-            for (let i = 0; i < Math.min(limit, x.items.length); i++)
-              out["seat:" + (i + 1)] = { type: "seat", seat: x.items[i] };
-          }
+          if (x?.items)
+            x.items.forEach((seat, i) => {
+              out["seat:" + (i + 1)] = { type: "seat", seat };
+            });
           break;
         }
-        case "swiss": {
+        case "swiss":
+        case "round-robin": {
           const x = input("collection");
-          if (!x) break;
-          const registry = require("../tournament-configuration/domain/formats/registry");
-          const rule = registry.definition(n.params.ruleVersion);
+          const rankingRounds = require("./ranking-rounds");
+          rankingRounds.ruleFor(n);
+          const size = x?.items?.length ?? n.params.participantCount;
+          if (size == null) break;
           if (
-            !rule ||
-            !["fixed-swiss", "threshold-swiss", "major-like"].includes(
-              rule.format,
-            )
+            x &&
+            n.params.participantCount != null &&
+            n.params.participantCount !== size
           )
-            throw Error("请选择受支持的瑞士规则版本");
-          // Validate the same supported format constraints without creating a runtime.
-          const parse =
-            require("../tournament-configuration/domain/structure").parseStructure;
-          const s = parse(
-            {
-              entrantKind: "individual",
-              structureVersion: "structure-v2",
-              routingVersion: "routing-v2",
-              stages: [
-                {
-                  id: n.id,
-                  name: n.name,
-                  order: 1,
-                  format: rule.format,
-                  ruleVersion: n.params.ruleVersion,
-                  groupSize: x.items.length,
-                  groupCount: 1,
-                  qualifyCount: Math.min(
-                    x.items.length,
-                    rule.defaults.qualifyCount,
-                  ),
-                  parameters: n.params.parameters ?? {},
-                  groups: [{ id: n.id + ":group", stageId: n.id }],
-                },
-              ],
-              pools: [],
-              routes: [],
-            },
-            "canvas",
-          );
-          const formatParams = s.stages[0].parameters;
-          const validation =
-            require("../tournament-configuration/domain/validation").validateStructure(
-              s,
+            report(
+              "CAPACITY_MISMATCH",
+              n,
+              "collection",
+              "计划人数与输入集合人数不一致",
             );
-          if (!validation.structureValid)
-            throw Error(validation.diagnostics.map((d) => d.reason).join("；"));
+          out.windows = rankingRounds.windows(n, size, x?.items ?? []);
+          if (!x) break;
           if (n.params.ranking !== "complete-v1")
             report(
               "RANKING_REQUIRED",
@@ -209,18 +192,21 @@ function analyze(g, resolutions = {}) {
             if (
               ranking.confirmed !== true ||
               !Array.isArray(ranking.order) ||
-              ranking.order.length !== x.items.length ||
-              new Set(ranking.order).size !== x.items.length ||
+              ranking.order.length !== size ||
+              new Set(ranking.order).size !== size ||
               ranking.order.some((r) => !x.items.some((s) => s.ref === r))
             )
               throw Error("排名必须全段确认且包含全部原始席位");
             emit(
               ranking.order.map((r, i) => ({
                 ...x.items.find((s) => s.ref === r),
-                provenance: { swiss: n.id, rank: i + 1 },
+                provenance: {
+                  [n.kind === "swiss" ? "swiss" : "roundRobin"]: n.id,
+                  rank: i + 1,
+                },
               })),
             );
-          } else
+          } else {
             emit(
               x.items.map((_, i) => ({
                 ref: "rank:" + n.id + ":" + (i + 1),
@@ -232,25 +218,13 @@ function analyze(g, resolutions = {}) {
                   choices: { ...a.choices, [n.id]: i + 1 },
                 })),
                 provenance: {
-                  swiss: n.id,
+                  [n.kind === "swiss" ? "swiss" : "roundRobin"]: n.id,
                   rank: i + 1,
-                  initialOrder: x.items.map((x) => x.ref),
+                  initialOrder: x.items.map((s) => s.ref),
                 },
               })),
             );
-          out.windows = Array.from(
-            {
-              length:
-                formatParams.roundCount ??
-                formatParams.winsToQualify + formatParams.lossesToEliminate - 1,
-            },
-            (_, i) => ({
-              planKey: "canvas-window/" + n.id + "/" + (i + 1),
-              name: n.name + " 第 " + (i + 1) + " 轮",
-              pairing: "按 " + n.params.ruleVersion + " 动态配对，待解析",
-              count: x.items.length / 2,
-            }),
-          );
+          }
           break;
         }
         case "match": {
@@ -273,19 +247,6 @@ function analyze(g, resolutions = {}) {
               n,
               null,
               "上游席位尚未形成，不能视为正常轮空",
-            );
-          if (
-            !Number.isInteger(n.params.bestOf) ||
-            n.params.bestOf < 1 ||
-            n.params.bestOf % 2 !== 1
-          )
-            report("BO_INVALID", n, null, "BO 必须为正奇数");
-          if (!bye && n.params.winnerRule === "none")
-            report(
-              "WINNER_RULE_REQUIRED",
-              n,
-              "W",
-              "没有唯一胜败者时需要下游处理规则",
             );
           if (bye) {
             out.W = { type: "seat", seat: seatA ?? seatB, bye: true };
@@ -318,12 +279,10 @@ function analyze(g, resolutions = {}) {
           out.match = {
             id: n.id,
             name: n.name,
-            bestOf: n.params.bestOf,
-            batch: n.params.batch || null,
+            bestOf: MatchRules.format(n.params).bestOf,
+            matchFormat: MatchRules.format(n.params)?.id ?? null,
             A: a?.seat ?? null,
             B: b?.seat ?? null,
-            expectedTime: n.params.expectedTime ?? null,
-            durationMinutes: n.params.durationMinutes ?? null,
             condition: n.params.condition ?? null,
             bye,
           };
@@ -344,65 +303,6 @@ function analyze(g, resolutions = {}) {
     return out;
   }
   for (const n of g.nodes) calculate(n);
-  const depthMemo = new Map();
-  const depth = (n) => {
-    if (depthMemo.has(n.id)) return depthMemo.get(n.id);
-    const ds = g.edges
-      .filter((e) => G.endpoint(g, e.to, "input").node === n.id)
-      .map((e) => by.get(G.endpoint(g, e.from, "output").node));
-    const d = 1 + Math.max(0, ...ds.map((x) => depth(x)));
-    depthMemo.set(n.id, d);
-    return d;
-  };
-  const assignments = new Map();
-  const mutuallyExclusive = (a, b) =>
-    Object.keys(a.choices ?? {}).some(
-      (k) => Object.hasOwn(b.choices ?? {}, k) && a.choices[k] !== b.choices[k],
-    );
-  for (const n of g.nodes.filter(
-    (n) => n.kind === "match" && g.schemaVersion === "canvas-v1",
-  )) {
-    const m = memo.get(n.id).match;
-    if (!m) continue;
-    const batch = m.batch ?? "dependency:" + depth(n);
-    m.batch = batch;
-    for (const port of ["A", "B"]) {
-      const seat = m[port];
-      if (!seat) continue;
-      const list = assignments.get(batch) ?? [];
-      for (const old of list)
-        if (!mutuallyExclusive(old.seat, seat)) {
-          if (old.seat.ref === seat.ref)
-            report(
-              "DUPLICATE_ASSIGNMENT",
-              n,
-              port,
-              "同批次重复席位 " +
-                seat.ref +
-                "；已分配到 " +
-                old.node +
-                "/" +
-                old.port,
-            );
-          else if (
-            alternatives(seat).some((a) =>
-              alternatives(old.seat).some(
-                (b) => a.ref === b.ref && !mutuallyExclusive(a, b),
-              ),
-            )
-          )
-            report(
-              "IDENTITY_PENDING",
-              n,
-              port,
-              "未来来源可能重叠，解析时必须复验身份",
-              "warning",
-            );
-        }
-      list.push({ seat, node: n.id, port });
-      assignments.set(batch, list);
-    }
-  }
   const valid = !diagnostics.some((d) => d.severity === "error");
   return {
     valid,
@@ -412,6 +312,11 @@ function analyze(g, resolutions = {}) {
       ...n,
       ports: G.ports(g, n),
       capacity: G.capacity(g, n),
+      readOnlyProperties: require("./property-definitions").readOnlyProperties(
+        g,
+        n,
+        G.capacity(g, n),
+      ),
       hiddenConnectedLoser:
         n.kind === "match" &&
         !n.display?.showLoser &&

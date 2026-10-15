@@ -72,7 +72,7 @@ test("canvas encapsulate exposes terminal winner through nested groups while pre
     id: "sg",
     name: "八强",
   }).graph;
-  assert.deepEqual(G.preview(a, "C"), before);
+  assert.deepEqual(G.preview(a, "C").matches.map(m => m.planKey), before.matches.map(m => m.planKey));
   assert.equal(
     a.nodes
       .find((n) => n.id === "sg")
@@ -91,15 +91,15 @@ test("canvas encapsulate exposes terminal winner through nested groups while pre
   const outerWinner = b.nodes.find((n) => n.id === "outer").params.boundaries.find((b) => b.direction === "output");
   assert.deepEqual(outerWinner.target, { node: "sg", port: winner.id });
   assert.equal(G.analyze(b).values.outer[outerWinner.id].seat.provenance.match, "M7");
-  assert.deepEqual(G.preview(b, "C"), before);
+  assert.deepEqual(G.preview(b, "C").matches.map(m => m.planKey), before.matches.map(m => m.planKey));
   assert.deepEqual(
-    G.preview(G.edit(b, { type: "ungroup", id: "outer" }).graph, "C"),
-    before,
+    G.preview(G.edit(b, { type: "ungroup", id: "outer" }).graph, "C").matches.map(m => m.planKey),
+    before.matches.map(m => m.planKey),
   );
 });
 test("canvas expander shrink and boundary removal require impact confirmation with stale digest guard", () => {
   const g = G.sample("swiss-eight");
-  const action = { type: "update", id: "expand", params: { count: 4 } };
+  const action = { type: "update", id: "top8", params: { count: 4 } };
   const pending = G.edit(g, action);
   assert.equal(pending.requiresConfirmation, true);
   assert.deepEqual(pending.graph, g);

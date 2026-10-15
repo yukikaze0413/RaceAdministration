@@ -1,124 +1,12 @@
 import { useEffect, useState } from "react";
 import type { CanvasGraph, CanvasNode, Endpoint, Port } from "./types";
 import { Field } from "../../shared/ui";
-import { requestKey } from "../../shared/api";
-const parameterLabels: Record<string, string> = {
-  defaultBO: "默认 BO",
-  roundCount: "轮数",
-  winsToQualify: "晋级胜场阈值",
-  lossesToEliminate: "淘汰负场阈值",
-  allowDraw: "允许平局",
-  allowPlayerDoubleLoss: "允许选手提交双方负",
-  firstPairing: "首轮配对",
-  tiebreakers: "同分顺序",
-  points: "计分",
-  win: "胜",
-  draw: "平",
-  loss: "负",
-  doubleLoss: "双方负",
-  seeding: "种子落位",
-  kind: "方式",
-  seedTableVersion: "种子表版本",
-  overrides: "规则覆盖",
-  advance: "晋级战 BO",
-  elimination: "淘汰战 BO",
-  rounds: "逐轮覆盖",
-};
-function RuleFields({
-  schema,
-  value,
-  onChange,
-  prefix = "",
-}: {
-  schema: any;
-  value: any;
-  onChange: (value: any) => void;
-  prefix?: string;
-}) {
-  if (schema.type === "object")
-    return (
-      <fieldset>
-        <legend>{(parameterLabels[prefix] ?? prefix) || "规则参数"}</legend>
-        {Object.entries<any>(schema.properties).map(([k, s]) => (
-          <RuleFields
-            key={k}
-            schema={s}
-            value={value?.[k]}
-            prefix={k}
-            onChange={(v) => onChange({ ...value, [k]: v })}
-          />
-        ))}
-      </fieldset>
-    );
-  const label = parameterLabels[prefix] ?? prefix;
-  if (schema.type === "boolean")
-    return (
-      <label className="canvas-check">
-        <input
-          type="checkbox"
-          checked={value ?? false}
-          onChange={(e) => onChange(e.target.checked)}
-        />
-        {label}
-      </label>
-    );
-  if (schema.type === "array")
-    return (
-      <Field label={label}>
-        <input
-          value={(value ?? []).join(", ")}
-          onChange={(e) =>
-            onChange(
-              e.target.value
-                .split(",")
-                .map((x) => x.trim())
-                .filter(Boolean),
-            )
-          }
-        />
-        <small>按逗号分隔：{schema.items.enum?.join("、")}</small>
-      </Field>
-    );
-  return (
-    <Field label={label}>
-      {schema.enum ? (
-        <select
-          value={value ?? schema.enum[0]}
-          onChange={(e) =>
-            onChange(
-              schema.type === "integer"
-                ? Number(e.target.value)
-                : e.target.value,
-            )
-          }
-        >
-          {schema.enum.map((x: any) => (
-            <option key={String(x)} value={x}>
-              {String(x)}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <input
-          type={schema.type === "integer" ? "number" : "text"}
-          min={schema.minimum}
-          max={schema.maximum}
-          value={value ?? ""}
-          onChange={(e) =>
-            onChange(
-              schema.type === "integer"
-                ? Number(e.target.value)
-                : e.target.value,
-            )
-          }
-        />
-      )}
-    </Field>
-  );
-}
+import { RankingProperties } from "./ranking-properties";
+import { ReadOnlyProperties } from "./readonly-properties";
 export function Properties({
   node,
   formats,
+  matchFormats,
   analysis,
   graph,
   onAction,
@@ -126,6 +14,7 @@ export function Properties({
 }: {
   node: CanvasNode;
   formats: any[];
+  matchFormats: { id: string; label: string; bestOf: number }[];
   analysis: any;
   graph: CanvasGraph;
   onAction: (action: any) => Promise<void>;
@@ -158,9 +47,12 @@ export function Properties({
         .map(([k, v]) => k + ":" + v)
         .join("\n"),
     );
-  }, [node.id, JSON.stringify(node.params), node.name]);
-  const change = (key: string, v: any) =>
-    setParams((p: any) => ({ ...p, [key]: v }));
+  }, [node.id]);
+  const changeMany = (values: Record<string, any>) => {
+    setParams((previous: any) => ({ ...previous, ...values }));
+    void onAction({ type: "update", id: node.id, params: values });
+  };
+  const change = (key: string, value: any) => changeMany({ [key]: value });
   const rule = formats.find((x) => x.ruleVersion === params.ruleVersion);
   const within = (id: string) => {
     let n = analysis?.nodes.find((n: CanvasNode) => n.id === id);
@@ -190,53 +82,50 @@ export function Properties({
   return (
     <form
       className="canvas-properties"
-      onSubmit={(e) => {
-        e.preventDefault();
-        let p = params;
-        if (node.kind === "source") {
-          const seats = source
-            .split("\n")
-            .filter((x) => x.trim())
-            .map((x) => {
-              const [ref, ...rest] = x.split("|");
-              return {
-                ref: ref.trim(),
-                label: rest.join("|").trim() || ref.trim(),
-              };
-            });
-          p = { ...p, seats };
-          if (mapping.trim())
-            p.mapping = Object.fromEntries(
-              mapping
-                .split("\n")
-                .filter((x) => x.trim())
-                .map((x) => {
-                  const [ref, ...v] = x.split(":");
-                  return [ref.trim(), Number(v.join(":"))];
-                }),
-            );
-          else p.mapping = null;
-        }
-        void onAction({ type: "update", id: node.id, name, params: p });
-      }}
+      onSubmit={(event) => event.preventDefault()}
     >
       <fieldset disabled={disabled} className="canvas-property-lock">
-        <h3>组件属性</h3>
+        <div className="canvas-property-actions">
+          <h3>组件属性</h3>
+        </div>
         <Field label="名称">
           <input
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value.trim())
+                void onAction({
+                  type: "update",
+                  id: node.id,
+                  name: e.target.value,
+                });
+            }}
             required
           />
         </Field>
-        <p className="canvas-small">稳定标识：{node.id}</p>
         {node.kind === "source" && (
-          <>
+          <fieldset>
+            <legend>参赛席位</legend>
             <Field label="未来席位（每行 引用 | 名称）">
               <textarea
-                rows={7}
+                rows={5}
                 value={source}
                 onChange={(e) => setSource(e.target.value)}
+                onBlur={() =>
+                  change(
+                    "seats",
+                    source
+                      .split("\n")
+                      .filter((line) => line.trim())
+                      .map((line) => {
+                        const [ref, ...rest] = line.split("|");
+                        return {
+                          ref: ref.trim(),
+                          label: rest.join("|").trim() || ref.trim(),
+                        };
+                      }),
+                  )
+                }
               />
             </Field>
             <Field label="外部种子映射（可选，每行 引用:数值）">
@@ -244,136 +133,113 @@ export function Properties({
                 rows={3}
                 value={mapping}
                 onChange={(e) => setMapping(e.target.value)}
-              />
-            </Field>
-          </>
-        )}
-        {node.kind === "match" && (
-          <>
-            <Field label="BO">
-              <input
-                type="number"
-                min={1}
-                step={2}
-                value={params.bestOf}
-                onChange={(e) => change("bestOf", Number(e.target.value))}
-              />
-            </Field>
-            {graph.schemaVersion === "canvas-v1" && (
-              <Field label="比赛批次（空值按依赖推导）">
-                <input
-                  value={params.batch ?? ""}
-                  onChange={(e) => change("batch", e.target.value)}
-                />
-              </Field>
-            )}
-            <Field label="胜败来源规则">
-              <select
-                value={params.winnerRule ?? "unique-winner-v1"}
-                onChange={(e) => change("winnerRule", e.target.value)}
-              >
-                <option value="unique-winner-v1">必须有唯一胜败者</option>
-                <option value="none">未定义（验证阻塞）</option>
-              </select>
-            </Field>
-            <Field label="预计开始时间">
-              <input
-                type="datetime-local"
-                value={params.expectedTime ?? ""}
-                onChange={(e) => change("expectedTime", e.target.value || null)}
-              />
-            </Field>
-            <Field label="预计时长（分钟）">
-              <input
-                type="number"
-                min={1}
-                value={params.durationMinutes ?? ""}
-                onChange={(e) =>
+                onBlur={() =>
                   change(
-                    "durationMinutes",
-                    e.target.value ? Number(e.target.value) : null,
+                    "mapping",
+                    mapping.trim()
+                      ? Object.fromEntries(
+                          mapping
+                            .split("\n")
+                            .filter((line) => line.trim())
+                            .map((line) => {
+                              const [ref, ...rest] = line.split(":");
+                              return [ref.trim(), Number(rest.join(":"))];
+                            }),
+                        )
+                      : null,
                   )
                 }
               />
             </Field>
-          </>
+          </fieldset>
         )}
-        {node.kind === "swiss" && (
+        {node.kind === "match" && (
           <>
-            <Field label="瑞士规则版本">
+            <Field label="单场赛制">
               <select
-                value={params.ruleVersion}
-                onChange={(e) => {
-                  change("ruleVersion", e.target.value);
-                  change("parameters", {});
-                }}
+                aria-label="单场赛制"
+                value={params.matchFormat}
+                onChange={(event) => change("matchFormat", event.target.value)}
               >
-                {formats
-                  .filter((x) =>
-                    ["fixed-swiss", "threshold-swiss", "major-like"].includes(
-                      x.format,
-                    ),
-                  )
-                  .map((x) => (
-                    <option key={x.ruleVersion} value={x.ruleVersion}>
-                      {x.name ?? x.label ?? x.ruleVersion}
-                    </option>
-                  ))}
+                {matchFormats.map((format) => (
+                  <option key={format.id} value={format.id}>
+                    {format.label}
+                  </option>
+                ))}
               </select>
-            </Field>
-            <Field label="最终全排名">
-              <select
-                value={params.ranking ?? ""}
-                onChange={(e) => change("ranking", e.target.value)}
-              >
-                <option value="complete-v1">
-                  按冻结规则排序，并列需明确裁定
-                </option>
-                <option value="">未配置</option>
-              </select>
-            </Field>
-            {rule?.parameterSchema && (
-              <RuleFields
-                schema={rule.parameterSchema}
-                value={{ ...rule.defaults.parameters, ...params.parameters }}
-                onChange={(v) => change("parameters", v)}
-              />
-            )}
-            <p>
-              全段完成并确认后释放全部席位。规划预览只显示排名来源，配对、轮空、跨分组与禁重赛规则由规则版本定义。
-            </p>
+            </Field>{" "}
           </>
         )}
-        {["selector", "generator", "expander"].includes(node.kind) && (
-          <Field
-            label={
-              node.kind === "expander" ? "展开数量（留空由集合推导）" : "数量 N"
+        {["swiss", "round-robin"].includes(node.kind) && (
+          <RankingProperties
+            node={node}
+            params={params}
+            formats={formats}
+            capacity={
+              analysis?.nodes?.find((n: CanvasNode) => n.id === node.id)
+                ?.capacity
             }
-          >
+            windows={analysis?.values?.[node.id]?.windows}
+            change={changeMany}
+          />
+        )}
+        {node.kind === "expander" && (
+          <ReadOnlyProperties
+            fields={
+              analysis?.nodes?.find((n: CanvasNode) => n.id === node.id)
+                ?.readOnlyProperties ?? [
+                {
+                  key: "count",
+                  label: "展开数量",
+                  value: null,
+                  source: "由输入集合推导",
+                },
+                { key: "inputCount", label: "来源集合数量", value: null },
+                { key: "outputCount", label: "输出席位数", value: null },
+                { key: "status", label: "状态", value: "等待集合输入" },
+              ]
+            }
+          />
+        )}
+        {["selector-top", "selector-random", "generator"].includes(
+          node.kind,
+        ) && (
+          <Field label={node.kind === "generator" ? "数量 N" : "数量 K"}>
             <input
               type="number"
               min={1}
               max={64}
-              value={params.count ?? ""}
-              onChange={(e) =>
-                change("count", e.target.value ? Number(e.target.value) : null)
-              }
+              value={params.count}
+              onChange={(e) => change("count", Number(e.target.value))}
             />
           </Field>
         )}
-        {["selector", "generator"].includes(node.kind) && (
-          <>
-            <Field label="模式">
-              <select
-                value={params.mode}
-                onChange={(e) => change("mode", e.target.value)}
-              >
-                <option value={node.kind === "selector" ? "top" : "reverse"}>
-                  {node.kind === "selector" ? "取前 N 项" : "倒序"}
-                </option>
-                <option value="random">随机不放回</option>
-              </select>
-            </Field>
+        {["selector-top", "selector-random"].includes(node.kind) && (
+          <label className="canvas-check">
+            <input
+              type="checkbox"
+              checked={params.showComplement}
+              onChange={(e) => change("showComplement", e.target.checked)}
+            />
+            展示补集
+          </label>
+        )}
+        {node.kind === "generator" && (
+          <Field label="模式">
+            <select
+              aria-label="模式"
+              value={params.mode}
+              onChange={(e) => change("mode", e.target.value)}
+            >
+              <option value="reverse">倒序</option>
+              <option value="random">随机不放回</option>
+            </select>
+          </Field>
+        )}
+        {(node.kind === "selector-random" ||
+          (node.kind === "generator" && params.mode === "random")) && (
+          <fieldset>
+            <legend>随机设置</legend>
             <Field label="随机数种子">
               <input
                 type="number"
@@ -389,44 +255,10 @@ export function Properties({
                 change("seed", crypto.getRandomValues(new Uint32Array(1))[0])
               }
             >
-              显式重新随机
+              重新随机
             </button>
-            <p>使用 mulberry32-v1；保存和预览不会自动更换随机数种子。</p>
-          </>
-        )}
-        {node.kind === "pool" && (
-          <div>
-            <p>输入端口按以下顺序拼接；保留稳定端口身份。</p>
-            {params.inputs.map((p: string, i: number) => (
-              <div className="canvas-input-order" key={p}>
-                <span>{p}</span>
-                <button
-                  type="button"
-                  disabled={i === 0 || disabled}
-                  aria-label={"上移输入 " + p}
-                  onClick={() => {
-                    const inputs = params.inputs.slice();
-                    [inputs[i - 1], inputs[i]] = [inputs[i], inputs[i - 1]];
-                    change("inputs", inputs);
-                  }}
-                >
-                  上移
-                </button>
-                <button
-                  type="button"
-                  disabled={i === params.inputs.length - 1 || disabled}
-                  aria-label={"下移输入 " + p}
-                  onClick={() => {
-                    const inputs = params.inputs.slice();
-                    [inputs[i + 1], inputs[i]] = [inputs[i], inputs[i + 1]];
-                    change("inputs", inputs);
-                  }}
-                >
-                  下移
-                </button>
-              </div>
-            ))}
-          </div>
+            <p className="canvas-small">保存和预览沿用当前随机数种子。</p>
+          </fieldset>
         )}
         {node.kind === "subgraph" && (
           <>
@@ -449,7 +281,7 @@ export function Properties({
             <p className="canvas-small">
               悬空接口可保留，隐藏只影响显示；Match 缺少席位按轮空处理。
             </p>
-            <details className="canvas-boundary-advanced">
+            <details className="canvas-boundary-advanced canvas-property-section">
               <summary>高级边界设置</summary>
               <ul>
                 {node.params.boundaries.map((b: any) => (
@@ -460,7 +292,6 @@ export function Properties({
                       disabled={
                         disabled ||
                         (node.params.custom &&
-                          node.params.autoWinnerOutputs !== false &&
                           b.direction === "output" &&
                           outputOrigin(b.target).port === "W")
                       }
@@ -527,10 +358,8 @@ export function Properties({
             </details>
           </>
         )}
-        <button disabled={disabled} type="submit">
-          应用属性
-        </button>
-        <div className="canvas-display-options">
+        <fieldset className="canvas-display-options">
+          <legend>显示设置</legend>
           {[
             ["hideDanglingInputs", "隐藏悬空输入接口"],
             ["hideDanglingOutputs", "隐藏悬空输出接口"],
@@ -574,7 +403,14 @@ export function Properties({
               展示败者端口
             </label>
           )}
-          {["swiss", "pool", "selector", "subgraph"].includes(node.kind) && (
+          {[
+            "swiss",
+            "round-robin",
+            "pool",
+            "selector-top",
+            "selector-random",
+            "subgraph",
+          ].includes(node.kind) && (
             <label>
               <input
                 type="checkbox"
@@ -606,7 +442,7 @@ export function Properties({
             />
             折叠详情
           </label>
-        </div>
+        </fieldset>
         <button
           type="button"
           disabled={disabled}

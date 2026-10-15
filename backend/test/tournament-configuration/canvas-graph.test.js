@@ -3,7 +3,7 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const G = require("../../src/planning-canvas/graph");
 const graph = () => ({
-  schemaVersion: "canvas-v1",
+  schemaVersion: "canvas-v2", stages: [{ id: "stage", name: "阶段", order: 1, nodeIds: ["m", "m2"] }],
   nodes: [
     {
       id: "src",
@@ -21,14 +21,14 @@ const graph = () => ({
       id: "m",
       kind: "match",
       name: "M",
-      params: { bestOf: 3, batch: "qf" },
+      params: { matchFormat: "bo3" },
       position: { x: 300, y: 0 },
     },
     {
       id: "m2",
       kind: "match",
       name: "M2",
-      params: { bestOf: 3, batch: "sf" },
+      params: { matchFormat: "bo3" },
       position: { x: 600, y: 0 },
     },
   ],
@@ -143,18 +143,17 @@ test("canvas detects same seat in same batch while permitting later round", () =
       id: "x",
       kind: "expander",
       name: "X",
-      params: { count: 2 },
+      params: {},
       position: { x: 0, y: 700 },
     },
     {
       id: "y",
       kind: "expander",
       name: "Y",
-      params: { count: 2 },
+      params: {},
       position: { x: 0, y: 900 },
     },
   );
-  g.nodes.find((n) => n.id === "m2").params.batch = "qf";
   let h = g;
   for (const [i, e] of [
     edge("src", "collection", "p", "in:1"),
@@ -166,13 +165,10 @@ test("canvas detects same seat in same batch while permitting later round", () =
     edge("y", "seat:2", "m2", "B"),
   ].entries())
     h.edges.push({ id: "edge" + i, ...e });
-  assert.ok(
-    G.analyze(h).diagnostics.some((d) => d.code === "DUPLICATE_ASSIGNMENT"),
-  );
-  h.nodes.find((n) => n.id === "m2").params.batch = "sf";
-  assert.equal(
-    G.analyze(h).diagnostics.filter((d) => d.code === "DUPLICATE_ASSIGNMENT")
-      .length,
-    0,
-  );
+  const report = G.analyze(h);
+  assert.equal(report.valid, true);
+  const m = report.wavePlan.waves.find(w => w.matchIds.includes("m"));
+  const m2 = report.wavePlan.waves.find(w => w.matchIds.includes("m2"));
+  assert.notEqual(m.id, m2.id);
+  assert.ok(m2.requiresWaveIds.includes(m.id));
 });

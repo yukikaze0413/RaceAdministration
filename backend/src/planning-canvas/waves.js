@@ -1,7 +1,7 @@
 "use strict";
 const G = require("./graph"),
   A = require("./analysis");
-const PLANNER_VERSION = "graph-stage-waves-v1";
+const PLANNER_VERSION = "graph-stage-rounds-v3";
 function plan(g, r) {
   const diagnostics = [...r.diagnostics];
   const report = (code, id, reason, severity = "error") =>
@@ -21,12 +21,12 @@ function plan(g, r) {
     report(
       "SCHEDULE_UNIT_ID_CONFLICT",
       null,
-      "比赛标识与瑞士轮调度标识冲突，请调整节点标识",
+      "比赛标识与轮次调度标识冲突，请调整节点标识",
     );
   if (g.nodes.some((n) => n.kind === "subgraph" && n.id === "root"))
     report("GRAPH_ID_CONFLICT", "root", "子图标识 root 与主图标识冲突");
   const memberships = new Map(
-    stages.flatMap((s) => s.nodeIds.map((id) => [id, s])),
+    stages.flatMap((s) => G.stageMembers(g, s.nodeIds).map((id) => [id, s])),
   );
   for (const u of units) {
     u.stageId = memberships.get(u.nodeId)?.id;
@@ -143,10 +143,11 @@ function plan(g, r) {
     ...round,
     waveId: owner.get(round.id),
   }));
-  if (rounds.length)
+  const dynamicRound = rounds.find((round) => round.kind === "swiss");
+  if (dynamicRound)
     report(
       "DYNAMIC_PAIRING_PENDING",
-      rounds[0].swissNodeId,
+      dynamicRound.nodeId,
       "瑞士轮按整轮预留，真实配对待解析",
       "warning",
     );
@@ -186,10 +187,7 @@ function plan(g, r) {
       };
     }),
     windows: r.windows.map((window) => {
-      const round = rounds.find(
-        (x) =>
-          "canvas-window/" + x.swissNodeId + "/" + x.number === window.planKey,
-      );
+      const round = rounds.find((x) => x.planKey === window.planKey);
       const w = waves.find((x) => x.id === round?.waveId);
       return {
         ...window,
@@ -197,6 +195,10 @@ function plan(g, r) {
         waveId: round?.waveId,
         stageId: w?.stageId,
         graphId: w?.graphId,
+        stageName: w?.stageName,
+        graphName: w?.graphName,
+        waveNumber: w?.number,
+        batch: w ? "wave " + w.number : null,
       };
     }),
   };

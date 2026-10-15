@@ -6,7 +6,7 @@ const { event } = require("./formats-v2-fixture"),
 test("canvas deletion checks versions and removes schedules with replayable requests", async (t) => {
   const f = await event(t);
   const c = (await f.request("/planning-canvases", "POST", {
-    name: "待删除项目", graph: G.migrate(G.sample("single")).graph,
+    name: "待删除项目", graph: G.sample("single"),
   }, f.cookie, "delete-create")).data.data;
   const path = "/planning-canvases/" + c.id;
   f.platform.db.prepare("INSERT INTO planning_canvas_schedules VALUES(?,?,?)").run(c.id, 1, "{}");

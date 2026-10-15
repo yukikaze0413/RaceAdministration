@@ -5,9 +5,9 @@ import { ErrorNotice, Field } from "../../shared/ui";
 import { CanvasView } from "./view";
 import { Properties } from "./properties";
 import { Stages, StageProperties, WaveResults } from "./stages";
+import { expandStageMembers, visibleNode } from "./stage-members";
 import {
   labels,
-  typeLabels,
   type CanvasGraph,
   type CanvasNode,
   type Endpoint,
@@ -16,7 +16,9 @@ import {
 import "./style.css";
 export function CanvasLab() {
   const [query, setQuery] = useSearchParams(),
-    [graph, setGraph] = useState<CanvasGraph | null>(null),
+    [graph, setGraphState] = useState<CanvasGraph | null>(null),
+    [propertyPending, setPropertyPending] = useState(0),
+    [editorRevision, setEditorRevision] = useState(0),
     [analysis, setAnalysis] = useState<any>(null),
     [catalog, setCatalog] = useState<any>(null),
     [saved, setSaved] = useState<any>(null),
@@ -29,7 +31,8 @@ export function CanvasLab() {
     [error, setError] = useState<ApiFailure | null>(null),
     [status, setStatus] = useState(""),
     [selected, setSelected] = useState<string[]>([]),
-    [selectedStage, setSelectedStage] = useState<string | null>(null),
+    [selectedStages, setSelectedStages] = useState<string[]>([]),
+    [selectedEdge, setSelectedEdge] = useState<string | null>(null),
     [deleteRequest, setDeleteRequest] = useState<any>(null),
     [scope, setScope] = useState<string | null>(null),
     [history, setHistory] = useState<CanvasGraph[]>([]),
@@ -40,16 +43,27 @@ export function CanvasLab() {
     [sample, setSample] = useState("swiss-eight"),
     [validation, setValidation] = useState<any>(null),
     [preview, setPreview] = useState<any>(null),
-    [pendingSave, setPendingSave] = useState<any>(null),
-    [migration, setMigration] = useState<any>(null);
+    [pendingSave, setPendingSave] = useState<any>(null);
   const actionBusy = useRef(false),
+    graphRef = useRef<CanvasGraph | null>(null),
+    propertyQueue = useRef<Promise<void>>(Promise.resolve()),
+    switchRequest = useRef(0),
     inspector = useRef<HTMLElement>(null),
     writeRef = useRef<any>(null),
     loadedCanvas = useRef<string | null | undefined>(undefined);
+  const setGraph: typeof setGraphState = (value) => {
+    const next = typeof value === "function" ? value(graphRef.current) : value;
+    graphRef.current = next;
+    setGraphState(next);
+  };
   const canvasId = query.get("canvas");
+  const selectedStage = selectedStages.at(-1) ?? null;
+  const setSelectedStage = (id: string | null) =>
+    setSelectedStages(id ? [id] : []);
   const dirty =
     graph !== null &&
-    (!saved ||
+    (propertyPending > 0 ||
+      !saved ||
       JSON.stringify(graph) !== JSON.stringify(saved.graph) ||
       name !== saved.name);
   const blocker = useBlocker(
@@ -60,12 +74,27 @@ export function CanvasLab() {
           new URLSearchParams(nextLocation.search).get("canvas") !==
             loadedCanvas.current)),
   );
-  const locked = busy || pendingSave !== null || deleteRequest !== null;
+  const propertyLocked = busy || pendingSave !== null || deleteRequest !== null;
+  const locked = propertyLocked || propertyPending > 0;
   useEffect(() => {
-    setSelectedStage((id) =>
-      graph?.stages?.some((s) => s.id === id) ? id : null,
+    setSelectedStages((ids) =>
+      ids.filter((id) => graph?.stages?.some((s) => s.id === id)),
+    );
+    setSelectedEdge((id) =>
+      graph?.edges.some((e) => e.id === id) ? id : null,
+    );
+    setFrom((end) =>
+      end && graph?.nodes.some((n) => n.id === JSON.parse(end).node) ? end : "",
+    );
+    setTo((end) =>
+      end && graph?.nodes.some((n) => n.id === JSON.parse(end).node) ? end : "",
     );
   }, [graph]);
+  useEffect(() => {
+    setFrom("");
+    setTo("");
+    setSelectedEdge(null);
+  }, [scope]);
   useEffect(() => {
     if (loadedCanvas.current === canvasId) return;
     loadedCanvas.current = canvasId;
@@ -83,7 +112,6 @@ export function CanvasLab() {
     setFrom("");
     setTo("");
     setPendingSave(null);
-    setMigration(null);
     writeRef.current = null;
     let active = true;
     const controller = new AbortController();
@@ -143,12 +171,19 @@ export function CanvasLab() {
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty]);
-  const install = (g: CanvasGraph, r: any, undo = true) => {
-    if (undo && graph) {
-      setHistory((h) => [...h.slice(-49), graph]);
+  const install = (
+    g: CanvasGraph,
+    r: any,
+    undo = true,
+    preserveEditor = false,
+  ) => {
+    const previous = graphRef.current;
+    if (undo && previous) {
+      setHistory((h) => [...h.slice(-49), previous]);
       setFuture([]);
     }
     setGraph(g);
+    if (!preserveEditor) setEditorRevision((value) => value + 1);
     setAnalysis(r);
     setValidation(null);
     setPreview(null);
@@ -156,43 +191,85 @@ export function CanvasLab() {
     setError(null);
     setSelected((s) => s.filter((id) => g.nodes.some((n) => n.id === id)));
   };
-  async function act(action: any) {
-    if (!graph || actionBusy.current || pendingSave) return;
-    actionBusy.current = true;
-    setBusy(true);
+  async function act(
+    action: any,
+    silentInvalid = false,
+    onResult?: (result: "applied" | "invalid" | "failed") => void,
+  ) {
+    const property =
+      !action.confirmed &&
+      ((action.type === "update" && !action.position) ||
+        (action.type === "updateStage" && !action.selected));
+    if (property) {
+      setPropertyPending((count) => count + 1);
+      const queued = propertyQueue.current.then(() =>
+        performAction(action, silentInvalid, onResult, true),
+      );
+      propertyQueue.current = queued.catch(() => {});
+      try {
+        await queued;
+      } finally {
+        setPropertyPending((count) => count - 1);
+      }
+    } else {
+      await propertyQueue.current;
+      await performAction(action, silentInvalid, onResult);
+    }
+  }
+  async function performAction(
+    action: any,
+    silentInvalid = false,
+    onResult?: (result: "applied" | "invalid" | "failed") => void,
+    property = false,
+  ) {
+    const currentGraph = graphRef.current;
+    if (!currentGraph || actionBusy.current || pendingSave) return;
+    if (!property) {
+      actionBusy.current = true;
+      setBusy(true);
+    }
     setError(null);
     try {
       const result = await api("/planning-canvas/edit", {
         method: "POST",
-        body: { graph, action },
+        body: { graph: currentGraph, action },
       });
       if (result.requiresConfirmation) {
         setImpact({ ...result, action });
         setStatus("请检查连接影响；取消会保留原草稿");
       } else {
-        install(result.graph, result.analysis);
-        setStatus("画布已更新，尚未保存");
+        if (JSON.stringify(result.graph) !== JSON.stringify(currentGraph)) {
+          install(result.graph, result.analysis, true, property);
+          setStatus("画布已更新，尚未保存");
+        }
+        if (action.type === "add" || action.type === "preset") {
+          const addedId = action.node?.id ?? action.id;
+          setSelectedStage(null);
+          setSelectedEdge(null);
+          setSelected(addedId ? [addedId] : []);
+        }
+        if (action.type === "createStage" && result.stageId) {
+          setSelectedStage(result.stageId);
+          const target = result.graph.stages.find(
+            (s: any) => s.id === result.stageId,
+          );
+          setStatus(`所选组件已加入 Stage ${target.order} · ${target.name}`);
+        }
+        onResult?.("applied");
       }
     } catch (e) {
-      setError(failure(e));
+      const er = failure(e);
+      if (silentInvalid && er.status === 422 && er.code === "INVALID_INPUT")
+        onResult?.("invalid");
+      else {
+        setError(er);
+        onResult?.("failed");
+      }
     } finally {
-      setBusy(false);
-      actionBusy.current = false;
-    }
-  }
-  async function migrate() {
-    if (!graph || locked) return;
-    setBusy(true);
-    try {
-      const r = await api("/planning-canvas/migrate", {
-        method: "POST",
-        body: { graph },
-      });
-      setMigration({ ...r, baseGraph: JSON.stringify(graph) });
-    } catch (e) {
-      setError(failure(e));
-    } finally {
-      setBusy(false);
+      if (!property) {
+        setBusy(false);
+        actionBusy.current = false;
+      }
     }
   }
   async function reset() {
@@ -253,7 +330,9 @@ export function CanvasLab() {
     }
   }
   async function save(retry = false): Promise<boolean> {
-    if (!graph || actionBusy.current) return false;
+    await propertyQueue.current;
+    const currentGraph = graphRef.current;
+    if (!currentGraph || actionBusy.current) return false;
     actionBusy.current = true;
     setBusy(true);
     setError(null);
@@ -263,7 +342,7 @@ export function CanvasLab() {
           path: saved ? "/planning-canvases/" + saved.id : "/planning-canvases",
           method: saved ? "PUT" : "POST",
           body: {
-            graph,
+            graph: currentGraph,
             name,
             ...(saved ? { expectedVersion: saved.version } : {}),
           },
@@ -372,20 +451,37 @@ export function CanvasLab() {
     void act({ type: "encapsulate", selected, id: requestKey(), name: "子图" });
   };
   const createStage = () => {
-    if (locked || !selected.length || graph?.schemaVersion !== "canvas-v2")
+    if (
+      locked ||
+      graph?.schemaVersion !== "canvas-v2" ||
+      (!selected.length && !selectedStages.length)
+    )
       return;
+    const members = [
+      ...new Set([
+        ...selected,
+        ...(graph.stages ?? [])
+          .filter((s) => selectedStages.includes(s.id))
+          .flatMap((s) => expandStageMembers(graph, s.nodeIds)),
+      ]),
+    ];
     void act({
       type: "createStage",
-      selected,
+      selected: members,
+      stageIds: selectedStages,
       id: requestKey(),
-      name:
-        "阶段 " +
-        (Math.max(0, ...(graph.stages ?? []).map((s) => s.order)) + 1),
     });
   };
-  const inspectStage = (id: string) => {
-    setSelectedStage(id);
-    setSelected([]);
+  const inspectStage = (id: string, additive = false) => {
+    if (additive)
+      setSelectedStages((ids) =>
+        ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id],
+      );
+    else {
+      setSelectedStage(id);
+      setSelected([]);
+    }
+    setSelectedEdge(null);
     inspector.current
       ?.querySelector("#canvas-parameters")
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -427,7 +523,6 @@ export function CanvasLab() {
         setFuture([]);
         setFrom("");
         setTo("");
-        setMigration(null);
         loadedCanvas.current = null;
         setQuery({}, { replace: true });
       } else setOpenId(saved?.id ?? "");
@@ -476,9 +571,17 @@ export function CanvasLab() {
     if (id) await readRemote(id, true);
     else await emptyCanvas(true);
   }
-  const requestSwitch = (id: string) => {
-    if (locked) return;
-    if (dirty) setSwitchTarget(id);
+  const requestSwitch = async (id: string) => {
+    if (propertyLocked || (id && id === saved?.id)) return;
+    const sequence = ++switchRequest.current;
+    await propertyQueue.current;
+    if (sequence !== switchRequest.current) return;
+    const changed =
+      graphRef.current &&
+      (!saved ||
+        JSON.stringify(graphRef.current) !== JSON.stringify(saved.graph) ||
+        name !== saved.name);
+    if (changed) setSwitchTarget(id);
     else void switchProject(id);
   };
   useEffect(() => {
@@ -489,7 +592,18 @@ export function CanvasLab() {
         )
       )
         return;
-      if (locked || impact || migration) return;
+      if (locked || impact) return;
+      if (
+        e.key === "Delete" &&
+        selectedEdge &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey
+      ) {
+        e.preventDefault();
+        if (!e.repeat) void act({ type: "disconnect", edgeId: selectedEdge });
+        return;
+      }
       if (
         e.key === "Delete" &&
         selectedStage &&
@@ -511,7 +625,7 @@ export function CanvasLab() {
     };
     window.addEventListener("keydown", shortcut);
     return () => window.removeEventListener("keydown", shortcut);
-  }, [graph, selected, selectedStage, locked, impact, migration]);
+  }, [graph, selected, selectedStages, selectedEdge, locked, impact]);
   if (!graph || !catalog)
     return (
       <section>
@@ -526,15 +640,6 @@ export function CanvasLab() {
   const inScope = graph.nodes.filter((n) => (n.parentId ?? null) === scope),
     node = graph.nodes.find((n) => n.id === selected.at(-1)),
     stage = graph.stages?.find((s) => s.id === selectedStage);
-  const endpoints = (direction: string) =>
-    inScope.flatMap((n) =>
-      (analysis?.nodes.find((x: CanvasNode) => x.id === n.id)?.ports ?? [])
-        .filter((p: Port) => p.direction === direction)
-        .map((p: Port) => ({
-          value: JSON.stringify({ node: n.id, port: p.id }),
-          label: n.name + " · " + p.label + " · " + typeLabels[p.type],
-        })),
-    );
   const enter = (id: string) => {
     setSelectedStage(null);
     setScope(id);
@@ -543,8 +648,40 @@ export function CanvasLab() {
     setTo("");
   };
   const visibleReport = validation ?? analysis;
+  const diagnosticGroups = new Map<
+    string,
+    { node?: CanvasNode; items: any[] }
+  >();
+  visibleReport.diagnostics.forEach((d: any, i: number) => {
+    const n = visibleNode(graph, d.objectId, scope);
+    const key = n && n.id !== d.objectId ? "group:" + n.id : "item:" + i;
+    const entry = diagnosticGroups.get(key) ?? {
+      node: n && n.id !== d.objectId ? n : undefined,
+      items: [],
+    };
+    entry.items.push(d);
+    diagnosticGroups.set(key, entry);
+  });
+  const diagnosticItem = (d: any, i: number) => (
+    <li key={i}>
+      {d.severity === "warning" ? "条件校验" : "错误"}：{d.reason}
+      {d.objectId && (
+        <button
+          onClick={() => {
+            const n = graph.nodes.find((n) => n.id === d.objectId);
+            setScope(n?.parentId ?? null);
+            inspect(d.objectId);
+          }}
+        >
+          定位{" "}
+          {graph.nodes.find((n) => n.id === d.objectId)?.name ?? d.objectId}
+        </button>
+      )}
+    </li>
+  );
   const inspect = (id: string) => {
     setSelectedStage(null);
+    setSelectedEdge(null);
     setSelected([id]);
     inspector.current
       ?.querySelector("#canvas-parameters")
@@ -567,7 +704,7 @@ export function CanvasLab() {
     void act({ type: "add", node: n });
   };
   return (
-    <div className="canvas-lab">
+    <div className="canvas-lab" aria-busy={busy || propertyPending > 0}>
       <header className="canvas-heading">
         <div>
           <h1>赛程规划画布</h1>
@@ -581,9 +718,9 @@ export function CanvasLab() {
       <div className="canvas-save-tools">
         <Field label="项目草稿">
           <select
-            disabled={locked}
-            value={openId}
-            onChange={(e) => setOpenId(e.target.value)}
+            disabled={propertyLocked}
+            value={saved?.id ?? ""}
+            onChange={(e) => void requestSwitch(e.target.value)}
           >
             <option value="">选择已保存项目</option>
             {drafts.map((d) => (
@@ -593,12 +730,6 @@ export function CanvasLab() {
             ))}
           </select>
         </Field>
-        <button
-          disabled={locked || !openId || openId === saved?.id}
-          onClick={() => requestSwitch(openId)}
-        >
-          切换项目
-        </button>
         <button disabled={locked} onClick={() => requestSwitch("")}>
           新建项目
         </button>
@@ -628,7 +759,7 @@ export function CanvasLab() {
             }}
           />
         </Field>
-        <button disabled={locked || !dirty} onClick={() => void save()}>
+        <button disabled={propertyLocked || !dirty} onClick={() => void save()}>
           保存草稿
         </button>
         <button
@@ -828,6 +959,7 @@ export function CanvasLab() {
             disabled={busy}
             onClick={() => {
               setImpact(null);
+              setEditorRevision((value) => value + 1);
               setStatus("已取消，原关系保留");
             }}
           >
@@ -861,6 +993,8 @@ export function CanvasLab() {
               onChange={(e) => setSample(e.target.value)}
             >
               <option value="swiss-eight">瑞士前八 → 八强单败</option>
+              <option value="round-robin">四人单循环</option>
+              <option value="double-round-robin">四人双循环</option>
               <option value="partial-pool">Pool 部分映射</option>
               <option value="single">八人单败</option>
               <option value="gsl">经典 GSL</option>
@@ -872,22 +1006,6 @@ export function CanvasLab() {
           <button disabled={locked} onClick={() => void reset()}>
             重置样例
           </button>
-          <Field label="已保存草稿">
-            <select value={openId} onChange={(e) => setOpenId(e.target.value)}>
-              <option value="">选择草稿</option>
-              {drafts.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.name} · v{d.version}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <button
-            disabled={!openId || busy}
-            onClick={() => void readRemote(openId)}
-          >
-            读取草稿
-          </button>
           {saved && (
             <button disabled={busy} onClick={() => void readRemote()}>
               读取保存版本
@@ -898,44 +1016,15 @@ export function CanvasLab() {
       <div className="canvas-layout">
         <aside className="canvas-palette">
           <h2>组件</h2>
-          {graph.schemaVersion === "canvas-v1" && (
-            <button disabled={locked} onClick={() => void migrate()}>
-              迁移新机制
-            </button>
-          )}
-          {migration && (
-            <aside className="notice">
-              <p>迁移后所有赛程加入阶段 1，旧批次改由验证自动分配。</p>
-              <ul>
-                {migration.changes.map((x: any) => (
-                  <li key={x.id}>
-                    {x.name}：{x.batch}
-                  </li>
-                ))}
-              </ul>
-              {migration.baseGraph !== JSON.stringify(graph) && (
-                <p>草稿已变化，请取消并重新生成迁移预览。</p>
-              )}
-              <button
-                disabled={
-                  locked || migration.baseGraph !== JSON.stringify(graph)
-                }
-                onClick={() => {
-                  install(migration.graph, migration.analysis);
-                  setMigration(null);
-                  setStatus("已应用迁移，请保存草稿");
-                }}
-              >
-                应用迁移
-              </button>
-              <button onClick={() => setMigration(null)}>取消迁移</button>
-            </aside>
-          )}
           {[
-            { name: "基础", kinds: ["source", "match", "pool"] },
-            { name: "转换", kinds: ["expander", "selector"] },
-            { name: "淘汰赛", kinds: ["single", "double"] },
+            { name: "基础", kinds: ["source", "pool"] },
+            {
+              name: "转换",
+              kinds: ["expander", "selector-top", "selector-random"],
+            },
+            { name: "淘汰赛", kinds: ["match", "single", "double"] },
             { name: "瑞士轮", kinds: ["swiss"] },
+            { name: "小组赛", kinds: ["round-robin"] },
             { name: "排序", kinds: ["generator"] },
           ].map((category) => (
             <details
@@ -993,9 +1082,10 @@ export function CanvasLab() {
               graph={graph}
               selected={selected}
               disabled={locked}
-              onCreate={createStage}
+              onCreate={() => createStage()}
               onSelect={inspectStage}
               selectedStage={selectedStage}
+              selectedStages={selectedStages}
             />
           )}
           {node?.kind === "subgraph" && (
@@ -1035,6 +1125,16 @@ export function CanvasLab() {
             scope={scope}
             selected={selected}
             selectedStage={selectedStage}
+            selectedStages={selectedStages}
+            selectedFrom={from ? JSON.parse(from) : null}
+            selectedTo={to ? JSON.parse(to) : null}
+            selectedEdge={selectedEdge}
+            onEdgeSelect={(id) => {
+              setSelectedEdge(id);
+              setSelected([]);
+              setSelectedStage(null);
+            }}
+            onDisconnect={(id) => void act({ type: "disconnect", edgeId: id })}
             onStageSelect={inspectStage}
             disabled={locked}
             onInspect={inspect}
@@ -1043,22 +1143,50 @@ export function CanvasLab() {
               setSelected(ids);
             }}
             onSelect={(id) => {
-              setSelectedStage(null);
+              setSelectedEdge(null);
               setSelected((s) =>
                 s.includes(id) ? s.filter((x) => x !== id) : [...s, id],
               );
             }}
             onEnter={enter}
             onPort={(end, p) => {
-              if (p.direction === "output") {
-                setFrom(JSON.stringify(end));
-                setStatus("来源已选择，请点击目标输入");
-              } else if (from) {
-                void act({ type: "connect", from: JSON.parse(from), to: end });
-              } else {
-                setTo(JSON.stringify(end));
-                setStatus("目标已选择，请在表单选择来源");
+              setSelectedEdge(null);
+              const active = from
+                ? { end: JSON.parse(from), direction: "output" }
+                : to
+                  ? { end: JSON.parse(to), direction: "input" }
+                  : null;
+              const clear = () => {
+                setFrom("");
+                setTo("");
+              };
+              if (
+                active?.direction === p.direction &&
+                active.end.node === end.node &&
+                active.end.port === end.port
+              ) {
+                clear();
+                void act({
+                  type: "disconnectPort",
+                  from: end,
+                  direction: p.direction,
+                });
+                return;
               }
+              setFrom(p.direction === "output" ? JSON.stringify(end) : "");
+              setTo(p.direction === "input" ? JSON.stringify(end) : "");
+              if (!active || active.direction === p.direction) return;
+              void act(
+                {
+                  type: "connect",
+                  from: p.direction === "output" ? end : active.end,
+                  to: p.direction === "input" ? end : active.end,
+                },
+                true,
+                (result) => {
+                  if (result === "applied") clear();
+                },
+              );
             }}
             onMove={(id, x, y, begin) => {
               if (locked) return;
@@ -1098,7 +1226,6 @@ export function CanvasLab() {
           <nav className="canvas-dock-nav" aria-label="工具面板导航">
             {[
               ["canvas-parameters", "参数"],
-              ["canvas-connections", "连接"],
               ["canvas-diagnostics", "诊断"],
               ["canvas-results", "结果"],
             ].map(([id, label]) => (
@@ -1122,97 +1249,28 @@ export function CanvasLab() {
             </h2>
             {stage ? (
               <StageProperties
-                key={stage.id}
+                key={stage.id + ":" + editorRevision}
                 graph={graph}
                 stage={stage}
-                disabled={locked}
+                disabled={propertyLocked}
                 onAction={act}
               />
             ) : node ? (
               <Properties
+                key={node.id + ":" + editorRevision}
                 node={node}
                 formats={catalog.formats.formats}
+                matchFormats={catalog.matchFormats}
                 analysis={analysis}
                 graph={graph}
                 onAction={act}
-                disabled={locked}
+                disabled={propertyLocked}
               />
             ) : (
               <>
-                <p>点击卡片或“参数”按钮，在这里修改参数，再点击“应用属性”。</p>
+                <p>点击卡片或“参数”按钮，修改属性后自动生效。</p>
               </>
             )}
-          </section>
-          <section className="canvas-connection-form" id="canvas-connections">
-            <h2>连接表单</h2>
-            <Field label="来源端口">
-              <select
-                disabled={locked}
-                value={from}
-                onChange={(e) => setFrom(e.target.value)}
-              >
-                <option value="">选择来源输出</option>
-                {endpoints("output").map((p: any) => (
-                  <option key={p.value} value={p.value}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-            </Field>
-            <Field label="目标端口">
-              <select
-                disabled={locked}
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
-              >
-                <option value="">选择目标输入</option>
-                {endpoints("input").map((p: any) => (
-                  <option key={p.value} value={p.value}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-            </Field>
-            <button
-              disabled={locked || !from || !to}
-              onClick={() =>
-                void act({
-                  type: "connect",
-                  from: JSON.parse(from),
-                  to: JSON.parse(to),
-                })
-              }
-            >
-              建立连接
-            </button>
-            <details>
-              <summary>
-                当前层连接（
-                {
-                  graph.edges.filter((e) =>
-                    inScope.some((n) => n.id === e.from.node),
-                  ).length
-                }
-                ）
-              </summary>
-              <ul>
-                {graph.edges
-                  .filter((e) => inScope.some((n) => n.id === e.from.node))
-                  .map((e) => (
-                    <li key={e.id}>
-                      {e.from.node}/{e.from.port} → {e.to.node}/{e.to.port}
-                      <button
-                        disabled={locked}
-                        onClick={() =>
-                          void act({ type: "disconnect", edgeId: e.id })
-                        }
-                      >
-                        删除连接
-                      </button>
-                    </li>
-                  ))}
-              </ul>
-            </details>
           </section>
           <section id="canvas-diagnostics">
             <h3>诊断</h3>
@@ -1222,30 +1280,28 @@ export function CanvasLab() {
                 : "存在未完成或冲突项，可保存类型合法草稿。"}
             </p>
             <ul className="canvas-diagnostics">
-              {visibleReport.diagnostics.map((d: any, i: number) => (
-                <li key={i}>
-                  {d.severity === "warning" ? "条件校验" : "错误"}：{d.reason}
-                  {d.objectId && (
-                    <button
-                      onClick={() => {
-                        const n = graph.nodes.find((n) => n.id === d.objectId);
-                        setScope(n?.parentId ?? null);
-                        setSelectedStage(null);
-                        setSelected([d.objectId]);
-                      }}
-                    >
-                      定位 {d.objectId}
-                    </button>
-                  )}
-                </li>
-              ))}
+              {[...diagnosticGroups].map(([key, entry]) =>
+                entry.node ? (
+                  <li key={key}>
+                    <details>
+                      <summary>
+                        {entry.node.name} · {entry.items.length} 项诊断
+                      </summary>
+                      <ul>{entry.items.map(diagnosticItem)}</ul>
+                    </details>
+                  </li>
+                ) : (
+                  diagnosticItem(entry.items[0], Number(key.slice(5)))
+                ),
+              )}
             </ul>
           </section>
           <details id="canvas-results">
             <summary>集合与种子结果</summary>
             {Object.entries<any>(analysis.values ?? {}).map(
               ([id, v]) =>
-                v.collection && (
+                v.collection &&
+                inScope.some((n) => n.id === id) && (
                   <div key={id}>
                     <strong>
                       {graph.nodes.find((n) => n.id === id)?.name}
@@ -1257,9 +1313,38 @@ export function CanvasLab() {
                         </li>
                       ))}
                     </ol>
+                    {v.complement && (
+                      <details>
+                        <summary>补集（{v.complement.items.length}）</summary>
+                        <ol>
+                          {v.complement.items.map((x: any) => (
+                            <li key={x.ref}>
+                              {x.label} · 当前种子{" "}
+                              {v.complementSeeds.mapping[x.ref]}
+                            </li>
+                          ))}
+                        </ol>
+                      </details>
+                    )}
                   </div>
                 ),
             )}
+            {inScope
+              .filter((n) => n.kind === "subgraph")
+              .map((n) => (
+                <div key={n.id}>
+                  <strong>{n.name}</strong>
+                  {Object.entries<any>(analysis.values?.[n.id] ?? {})
+                    .filter(([, value]) => value?.kind === "collection")
+                    .map(([port, value]) => (
+                      <ol key={port}>
+                        {value.items.map((x: any) => (
+                          <li key={x.ref}>{x.label}</li>
+                        ))}
+                      </ol>
+                    ))}
+                </div>
+              ))}
           </details>
         </aside>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CanvasGraph, CanvasNode, Endpoint, Port } from "./types";
 import { labels, typeLabels } from "./types";
+import { expandStageMembers } from "./stage-members";
 type View = { x: number; y: number; zoom: number };
 export function CanvasView({
   graph,
@@ -14,6 +15,12 @@ export function CanvasView({
   onInspect,
   onBoxSelect,
   selectedStage,
+  selectedStages = [],
+  selectedFrom,
+  selectedTo,
+  selectedEdge,
+  onEdgeSelect,
+  onDisconnect,
   onStageSelect,
   disabled = false,
 }: {
@@ -28,7 +35,13 @@ export function CanvasView({
   onInspect?: (id: string) => void;
   onBoxSelect?: (ids: string[]) => void;
   selectedStage?: string | null;
-  onStageSelect?: (id: string) => void;
+  selectedStages?: string[];
+  selectedFrom?: Endpoint | null;
+  selectedTo?: Endpoint | null;
+  selectedEdge?: string | null;
+  onEdgeSelect?: (id: string) => void;
+  onDisconnect?: (id: string) => void;
+  onStageSelect?: (id: string, additive?: boolean) => void;
   disabled?: boolean;
 }) {
   const viewport = useRef<HTMLDivElement>(null),
@@ -191,7 +204,21 @@ export function CanvasView({
     <button
       key={p.id}
       type="button"
-      className={"canvas-port port-" + p.type + " port-" + p.direction}
+      className={
+        "canvas-port port-" +
+        p.type +
+        " port-" +
+        p.direction +
+        ((p.direction === "output" ? selectedFrom : selectedTo)?.node ===
+          n.id &&
+        (p.direction === "output" ? selectedFrom : selectedTo)?.port === p.id
+          ? " canvas-port-selected"
+          : "")
+      }
+      aria-pressed={
+        (p.direction === "output" ? selectedFrom : selectedTo)?.node === n.id &&
+        (p.direction === "output" ? selectedFrom : selectedTo)?.port === p.id
+      }
       data-anchor={JSON.stringify({
         node: n.id,
         port: p.id,
@@ -217,11 +244,18 @@ export function CanvasView({
     <section className="canvas-scene">
       <div className="canvas-view-tools">
         <button onClick={fit}>适应全图</button>
+        <button
+          disabled={disabled || !selectedEdge}
+          onClick={() => selectedEdge && onDisconnect?.(selectedEdge)}
+        >
+          删除所选连接
+        </button>
         <button onClick={() => zoom(1.25)}>放大</button>
         <button onClick={() => zoom(0.8)}>缩小</button>
         <span>{Math.round(view.zoom * 100)}%</span>
         <span className="canvas-selection-count">
           已选 {selected.length} 张
+          {selectedStages.length > 0 && ` · ${selectedStages.length} 个 Stage`}
         </span>
         <button
           aria-pressed={multiSelect}
@@ -336,10 +370,11 @@ export function CanvasView({
           }}
         >
           {(graph.stages ?? []).map((stage) => {
+            const stageIds = expandStageMembers(graph, stage.nodeIds);
             const covered = nodes.filter((n) => {
-              if (stage.nodeIds.includes(n.id)) return true;
+              if (stageIds.includes(n.id)) return true;
               if (n.kind !== "subgraph") return false;
-              return stage.nodeIds.some((id) => {
+              return stageIds.some((id) => {
                 let child = graph.nodes.find((x) => x.id === id);
                 while (child?.parentId) {
                   if (child.parentId === n.id) return true;
@@ -365,7 +400,10 @@ export function CanvasView({
                 data-stage-frame={stage.id}
                 className={
                   "canvas-stage-frame" +
-                  (selectedStage === stage.id ? " canvas-stage-selected" : "")
+                  (selectedStages.includes(stage.id) ||
+                  selectedStage === stage.id
+                    ? " canvas-stage-selected"
+                    : "")
                 }
                 style={{
                   left: x,
@@ -377,10 +415,18 @@ export function CanvasView({
                 <button
                   className="canvas-stage-title"
                   aria-label={`选择阶段 ${stage.order} · ${stage.name}`}
-                  aria-pressed={selectedStage === stage.id}
+                  aria-pressed={
+                    selectedStages.includes(stage.id) ||
+                    selectedStage === stage.id
+                  }
                   disabled={disabled}
                   onPointerDown={(e) => e.stopPropagation()}
-                  onClick={() => onStageSelect?.(stage.id)}
+                  onClick={(e) =>
+                    onStageSelect?.(
+                      stage.id,
+                      multiSelect || e.ctrlKey || e.metaKey,
+                    )
+                  }
                 >
                   Stage {stage.order} · {stage.name}
                 </button>
@@ -405,24 +451,54 @@ export function CanvasView({
                 b = anchors[JSON.stringify({ ...e.to, direction: "input" })];
               if (!a || !b) return null;
               return (
-                <path
-                  data-canvas-edge={e.id}
-                  key={e.id}
-                  d={`M${a.x},${a.y} C${a.x + 90},${a.y} ${b.x - 90},${b.y} ${b.x},${b.y}`}
-                  fill="none"
-                  stroke="#425f83"
-                  strokeWidth="2"
-                >
-                  <title>
-                    {e.from.node +
-                      " " +
-                      e.from.port +
+                <g key={e.id}>
+                  <path
+                    data-canvas-edge={e.id}
+                    className={
+                      selectedEdge === e.id ? "canvas-edge-selected" : undefined
+                    }
+                    d={`M${a.x},${a.y} C${a.x + 90},${a.y} ${b.x - 90},${b.y} ${b.x},${b.y}`}
+                    fill="none"
+                    stroke="#425f83"
+                    strokeWidth="2"
+                  >
+                    <title>
+                      {e.from.node +
+                        " " +
+                        e.from.port +
+                        " → " +
+                        e.to.node +
+                        " " +
+                        e.to.port}
+                    </title>
+                  </path>
+                  <path
+                    data-canvas-edge-hit={e.id}
+                    role="button"
+                    tabIndex={disabled ? -1 : 0}
+                    aria-label={
+                      "选择连接 " +
+                      (graph.nodes.find((n) => n.id === e.from.node)?.name ??
+                        e.from.node) +
                       " → " +
-                      e.to.node +
-                      " " +
-                      e.to.port}
-                  </title>
-                </path>
+                      (graph.nodes.find((n) => n.id === e.to.node)?.name ??
+                        e.to.node)
+                    }
+                    d={`M${a.x},${a.y} C${a.x + 90},${a.y} ${b.x - 90},${b.y} ${b.x},${b.y}`}
+                    fill="none"
+                    stroke="transparent"
+                    strokeWidth="14"
+                    style={{ pointerEvents: "stroke", cursor: "pointer" }}
+                    onPointerDown={(event) => event.stopPropagation()}
+                    onClick={() => !disabled && onEdgeSelect?.(e.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        if (!disabled) onEdgeSelect?.(e.id);
+                      }
+                    }}
+                  />
+                </g>
               );
             })}
           </svg>
@@ -473,6 +549,7 @@ export function CanvasView({
                 aria-label={"卡片 " + n.name}
                 data-selected={selected.includes(n.id)}
                 onClickCapture={(e) => {
+                  if ((e.target as HTMLElement).closest(".canvas-port")) return;
                   if (e.ctrlKey || e.metaKey || multiSelect) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -545,19 +622,22 @@ export function CanvasView({
                 {!n.display?.collapsed && (
                   <p className="canvas-node-summary">
                     {n.kind === "match"
-                      ? "BO" +
-                        n.params.bestOf +
-                        " · " +
-                        (graph.schemaVersion === "canvas-v2"
-                          ? "验证自动分配 wave"
-                          : n.params.batch || "依赖批次")
-                      : n.kind === "generator"
-                        ? `${n.params.mode === "reverse" ? "倒序" : "随机"} · ${n.params.count} 位 · seed ${n.params.seed}`
-                        : n.kind === "swiss"
-                          ? n.params.ruleVersion + " · 完赛后全排名"
-                          : info?.capacity != null
-                            ? info.capacity + " 个席位"
-                            : "容量待定"}
+                      ? (n.params.matchFormat === "bo1" ? "BO1" : "BO3") +
+                        " · 验证自动分配 wave"
+                      : ["selector-top", "selector-random"].includes(n.kind)
+                        ? labels[n.kind] +
+                          " · K=" +
+                          n.params.count +
+                          (n.params.showComplement ? " · 展示补集" : "")
+                        : n.kind === "generator"
+                          ? `${n.params.mode === "reverse" ? "倒序" : "随机"} · ${n.params.count} 位 · seed ${n.params.seed}`
+                          : n.kind === "swiss"
+                            ? `${n.params.participantCount ?? info?.capacity ?? "人数待定"} 人 · ${n.params.parameters?.roundCount ?? "规则限定"} 轮 · 完赛后全排名`
+                            : n.kind === "round-robin"
+                              ? `${n.params.ruleVersion === "double-round-robin-v2" ? "双循环" : "单循环"} · ${info?.capacity ?? "人数待定"} 人 · 整轮规划`
+                              : info?.capacity != null
+                                ? info.capacity + " 个席位"
+                                : "容量待定"}
                   </p>
                 )}
                 <div

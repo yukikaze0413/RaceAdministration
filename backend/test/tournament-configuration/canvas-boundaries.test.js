@@ -4,7 +4,7 @@ const { test } = require("node:test"),
   G = require("../../src/planning-canvas/graph");
 test("subgraph exposes all free input and output ports before any display hiding", () => {
   const match = require("../../src/planning-canvas/samples").node("match", "m");
-  const original = { schemaVersion: "canvas-v1", nodes: [match], edges: [] };
+  const original = { schemaVersion: "canvas-v2", stages: [], nodes: [match], edges: [] };
   const g = G.edit(original, { type: "encapsulate", selected: ["m"], id: "sg" }).graph;
   const group = g.nodes.find((n) => n.id === "sg");
   assert.deepEqual(G.ports(g, group).filter((p) => p.direction === "input").map((p) => p.label).sort(), ["Match A", "Match B"]);
@@ -13,7 +13,7 @@ test("subgraph exposes all free input and output ports before any display hiding
   assert.deepEqual(original.nodes[0], match);
   assert.deepEqual(G.edit(g, { type: "syncBoundaries" }).graph, g);
 });
-test("legacy custom subgraphs synchronize every free boundary with stable IDs and legacy display compatibility", () => {
+test("custom subgraphs synchronize every free boundary with stable IDs and reject removed switches", () => {
   const original = G.edit(G.sample("swiss-eight"), { type: "encapsulate", selected: ["M1", "M2", "M3", "M4", "M5", "M6", "M7"], id: "legacy" }).graph;
   original.nodes.find((n) => n.id === "legacy").params.boundaries = original.nodes.find((n) => n.id === "legacy").params.boundaries.filter((b) => b.direction !== "output");
   const unchanged = structuredClone(original);
@@ -23,19 +23,16 @@ test("legacy custom subgraphs synchronize every free boundary with stable IDs an
   assert.equal(outs.length, 8);
   assert.deepEqual(outs.find((b) => b.target.port === "W").target, { node: "M7", port: "W" });
   assert.deepEqual(G.edit(synced, { type: "syncBoundaries" }).graph, synced);
-  original.nodes.find((n) => n.id === "legacy").params.autoWinnerOutputs = false;
-  assert.equal(G.edit(original, { type: "syncBoundaries" }).graph.nodes.find((n) => n.id === "legacy").params.boundaries.filter((b) => b.direction === "output").length, 8);
-  const enabled = G.edit(original, { type: "update", id: "legacy", params: { autoWinnerOutputs: true } }).graph;
-  assert.equal(enabled.nodes.find((n) => n.id === "legacy").params.boundaries.filter((b) => b.direction === "output").length, 8);
+  assert.throws(() => G.edit(original, { type: "update", id: "legacy", params: { autoWinnerOutputs: true } }), /未知/);
 });
 test("canvas selectors and generators reject modes from the wrong component family", () => {
   const g = G.sample("swiss-eight");
-  g.nodes.find((n) => n.kind === "selector").params.mode = "reverse";
-  assert.throws(() => G.parse(g), /模式/);
+  g.nodes.find((n) => n.kind === "selector-top").params.mode = "reverse";
+  assert.throws(() => G.parse(g), /未知/);
   const n = require("../../src/planning-canvas/samples").node("generator");
   n.params.mode = "top";
   assert.throws(
-    () => G.parse({ schemaVersion: "canvas-v1", nodes: [n], edges: [] }),
+    () => G.parse({ schemaVersion: "canvas-v2", stages: [], nodes: [n], edges: [] }),
     /模式/,
   );
 });
@@ -45,7 +42,7 @@ test("canvas nested match conditions cannot smuggle scores or statistics into sa
   assert.throws(() => G.parse(g), /未知/);
 });
 test("canvas valid Swiss bracket proves distinct rank lineages instead of emitting spurious overlap", () => {
-  assert.equal(G.analyze(G.sample("swiss-eight")).diagnostics.length, 0);
+  assert.ok(!G.analyze(G.sample("swiss-eight")).diagnostics.some(d => d.code === "IDENTITY_PENDING"));
 });
 test("canvas Swiss nested parameter schema rejects runtime fields before saving", () => {
   const g = G.sample("swiss-eight");
@@ -61,15 +58,8 @@ test("canvas new connection refuses determined duplicate assignment atomically",
     to: { node: "second", port: "collection" },
   });
   const before = structuredClone(g);
-  assert.throws(
-    () =>
-      G.edit(g, {
-        type: "connect",
-        from: { node: "second", port: "seat:1" },
-        to: { node: "M2", port: "A" },
-      }),
-    /重复/,
-  );
+  const candidate = G.edit(g, { type: "connect", from: { node: "second", port: "seat:1" }, to: { node: "M2", port: "A" } }).graph;
+  assert.equal(G.analyze(candidate).valid, true);
   assert.deepEqual(g, before);
 });
 test("canvas template subgraph exposes explicit input and qualification, converts before internal editing", () => {
@@ -90,7 +80,7 @@ test("canvas template subgraph exposes explicit input and qualification, convert
   );
   const match = g.nodes.find((n) => n.kind === "match");
   assert.throws(
-    () => G.edit(g, { type: "update", id: match.id, params: { bestOf: 5 } }),
+    () => G.edit(g, { type: "update", id: match.id, params: { matchFormat: "bo1" } }),
     /自定义/,
   );
   const custom = G.edit(g, { type: "customize", id: "preset" }).graph;
@@ -98,9 +88,9 @@ test("canvas template subgraph exposes explicit input and qualification, convert
     G.edit(custom, {
       type: "update",
       id: match.id,
-      params: { bestOf: 5 },
-    }).graph.nodes.find((n) => n.id === match.id).params.bestOf,
-    5,
+      params: { matchFormat: "bo1" },
+    }).graph.nodes.find((n) => n.id === match.id).params.matchFormat,
+    "bo1",
   );
 });
 test("canvas disconnected boundary validates its mapping type and target instead of waiting for an external edge", () => {

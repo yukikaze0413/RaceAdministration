@@ -1,32 +1,31 @@
 "use strict";
 const { randomUUID, createHash } = require("node:crypto");
 const V = require("./values");
+const StageNumbers = require("./stage-numbers");
+const MatchRules = require("./match-rules");
 const KINDS = [
   "source",
   "match",
   "swiss",
+  "round-robin",
   "pool",
   "expander",
-  "selector",
+  "selector-top",
+  "selector-random",
   "generator",
   "subgraph",
 ];
 const PARAMS = {
   source: ["seats", "mapping"],
-  match: [
-    "bestOf",
-    "batch",
-    "winnerRule",
-    "expectedTime",
-    "durationMinutes",
-    "condition",
-  ],
-  swiss: ["ruleVersion", "parameters", "ranking", "release"],
+  match: ["matchFormat", "condition"],
+  swiss: ["ruleVersion", "parameters", "ranking", "participantCount"],
+  "round-robin": ["ruleVersion", "parameters", "ranking"],
   pool: ["inputs"],
-  expander: ["count"],
-  selector: ["mode", "count", "seed", "algorithm"],
+  expander: [],
+  "selector-top": ["count", "showComplement"],
+  "selector-random": ["count", "seed", "algorithm", "showComplement"],
   generator: ["mode", "count", "seed", "algorithm"],
-  subgraph: ["boundaries", "templateOrigin", "custom", "autoWinnerOutputs"],
+  subgraph: ["boundaries", "templateOrigin", "custom"],
 };
 const fail = (message, details = {}) => {
   const e = new Error(message);
@@ -45,16 +44,27 @@ function id(v) {
   if (typeof v !== "string" || !v.length || v.length > 200)
     fail("标识必须为非空字符串");
 }
+function stageMembers(g, nodeIds) {
+  const included = new Set(nodeIds);
+  for (let changed = true; changed;) {
+    changed = false;
+    for (const n of g.nodes) {
+      if (included.has(n.parentId) && !included.has(n.id)) {
+        included.add(n.id);
+        changed = true;
+      }
+    }
+  }
+  return g.nodes
+    .filter((n) => included.has(n.id))
+    .map((n) => n.id)
+    .sort();
+}
 function parse(payload) {
   const g = structuredClone(payload);
-  object(
-    g,
-    g?.schemaVersion === "canvas-v2"
-      ? ["schemaVersion", "nodes", "edges", "stages"]
-      : ["schemaVersion", "nodes", "edges"],
-  );
+  object(g, ["schemaVersion", "nodes", "edges", "stages", "stageNumbering"]);
   if (
-    !["canvas-v1", "canvas-v2"].includes(g.schemaVersion) ||
+    g.schemaVersion !== "canvas-v2" ||
     !Array.isArray(g.nodes) ||
     !Array.isArray(g.edges) ||
     g.nodes.length > 512 ||
@@ -113,16 +123,20 @@ function parse(payload) {
           fail("种子映射数值非法");
       }
     }
-    if (n.kind === "swiss" && n.params.ruleVersion) {
+    if (["swiss", "round-robin"].includes(n.kind) && n.params.ruleVersion) {
       const rule =
         require("../tournament-configuration/domain/formats/registry").definition(
           n.params.ruleVersion,
         );
       if (
         !rule ||
-        !["fixed-swiss", "threshold-swiss", "major-like"].includes(rule.format)
+        !(
+          n.kind === "swiss"
+            ? ["fixed-swiss", "threshold-swiss", "major-like"]
+            : ["round-robin", "double-round-robin"]
+        ).includes(rule.format)
       )
-        fail("未知瑞士规则版本");
+        fail("未知赛制规则版本");
       require("../tournament-configuration/domain/structure").parseStructure(
         {
           entrantKind: "individual",
@@ -148,7 +162,30 @@ function parse(payload) {
         "canvas-types",
       );
     }
-    for (const k of ["count", "bestOf", "seed", "durationMinutes"])
+    if (
+      n.params.participantCount != null &&
+      (!Number.isSafeInteger(n.params.participantCount) ||
+        n.params.participantCount < 2 ||
+        n.params.participantCount > 64)
+    )
+      fail("计划人数必须为 2 至 64 的整数");
+    if (["selector-top", "selector-random"].includes(n.kind)) {
+      if (
+        !Number.isSafeInteger(n.params.count) ||
+        n.params.count < 1 ||
+        n.params.count > 64
+      )
+        fail("选择数量必须为 1 至 64 的整数");
+      if (typeof n.params.showComplement !== "boolean")
+        fail("展示补集必须为布尔值");
+      if (
+        n.kind === "selector-random" &&
+        (!Number.isSafeInteger(n.params.seed) ||
+          n.params.algorithm !== "mulberry32-v1")
+      )
+        fail("请指定随机种子和算法");
+    }
+    for (const k of ["count", "seed"])
       if (
         n.params[k] != null &&
         (!Number.isSafeInteger(n.params[k]) || n.params[k] < 0)
@@ -156,16 +193,12 @@ function parse(payload) {
         fail("整数参数非法：" + k);
     if (n.params.seed > 4294967295 || n.params.count > 64)
       fail("随机种子或容量超出范围");
-    if (
-      n.params.mode != null &&
-      !(
-        n.kind === "selector" ? ["top", "random"] : ["reverse", "random"]
-      ).includes(n.params.mode)
-    )
+    if (n.params.mode != null && !["reverse", "random"].includes(n.params.mode))
       fail("模式非法");
     if (n.params.algorithm != null && n.params.algorithm !== "mulberry32-v1")
       fail("随机算法版本非法");
     if (n.kind === "match") {
+      MatchRules.validate(n.params, fail);
       if (n.params.condition != null) {
         object(n.params.condition, ["kind", "matchKey", "side"]);
         if (
@@ -175,18 +208,6 @@ function parse(payload) {
           fail("条件规则非法");
         id(n.params.condition.matchKey);
       }
-      if (n.params.batch != null && typeof n.params.batch !== "string")
-        fail("批次必须为字符串");
-      if (
-        n.params.winnerRule != null &&
-        !["unique-winner-v1", "none"].includes(n.params.winnerRule)
-      )
-        fail("胜败规则非法");
-      if (
-        n.params.expectedTime != null &&
-        typeof n.params.expectedTime !== "string"
-      )
-        fail("预计时间必须为字符串");
     }
     if (n.kind === "subgraph" && n.params.templateOrigin != null) {
       object(n.params.templateOrigin, ["ruleVersion"]);
@@ -203,11 +224,6 @@ function parse(payload) {
     )
       fail("Pool 输入端口非法");
     if (n.kind === "subgraph") {
-      if (
-        n.params.autoWinnerOutputs !== undefined &&
-        typeof n.params.autoWinnerOutputs !== "boolean"
-      )
-        fail("自动胜者出口开关非法");
       if (!Array.isArray(n.params.boundaries)) fail("子图边界非法");
       const ports = new Set();
       for (const b of n.params.boundaries) {
@@ -260,6 +276,15 @@ function parse(payload) {
   }
   if (g.schemaVersion === "canvas-v2") {
     if (!Array.isArray(g.stages) || g.stages.length > 512) fail("阶段列表非法");
+    if (g.stageNumbering !== undefined) {
+      object(g.stageNumbering, ["latest"]);
+      if (
+        !Number.isSafeInteger(g.stageNumbering.latest) ||
+        g.stageNumbering.latest < 0 ||
+        g.stages.some((s) => s.order > g.stageNumbering.latest)
+      )
+        fail("阶段最新编号非法");
+    }
     const stageIds = new Set(),
       orders = new Set(),
       members = new Set();
@@ -281,10 +306,13 @@ function parse(payload) {
       for (const member of stage.nodeIds) {
         id(member);
         if (
-          members.has(member) ||
-          !["match", "swiss"].includes(by.get(member)?.kind)
+          stage.nodeIds.indexOf(member) !== stage.nodeIds.lastIndexOf(member) ||
+          !by.has(member)
         )
           fail("阶段成员重复或不存在");
+      }
+      for (const member of stageMembers(g, stage.nodeIds)) {
+        if (members.has(member)) fail("阶段成员重复或不存在");
         members.add(member);
       }
     }
@@ -339,11 +367,10 @@ function incoming(g, n, p) {
     (e) => key(endpoint(g, e.to, "input")) === key({ node: n.id, port: p }),
   );
 }
-function capacity(g, n, seen = new Set()) {
+function capacity(g, n, seen = new Set(), port = "collection") {
   if (!n || seen.has(n.id)) return null;
   seen = new Set(seen).add(n.id);
   if (n.kind === "source") return n.params.seats.length;
-  if (n.kind === "selector") return n.params.count;
   const from = (p) => {
     const e = incoming(g, n, p);
     if (!e) return null;
@@ -351,15 +378,31 @@ function capacity(g, n, seen = new Set()) {
       s = g.nodes.find((n) => n.id === x.node);
     return x.port.startsWith("seat:") || s.kind === "match"
       ? 1
-      : capacity(g, s, seen);
+      : capacity(g, s, seen, x.port);
   };
+  if (["selector-top", "selector-random"].includes(n.kind)) {
+    if (port !== "complement" && port !== "complementSeeds")
+      return n.params.count;
+    if (!n.params.showComplement) return null;
+    const size = from("collection");
+    return size == null || size < n.params.count ? null : size - n.params.count;
+  }
   if (n.kind === "pool") {
     const sizes = n.params.inputs.filter((p) => incoming(g, n, p)).map(from);
     return sizes.some((x) => x == null)
       ? null
       : sizes.reduce((a, b) => a + b, 0);
   }
-  if (["swiss", "expander"].includes(n.kind)) return from("collection");
+  if (["swiss", "round-robin", "expander"].includes(n.kind)) {
+    const inputCapacity = from("collection");
+    if (inputCapacity != null || n.kind !== "expander") return inputCapacity;
+    const parent = g.nodes.find((x) => x.id === n.parentId);
+    return parent?.params.templateOrigin
+      ? (require("../tournament-configuration/domain/formats/registry").definition(
+          parent.params.templateOrigin.ruleVersion,
+        )?.defaults.groupSize ?? null)
+      : null;
+  }
   return null;
 }
 function ports(g, n) {
@@ -393,10 +436,23 @@ function ports(g, n) {
         p("L", "output", "seat", "L · 败者"),
       ];
     case "swiss":
-    case "selector":
+    case "round-robin":
       return [
         p("collection", "input", "collection", "席位集合"),
         ...collection(),
+      ];
+    case "selector-top":
+    case "selector-random":
+      return [
+        p("collection", "input", "collection", "席位集合"),
+        p("collection", "output", "collection", "选中集合"),
+        p("seeds", "output", "seed-map", "选中种子映射"),
+        ...(n.params.showComplement
+          ? [
+              p("complement", "output", "collection", "补集"),
+              p("complementSeeds", "output", "seed-map", "补集种子映射"),
+            ]
+          : []),
       ];
     case "pool":
       return [
@@ -409,9 +465,8 @@ function ports(g, n) {
     case "expander":
       return [
         p("collection", "input", "collection", "席位集合"),
-        ...Array.from(
-          { length: n.params.count ?? capacity(g, n) ?? 0 },
-          (_, i) => p("seat:" + (i + 1), "output", "seat", "Seed " + (i + 1)),
+        ...Array.from({ length: capacity(g, n) ?? 0 }, (_, i) =>
+          p("seat:" + (i + 1), "output", "seat", "Seed " + (i + 1)),
         ),
       ];
     case "generator":
@@ -428,7 +483,7 @@ function accepts(source, target) {
     (target === "seed-sort" && ["seed-map", "seed-template"].includes(source))
   );
 }
-function checkEdges(g) {
+function checkEdges(g, allowMissingPorts = false) {
   const targets = new Set(),
     sources = new Set(),
     adj = new Map();
@@ -443,7 +498,8 @@ function checkEdges(g) {
         p = ports(g, child).find(
           (p) => p.id === e.port && p.direction === boundary.direction,
         );
-      if (!p || p.type !== boundary.type) fail("子图边界类型或内部端口不匹配");
+      if ((!p && !allowMissingPorts) || (p && p.type !== boundary.type))
+        fail("子图边界类型或内部端口不匹配");
     }
   for (const e of g.edges) {
     const from = endpoint(g, e.from, "output"),
@@ -454,16 +510,16 @@ function checkEdges(g) {
         (p) => p.id === from.port && p.direction === "output",
       ),
       bp = ports(g, b).find((p) => p.id === to.port && p.direction === "input");
-    if (!ap || !bp) fail("连线端口不存在");
-    if (!accepts(ap.type, bp.type)) fail("端口类型不匹配");
+    if ((!ap || !bp) && !allowMissingPorts) fail("连线端口不存在");
+    if (ap && bp && !accepts(ap.type, bp.type)) fail("端口类型不匹配");
     const physicalA = g.nodes.find((n) => n.id === e.from.node),
       physicalB = g.nodes.find((n) => n.id === e.to.node);
     if ((physicalA.parentId ?? null) !== (physicalB.parentId ?? null))
       fail("跨子图连线必须使用边界");
-    if (targets.has(key(to)) || (ap.type === "seat" && sources.has(key(from))))
+    if (targets.has(key(to)) || (ap?.type === "seat" && sources.has(key(from))))
       fail("端口连接冲突");
     targets.add(key(to));
-    if (ap.type === "seat") sources.add(key(from));
+    if (ap?.type === "seat") sources.add(key(from));
     if (!adj.has(a.id)) adj.set(a.id, []);
     adj.get(a.id).push(b.id);
   }
@@ -482,7 +538,7 @@ function checkEdges(g) {
 function analyze(payload, resolutions) {
   const g = parse(payload),
     r = require("./evaluate").analyze(g, resolutions);
-  return g.schemaVersion === "canvas-v2" ? require("./waves").plan(g, r) : r;
+  return require("./waves").plan(g, r);
 }
 function preview(payload, canvasId, validated) {
   const r = validated ?? analyze(payload);
@@ -517,6 +573,8 @@ function sample(name) {
     ![
       "empty",
       "swiss-eight",
+      "round-robin",
+      "double-round-robin",
       "single",
       "double",
       "gsl",
@@ -586,6 +644,9 @@ function syncFreeBoundaries(g) {
 }
 function edit(graph, action) {
   const g = parse(graph);
+  let groupedStageId;
+  if (g.stages)
+    for (const s of g.stages) s.nodeIds = stageMembers(g, s.nodeIds);
   object(action, [
     "type",
     "from",
@@ -662,9 +723,14 @@ function edit(graph, action) {
       const parent = g.nodes.find((n) => n.id === p);
       if (
         parent.params.custom === false &&
-        (["delete", "encapsulate", "ungroup", "connect", "disconnect"].includes(
-          action.type,
-        ) ||
+        ([
+          "delete",
+          "encapsulate",
+          "ungroup",
+          "connect",
+          "disconnect",
+          "disconnectPort",
+        ].includes(action.type) ||
           action.params)
       )
         fail("请先将预设转为自定义");
@@ -677,16 +743,25 @@ function edit(graph, action) {
     )
   ) {
     if (g.schemaVersion !== "canvas-v2") fail("请先迁移画布");
-    const stage = g.stages.find((s) => s.id === action.id);
+    const stageNumbers = new StageNumbers(
+      g.stages.map((s) => s.order),
+      g.stageNumbering?.latest,
+    );
+    let stage =
+      action.type === "createStage"
+        ? undefined
+        : g.stages.find((s) => s.id === action.id);
     if (
       action.type !== "createStage" &&
       action.type !== "reorderStages" &&
       !stage
     )
       fail("阶段不存在");
-    if (action.type === "deleteStage")
+    if (action.type === "deleteStage") {
+      stageNumbers.remove(stage.order);
       g.stages = g.stages.filter((s) => s.id !== action.id);
-    else if (action.type === "reorderStages") {
+      g.stageNumbering = stageNumbers.snapshot();
+    } else if (action.type === "reorderStages") {
       if (
         !Array.isArray(action.stageIds) ||
         new Set(action.stageIds).size !== g.stages.length ||
@@ -695,72 +770,119 @@ function edit(graph, action) {
       )
         fail("阶段排序非法");
       g.stages.forEach((s) => (s.order = action.stageIds.indexOf(s.id) + 1));
+      g.stageNumbering = stageNumbers.snapshot();
     } else {
       const selected = action.selected;
-      let members = stage?.nodeIds ?? [];
-      if (selected) {
-        if (selected.some((x) => !g.nodes.some((n) => n.id === x)))
-          fail("所选组件不存在");
-        const included = new Set(selected);
-        for (let changed = true; changed;) {
-          changed = false;
-          for (const n of g.nodes)
-            if (included.has(n.parentId) && !included.has(n.id)) {
-              included.add(n.id);
-              changed = true;
-            }
-        }
-        members = g.nodes
-          .filter(
-            (n) => included.has(n.id) && ["match", "swiss"].includes(n.kind),
-          )
-          .map((n) => n.id)
-          .sort();
-        if (!members.length && !(action.type === "updateStage" && selected.length === 0))
-          fail("请选择比赛或瑞士轮");
-        const impact = g.stages
-          .filter((s) => s.id !== action.id)
-          .flatMap((s) =>
-            s.nodeIds
-              .filter((x) => members.includes(x))
-              .map((x) => ({
-                kind: "stage",
-                id: x,
-                from: s.name,
-                to: action.name ?? stage?.name ?? "新阶段",
-              })),
-          );
-        if (impact.length && !action.confirmed)
-          return {
-            graph: structuredClone(graph),
-            requiresConfirmation: true,
-            impact,
-            digest: digest(graph),
-          };
-        if (impact.length && action.expectedDigest !== digest(graph))
-          fail("草稿已变化，请重新检查影响");
-        g.stages
-          .filter((s) => s.id !== action.id)
-          .forEach(
-            (s) => (s.nodeIds = s.nodeIds.filter((x) => !members.includes(x))),
-          );
-      }
+      if (selected?.some((x) => !g.nodes.some((n) => n.id === x)))
+        fail("所选组件不存在");
       if (action.type === "createStage") {
+        if (
+          action.stageIds !== undefined &&
+          (!Array.isArray(action.stageIds) ||
+            action.stageIds.some((id) => !g.stages.some((s) => s.id === id)))
+        )
+          fail("所选阶段不存在");
+      }
+      const included = stageMembers(g, [
+        ...(selected ?? []),
+        ...(action.type === "createStage"
+          ? g.stages
+              .filter((s) => action.stageIds?.includes(s.id))
+              .flatMap((s) => s.nodeIds)
+          : []),
+      ]);
+      if (action.type === "createStage") {
+        const candidates = g.stages
+          .filter(
+            (s) =>
+              action.stageIds?.includes(s.id) ||
+              s.nodeIds.some((id) => included.includes(id)),
+          )
+          .sort((a, b) => a.order - b.order);
+        stage = candidates[0];
+        if (
+          stage &&
+          candidates.length === 1 &&
+          !action.stageIds?.includes(stage.id)
+        ) {
+          const components = included.filter(
+            (id) =>
+              stage.nodeIds.includes(id) ||
+              g.nodes.find((n) => n.id === id)?.kind !== "subgraph" ||
+              stageMembers(g, [id]).length === 1,
+          );
+          const isSubset =
+            components.length > 0 &&
+            components.every((id) => stage.nodeIds.includes(id)) &&
+            stage.nodeIds.some((id) => !included.includes(id));
+          if (isSubset) stage = undefined;
+        }
+      }
+      let members = stage?.nodeIds ?? [];
+      if (
+        selected ||
+        (action.type === "createStage" && action.stageIds !== undefined)
+      ) {
+        members =
+          action.type === "createStage" && stage
+            ? [...new Set([...members, ...included])].sort()
+            : included;
+        if (
+          !members.length &&
+          !(action.type === "updateStage" && selected?.length === 0) &&
+          !(action.type === "createStage" && stage)
+        )
+          fail("请选择组件");
+        g.stages
+          .filter((s) => s.id !== (stage?.id ?? action.id))
+          .forEach((s) => {
+            s.nodeIds = s.nodeIds.filter(
+              (x) =>
+                !members.includes(x) &&
+                !(
+                  g.nodes.find((n) => n.id === x)?.kind === "subgraph" &&
+                  stageMembers(g, [x]).some((child) => members.includes(child))
+                ),
+            );
+          });
+      }
+      if (action.type === "createStage" && !stage) {
+        const number = stageNumbers.next();
         g.stages.push({
           id: action.id ?? randomUUID(),
-          name: action.name ?? "新阶段",
-          order: Math.max(0, ...g.stages.map((s) => s.order)) + 1,
+          name: action.name ?? "阶段 " + number,
+          order: number,
           nodeIds: members,
         });
+        groupedStageId = g.stages.at(-1).id;
+        g.stageNumbering = stageNumbers.snapshot();
       } else {
-        if (action.name !== undefined) stage.name = action.name;
+        if (action.name !== undefined && action.type !== "createStage")
+          stage.name = action.name;
         stage.nodeIds = members;
-        if (action.order !== undefined) {
-          if (!Number.isSafeInteger(action.order) || action.order < 1 || action.order > g.stages.length)
+        if (action.type === "createStage") groupedStageId = stage.id;
+        if (action.order !== undefined && action.type !== "createStage") {
+          if (
+            !Number.isSafeInteger(action.order) ||
+            action.order < 1 ||
+            action.order > g.stages.length
+          )
             fail("阶段排序非法");
-          const ordered = g.stages.filter((s) => s.id !== stage.id).sort((a, b) => a.order - b.order);
+          const ordered = g.stages
+            .filter((s) => s.id !== stage.id)
+            .sort((a, b) => a.order - b.order);
           ordered.splice(action.order - 1, 0, stage);
           ordered.forEach((s, i) => (s.order = i + 1));
+        }
+      }
+      if (action.type === "createStage") {
+        const emptyStages = g.stages.filter((s) => s.nodeIds.length === 0);
+        if (emptyStages.length) {
+          for (const empty of emptyStages) stageNumbers.remove(empty.order);
+          g.stages = g.stages.filter((s) => s.nodeIds.length > 0);
+          g.stageNumbering = stageNumbers.snapshot();
+          if (!g.stages.some((s) => s.id === groupedStageId))
+            groupedStageId = undefined;
         }
       }
     }
@@ -798,43 +920,42 @@ function edit(graph, action) {
       while (target.params.inputs.includes("in:" + index)) index++;
       target.params.inputs.push("in:" + index);
     }
-    checkEdges(g);
+    checkEdges(g, true);
   } else if (action.type === "preset") {
     if (!["single", "gsl", "double"].includes(action.name)) fail("未知预设");
     const id = action.id ?? randomUUID(),
       fixture = sample(action.name),
       ids = new Map(fixture.nodes.map((n) => [n.id, id + ":" + n.id]));
-    fixture.nodes = fixture.nodes
-      .filter((n) => n.kind !== "source")
-      .map((n) => ({
-        ...n,
-        id: ids.get(n.id),
-        params: {
-          ...n.params,
-          ...(n.params.condition
-            ? {
-                condition: {
-                  ...n.params.condition,
-                  matchKey: ids.get(n.params.condition.matchKey),
-                },
-              }
-            : {}),
-        },
-      }));
-    fixture.edges = fixture.edges
-      .filter((e) => e.from.node !== "source")
-      .map((e) => ({
-        id: randomUUID(),
-        from: { node: ids.get(e.from.node), port: e.from.port },
-        to: { node: ids.get(e.to.node), port: e.to.port },
-      }));
+    fixture.stages = [];
+    fixture.nodes = fixture.nodes.map((n) => ({
+      ...n,
+      id: ids.get(n.id),
+      params: {
+        ...n.params,
+        ...(n.params.condition
+          ? {
+              condition: {
+                ...n.params.condition,
+                matchKey: ids.get(n.params.condition.matchKey),
+              },
+            }
+          : {}),
+      },
+    }));
+    fixture.edges = fixture.edges.map((e) => ({
+      id: randomUUID(),
+      from: { node: ids.get(e.from.node), port: e.from.port },
+      to: { node: ids.get(e.to.node), port: e.to.port },
+    }));
     const wrapped = edit(fixture, {
       type: "encapsulate",
       id,
       name: { single: "八人单败", gsl: "经典 GSL", double: "八人双败" }[
         action.name
       ],
-      selected: fixture.nodes.map((n) => n.id),
+      selected: fixture.nodes
+        .filter((n) => n.kind !== "source")
+        .map((n) => n.id),
     }).graph;
     const group = wrapped.nodes.find((n) => n.id === id);
     // Presets keep their versioned, stable qualification ports below.
@@ -868,14 +989,28 @@ function edit(graph, action) {
     };
     group.params.custom = false;
     if (action.parentId) group.parentId = action.parentId;
-    g.nodes.push(...wrapped.nodes);
-    g.edges.push(...wrapped.edges);
-    if (g.schemaVersion === "canvas-v2")
-      for (const n of wrapped.nodes)
-        if (n.kind === "match") delete n.params.batch;
+    g.nodes.push(...wrapped.nodes.filter((n) => n.id !== ids.get("source")));
+    g.edges.push(
+      ...wrapped.edges.filter((e) => e.from.node !== ids.get("source")),
+    );
   } else if (action.type === "add") {
     const n = action.node ?? require("./samples").node(action.id);
     g.nodes.push(n);
+  } else if (action.type === "disconnectPort") {
+    if (!["input", "output"].includes(action.direction)) fail("端口方向非法");
+    const end = endpoint(g, action.from, action.direction);
+    const node = g.nodes.find((n) => n.id === end.node);
+    if (
+      !ports(g, node).some(
+        (p) => p.id === end.port && p.direction === action.direction,
+      )
+    )
+      fail("端口不存在");
+    g.edges = g.edges.filter(
+      (edge) =>
+        key(action.direction === "output" ? edge.from : edge.to) !==
+        key(action.from),
+    );
   } else if (action.type === "disconnect")
     g.edges = g.edges.filter((e) => e.id !== action.edgeId);
   else if (
@@ -922,57 +1057,6 @@ function edit(graph, action) {
           }
       }
       g.nodes = g.nodes.filter((x) => !removed.has(x.id));
-    }
-    const impact = [];
-    for (const e of g.edges) {
-      try {
-        for (const [direction, end] of [
-          ["output", e.from],
-          ["input", e.to],
-        ]) {
-          const actual = endpoint(g, end, direction),
-            node = g.nodes.find((n) => n.id === actual.node);
-          if (
-            !ports(g, node).some(
-              (p) => p.id === actual.port && p.direction === direction,
-            )
-          )
-            throw Error("端口移除");
-        }
-      } catch {
-        impact.push({ kind: "edge", id: e.id, from: e.from, to: e.to });
-      }
-    }
-    for (const group of g.nodes.filter((n) => n.kind === "subgraph"))
-      for (const b of group.params.boundaries) {
-        try {
-          endpoint(g, { node: group.id, port: b.id }, b.direction);
-        } catch {
-          impact.push({ kind: "boundary", id: b.id, node: group.id });
-        }
-      }
-    if (impact.length) {
-      const originalDigest = digest(graph);
-      if (!action.confirmed)
-        return {
-          graph: structuredClone(graph),
-          requiresConfirmation: true,
-          impact,
-          digest: originalDigest,
-        };
-      if (action.expectedDigest !== originalDigest)
-        fail("草稿已变化，请重新检查影响");
-      g.edges = g.edges.filter(
-        (e) => !impact.some((i) => i.kind === "edge" && i.id === e.id),
-      );
-      for (const group of g.nodes.filter((n) => n.kind === "subgraph"))
-        group.params.boundaries = group.params.boundaries.filter(
-          (b) =>
-            !impact.some(
-              (i) =>
-                i.kind === "boundary" && i.node === group.id && i.id === b.id,
-            ),
-        );
     }
   } else if (action.type === "encapsulate") {
     const selected = new Set(action.selected);
@@ -1066,6 +1150,57 @@ function edit(graph, action) {
     }
     g.nodes = g.nodes.filter((x) => x.id !== n.id);
   } else fail("未知编辑操作");
+  const impact = [];
+  for (const e of g.edges) {
+    try {
+      for (const [direction, end] of [
+        ["output", e.from],
+        ["input", e.to],
+      ]) {
+        const actual = endpoint(g, end, direction),
+          node = g.nodes.find((n) => n.id === actual.node);
+        if (
+          !ports(g, node).some(
+            (p) => p.id === actual.port && p.direction === direction,
+          )
+        )
+          throw Error("端口移除");
+      }
+    } catch {
+      impact.push({ kind: "edge", id: e.id, from: e.from, to: e.to });
+    }
+  }
+  for (const group of g.nodes.filter((n) => n.kind === "subgraph"))
+    for (const b of group.params.boundaries) {
+      try {
+        endpoint(g, { node: group.id, port: b.id }, b.direction);
+      } catch {
+        impact.push({ kind: "boundary", id: b.id, node: group.id });
+      }
+    }
+  if (impact.length) {
+    const originalDigest = digest(graph);
+    if (!action.confirmed)
+      return {
+        graph: structuredClone(graph),
+        requiresConfirmation: true,
+        impact,
+        digest: originalDigest,
+      };
+    if (action.expectedDigest !== originalDigest)
+      fail("草稿已变化，请重新检查影响");
+    g.edges = g.edges.filter(
+      (e) => !impact.some((i) => i.kind === "edge" && i.id === e.id),
+    );
+    for (const group of g.nodes.filter((n) => n.kind === "subgraph"))
+      group.params.boundaries = group.params.boundaries.filter(
+        (b) =>
+          !impact.some(
+            (i) =>
+              i.kind === "boundary" && i.node === group.id && i.id === b.id,
+          ),
+      );
+  }
   syncFreeBoundaries(g);
   if (g.stages)
     for (const stage of g.stages)
@@ -1074,39 +1209,13 @@ function edit(graph, action) {
       );
   const result = parse(g);
   checkEdges(result);
-  if (action.type === "connect" && g.schemaVersion === "canvas-v1") {
-    const before = analyze(graph)
-      .diagnostics.filter((d) => d.code === "DUPLICATE_ASSIGNMENT")
-      .map((d) => JSON.stringify(d));
-    const fresh = analyze(result).diagnostics.filter(
-      (d) =>
-        d.code === "DUPLICATE_ASSIGNMENT" &&
-        !before.includes(JSON.stringify(d)),
-    );
-    if (fresh.length)
-      fail("同批次重复参与，候选连接未应用", { diagnostics: fresh });
-  }
-  return { graph: result };
-}
-function migrate(payload) {
-  const graph = parse(payload);
-  if (graph.schemaVersion === "canvas-v2") return { graph, changes: [] };
-  const changes = graph.nodes
-    .filter((n) => n.kind === "match" && n.params.batch)
-    .map((n) => ({ id: n.id, name: n.name, batch: n.params.batch }));
-  graph.schemaVersion = "canvas-v2";
-  const nodeIds = graph.nodes
-    .filter((n) => ["match", "swiss"].includes(n.kind))
-    .map((n) => n.id)
-    .sort();
-  graph.stages = nodeIds.length
-    ? [{ id: "stage-initial", name: "阶段 1", order: 1, nodeIds }]
-    : [];
-  for (const n of graph.nodes) if (n.kind === "match") delete n.params.batch;
-  return { graph: parse(graph), changes };
+  return {
+    graph: result,
+    ...(groupedStageId ? { stageId: groupedStageId } : {}),
+  };
 }
 module.exports = {
-  migrate,
+  stageMembers,
   boundaries,
   analyze,
   edit,

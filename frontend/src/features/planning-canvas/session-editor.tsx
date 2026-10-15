@@ -85,9 +85,12 @@ export function SessionEditor({
     " · wave " +
     w.number +
     " · " +
-    (w.matchIds.length
-      ? w.matchIds.length + " 场"
-      : w.roundIds.length + " 个瑞士轮");
+    [
+      w.matchIds.length ? w.matchIds.length + " 场" : "",
+      w.roundIds.length ? w.roundIds.length + " 轮" : "",
+    ]
+      .filter(Boolean)
+      .join(" · ");
   const update = (id: string, fn: (s: PlanningSession) => PlanningSession) => {
     setSessions((old) => old.map((s) => (s.id === id ? fn(s) : s)));
     setStatus("");
@@ -238,7 +241,7 @@ export function SessionEditor({
   return (
     <section className="session-editor" aria-label="Session 排期编辑">
       <h2>Session · 时段分组</h2>
-      {!plan && <p>请回画布迁移、保存并验证，再安排批次。</p>}
+      {!plan && <p>请回画布保存并验证，再安排批次。</p>}
       {record.stale && (
         <aside className="notice">
           验证产物已变化。修复旧批次引用后，再保存并绑定当前产物。
@@ -550,7 +553,7 @@ export function SessionEditor({
           ))}
         </details>
       )}
-      <p>时间段容量待确认。瑞士轮只预留整轮，真实配对待解析。</p>
+      <p>瑞士轮和小组循环赛均按整轮排期。瑞士轮真实配对待解析。</p>
       {blocker.state === "blocked" && (
         <aside className="notice">
           <p>排期尚未保存。</p>

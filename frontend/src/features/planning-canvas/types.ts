@@ -5,12 +5,10 @@ export type Port = {
   type: string;
   label: string;
 };
-export type CanvasNode = {
+export interface CanvasNodeBase {
   id: string;
-  kind: string;
   name: string;
   parentId?: string;
-  params: Record<string, any>;
   position: { x: number; y: number };
   display?: {
     showLoser?: boolean;
@@ -19,13 +17,22 @@ export type CanvasNode = {
     hideDanglingInputs?: boolean;
     hideDanglingOutputs?: boolean;
   };
+}
+export interface CanvasNode<
+  Kind extends string = string,
+  Parameters extends Record<string, any> = Record<string, any>,
+> extends CanvasNodeBase {
+  kind: Kind;
+  params: Parameters;
   ports?: Port[];
   capacity?: number | null;
   hiddenConnectedLoser?: boolean;
-};
+  readOnlyProperties?: import("./readonly-properties").ReadOnlyProperty[];
+}
 export type CanvasGraph = {
-  schemaVersion: "canvas-v1" | "canvas-v2";
+  schemaVersion: "canvas-v2";
   stages?: { id: string; name: string; order: number; nodeIds: string[] }[];
+  stageNumbering?: { latest: number };
   nodes: CanvasNode[];
   edges: { id: string; from: Endpoint; to: Endpoint }[];
 };
@@ -45,7 +52,13 @@ export type WavePlan = {
   graphDigest: string;
   plannerVersion: string;
   waves: Wave[];
-  rounds: { id: string; swissNodeId: string; number: number; waveId: string }[];
+  rounds: {
+    id: string;
+    nodeId?: string;
+    kind?: "swiss" | "round-robin";
+    number: number;
+    waveId: string;
+  }[];
 };
 export type PlanningSession = {
   id: string;
@@ -57,9 +70,11 @@ export const labels: Record<string, string> = {
   source: "参赛来源",
   match: "Match",
   swiss: "瑞士轮",
+  "round-robin": "小组循环赛",
   pool: "Pool",
   expander: "展开器",
-  selector: "选择器",
+  "selector-top": "取前 K 名",
+  "selector-random": "随机 K 名",
   generator: "种子生成器",
   subgraph: "子图",
 };

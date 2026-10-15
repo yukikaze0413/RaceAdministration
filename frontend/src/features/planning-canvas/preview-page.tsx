@@ -12,8 +12,6 @@ type ScheduleMatch = {
   planKey: string;
   bestOf: number;
   batch: string | null;
-  expectedTime: string | null;
-  durationMinutes: number | null;
   A: { label: string } | null;
   B: { label: string } | null;
   condition: any;
@@ -31,12 +29,12 @@ type ScheduleMatch = {
 export function scheduleGroups(matches: ScheduleMatch[]) {
   const groups = new Map<string, ScheduleMatch[]>();
   const sorted = [...matches].sort((a, b) =>
-    (a.sessionRange?.startAt ?? a.expectedTime ?? "9999").localeCompare(
-      b.sessionRange?.startAt ?? b.expectedTime ?? "9999",
+    (a.sessionRange?.startAt ?? "9999").localeCompare(
+      b.sessionRange?.startAt ?? "9999",
     ),
   );
   for (const m of sorted) {
-    const time = m.sessionRange?.startAt ?? m.expectedTime;
+    const time = m.sessionRange?.startAt;
     const key = time
       ? time.slice(0, 10)
       : "时间待定" + (m.batch ? " · " + m.batch : "");
@@ -172,7 +170,7 @@ export function CanvasSchedulePage() {
       controller.abort();
     };
   }, [chosen, reload]);
-  const displayed = matches.map((m) => {
+  const withSession = (m: any) => {
     const data = schedules[m.project.id],
       session =
         !data?.stale &&
@@ -183,18 +181,27 @@ export function CanvasSchedulePage() {
       sessionName: session?.name,
       sessionRange: session?.timeRange,
     };
-  });
+  };
+  const displayed = matches.map(withSession);
+  const displayedWindows = windows.map(withSession);
+  const allItems = [...displayed, ...displayedWindows];
   const stageKey = (m: ScheduleMatch) =>
     m.stageId
       ? m.project.id + "/" + m.stageId
-      : m.batch
-        ? m.project.id + "/legacy:" + m.batch
-        : "";
-  const filtered = displayed.filter((m) => {
-    const text = [m.name, m.A?.label, m.B?.label, m.project.name, m.batch]
+      : "";
+  const matchesFilter = (m: any) => {
+    const text = [
+      m.name,
+      m.A?.label,
+      m.B?.label,
+      m.project.name,
+      m.batch,
+      ...(m.fixtures ?? []).flatMap((f: any) => [f.A?.label, f.B?.label]),
+      ...(m.rest ?? []).map((s: any) => s.label),
+    ]
       .join(" ")
       .toLowerCase();
-    const date = (m.sessionRange?.startAt ?? m.expectedTime)?.slice(0, 10);
+    const date = m.sessionRange?.startAt?.slice(0, 10);
     return (
       (!search || text.includes(search.toLowerCase())) &&
       (!batch || stageKey(m) === batch) &&
@@ -204,7 +211,9 @@ export function CanvasSchedulePage() {
       (!start || (!!date && date >= start)) &&
       (!end || (!!date && date <= end))
     );
-  });
+  };
+  const filtered = displayed.filter(matchesFilter);
+  const filteredWindows = displayedWindows.filter(matchesFilter);
   const groups = scheduleGroups(filtered);
   const back =
     chosen !== "all"
@@ -239,9 +248,13 @@ export function CanvasSchedulePage() {
             </select>
           </Field>
           <Field label="阶段筛选">
-            <select value={batch} onChange={(e) => setBatch(e.target.value)}>
+            <select
+              aria-label="阶段筛选"
+              value={batch}
+              onChange={(e) => setBatch(e.target.value)}
+            >
               <option value="">全部阶段</option>
-              {[...new Map(matches.map((m) => [stageKey(m), m])).entries()]
+              {[...new Map(allItems.map((m) => [stageKey(m), m])).entries()]
                 .filter(([key]) => key)
                 .map(([key, m]) => (
                   <option key={key} value={key}>
@@ -254,12 +267,13 @@ export function CanvasSchedulePage() {
           <Field label="Graph 筛选">
             <select
               value={graphFilter}
+              aria-label="Graph 筛选"
               onChange={(e) => setGraphFilter(e.target.value)}
             >
               <option value="">全部图</option>
               {[
                 ...new Map(
-                  matches
+                  allItems
                     .filter((m) => m.graphId)
                     .map((m) => [m.project.id + "/" + m.graphId, m]),
                 ).entries(),
@@ -274,12 +288,13 @@ export function CanvasSchedulePage() {
           <Field label="Wave 筛选">
             <select
               value={waveFilter}
+              aria-label="Wave 筛选"
               onChange={(e) => setWaveFilter(e.target.value)}
             >
               <option value="">全部批次</option>
               {[
                 ...new Map(
-                  matches
+                  allItems
                     .filter((m) => m.waveId)
                     .map((m) => [m.project.id + "/" + m.waveId, m]),
                 ).entries(),
@@ -295,12 +310,13 @@ export function CanvasSchedulePage() {
           <Field label="Session 筛选">
             <select
               value={sessionFilter}
+              aria-label="Session 筛选"
               onChange={(e) => setSessionFilter(e.target.value)}
             >
               <option value="">全部时段分组</option>
               {[
                 ...new Map(
-                  displayed
+                  allItems
                     .filter((m) => m.sessionId)
                     .map((m) => [m.project.id + "/" + m.sessionId, m]),
                 ).entries(),
@@ -361,7 +377,7 @@ export function CanvasSchedulePage() {
           <p className="schedule-summary" role="status">
             {busy
               ? "正在读取赛程…"
-              : `显示 ${filtered.length} / ${matches.length} 场比赛`}
+              : `显示 ${filtered.length} / ${matches.length} 场比赛${windows.length ? ` · ${filteredWindows.length} / ${windows.length} 轮` : ""}`}
           </p>
           {error && (
             <ErrorNotice
@@ -377,7 +393,7 @@ export function CanvasSchedulePage() {
               </Link>
             </aside>
           ))}
-          {!busy && !error && !groups.length && (
+          {!busy && !error && !groups.length && !filteredWindows.length && (
             <p className="schedule-empty">
               没有符合条件的比赛。可调整筛选，或回到画布完成保存和验证。
             </p>
@@ -400,14 +416,10 @@ export function CanvasSchedulePage() {
                         ? m.sessionRange.startAt.slice(11, 16) +
                           "–" +
                           m.sessionRange.endAt.slice(11, 16)
-                        : m.expectedTime?.slice(11, 16) || "待定"}
+                        : "待定"}
                     </strong>
                     <small>
-                      {m.sessionRange
-                        ? "Session 时段"
-                        : m.durationMinutes
-                          ? `${m.durationMinutes} 分钟`
-                          : "时长待定"}
+                      {m.sessionRange ? "Session 时段" : "未安排 session"}
                     </small>
                   </div>
                   <div className="schedule-pairing">
@@ -435,16 +447,47 @@ export function CanvasSchedulePage() {
               ))}
             </section>
           ))}
-          {windows.length > 0 && (
+          {filteredWindows.length > 0 && (
             <details className="schedule-windows">
-              <summary>动态配对窗口（{windows.length}）</summary>
-              {windows.map((w) => (
-                <p key={w.planKey}>
+              <summary>赛制轮次（{filteredWindows.length}）</summary>
+              {filteredWindows.map((w) => (
+                <article key={w.planKey} className="schedule-round">
                   <strong>
                     {w.project.name} · {w.name}
                   </strong>
-                  ：{w.pairing}
-                </p>
+                  <p>
+                    {w.pairing} · {w.count} 场
+                    {w.restCount ? ` · ${w.restCount} 人休息` : ""}
+                  </p>
+                  {w.leg && <p>第 {w.leg} 回合</p>}
+                  {w.waveId && (
+                    <p>
+                      {w.stageName} · wave {w.waveNumber} ·{" "}
+                      {w.sessionName ?? "尚未排期"}
+                      {w.sessionRange
+                        ? " · " +
+                          w.sessionRange.startAt +
+                          " — " +
+                          w.sessionRange.endAt
+                        : ""}
+                    </p>
+                  )}
+                  {w.fixtures?.length > 0 && (
+                    <ul>
+                      {w.fixtures.map((fixture: any) => (
+                        <li key={fixture.id}>
+                          {fixture.A.label} vs {fixture.B.label} · BO
+                          {fixture.bestOf}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {w.rest?.length > 0 && (
+                    <p>
+                      本轮休息：{w.rest.map((s: any) => s.label).join("、")}
+                    </p>
+                  )}
+                </article>
               ))}
             </details>
           )}

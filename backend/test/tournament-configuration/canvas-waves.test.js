@@ -3,8 +3,8 @@ const { test } = require("node:test"),
   assert = require("node:assert/strict");
 const G = require("../../src/planning-canvas/graph");
 test("stage name and order change together without changing members", () => {
-  let g = G.migrate(G.sample("single")).graph;
-  g = G.edit(g, { type: "createStage", id: "s2", name: "第二阶段" }).graph;
+  let g = G.sample("single");
+  g = G.edit(g, { type: "createStage", id: "s2", name: "第二阶段", selected: ["source"] }).graph;
   const r = G.edit(g, { type: "updateStage", id: "s2", name: "第一阶段", order: 1 }).graph;
   assert.equal(r.stages.find((s) => s.id === "s2").order, 1);
   assert.equal(r.stages.find((s) => s.id === "s2").name, "第一阶段");
@@ -13,7 +13,7 @@ test("stage name and order change together without changing members", () => {
   assert.throws(() => G.edit(g, { type: "updateStage", id: "s2", order: 0 }));
 });
 test("stage members can be removed down to an empty group without deleting nodes or edges", () => {
-  const g = G.migrate(G.sample("single")).graph;
+  const g = G.sample("single");
   const stage = g.stages[0];
   const empty = G.edit(g, { type: "updateStage", id: stage.id, selected: [] }).graph;
   assert.deepEqual(empty.stages[0].nodeIds, []);
@@ -27,7 +27,7 @@ test("stage members can be removed down to an empty group without deleting nodes
 test("v2 migration preserves original, stage members survive encapsulation and transfer is atomic", () => {
   const old = G.sample("single"),
     original = structuredClone(old);
-  const g = G.migrate(old).graph;
+  const g = G.parse(old);
   assert.deepEqual(old, original);
   assert.equal(g.schemaVersion, "canvas-v2");
   assert.equal(g.stages[0].nodeIds.length, 7);
@@ -42,26 +42,19 @@ test("v2 migration preserves original, stage members survive encapsulation and t
     id: "group",
   }).graph;
   assert.deepEqual(group.stages, g.stages);
-  const pending = G.edit(group, {
-    type: "createStage",
-    id: "s2",
-    name: "第二阶段",
-    selected: ["group"],
-  });
-  assert.equal(pending.requiresConfirmation, true);
-  assert.deepEqual(pending.graph, group);
   const moved = G.edit(group, {
     type: "createStage",
     id: "s2",
     name: "第二阶段",
     selected: ["group"],
-    confirmed: true,
-    expectedDigest: pending.digest,
   }).graph;
-  assert.deepEqual(moved.stages[1].nodeIds, ["M1", "M2"]);
+  assert.equal(moved.stages.length, 2);
+  assert.deepEqual(moved.stages[1].nodeIds, ["M1", "M2", "group"]);
+  assert.ok(!moved.stages[0].nodeIds.includes("M1"));
+  assert.deepEqual(group.stages, g.stages);
 });
 test("waves are deterministic, stage-local and graph-local, depend on real matches rather than processing depth", () => {
-  const g = G.migrate(G.sample("single")).graph;
+  const g = G.sample("single");
   const r = G.analyze(g);
   assert.equal(r.valid, true, JSON.stringify(r.diagnostics));
   assert.deepEqual(
@@ -90,7 +83,7 @@ test("waves are deterministic, stage-local and graph-local, depend on real match
   assert.equal(new Set(plan.waves.map((w) => w.id)).size, plan.waves.length);
 });
 test("strict stages await all preceding matches, reverse result routing is invalid", () => {
-  const g = G.migrate(G.sample("single")).graph;
+  const g = G.sample("single");
   g.stages = [
     { id: "a", name: "A", order: 1, nodeIds: ["M1", "M2", "M3", "M4"] },
     { id: "b", name: "B", order: 2, nodeIds: ["M5", "M6", "M7"] },
@@ -110,7 +103,7 @@ test("strict stages await all preceding matches, reverse result routing is inval
   );
 });
 test("shared collections across subgraphs split waves with occupation dependencies and Swiss rounds remain atomic", () => {
-  let g = G.migrate(G.sample("empty")).graph;
+  let g = G.sample("empty");
   const S = require("../../src/planning-canvas/samples");
   g.nodes.push(
     S.node("source", "source", {
@@ -145,7 +138,7 @@ test("shared collections across subgraphs split waves with occupation dependenci
         ),
     ),
   );
-  const swiss = G.analyze(G.migrate(G.sample("swiss-eight")).graph);
+  const swiss = G.analyze(G.sample("swiss-eight"));
   assert.equal(swiss.wavePlan.rounds.length, 5);
   assert.ok(
     swiss.wavePlan.rounds.every(

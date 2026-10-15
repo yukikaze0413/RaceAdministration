@@ -3,11 +3,30 @@ import { createRequire } from "node:module";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+async function finishPropertyEdit(page: any) {
+  await page
+    .locator(".canvas-properties :focus")
+    .evaluateAll((elements: Element[]) =>
+      elements.forEach((element) => (element as HTMLElement).blur()),
+    );
+  await expect(page.locator(".canvas-lab")).toHaveAttribute(
+    "aria-busy",
+    "false",
+  );
+}
 async function selectCard(page: any, name: string | RegExp, multi = false) {
-  const card = page.locator('[data-canvas-node]').filter({ has: page.getByRole('button', { name, exact: typeof name === 'string' }) }).first();
+  const card = page
+    .locator("[data-canvas-node]")
+    .filter({
+      has: page.getByRole("button", { name, exact: typeof name === "string" }),
+    })
+    .first();
   await expect(card).toBeAttached();
-  await page.getByRole('button', { name: '适应全图', exact: true }).click();
-  await card.locator('.canvas-drag').click({ modifiers: multi ? ['Control'] : [] });
+  await page.getByRole("button", { name: "适应全图", exact: true }).click();
+  if (multi && (await card.getAttribute("data-selected")) === "true") return;
+  await card
+    .locator(".canvas-drag")
+    .click({ modifiers: multi ? ["Control"] : [] });
 }
 const require = createRequire(import.meta.url);
 const { createApp } = require("../../backend/src/app");
@@ -67,7 +86,7 @@ test("清空来源外部映射先确认其连线影响，保存后不恢复旧�
     await page
       .getByRole("textbox", { name: "外部种子映射（可选，每行 引用:数值）" })
       .fill("");
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await finishPropertyEdit(page);
     await expect(
       page.getByRole("heading", { name: "连接影响", exact: true }),
     ).toBeVisible();
@@ -75,10 +94,10 @@ test("清空来源外部映射先确认其连线影响，保存后不恢复旧�
       .getByRole("button", { name: "确认处理受影响连接", exact: true })
       .click();
     await expect(
-      page
-        .getByRole("combobox", { name: "来源端口", exact: true })
-        .locator("option")
-        .filter({ hasText: "外部种子映射" }),
+      page.getByRole("button", {
+        name: "参赛来源 外部种子映射 输出",
+        exact: true,
+      }),
     ).toHaveCount(0);
     await page.getByRole("button", { name: "保存草稿", exact: true }).click();
     await expect(page.getByRole("status")).toContainText("草稿已保存");
@@ -90,235 +109,478 @@ test("清空来源外部映射先确认其连线影响，保存后不恢复旧�
       }),
     ).toHaveValue("");
   }));
-test("轮空预览与悬空接口显隐可保存，嵌套已有连接不隐藏", async ({ page }) => isolated(page, async (base) => {
-  const graph = { schemaVersion: 'canvas-v1', nodes: [
-    { id: 'source', kind: 'source', name: '参赛来源', params: { seats: [{ ref: 'A', label: '选手 A' }] }, position: { x: 40, y: 40 } },
-    ...[['bye', '轮空晋级'], ['empty', '双方轮空'], ['next', '后续轮空']].map(([id, name], i) => ({ id, kind: 'match', name, params: { bestOf: 3, winnerRule: 'unique-winner-v1' }, position: { x: 400 + i * 330, y: 40 } })),
-  ], edges: [
-    { id: 'in', from: { node: 'source', port: 'seat:1' }, to: { node: 'bye', port: 'A' } },
-    { id: 'next-in', from: { node: 'bye', port: 'W' }, to: { node: 'next', port: 'A' } },
-  ] };
-  const r = await page.request.post(base + '/api/v1/planning-canvases', { headers: { Origin: base, 'Idempotency-Key': 'bye-fixture' }, data: { name: '轮空测试', graph } });
-  expect(r.ok()).toBeTruthy();
-  const saved = (await r.json()).data;
-  page.once('dialog', (d) => d.accept());
-  await page.goto(base + '/canvas-lab?canvas=' + saved.id);
-  await selectCard(page, '轮空晋级');
-  await expect(page.getByRole('checkbox', { name: '自动添加末端胜者出口', exact: true })).toHaveCount(0);
-  await page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true }).check();
-  await expect(page.locator('[data-canvas-node="bye"] .port-input')).toHaveCount(1);
-  await page.getByRole('checkbox', { name: '隐藏悬空输出接口', exact: true }).check();
-  await expect(page.locator('[data-canvas-node="bye"] .port-output')).toHaveCount(1);
-  await selectCard(page, '双方轮空');
-  await page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true }).check();
-  await expect(page.locator('[data-canvas-node="empty"] .port-input')).toHaveCount(0);
-  await page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true }).uncheck();
-  await expect(page.locator('[data-canvas-node="empty"] .port-input')).toHaveCount(2);
-  await selectCard(page, '轮空晋级');
-  await selectCard(page, '后续轮空', true);
-  await page.getByRole('button', { name: '封装所选组件', exact: true }).click();
-  await page.getByRole('button', { name: '编辑 子图 参数', exact: true }).click();
-  await page.getByRole('checkbox', { name: '隐藏悬空输出接口', exact: true }).check();
-  await expect(page.locator('[data-node-kind="subgraph"] .port-output')).toHaveCount(0);
-  await page.getByRole('button', { name: '进入所选子图', exact: true }).click();
-  await expect(page.locator('[data-canvas-node="bye"] .port-input')).toHaveCount(1);
-  await expect(page.locator('[data-canvas-node="bye"] .port-output')).toHaveCount(1);
-  await page.getByRole('button', { name: '返回上层', exact: true }).click();
-  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('草稿已保存');
-  await page.reload();
-  await expect(page.locator('[data-node-kind="subgraph"] .port-output')).toHaveCount(0);
-  await page.getByRole('button', { name: '验证保存版本', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('规划验证通过');
-  await page.getByRole('link', { name: '打开赛程预览', exact: true }).click();
-  await expect(page.locator('[data-preview-match="bye"]')).toContainText('轮空晋级');
-  await expect(page.locator('[data-preview-match="empty"]')).toContainText('双方轮空');
-  await expect(page.locator('[data-preview-match="next"]')).toContainText('选手 A');
-}));
-test("无连接Match封装后默认展示全部边界，隐藏开关仅改变可见性", async ({ page }) => isolated(page, async () => {
-  await page.getByText('样例与已保存草稿', { exact: true }).click();
-  await page.getByRole('combobox', { name: '样例', exact: true }).selectOption('empty');
-  page.once('dialog', (d) => d.accept());
-  await page.getByRole('button', { name: '重置样例', exact: true }).click();
-  await expect(page.locator('[data-canvas-node]')).toHaveCount(0);
-  await page.locator('.canvas-palette').getByRole('button', { name: 'Match', exact: true }).click();
-  await selectCard(page, 'Match');
-  await page.getByRole('button', { name: '封装所选组件', exact: true }).click();
-  const group = page.locator('[data-node-kind="subgraph"]');
-  await expect(group.locator('.port-input')).toHaveCount(2);
-  await expect(group.locator('.port-output')).toHaveCount(2);
-  await page.getByRole('button', { name: '编辑 子图 参数', exact: true }).click();
-  await expect(page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true })).not.toBeChecked();
-  await page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true }).check();
-  await expect(group.locator('.port-input')).toHaveCount(0);
-  await expect(group.locator('.port-output')).toHaveCount(2);
-  await page.getByRole('checkbox', { name: '隐藏悬空输入接口', exact: true }).uncheck();
-  await expect(group.locator('.port-input')).toHaveCount(2);
-  await page.getByRole('checkbox', { name: '隐藏悬空输出接口', exact: true }).check();
-  await expect(group.locator('.port-output')).toHaveCount(0);
-  await expect(group.locator('.port-input')).toHaveCount(2);
-}));
-test("旧草稿赛程预览按日期分组并筛选项目、阶段和时间，未验证项目明确排除", async ({ page }) =>
+test("轮空预览与悬空接口显隐可保存，嵌套已有连接不隐藏", async ({ page }) =>
   isolated(page, async (base) => {
-    const sample = require("../../backend/src/planning-canvas/graph").sample("swiss-eight");
-    const matches = sample.nodes.filter((n: any) => n.kind === 'match');
-    matches[0].params.expectedTime = '2026-10-14T10:00';
-    matches[1].params.expectedTime = '2026-10-14T11:00';
-    matches[2].params.expectedTime = '2026-10-15T10:00';
+    const graph = {
+      schemaVersion: "canvas-v2",
+      stages: [],
+      nodes: [
+        {
+          id: "source",
+          kind: "source",
+          name: "参赛来源",
+          params: { seats: [{ ref: "A", label: "选手 A" }] },
+          position: { x: 40, y: 40 },
+        },
+        ...[
+          ["bye", "轮空晋级"],
+          ["empty", "双方轮空"],
+          ["next", "后续轮空"],
+        ].map(([id, name], i) => ({
+          id,
+          kind: "match",
+          name,
+          params: { matchFormat: "bo3" },
+          position: { x: 400 + i * 330, y: 40 },
+        })),
+      ],
+      edges: [
+        {
+          id: "in",
+          from: { node: "source", port: "seat:1" },
+          to: { node: "bye", port: "A" },
+        },
+        {
+          id: "next-in",
+          from: { node: "bye", port: "W" },
+          to: { node: "next", port: "A" },
+        },
+      ],
+    };
+    const r = await page.request.post(base + "/api/v1/planning-canvases", {
+      headers: { Origin: base, "Idempotency-Key": "bye-fixture" },
+      data: { name: "轮空测试", graph },
+    });
+    expect(r.ok()).toBeTruthy();
+    const saved = (await r.json()).data;
+    page.once("dialog", (d) => d.accept());
+    await page.goto(base + "/canvas-lab?canvas=" + saved.id);
+    await selectCard(page, "轮空晋级");
+    await expect(
+      page.getByRole("checkbox", { name: "自动添加末端胜者出口", exact: true }),
+    ).toHaveCount(0);
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true })
+      .check();
+    await expect(
+      page.locator('[data-canvas-node="bye"] .port-input'),
+    ).toHaveCount(1);
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输出接口", exact: true })
+      .check();
+    await expect(
+      page.locator('[data-canvas-node="bye"] .port-output'),
+    ).toHaveCount(1);
+    await selectCard(page, "双方轮空");
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true })
+      .check();
+    await expect(
+      page.locator('[data-canvas-node="empty"] .port-input'),
+    ).toHaveCount(0);
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true })
+      .uncheck();
+    await expect(
+      page.locator('[data-canvas-node="empty"] .port-input'),
+    ).toHaveCount(2);
+    await selectCard(page, "轮空晋级");
+    await selectCard(page, "后续轮空", true);
+    await page
+      .getByRole("button", { name: "封装所选组件", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "编辑 子图 参数", exact: true })
+      .click();
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输出接口", exact: true })
+      .check();
+    await expect(
+      page.locator('[data-node-kind="subgraph"] .port-output'),
+    ).toHaveCount(0);
+    await page
+      .getByRole("button", { name: "进入所选子图", exact: true })
+      .click();
+    await expect(
+      page.locator('[data-canvas-node="bye"] .port-input'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('[data-canvas-node="bye"] .port-output'),
+    ).toHaveCount(1);
+    await page.getByRole("button", { name: "返回上层", exact: true }).click();
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    await page.reload();
+    await expect(
+      page.locator('[data-node-kind="subgraph"] .port-output'),
+    ).toHaveCount(0);
+    await page
+      .getByRole("button", { name: "验证保存版本", exact: true })
+      .click();
+    await expect(page.getByRole("status")).toContainText("规划验证通过");
+    await page.getByRole("link", { name: "打开赛程预览", exact: true }).click();
+    await expect(page.locator('[data-preview-match="bye"]')).toContainText(
+      "轮空晋级",
+    );
+    await expect(page.locator('[data-preview-match="empty"]')).toContainText(
+      "双方轮空",
+    );
+    await expect(page.locator('[data-preview-match="next"]')).toContainText(
+      "选手 A",
+    );
+  }));
+test("无连接Match封装后默认展示全部边界，隐藏开关仅改变可见性", async ({
+  page,
+}) =>
+  isolated(page, async () => {
+    await page.getByText("样例与已保存草稿", { exact: true }).click();
+    await page
+      .getByRole("combobox", { name: "样例", exact: true })
+      .selectOption("empty");
+    page.once("dialog", (d) => d.accept());
+    await page.getByRole("button", { name: "重置样例", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
+    await page
+      .locator(".canvas-palette")
+      .getByRole("button", { name: "Match", exact: true })
+      .click();
+    await selectCard(page, "Match");
+    await page
+      .getByRole("button", { name: "封装所选组件", exact: true })
+      .click();
+    const group = page.locator('[data-node-kind="subgraph"]');
+    await expect(group.locator(".port-input")).toHaveCount(2);
+    await expect(group.locator(".port-output")).toHaveCount(2);
+    await page
+      .getByRole("button", { name: "编辑 子图 参数", exact: true })
+      .click();
+    await expect(
+      page.getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true }),
+    ).not.toBeChecked();
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true })
+      .check();
+    await expect(group.locator(".port-input")).toHaveCount(0);
+    await expect(group.locator(".port-output")).toHaveCount(2);
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输入接口", exact: true })
+      .uncheck();
+    await expect(group.locator(".port-input")).toHaveCount(2);
+    await page
+      .getByRole("checkbox", { name: "隐藏悬空输出接口", exact: true })
+      .check();
+    await expect(group.locator(".port-output")).toHaveCount(0);
+    await expect(group.locator(".port-input")).toHaveCount(2);
+  }));
+test("当前草稿赛程预览筛选项目、阶段和时间，未验证项目明确排除", async ({
+  page,
+}) =>
+  isolated(page, async (base) => {
+    const sample = require("../../backend/src/planning-canvas/graph").sample(
+      "swiss-eight",
+    );
+    const matches = sample.nodes.filter((n: any) => n.kind === "match");
+    sample.stages = [
+      { id: "swiss-stage", name: "瑞士轮", order: 1, nodeIds: ["swiss"] },
+      {
+        id: "quarter",
+        name: "八强",
+        order: 2,
+        nodeIds: ["M1", "M2", "M3", "M4"],
+      },
+      { id: "final", name: "决赛", order: 3, nodeIds: ["M5", "M6", "M7"] },
+    ];
     const create = async (name: string, graph: any, validate: boolean) => {
-      const response = await page.request.post(base + '/api/v1/planning-canvases', { headers: { Origin: base, 'Idempotency-Key': encodeURIComponent(name) }, data: { name, graph } });
+      const response = await page.request.post(
+        base + "/api/v1/planning-canvases",
+        {
+          headers: {
+            Origin: base,
+            "Idempotency-Key": encodeURIComponent(name),
+          },
+          data: { name, graph },
+        },
+      );
       expect(response.ok()).toBeTruthy();
       const record = (await response.json()).data;
       if (validate) {
-        const r = await page.request.post(base + '/api/v1/planning-canvases/' + record.id + '/validate', { headers: { Origin: base }, data: { expectedVersion: record.version } });
+        const r = await page.request.post(
+          base + "/api/v1/planning-canvases/" + record.id + "/validate",
+          {
+            headers: { Origin: base },
+            data: { expectedVersion: record.version },
+          },
+        );
         expect((await r.json()).data.valid).toBe(true);
       }
       return record;
     };
-    const a = await create('秋季赛', sample, true);
-    const b = await create('邀请赛', sample, true);
-    const invalid = (await (await page.request.get(base + '/api/v1/planning-canvas/samples/invalid')).json()).data.graph;
-    await create('待验证项目', invalid, false);
-    page.once('dialog', (d) => d.accept());
-    await page.goto(base + '/canvas-lab?canvas=' + a.id);
-    await page.getByRole('link', { name: '打开赛程预览', exact: true }).click();
-    await expect(page.getByRole('heading', { name: '赛程预览', exact: true })).toBeVisible();
-    await expect(page.locator('[data-preview-match]')).toHaveCount(7);
-    await expect(page.getByRole('heading', { name: /2026-10-14.*2 场/ })).toBeVisible();
+    const a = await create("秋季赛", sample, true);
+    const b = await create("邀请赛", sample, true);
+    const invalid = (
+      await (
+        await page.request.get(base + "/api/v1/planning-canvas/samples/invalid")
+      ).json()
+    ).data.graph;
+    await create("待验证项目", invalid, false);
+    page.once("dialog", (d) => d.accept());
+    await page.goto(base + "/canvas-lab?canvas=" + a.id);
+    await page.getByRole("link", { name: "打开赛程预览", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { name: "赛程预览", exact: true }),
+    ).toBeVisible();
+    await expect(page.locator("[data-preview-match]")).toHaveCount(7);
+    await expect(
+      page.getByRole("heading", { name: /2026-10-14.*2 场/ }),
+    ).toHaveCount(0);
     await page.reload();
-    await expect(page.locator('[data-preview-match]')).toHaveCount(7);
-    await expect(page.getByRole('heading', { name: /时间待定/ }).first()).toBeVisible();
-    await page.getByRole('combobox', { name: '阶段筛选', exact: true }).selectOption({label:'八强'});
-    await expect(page.locator('[data-preview-match]')).toHaveCount(4);
-    await page.getByLabel('开始日期', { exact: true }).fill('2026-10-14');
-    await page.getByLabel('结束日期', { exact: true }).fill('2026-10-14');
-    await expect(page.locator('[data-preview-match]')).toHaveCount(2);
-    await page.getByRole('searchbox', { name: '比赛搜索', exact: true }).fill('M1');
-    await expect(page.locator('[data-preview-match]')).toHaveCount(1);
-    await page.getByRole('button', { name: '重置筛选', exact: true }).click();
-    await page.getByRole('combobox', { name: '赛事项目', exact: true }).selectOption('all');
-    await expect(page.locator('[data-preview-match]')).toHaveCount(14);
-    await expect(page.locator('.schedule-excluded')).toContainText('待验证项目');
-    await page.getByRole('combobox', { name: '赛事项目', exact: true }).selectOption(b.id);
-    await expect(page.locator('[data-preview-match]')).toHaveCount(7);
-    await expect(page.locator('.schedule-match-event').first()).toContainText('邀请赛');
+    await expect(page.locator("[data-preview-match]")).toHaveCount(7);
+    await expect(
+      page.getByRole("heading", { name: /时间待定/ }).first(),
+    ).toBeVisible();
+    await page
+      .getByRole("combobox", { name: "阶段筛选", exact: true })
+      .selectOption({ label: "八强" });
+    await expect(page.locator("[data-preview-match]")).toHaveCount(4);
+    await page.getByLabel("开始日期", { exact: true }).fill("2026-10-14");
+    await page.getByLabel("结束日期", { exact: true }).fill("2026-10-14");
+    await expect(page.locator("[data-preview-match]")).toHaveCount(0);
+    await page.getByLabel("开始日期", { exact: true }).fill("");
+    await page.getByLabel("结束日期", { exact: true }).fill("");
+    await page
+      .getByRole("searchbox", { name: "比赛搜索", exact: true })
+      .fill("M1");
+    await expect(page.locator("[data-preview-match]")).toHaveCount(1);
+    await page.getByRole("button", { name: "重置筛选", exact: true }).click();
+    await page
+      .getByRole("combobox", { name: "赛事项目", exact: true })
+      .selectOption("all");
+    await expect(page.locator("[data-preview-match]")).toHaveCount(14);
+    await expect(page.locator(".schedule-excluded")).toContainText(
+      "待验证项目",
+    );
+    await page
+      .getByRole("combobox", { name: "赛事项目", exact: true })
+      .selectOption(b.id);
+    await expect(page.locator("[data-preview-match]")).toHaveCount(7);
+    await expect(page.locator(".schedule-match-event").first()).toContainText(
+      "邀请赛",
+    );
     for (const width of [360, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
-      await page.screenshot({ path: resolve('../output/playwright/canvas-schedule-' + width + '.png'), fullPage: true });
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth > innerWidth + 1,
+        ),
+      ).toBe(false);
+      await page.screenshot({
+        path: resolve("../output/playwright/canvas-schedule-" + width + ".png"),
+        fullPage: true,
+      });
     }
-    await page.getByRole('link', { name: '返回画布', exact: true }).click();
-    await expect(page.getByRole('textbox', { name: '草稿名称', exact: true })).toHaveValue('邀请赛');
+    await page.getByRole("link", { name: "返回画布", exact: true }).click();
+    await expect(
+      page.getByRole("textbox", { name: "草稿名称", exact: true }),
+    ).toHaveValue("邀请赛");
   }));
 test("分类组件、无箭头连线、参数入口与子图快捷键", async ({ page }) =>
   isolated(page, async () => {
     for (const name of ["基础", "转换", "淘汰赛", "瑞士轮", "排序"])
-      await expect(page.locator('.canvas-component-category summary').getByText(name, { exact: true })).toBeVisible();
-    await expect(page.locator('.canvas-edges marker')).toHaveCount(0);
-    await expect(page.locator('[data-canvas-edge][marker-end]')).toHaveCount(0);
-    await page.getByRole('button', { name: '编辑 M1 参数', exact: true }).click();
-    const panel = page.getByRole('complementary', { name: '卡片参数面板' });
-    await expect(panel.getByRole('spinbutton', { name: 'BO', exact: true })).toBeVisible();
-    await panel.getByRole('spinbutton', { name: 'BO', exact: true }).fill('5');
-    await panel.getByRole('spinbutton', { name: 'BO', exact: true }).press('Control+g');
+      await expect(
+        page
+          .locator(".canvas-component-category summary")
+          .getByText(name, { exact: true }),
+      ).toBeVisible();
+    await expect(page.locator(".canvas-edges marker")).toHaveCount(0);
+    await expect(page.locator("[data-canvas-edge][marker-end]")).toHaveCount(0);
+    await page
+      .getByRole("button", { name: "编辑 M1 参数", exact: true })
+      .click();
+    const panel = page.getByRole("complementary", { name: "卡片参数面板" });
+    await expect(
+      panel.getByRole("combobox", { name: "单场赛制", exact: true }),
+    ).toBeVisible();
+    await panel
+      .getByRole("combobox", { name: "单场赛制", exact: true })
+      .selectOption("bo1");
+    await panel
+      .getByRole("combobox", { name: "单场赛制", exact: true })
+      .press("Control+g");
     await expect(page.locator('[data-node-kind="subgraph"]')).toHaveCount(0);
-    await panel.getByRole('button', { name: '应用属性', exact: true }).click();
-    await expect(page.locator('[data-canvas-node="M1"]')).toContainText('BO5');
+    await finishPropertyEdit(page);
+    await expect(page.locator('[data-canvas-node="M1"]')).toContainText("BO1");
     await selectCard(page, "M2", true);
-    await page.keyboard.press('Control+g');
+    await page.keyboard.press("Control+g");
     await expect(page.locator('[data-node-kind="subgraph"]')).toHaveCount(1);
-    await page.getByRole('button', { name: '撤销', exact: true }).click();
-    await expect(page.locator('[data-canvas-node="M1"]')).toContainText('BO5');
-    await page.getByRole('button', { name: '随机排序', exact: true }).click();
-    await expect(page.locator('[data-node-kind="generator"]')).toContainText('随机');
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
+    await page.getByRole("button", { name: "撤销", exact: true }).click();
+    await expect(page.locator('[data-canvas-node="M1"]')).toContainText("BO1");
+    await page.getByRole("button", { name: "随机排序", exact: true }).click();
+    await expect(page.locator('[data-node-kind="generator"]')).toContainText(
+      "随机",
+    );
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
     await page.reload();
-    await expect(page.locator('[data-canvas-node="M1"]')).toContainText('BO5');
+    await expect(page.locator('[data-canvas-node="M1"]')).toContainText("BO1");
   }));
 test("工作区双输出、清空撤销、项目切换与末端胜者", async ({ page }) =>
   isolated(page, async (base) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     const source = page.locator('[data-canvas-node="source"]');
-    await expect(source.getByRole('button', { name: '参赛来源 初始席位集合 输出', exact: true })).toBeAttached();
-    await expect(source.getByRole('button', { name: '参赛来源 初始种子 输出', exact: true })).toBeAttached();
-    await expect(source.locator('[data-anchor]')).toHaveCount(2);
-    const viewport = await page.locator('.canvas-viewport').boundingBox();
+    await expect(
+      source.getByRole("button", {
+        name: "参赛来源 初始席位集合 输出",
+        exact: true,
+      }),
+    ).toBeAttached();
+    await expect(
+      source.getByRole("button", {
+        name: "参赛来源 初始种子 输出",
+        exact: true,
+      }),
+    ).toBeAttached();
+    await expect(source.locator("[data-anchor]")).toHaveCount(2);
+    const viewport = await page.locator(".canvas-viewport").boundingBox();
     expect(viewport!.width).toBeGreaterThan(850);
     expect(viewport!.height).toBeGreaterThan(500);
-    await expect(page.locator('.canvas-inspector .canvas-connection-form')).toHaveCount(1);
-    await expect(page.locator('.canvas-center .canvas-connection-form')).toHaveCount(0);
-    await page.getByRole('textbox', { name: '草稿名称', exact: true }).fill('项目 A');
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
-    const a = new URL(page.url()).searchParams.get('canvas')!;
-    for (const id of ['M1','M2','M3','M4','M5','M6','M7'])
+    await expect(
+      page.locator(".canvas-inspector .canvas-connection-form"),
+    ).toHaveCount(0);
+    await expect(
+      page.locator(".canvas-center .canvas-connection-form"),
+    ).toHaveCount(0);
+    await page
+      .getByRole("textbox", { name: "草稿名称", exact: true })
+      .fill("项目 A");
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    const a = new URL(page.url()).searchParams.get("canvas")!;
+    for (const id of ["M1", "M2", "M3", "M4", "M5", "M6", "M7"])
       await selectCard(page, id, true);
-    await page.getByRole('button', { name: '封装所选组件', exact: true }).click();
+    await page
+      .getByRole("button", { name: "封装所选组件", exact: true })
+      .click();
     const group = page.locator('[data-node-kind="subgraph"]');
-    await expect(group.getByRole('button', { name: /M7 W · 胜者 输出/ })).toBeAttached();
-    await expect(group.locator('.port-output')).toHaveCount(8);
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
-    const legacy = (await (await page.request.get(base + '/api/v1/planning-canvases/' + a)).json()).data;
-    legacy.graph.nodes.find((n: any) => n.kind === 'subgraph').params.boundaries =
-      legacy.graph.nodes.find((n: any) => n.kind === 'subgraph').params.boundaries.filter((b: any) => b.direction !== 'output');
-    expect((await page.request.put(base + '/api/v1/planning-canvases/' + a, {
-      headers: { Origin: base, 'Idempotency-Key': 'legacy-winner-fixture' },
-      data: { name: legacy.name, graph: legacy.graph, expectedVersion: legacy.version },
-    })).ok()).toBeTruthy();
+    await expect(
+      group.getByRole("button", { name: /M7 W · 胜者 输出/ }),
+    ).toBeAttached();
+    await expect(group.locator(".port-output")).toHaveCount(8);
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    const legacy = (
+      await (
+        await page.request.get(base + "/api/v1/planning-canvases/" + a)
+      ).json()
+    ).data;
+    legacy.graph.nodes.find(
+      (n: any) => n.kind === "subgraph",
+    ).params.boundaries = legacy.graph.nodes
+      .find((n: any) => n.kind === "subgraph")
+      .params.boundaries.filter((b: any) => b.direction !== "output");
+    expect(
+      (
+        await page.request.put(base + "/api/v1/planning-canvases/" + a, {
+          headers: { Origin: base, "Idempotency-Key": "legacy-winner-fixture" },
+          data: {
+            name: legacy.name,
+            graph: legacy.graph,
+            expectedVersion: legacy.version,
+          },
+        })
+      ).ok(),
+    ).toBeTruthy();
     await page.reload();
-    await page.getByRole('button', { name: '编辑 子图 参数', exact: true }).click();
-    await expect(page.getByRole('checkbox', { name: '隐藏悬空输出接口', exact: true })).not.toBeChecked();
-    await expect(page.locator('[data-node-kind="subgraph"] .port-output')).toHaveCount(8);
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
-    await page.getByRole('button', { name: '新建项目', exact: true }).click();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(0);
-    await page.getByRole('textbox', { name: '草稿名称', exact: true }).fill('项目 B');
-    await page.locator('.canvas-palette').getByRole('button', { name: '参赛来源', exact: true }).click();
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
-    const b = new URL(page.url()).searchParams.get('canvas')!;
-    page.once('dialog', (d) => d.dismiss());
-    await page.getByRole('button', { name: '清空画布', exact: true }).click();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(1);
-    page.once('dialog', (d) => d.accept());
-    await page.getByRole('button', { name: '清空画布', exact: true }).click();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(0);
-    await page.getByRole('button', { name: '撤销', exact: true }).click();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(1);
-    await page.getByRole('textbox', { name: '草稿名称', exact: true }).fill('项目 B 修改');
-    await page.getByRole('combobox', { name: '项目草稿', exact: true }).selectOption(a);
-    await page.getByRole('button', { name: '切换项目', exact: true }).click();
-    await page.getByRole('button', { name: '取消切换', exact: true }).click();
-    expect(new URL(page.url()).searchParams.get('canvas')).toBe(b);
-    await page.getByRole('button', { name: '切换项目', exact: true }).click();
-    await page.getByRole('button', { name: '保存后切换', exact: true }).click();
-    await expect(page.getByRole('textbox', { name: '草稿名称', exact: true })).toHaveValue('项目 A');
+    await page
+      .getByRole("button", { name: "编辑 子图 参数", exact: true })
+      .click();
+    await expect(
+      page.getByRole("checkbox", { name: "隐藏悬空输出接口", exact: true }),
+    ).not.toBeChecked();
+    await expect(
+      page.locator('[data-node-kind="subgraph"] .port-output'),
+    ).toHaveCount(8);
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    await page.getByRole("button", { name: "新建项目", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
+    await page
+      .getByRole("textbox", { name: "草稿名称", exact: true })
+      .fill("项目 B");
+    await page
+      .locator(".canvas-palette")
+      .getByRole("button", { name: "参赛来源", exact: true })
+      .click();
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    const b = new URL(page.url()).searchParams.get("canvas")!;
+    page.once("dialog", (d) => d.dismiss());
+    await page.getByRole("button", { name: "清空画布", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(1);
+    page.once("dialog", (d) => d.accept());
+    await page.getByRole("button", { name: "清空画布", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
+    await page.getByRole("button", { name: "撤销", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(1);
+    await page
+      .getByRole("textbox", { name: "草稿名称", exact: true })
+      .fill("项目 B 修改");
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(a);
+    await page.getByRole("button", { name: "取消切换", exact: true }).click();
+    expect(new URL(page.url()).searchParams.get("canvas")).toBe(b);
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(a);
+    await page.getByRole("button", { name: "保存后切换", exact: true }).click();
+    await expect(
+      page.getByRole("textbox", { name: "草稿名称", exact: true }),
+    ).toHaveValue("项目 A");
     await expect(page.locator('[data-node-kind="subgraph"]')).toHaveCount(1);
-    await page.getByRole('combobox', { name: '项目草稿', exact: true }).selectOption(b);
-    await page.getByRole('button', { name: '切换项目', exact: true }).click();
-    await expect(page.getByRole('textbox', { name: '草稿名称', exact: true })).toHaveValue('项目 B 修改');
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(1);
-    expect((await (await page.request.get(base + '/api/v1/planning-canvases/' + a)).json()).data.name).toBe('项目 A');
-    await page.getByRole('textbox', { name: '草稿名称', exact: true }).fill('舍弃的名称');
-    await page.getByRole('combobox', { name: '项目草稿', exact: true }).selectOption(a);
-    await page.getByRole('button', { name: '切换项目', exact: true }).click();
-    await page.getByRole('button', { name: '舍弃修改并切换', exact: true }).click();
-    await expect(page.getByRole('textbox', { name: '草稿名称', exact: true })).toHaveValue('项目 A');
-    await page.getByRole('combobox', { name: '项目草稿', exact: true }).selectOption(b);
-    await page.getByRole('button', { name: '切换项目', exact: true }).click();
-    await expect(page.getByRole('textbox', { name: '草稿名称', exact: true })).toHaveValue('项目 B 修改');
-    await page.screenshot({ path: resolve('../output/playwright/canvas-workspace-1440.png'), fullPage: true });
-    page.once('dialog', (d) => d.accept());
-    await page.getByRole('button', { name: '清空画布', exact: true }).click();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(0);
-    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
-    await expect(page.getByRole('status')).toContainText('草稿已保存');
-    expect(new URL(page.url()).searchParams.get('canvas')).toBe(b);
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(b);
+    await expect(
+      page.getByRole("textbox", { name: "草稿名称", exact: true }),
+    ).toHaveValue("项目 B 修改");
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(1);
+    expect(
+      (
+        await (
+          await page.request.get(base + "/api/v1/planning-canvases/" + a)
+        ).json()
+      ).data.name,
+    ).toBe("项目 A");
+    await page
+      .getByRole("textbox", { name: "草稿名称", exact: true })
+      .fill("舍弃的名称");
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(a);
+    await page
+      .getByRole("button", { name: "舍弃修改并切换", exact: true })
+      .click();
+    await expect(
+      page.getByRole("textbox", { name: "草稿名称", exact: true }),
+    ).toHaveValue("项目 A");
+    await page
+      .getByRole("combobox", { name: "项目草稿", exact: true })
+      .selectOption(b);
+    await expect(
+      page.getByRole("textbox", { name: "草稿名称", exact: true }),
+    ).toHaveValue("项目 B 修改");
+    await page.screenshot({
+      path: resolve("../output/playwright/canvas-workspace-1440.png"),
+      fullPage: true,
+    });
+    page.once("dialog", (d) => d.accept());
+    await page.getByRole("button", { name: "清空画布", exact: true }).click();
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
+    await page.getByRole("button", { name: "保存草稿", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("草稿已保存");
+    expect(new URL(page.url()).searchParams.get("canvas")).toBe(b);
     await page.reload();
-    await expect(page.locator('[data-canvas-node]')).toHaveCount(0);
+    await expect(page.locator("[data-canvas-node]")).toHaveCount(0);
   }));
 for (const width of [360, 768, 1440])
   test(`独立画布 ${width} 保存验证预览与封装`, async ({ page }) => {
@@ -412,17 +674,22 @@ for (const width of [360, 768, 1440])
         );
       }, record.graph.edges[0]);
       expect(anchorError).toBeLessThan(1);
-      const misplacedPorts = await page.locator('[data-anchor]').evaluateAll((buttons) =>
-        buttons.filter((button) => {
-          const port = JSON.parse((button as HTMLElement).dataset.anchor!),
-            node = button.closest('[data-canvas-node]')!.getBoundingClientRect(),
-            row = button.getBoundingClientRect(),
-            dot = button.querySelector('.port-dot')!.getBoundingClientRect(),
-            x = dot.left + dot.width / 2,
-            y = dot.top + dot.height / 2;
-          return (port.direction === 'input' ? x >= node.left : x <= node.right) ||
-            Math.abs(y - row.top - row.height / 2) > 1;
-        }).length,
+      const misplacedPorts = await page.locator("[data-anchor]").evaluateAll(
+        (buttons) =>
+          buttons.filter((button) => {
+            const port = JSON.parse((button as HTMLElement).dataset.anchor!),
+              node = button
+                .closest("[data-canvas-node]")!
+                .getBoundingClientRect(),
+              row = button.getBoundingClientRect(),
+              dot = button.querySelector(".port-dot")!.getBoundingClientRect(),
+              x = dot.left + dot.width / 2,
+              y = dot.top + dot.height / 2;
+            return (
+              (port.direction === "input" ? x >= node.left : x <= node.right) ||
+              Math.abs(y - row.top - row.height / 2) > 1
+            );
+          }).length,
       );
       expect(misplacedPorts).toBe(0);
       const clipped = await page
@@ -485,7 +752,7 @@ test("属性表单在保存请求进行中不可编辑", async ({ page }) =>
         page.getByRole("textbox", { name: "名称", exact: true }),
       ).toBeDisabled();
       await expect(
-        page.getByRole("spinbutton", { name: "BO", exact: true }),
+        page.getByRole("combobox", { name: "单场赛制", exact: true }),
       ).toBeDisabled();
     } finally {
       release();
@@ -545,19 +812,21 @@ test("画布 Pool 部分排序与无输入生成器位置模板在真实表单�
     ]);
     await page.getByRole("button", { name: "随机排序", exact: true }).click();
     await selectCard(page, "随机排序", true);
-    await page.getByRole("combobox", { name: "模式", exact: true }).selectOption("reverse");
+    await page
+      .getByRole("combobox", { name: "模式", exact: true })
+      .selectOption("reverse");
     await page
       .getByRole("spinbutton", { name: "数量 N", exact: true })
       .fill("5");
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await finishPropertyEdit(page);
     await expect(page.getByRole("status")).toContainText("画布已更新");
+    await page.getByRole("button", { name: "适应全图", exact: true }).click();
     await page
-      .getByRole("combobox", { name: "来源端口", exact: true })
-      .selectOption({ label: "随机排序 · 位置排序模板 · 位置模板" });
+      .getByRole("button", { name: "随机排序 位置排序模板 输出", exact: true })
+      .click();
     await page
-      .getByRole("combobox", { name: "目标端口", exact: true })
-      .selectOption({ label: "Pool · 排序 · 映射 / 模板" });
-    await page.getByRole("button", { name: "建立连接", exact: true }).click();
+      .getByRole("button", { name: "Pool 排序 输入", exact: true })
+      .click();
     await expect(
       page.locator(".canvas-inspector details ol").last().locator("li"),
     ).toHaveText([
@@ -580,7 +849,10 @@ test("预设子图能显式连接集合、转自定义、进入编辑并返回",
       .selectOption("empty");
     page.once("dialog", (d) => d.accept());
     await page.getByRole("button", { name: "重置样例", exact: true }).click();
-    await page.locator(".canvas-palette").getByRole("button", { name: "参赛来源", exact: true }).click();
+    await page
+      .locator(".canvas-palette")
+      .getByRole("button", { name: "参赛来源", exact: true })
+      .click();
     await selectCard(page, "参赛来源", true);
     await page
       .getByRole("textbox", { name: "未来席位（每行 引用 | 名称）" })
@@ -590,30 +862,32 @@ test("预设子图能显式连接集合、转自定义、进入编辑并返回",
           (_, i) => "S" + (i + 1) + " | 来源 " + (i + 1),
         ).join("\n"),
       );
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await finishPropertyEdit(page);
     await page
       .getByRole("button", { name: "添加单败子图", exact: true })
       .click();
+    await page.getByRole("button", { name: "适应全图", exact: true }).click();
     await page
-      .getByRole("combobox", { name: "来源端口", exact: true })
-      .selectOption({ label: "参赛来源 · 初始席位集合 · 有序集合" });
+      .getByRole("button", { name: "参赛来源 初始席位集合 输出", exact: true })
+      .click();
     await page
-      .getByRole("combobox", { name: "目标端口", exact: true })
-      .selectOption({ label: "八人单败 · 参赛集合 · 有序集合" });
-    await page.getByRole("button", { name: "建立连接", exact: true }).click();
+      .getByRole("button", { name: "八人单败 参赛集合 输入", exact: true })
+      .click();
     await selectCard(page, "八人单败", true);
     await page.getByRole("button", { name: "转为自定义", exact: true }).click();
     await page
       .getByRole("button", { name: "进入所选子图", exact: true })
       .click();
     await selectCard(page, /^M1 /, true);
-    await page.getByRole("spinbutton", { name: "BO", exact: true }).fill("5");
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await page
+      .getByRole("combobox", { name: "单场赛制", exact: true })
+      .selectOption("bo1");
+    await finishPropertyEdit(page);
     await expect(page.getByRole("status")).toContainText("画布已更新");
     await page.getByRole("button", { name: "返回上层", exact: true }).click();
     await selectCard(page, "八人单败");
     await page.getByRole("button", { name: "创建阶段", exact: true }).click();
-    await expect(page.locator('[data-stage-id]')).toHaveCount(1);
+    await expect(page.locator("[data-stage-id]")).toHaveCount(1);
     await page.getByRole("button", { name: "保存草稿", exact: true }).click();
     await expect(page.getByRole("status")).toContainText("草稿已保存");
     await page
@@ -625,16 +899,14 @@ test("预设子图能显式连接集合、转自定义、进入编辑并返回",
       .click();
     await expect(page.locator("[data-preview-match]")).toHaveCount(7);
     await expect(page.locator("[data-preview-match]").first()).toContainText(
-      "BO5",
+      "BO1",
     );
   }));
-test("画布展开缩容影响可取消，确认后可保存但阻止不完整预览", async ({ page }) =>
+test("选择器缩容影响可取消，展开器数量只读且随集合推导", async ({ page }) =>
   isolated(page, async () => {
-    await selectCard(page, "展开器", true);
-    await page
-      .getByRole("spinbutton", { name: "展开数量（留空由集合推导）" })
-      .fill("4");
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await selectCard(page, "取前 K 名", true);
+    await page.getByRole("spinbutton", { name: "数量 K" }).fill("4");
+    await finishPropertyEdit(page);
     await expect(
       page.getByRole("heading", { name: "连接影响", exact: true }),
     ).toBeVisible();
@@ -645,7 +917,8 @@ test("画布展开缩容影响可取消，确认后可保存但阻止不完整�
     await expect(page.locator('[data-canvas-node="expand"]')).toContainText(
       "8 个席位",
     );
-    await page.getByRole("button", { name: "应用属性", exact: true }).click();
+    await page.getByRole("spinbutton", { name: "数量 K" }).fill("4");
+    await finishPropertyEdit(page);
     await page
       .getByRole("button", { name: "确认处理受影响连接", exact: true })
       .click();
@@ -655,10 +928,10 @@ test("画布展开缩容影响可取消，确认后可保存但阻止不完整�
     await page
       .getByRole("button", { name: "验证保存版本", exact: true })
       .click();
-    await expect(page.getByRole("status")).toContainText("规划验证未通过");
+    await expect(page.getByRole("status")).toContainText("规划验证通过");
     await expect(
       page.getByRole("button", { name: "生成赛程预览", exact: true }),
-    ).toBeDisabled();
+    ).toBeEnabled();
   }));
 test("画布保存响应丢失保留原键，409 保留本地并显式采用最新版本再保存", async ({
   page,

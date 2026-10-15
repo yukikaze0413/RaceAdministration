@@ -40,8 +40,12 @@ function shuffle(items, seed) {
   return result;
 }
 function select(items, mode, n, seed = 0) {
-  if (!Number.isSafeInteger(n) || n < 1 || n > items.length)
-    throw new Error("选择数量超出集合");
+  if (!Number.isSafeInteger(n) || n < 1)
+    throw new Error("选择数量 K 必须为大于等于 1 的整数。");
+  if (items.length === 0)
+    throw new Error(`输入集合为空（N=0），无法选择 ${n} 个席位；请连接非空集合。`);
+  if (n > items.length)
+    throw new Error(`需要选择 ${n} 个席位，但输入只有 ${items.length} 个席位；请减小 K 或补充输入集合。`);
   return (mode === "random" ? shuffle(items, seed) : items).slice(0, n);
 }
 function template(n, mode, seed) {

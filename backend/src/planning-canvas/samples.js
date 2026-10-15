@@ -8,20 +8,25 @@ function node(
 ) {
   const defaults = {
     source: { seats: [{ ref: "seat:" + id, label: "未来席位" }] },
-    match: { bestOf: 3, batch: "", winnerRule: "unique-winner-v1" },
+    match: { matchFormat: "bo3" },
     swiss: {
       ruleVersion: "swiss-fixed-v1",
       parameters: { roundCount: 5 },
       ranking: "complete-v1",
-      release: "confirmed",
+    },
+    "round-robin": {
+      ruleVersion: "round-robin-v2",
+      parameters: {},
+      ranking: "complete-v1",
     },
     pool: { inputs: ["in:1"] },
-    expander: { count: null },
-    selector: {
-      mode: "top",
+    expander: {},
+    "selector-top": { count: 8, showComplement: false },
+    "selector-random": {
       count: 8,
       seed: 20261013,
       algorithm: "mulberry32-v1",
+      showComplement: false,
     },
     generator: {
       mode: "reverse",
@@ -35,23 +40,26 @@ function node(
     source: "参赛来源",
     match: "Match",
     swiss: "瑞士轮",
+    "round-robin": "小组循环赛",
     pool: "Pool",
     expander: "展开器",
-    selector: "选择器",
+    "selector-top": "取前 K 名",
+    "selector-random": "随机 K 名",
     generator: "种子生成器",
     subgraph: "子图",
   };
+  const parameters = { ...defaults[kind], ...params };
   return {
     id,
     kind,
     name: labels[kind],
-    params: { ...defaults[kind], ...params },
+    params: parameters,
     position,
     display: { showLoser: false, showSeeds: false, collapsed: false },
   };
 }
-function sample(name) {
-  const g = { schemaVersion: "canvas-v1", nodes: [], edges: [] };
+function buildSample(name) {
+  const g = { schemaVersion: "canvas-v2", stages: [], nodes: [], edges: [] };
   const connect = (a, p, b, q) =>
     g.edges.push({
       id: randomUUID(),
@@ -59,7 +67,11 @@ function sample(name) {
       to: { node: b, port: q },
     });
   if (name === "empty") return g;
-  const n = name === "gsl" ? 4 : name === "swiss-eight" ? 16 : 8;
+  const n = ["gsl", "round-robin", "double-round-robin"].includes(name)
+    ? 4
+    : name === "swiss-eight"
+      ? 16
+      : 8;
   g.nodes.push(
     node("source", "source", {
       seats: Array.from({ length: n }, (_, i) => ({
@@ -68,11 +80,26 @@ function sample(name) {
       })),
     }),
   );
+  if (["round-robin", "double-round-robin"].includes(name)) {
+    g.nodes.push(
+      node(
+        "round-robin",
+        "group",
+        {
+          ruleVersion:
+            name === "round-robin" ? "round-robin-v2" : "double-round-robin-v2",
+        },
+        { x: 360, y: 40 },
+      ),
+    );
+    connect("source", "collection", "group", "collection");
+    return g;
+  }
   if (name === "swiss-eight") {
     g.nodes.push(
       node("swiss", "swiss", {}, { x: 360, y: 40 }),
-      node("selector", "top8", {}, { x: 680, y: 40 }),
-      node("expander", "expand", { count: 8 }, { x: 1000, y: 40 }),
+      node("selector-top", "top8", {}, { x: 680, y: 40 }),
+      node("expander", "expand", {}, { x: 1000, y: 40 }),
     );
     connect("source", "collection", "swiss", "collection");
     connect("swiss", "collection", "top8", "collection");
@@ -85,12 +112,7 @@ function sample(name) {
     ].forEach((pair, i) => {
       const id = "M" + (i + 1);
       g.nodes.push(
-        node(
-          "match",
-          id,
-          { batch: "八强", bestOf: 3 },
-          { x: 1320, y: 40 + i * 270 },
-        ),
+        node("match", id, { matchFormat: "bo3" }, { x: 1320, y: 40 + i * 270 }),
       );
       g.nodes.at(-1).name = id;
       pair.forEach((s, j) =>
@@ -103,7 +125,7 @@ function sample(name) {
         node(
           "match",
           id,
-          { batch: i < 2 ? "半决赛" : "决赛", bestOf: i === 2 ? 5 : 3 },
+          { matchFormat: "bo3" },
           { x: i < 2 ? 1640 : 1960, y: 170 + i * 270 },
         ),
       );
@@ -155,7 +177,7 @@ function sample(name) {
         input,
         { configurationId: "canvas-template", tournamentId: "canvas" },
       ).units[0];
-    g.nodes.push(node("expander", "expand", { count: n }, { x: 360, y: 40 }));
+    g.nodes.push(node("expander", "expand", {}, { x: 360, y: 40 }));
     connect("source", "collection", "expand", "collection");
     const ids = new Map(unit.matches.map((m, i) => [m.planKey, "M" + (i + 1)]));
     unit.matches.forEach((m, i) => {
@@ -164,8 +186,9 @@ function sample(name) {
         "match",
         id,
         {
-          bestOf: m.bestOf,
-          batch: "wave:" + m.wave,
+          matchFormat:
+            require("./match-rules").formats.find((f) => f.bestOf === m.bestOf)
+              ?.id ?? "bo3",
           condition: m.condition
             ? { ...m.condition, matchKey: ids.get(m.condition.matchKey) }
             : null,
@@ -211,5 +234,16 @@ function sample(name) {
     return g;
   }
   throw Error("未知样例");
+}
+function sample(name) {
+  const graph = buildSample(name);
+  const nodeIds = graph.nodes
+    .filter((n) => ["match", "swiss", "round-robin"].includes(n.kind))
+    .map((n) => n.id)
+    .sort();
+  graph.stages = nodeIds.length
+    ? [{ id: "stage-initial", name: "阶段 1", order: 1, nodeIds }]
+    : [];
+  return graph;
 }
 module.exports = { sample, node };

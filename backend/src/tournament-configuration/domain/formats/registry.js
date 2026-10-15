@@ -292,6 +292,15 @@ function formatCatalog() {
         format,
         label,
         runtimeReady: runtimeSupported(ruleVersion),
+        ...(["fixed-swiss", "threshold-swiss", "round-robin", "double-round-robin"].includes(format) ? {
+          canvasProperties: {
+            unit: "round",
+            core: format.includes("swiss") ? ["participantCount", "roundCount"] : ["cycleCount"],
+            fixedCapacity: ["major-cologne-2026-v1", "ti2026-observed-candidate-v1"].includes(ruleVersion) ? n : null,
+            fixedTiebreakers: ["major-cologne-2026-v1", "ti2026-observed-candidate-v1"].includes(ruleVersion),
+            firstTiebreaker: format === "threshold-swiss" ? "record" : "points",
+          },
+        } : {}),
         ...(!runtimeSupported(ruleVersion)
           ? { unavailableReason: "FORMAT_RUNTIME_UNAVAILABLE" }
           : {}),
