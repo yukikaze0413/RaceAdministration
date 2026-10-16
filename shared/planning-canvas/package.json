@@ -1,0 +1,9 @@
+{
+  "name": "@race/planning-canvas",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": { ".": { "types": "./dist/esm/index.d.ts", "import": "./dist/esm/index.js", "require": "./dist/cjs/index.js" } }
+}

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./canvas-fixture";
 import { createRequire } from "node:module";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -37,7 +37,7 @@ test("两个选择器的补集、只读展开数量与关闭连线确认", async
         ).ok(),
       ).toBeTruthy();
     const graph = {
-      schemaVersion: "canvas-v2",
+      schemaVersion: "canvas",
       stages: [],
       nodes: [
         S.node("source", "source", {

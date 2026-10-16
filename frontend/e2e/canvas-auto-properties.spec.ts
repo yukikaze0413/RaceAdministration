@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./canvas-fixture";
 import { createRequire } from "node:module";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -67,10 +67,10 @@ test("Match 连续编辑自动生效，项目下拉直接切换并保留保存�
         .getByRole("button", { name: "Match", exact: true }),
     ).toBeVisible();
     await page.getByRole("button", { name: /^编辑 M1.*参数$/ }).click();
+    const editRequests: string[] = [];
     await page.route("**/api/v1/planning-canvas/edit", async (route) => {
-      if (route.request().postDataJSON()?.action.type === "update")
-        await new Promise((done) => setTimeout(done, 100));
-      await route.continue();
+      editRequests.push(route.request().url());
+      await route.abort();
     });
     const form = page.locator(".canvas-properties");
     const name = form.getByLabel("名称", { exact: true });
@@ -78,6 +78,7 @@ test("Match 连续编辑自动生效，项目下拉直接切换并保留保存�
     await name.pressSequentially("连续输入Match", { delay: 5 });
     await expect(name).toBeEnabled();
     await expect(name).toHaveValue("连续输入Match");
+    expect(editRequests).toEqual([]);
     await form.getByLabel("单场赛制", { exact: true }).selectOption("bo1");
     await expect(form.getByText("赛果列表", { exact: true })).toHaveCount(0);
     await expect(form.getByLabel("平", { exact: true })).toHaveCount(0);

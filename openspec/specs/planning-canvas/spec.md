@@ -8,7 +8,10 @@
 ### Requirement: 类型化规划组件
 系统 SHALL 提供来源、Match、Swiss、小组循环赛、Pool、展开器、取前 K 名、随机 K 名、无输入种子生成器与子图。
 集合出口 SHALL 派生当前顺序的种子映射。
-系统 SHALL 仅接受当前 canvas-v2 配置，不提供旧格式读取或迁移入口。
+系统 SHALL 仅接受当前 canvas 配置，不提供旧格式编辑或迁移入口。
+画布格式、编辑协议、预览计划键前缀 SHALL 分别使用 canvas、canvas-editor、canvas-plan，不使用版本后缀。
+保存冲突版本、赛制规则版本和规划器版本 SHALL 保留。
+数据库启动 SHALL 原子转换已有 canvas-v2 草稿及对应摘要，保留身份、并发版本、排期和幂等记录，失败时回滚。
 随机算法保持 mulberry32-v1。
 预设采用 single-cut-v2、gsl-classic-v1、de-standard-v1。
 Swiss 使用 swiss-fixed-v1、swiss-threshold-v1、major-cologne-2026-v1。
@@ -35,7 +38,7 @@ Match 时间属性 SHALL 退出编辑和赛程预览，时间统一取自 sessio
 - **WHEN** 用户将淘汰赛 Match 的单场赛制改为 BO1
 - **THEN** 当前画布自动更新，保存重载后保留赛制，不提供赛果列表和应用按钮
 #### Scenario: 拒绝旧配置
-- **WHEN** 提交 canvas-v1、旧选择器或已删除的 Match 参数
+- **WHEN** 使用新请求键提交旧画布格式、旧选择器或已删除的 Match 参数
 - **THEN** 保存拒绝该配置，不能将旧字段作为兼容数据保留
 
 ### Requirement: 集合与排序
@@ -188,7 +191,7 @@ showComplement 为真时 SHALL 增加补集集合及种子映射输出；补集�
 - **THEN** 子图默认展示 A/B 输入和 W/L 输出，显隐开关仅改变可见性而非边界存在性
 
 ### Requirement: 阶段框选分组
-系统 SHALL 支持 canvas-v2 的 stages，成员可为任意组件。Stage 与组件可混合多选，创建 Stage 合并全部所选成员。
+系统 SHALL 支持 canvas 的 stages，成员可为任意组件。Stage 与组件可混合多选，创建 Stage 合并全部所选成员。
 分组操作 SHALL 检查所选组件及选中 Stage 的归属，存在归属时使用顺序最低的 Stage，保留其名称、顺序和原有成员；不存在归属时才新建 Stage。
 如果所选组件都是同一 Stage 的真子集且未选中该 Stage 本身，则新建 Stage，移入所选组件。选满全部成员时复用原 Stage。
 界面 SHALL 仅提供 Stage 分组入口。无组件或 Stage 选择时禁用分组。

@@ -4,6 +4,34 @@ import { afterEach, expect, test, vi } from "vitest";
 import { CanvasView } from "./view";
 import type { CanvasGraph } from "./types";
 afterEach(cleanup);
+test("pointer movement commits at most once per frame and flushes the final position", () => {
+  const frames: FrameRequestCallback[] = [];
+  vi.stubGlobal("PointerEvent", MouseEvent);
+  vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {frames.push(cb); return frames.length;});
+  vi.stubGlobal("cancelAnimationFrame", vi.fn());
+  HTMLElement.prototype.setPointerCapture = vi.fn();
+  render(<Harness />);
+  const handle = screen.getByRole("button", {name:"决赛"});
+  const viewport = screen.getByLabelText("赛程规划画布区域");
+  fireEvent.pointerDown(handle, {clientX:0,clientY:0,pointerId:1});
+  fireEvent.pointerMove(viewport, {clientX:6,clientY:12,pointerId:1});
+  fireEvent.pointerMove(viewport, {clientX:12,clientY:18,pointerId:1});
+  expect(handle.closest("article")).toHaveStyle({left:"40px",top:"40px"});
+  fireEvent.pointerUp(viewport, {pointerId:1});
+  expect(handle.closest("article")).toHaveStyle({left:"60px",top:"70px"});
+  expect(frames).toHaveLength(1);
+  vi.unstubAllGlobals();
+});
+test("zoom and node movement reuse measured port offsets", () => {
+  const measure = vi.spyOn(HTMLElement.prototype, "getBoundingClientRect");
+  render(<Harness />);
+  const initialCalls = measure.mock.calls.length;
+  fireEvent.click(screen.getByRole("button", {name:"放大"}));
+  expect(measure.mock.calls.length).toBe(initialCalls);
+  fireEvent.keyDown(screen.getByRole("button",{name:"决赛"}), {key:"ArrowRight"});
+  expect(measure.mock.calls.length).toBe(initialCalls);
+  measure.mockRestore();
+});
 test("only the active input port is highlighted", () => {
   const node = {
     id: "m",
@@ -16,7 +44,7 @@ test("only the active input port is highlighted", () => {
     <CanvasView
       {...({
         graph: {
-          schemaVersion: "canvas-v2",
+          schemaVersion: "canvas",
           nodes: [node],
           edges: [],
           stages: [],
@@ -55,7 +83,7 @@ test("stage title selects the group without selecting or removing its match", ()
   const selectStage = vi.fn();
   const graph = {
     ...initial,
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     stages: [{ id: "s", name: "预赛", order: 1, nodeIds: ["m"] }],
   };
   render(
@@ -86,7 +114,7 @@ test("stage title selects the group without selecting or removing its match", ()
   expect(document.querySelector('[data-canvas-node="m"]')).toBeInTheDocument();
 });
 const initial: CanvasGraph = {
-  schemaVersion: "canvas-v2",
+  schemaVersion: "canvas",
   nodes: [
     {
       id: "m",
@@ -167,7 +195,7 @@ test("dangling output hiding preserves a seed port connected through a derived s
     display: { hideDanglingOutputs: true },
   };
   const graph: CanvasGraph = {
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     nodes: [
       source,
       {

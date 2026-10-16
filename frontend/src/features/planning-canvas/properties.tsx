@@ -3,6 +3,7 @@ import type { CanvasGraph, CanvasNode, Endpoint, Port } from "./types";
 import { Field } from "../../shared/ui";
 import { RankingProperties } from "./ranking-properties";
 import { ReadOnlyProperties } from "./readonly-properties";
+import { BufferedNumber } from "./buffered-number";
 export function Properties({
   node,
   formats,
@@ -93,12 +94,17 @@ export function Properties({
             value={name}
             onChange={(e) => {
               setName(e.target.value);
-              if (e.target.value.trim())
+              e.target.setCustomValidity(e.target.value.trim() ? "" : "请输入名称");
+              if (e.target.value.trim() && !(e.nativeEvent as InputEvent).isComposing)
                 void onAction({
                   type: "update",
                   id: node.id,
                   name: e.target.value,
                 });
+            }}
+            onCompositionEnd={e => {
+              const value = e.currentTarget.value;
+              if (value.trim()) void onAction({type:"update",id:node.id,name:value});
             }}
             required
           />
@@ -205,12 +211,11 @@ export function Properties({
           node.kind,
         ) && (
           <Field label={node.kind === "generator" ? "数量 N" : "数量 K"}>
-            <input
-              type="number"
+            <BufferedNumber
               min={1}
               max={64}
               value={params.count}
-              onChange={(e) => change("count", Number(e.target.value))}
+              onChange={value => change("count", value)}
             />
           </Field>
         )}
@@ -241,12 +246,11 @@ export function Properties({
           <fieldset>
             <legend>随机设置</legend>
             <Field label="随机数种子">
-              <input
-                type="number"
+              <BufferedNumber
                 min={0}
                 max={4294967295}
                 value={params.seed}
-                onChange={(e) => change("seed", Number(e.target.value))}
+                onChange={value => change("seed", value)}
               />
             </Field>
             <button

@@ -98,6 +98,22 @@ it("does not let a late 401 from a previous identity expire the new session", as
   expect(expired).not.toHaveBeenCalled();
   window.removeEventListener("session-expired", expired);
 });
+it("can keep an unsaved editor mounted on auth failure without accepting the write", async () => {
+  vi.stubGlobal("fetch",vi.fn(async()=>new Response(JSON.stringify({error:{code:"AUTH_REQUIRED",message:"expired",retryable:false}}),{status:401})));
+  const expired=vi.fn();window.addEventListener("session-expired",expired);
+  try {
+    await expect(api("/draft",{deferSessionExpiry:true})).rejects.toMatchObject({status:401,code:"AUTH_REQUIRED",retryable:false});
+    expect(expired).not.toHaveBeenCalled();
+  } finally {window.removeEventListener("session-expired",expired);}
+});
+it("rejects a successful response after the active identity changes", async () => {
+  let finish!: (response:Response)=>void;
+  vi.stubGlobal("fetch",vi.fn(()=>new Promise<Response>(done=>finish=done)));
+  const pending=api("/draft",{deferSessionExpiry:true});
+  const {invalidateIdentityRequests}=await import("./api");invalidateIdentityRequests();
+  finish(new Response(JSON.stringify({data:{id:"old-owner-draft"},requestId:"old"}),{status:200}));
+  await expect(pending).rejects.toMatchObject({name:"AbortError"});
+});
 it("timeouts remain distinguishable from offline failures", async () => {
   vi.stubGlobal(
     "fetch",

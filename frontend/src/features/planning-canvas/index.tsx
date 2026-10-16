@@ -1,6 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { localEditor } from "./local-editor";
+import { EditorState } from "./editor-state";
+import { beginAnalysis, acceptAnalysis, invalidateAnalysis, type AnalysisState } from "./analysis-state";
 import { Link, useBlocker, useSearchParams } from "react-router-dom";
-import { api, failure, requestKey, type ApiFailure } from "../../shared/api";
+import { api as platformApi, failure, requestKey, ApiFailure } from "../../shared/api";
+import { useSession } from "../../app/session";
 import { ErrorNotice, Field } from "../../shared/ui";
 import { CanvasView } from "./view";
 import { Properties } from "./properties";
@@ -15,13 +19,30 @@ import {
 } from "./types";
 import "./style.css";
 export function CanvasLab() {
+  const ownerId = useSession().user?.id;
+  const authRequired = useRef(false);
+  const api: typeof platformApi = async (path, options = {}) => {
+    try {
+      if (authRequired.current && options.method && options.method !== "GET") {
+        const session = await platformApi<{user:{id:string}|null}>("/auth/session",{deferSessionExpiry:true});
+        if (!ownerId || session.user?.id !== ownerId)
+          throw new ApiFailure("请使用原账号重新登录，再保存当前草稿。",{status:401,code:"AUTH_REQUIRED",retryable:false});
+        authRequired.current = false;
+      }
+      return await platformApi(path,{...options,deferSessionExpiry:true});
+    } catch (error) {
+      if (error instanceof ApiFailure && error.status === 401) authRequired.current = true;
+      throw error;
+    }
+  };
   const [query, setQuery] = useSearchParams(),
     [graph, setGraphState] = useState<CanvasGraph | null>(null),
-    [propertyPending, setPropertyPending] = useState(0),
+    [analysisState, setAnalysisState] = useState<AnalysisState>({status:"unanalysed"}),
+    [fieldDraftPending, setFieldDraftPending] = useState(false),
     [editorRevision, setEditorRevision] = useState(0),
     [analysis, setAnalysis] = useState<any>(null),
     [catalog, setCatalog] = useState<any>(null),
-    [saved, setSaved] = useState<any>(null),
+    [saved, setSavedState] = useState<any>(null),
     [remote, setRemote] = useState<any>(null),
     [drafts, setDrafts] = useState<any[]>([]),
     [openId, setOpenId] = useState(""),
@@ -45,8 +66,12 @@ export function CanvasLab() {
     [preview, setPreview] = useState<any>(null),
     [pendingSave, setPendingSave] = useState<any>(null);
   const actionBusy = useRef(false),
+    editorState = useRef(new EditorState()),
+    analysisRequest = useRef(0),
+    analysisAbort = useRef<AbortController | null>(null),
+    propertyGroup = useRef<{element: Element | null; id: string} | null>(null),
+    propertyInput = useRef<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>(null),
     graphRef = useRef<CanvasGraph | null>(null),
-    propertyQueue = useRef<Promise<void>>(Promise.resolve()),
     switchRequest = useRef(0),
     inspector = useRef<HTMLElement>(null),
     writeRef = useRef<any>(null),
@@ -54,18 +79,27 @@ export function CanvasLab() {
   const setGraph: typeof setGraphState = (value) => {
     const next = typeof value === "function" ? value(graphRef.current) : value;
     graphRef.current = next;
+    editorState.current.commit(next);
+    setAnalysisState(invalidateAnalysis);
     setGraphState(next);
   };
+  const setSaved = (record: any) => {
+    if (record) {
+      editorState.current.markSaved(record.graph, record.name);
+      editorState.current.projectId = record.id;
+    } else editorState.current.forgetSaved();
+    setSavedState(record);
+  };
+  const editor = useMemo(() => catalog ? localEditor(catalog) : null, [catalog]);
+  const editorModel = useMemo(() => graph && editor ? editor.deriveEditorModel(graph) : null, [graph, editor]);
+  const analysisView = useMemo(() => ({...editorModel, values: analysisState.status === "current" ? analysis?.values ?? {} : {}}), [editorModel, analysis, analysisState.status]);
   const canvasId = query.get("canvas");
   const selectedStage = selectedStages.at(-1) ?? null;
   const setSelectedStage = (id: string | null) =>
     setSelectedStages(id ? [id] : []);
   const dirty =
     graph !== null &&
-    (propertyPending > 0 ||
-      !saved ||
-      JSON.stringify(graph) !== JSON.stringify(saved.graph) ||
-      name !== saved.name);
+    (fieldDraftPending || editorState.current.dirty(name));
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
       dirty &&
@@ -75,7 +109,7 @@ export function CanvasLab() {
             loadedCanvas.current)),
   );
   const propertyLocked = busy || pendingSave !== null || deleteRequest !== null;
-  const locked = propertyLocked || propertyPending > 0;
+  const locked = propertyLocked;
   useEffect(() => {
     setSelectedStages((ids) =>
       ids.filter((id) => graph?.stages?.some((s) => s.id === id)),
@@ -98,6 +132,10 @@ export function CanvasLab() {
   useEffect(() => {
     if (loadedCanvas.current === canvasId) return;
     loadedCanvas.current = canvasId;
+    editorState.current.replace(null, canvasId);
+    analysisAbort.current?.abort();
+    setAnalysisState({status:"unanalysed"});
+    setFieldDraftPending(false);
     setGraph(null);
     setSaved(null);
     setError(null);
@@ -122,6 +160,7 @@ export function CanvasLab() {
           api<any[]>("/planning-canvases", { signal: controller.signal }),
         ]);
         if (!active) return;
+        localEditor(cat);
         setCatalog(cat);
         setDrafts(list);
         const id = canvasId;
@@ -130,11 +169,7 @@ export function CanvasLab() {
             "/planning-canvases/" + encodeURIComponent(id),
             { signal: controller.signal },
           );
-          const r = await api("/planning-canvas/edit", {
-            method: "POST",
-            body: { graph: record.graph, action: { type: "syncBoundaries" } },
-            signal: controller.signal,
-          });
+          const r = localEditor(cat).edit(record.graph, { type: "syncBoundaries" });
           if (active) {
             setGraph(r.graph);
             if (JSON.stringify(r.graph) !== JSON.stringify(record.graph))
@@ -142,15 +177,11 @@ export function CanvasLab() {
             setName(record.name);
             setSaved(record);
             setOpenId(record.id);
-            setAnalysis(r.analysis);
           }
         } else {
-          const x = await api("/planning-canvas/samples/swiss-eight", {
-            signal: controller.signal,
-          });
+          const x = {graph: structuredClone(cat.samples["swiss-eight"])};
           if (active) {
             setGraph(x.graph);
-            setAnalysis(x.analysis);
           }
         }
       } catch (e) {
@@ -200,21 +231,8 @@ export function CanvasLab() {
       !action.confirmed &&
       ((action.type === "update" && !action.position) ||
         (action.type === "updateStage" && !action.selected));
-    if (property) {
-      setPropertyPending((count) => count + 1);
-      const queued = propertyQueue.current.then(() =>
-        performAction(action, silentInvalid, onResult, true),
-      );
-      propertyQueue.current = queued.catch(() => {});
-      try {
-        await queued;
-      } finally {
-        setPropertyPending((count) => count - 1);
-      }
-    } else {
-      await propertyQueue.current;
-      await performAction(action, silentInvalid, onResult);
-    }
+    if (!property && !action.confirmed && !flushEditor()) return;
+    await performAction(action, silentInvalid, onResult, property);
   }
   async function performAction(
     action: any,
@@ -224,22 +242,22 @@ export function CanvasLab() {
   ) {
     const currentGraph = graphRef.current;
     if (!currentGraph || actionBusy.current || pendingSave) return;
-    if (!property) {
-      actionBusy.current = true;
-      setBusy(true);
-    }
     setError(null);
     try {
-      const result = await api("/planning-canvas/edit", {
-        method: "POST",
-        body: { graph: currentGraph, action },
-      });
+      if (!editor) return;
+      if (action.confirmed && impact?.token && !editorState.current.matches(impact.token)) {
+        action = {...action, confirmed: false, expectedDigest: undefined};
+      }
+      const result = editor.edit(currentGraph, action);
       if (result.requiresConfirmation) {
-        setImpact({ ...result, action });
+        setImpact({ ...result, action, token: editorState.current.capture() });
         setStatus("请检查连接影响；取消会保留原草稿");
       } else {
         if (JSON.stringify(result.graph) !== JSON.stringify(currentGraph)) {
-          install(result.graph, result.analysis, true, property);
+          const active = document.activeElement;
+          const grouped = property && propertyGroup.current?.element === active && propertyGroup.current.id === action.id;
+          install(result.graph, null, !grouped, property);
+          propertyGroup.current = property ? {element:active,id:action.id} : null;
           setStatus("画布已更新，尚未保存");
         }
         if (action.type === "add" || action.type === "preset") {
@@ -259,16 +277,17 @@ export function CanvasLab() {
       }
     } catch (e) {
       const er = failure(e);
+      if ((e as any)?.code === "INVALID_INPUT") {
+        er.status = 422;
+        er.code = "INVALID_INPUT";
+        er.retryable = false;
+      }
+      if (property && er.code === "INVALID_INPUT") propertyInput.current?.setCustomValidity(er.message);
       if (silentInvalid && er.status === 422 && er.code === "INVALID_INPUT")
         onResult?.("invalid");
       else {
         setError(er);
         onResult?.("failed");
-      }
-    } finally {
-      if (!property) {
-        setBusy(false);
-        actionBusy.current = false;
       }
     }
   }
@@ -280,8 +299,8 @@ export function CanvasLab() {
       return;
     setBusy(true);
     try {
-      const x = await api("/planning-canvas/samples/" + sample);
-      install(x.graph, x.analysis);
+      editorState.current.replace(null, null);
+      install(structuredClone(catalog.samples[sample]), null);
       setSelectedStage(null);
       setSaved(null);
       setName(
@@ -307,12 +326,7 @@ export function CanvasLab() {
     const list = redo ? future : history;
     if (!list.length) return;
     const next = list.at(-1)!;
-    setBusy(true);
     try {
-      const r = await api("/planning-canvas/analyze", {
-        method: "POST",
-        body: { graph: next },
-      });
       if (redo) {
         setFuture((f) => f.slice(0, -1));
         setHistory((h) => [...h, graph]);
@@ -320,7 +334,8 @@ export function CanvasLab() {
         setHistory((h) => h.slice(0, -1));
         setFuture((f) => [...f, graph]);
       }
-      install(next, r, false);
+      propertyGroup.current = null;
+      install(next, null, false);
       setScope((s) => (next.nodes.some((n) => n.id === s) ? s : null));
       setStatus(redo ? "已重做" : "已撤销");
     } catch (e) {
@@ -329,8 +344,34 @@ export function CanvasLab() {
       setBusy(false);
     }
   }
+  function flushEditor() {
+    if (document.activeElement instanceof HTMLElement && inspector.current?.contains(document.activeElement)) document.activeElement.blur();
+    const inputs = inspector.current?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>("input,textarea,select") ?? [];
+    for (const input of inputs) if (!input.checkValidity()) { input.reportValidity(); input.focus(); return false; }
+    setFieldDraftPending(false);
+    return true;
+  }
+  async function analyzeDraft() {
+    const currentGraph = graphRef.current;
+    if (!currentGraph || !flushEditor()) return;
+    analysisAbort.current?.abort();
+    const controller = new AbortController();
+    analysisAbort.current = controller;
+    const token = editorState.current.capture(), requestId = ++analysisRequest.current;
+    setAnalysisState(previous => beginAnalysis(previous, token, requestId));
+    try {
+      const result = await api("/planning-canvas/analyze", {method:"POST",body:{graph:graphRef.current},signal:controller.signal});
+      if (!editorState.current.matches(token) || requestId !== analysisRequest.current) return;
+      setAnalysis(result);
+      setAnalysisState(previous => acceptAnalysis(previous, token, requestId, result));
+    } catch (e) {
+      if (!editorState.current.matches(token) || requestId !== analysisRequest.current || controller.signal.aborted) return;
+      setAnalysisState(previous => ({...previous,status:"failed",error:e}));
+      setError(failure(e));
+    }
+  }
   async function save(retry = false): Promise<boolean> {
-    await propertyQueue.current;
+    if (!flushEditor()) return false;
     const currentGraph = graphRef.current;
     if (!currentGraph || actionBusy.current) return false;
     actionBusy.current = true;
@@ -350,8 +391,10 @@ export function CanvasLab() {
         };
     writeRef.current = request;
     setPendingSave(request);
+    const token = editorState.current.capture();
     try {
       const r = await api(request.path, request);
+      if (!editorState.current.matches(token)) return false;
       setSaved(r);
       setOpenId(r.id);
       loadedCanvas.current = r.id;
@@ -360,7 +403,7 @@ export function CanvasLab() {
       setPreview(null);
       setPendingSave(null);
       writeRef.current = null;
-      setDrafts(await api("/planning-canvases"));
+      setDrafts(items => [{id:r.id,name:r.name,version:r.version},...items.filter(item => item.id !== r.id)]);
       setStatus("草稿已保存 · 版本 " + r.version);
       return true;
     } catch (e) {
@@ -378,16 +421,16 @@ export function CanvasLab() {
   }
   async function readRemote(id = saved?.id, adopt = false) {
     if (!id || busy) return;
+    const token = editorState.current.capture();
     setBusy(true);
     try {
       const r = await api("/planning-canvases/" + encodeURIComponent(id));
+      if (!editorState.current.matches(token)) return;
       if (adopt) {
         setSelectedStage(null);
-        const info = await api("/planning-canvas/edit", {
-          method: "POST",
-          body: { graph: r.graph, action: { type: "syncBoundaries" } },
-        });
-        install(info.graph, info.analysis);
+        const info = editor!.edit(r.graph, {type:"syncBoundaries"});
+        editorState.current.replace(null, r.id);
+        install(info.graph, null);
         setName(r.name);
         setSaved(r);
         setOpenId(r.id);
@@ -421,6 +464,7 @@ export function CanvasLab() {
     if (!saved || dirty || locked) return;
     setBusy(true);
     setError(null);
+    const token = editorState.current.capture();
     try {
       const r = await api(
         "/planning-canvases/" +
@@ -428,12 +472,14 @@ export function CanvasLab() {
           (isPreview ? "/preview" : "/validate"),
         { method: "POST", body: { expectedVersion: saved.version } },
       );
+      if (!editorState.current.matches(token)) return;
       if (isPreview) {
         setPreview(r);
         setStatus("已生成保存版本 " + r.version + " 的赛程预览");
       } else {
         setValidation(r);
         setAnalysis(r);
+        setAnalysisState({status:"current",token,result:r});
         setStatus(
           r.valid
             ? "规划验证通过 · 人员与未来结果待解析"
@@ -452,8 +498,8 @@ export function CanvasLab() {
   };
   const createStage = () => {
     if (
+      !graph ||
       locked ||
-      graph?.schemaVersion !== "canvas-v2" ||
       (!selected.length && !selectedStages.length)
     )
       return;
@@ -473,6 +519,7 @@ export function CanvasLab() {
     });
   };
   const inspectStage = (id: string, additive = false) => {
+    if (!flushEditor()) return;
     if (additive)
       setSelectedStages((ids) =>
         ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id],
@@ -503,7 +550,7 @@ export function CanvasLab() {
       setDrafts((ds) => ds.filter((d) => d.id !== r.id));
       if (saved?.id === r.id) {
         const empty: CanvasGraph = {
-          schemaVersion: "canvas-v2",
+          schemaVersion: "canvas",
           nodes: [],
           edges: [],
           stages: [],
@@ -541,8 +588,8 @@ export function CanvasLab() {
     if (locked) return;
     setBusy(true);
     try {
-      const x = await api("/planning-canvas/samples/empty");
-      install(x.graph, x.analysis, !asNew);
+      if (asNew) editorState.current.replace(null, null);
+      install(structuredClone(catalog.samples.empty), null, !asNew);
       setScope(null);
       setSelected([]);
       setSelectedStage(null);
@@ -574,7 +621,7 @@ export function CanvasLab() {
   const requestSwitch = async (id: string) => {
     if (propertyLocked || (id && id === saved?.id)) return;
     const sequence = ++switchRequest.current;
-    await propertyQueue.current;
+    if (!flushEditor()) return;
     if (sequence !== switchRequest.current) return;
     const changed =
       graphRef.current &&
@@ -631,7 +678,7 @@ export function CanvasLab() {
       <section>
         <h1>赛程规划画布</h1>
         {error ? (
-          <ErrorNotice error={error} />
+          <><ErrorNotice error={error} /><button onClick={() => window.location.reload()}>刷新目录</button></>
         ) : (
           <p role="status">正在读取规划模型…</p>
         )}
@@ -647,7 +694,7 @@ export function CanvasLab() {
     setFrom("");
     setTo("");
   };
-  const visibleReport = validation ?? analysis;
+  const visibleReport = validation ?? (analysisState.status === "current" ? analysis : editorModel);
   const diagnosticGroups = new Map<
     string,
     { node?: CanvasNode; items: any[] }
@@ -680,6 +727,7 @@ export function CanvasLab() {
     </li>
   );
   const inspect = (id: string) => {
+    if (!flushEditor()) return;
     setSelectedStage(null);
     setSelectedEdge(null);
     setSelected([id]);
@@ -704,7 +752,7 @@ export function CanvasLab() {
     void act({ type: "add", node: n });
   };
   return (
-    <div className="canvas-lab" aria-busy={busy || propertyPending > 0}>
+    <div className="canvas-lab" aria-busy={busy}>
       <header className="canvas-heading">
         <div>
           <h1>赛程规划画布</h1>
@@ -762,6 +810,12 @@ export function CanvasLab() {
         <button disabled={propertyLocked || !dirty} onClick={() => void save()}>
           保存草稿
         </button>
+        <button disabled={propertyLocked || analysisState.status === "pending"} onClick={() => void analyzeDraft()}>
+          分析草稿
+        </button>
+        <span aria-live="polite" aria-label="草稿分析状态">
+          {{unanalysed:"尚未分析",pending:"正在分析草稿",current:"分析结果已更新",stale:"分析结果已过期",failed:"草稿分析失败"}[analysisState.status]}
+        </span>
         <button
           disabled={locked || dirty || !saved}
           onClick={() => void verify()}
@@ -821,6 +875,7 @@ export function CanvasLab() {
         {busy ? "正在处理…" : status || "编辑画布后保存，再验证保存版本。"}
       </p>
       {error && <ErrorNotice error={error} />}{" "}
+      {error?.status === 401 && <p>草稿仍保留。<a href="/login" target="_blank" rel="noopener noreferrer">使用原账号重新登录</a>后重试。</p>}
       {deleteRequest && (
         <aside
           className="notice canvas-switch-confirm"
@@ -1077,8 +1132,7 @@ export function CanvasLab() {
             Subgraph · 封装所选
           </button>
           <p className="canvas-small">Ctrl/⌘ 点击多选 · Ctrl/⌘+G 封装</p>
-          {graph.schemaVersion === "canvas-v2" && (
-            <Stages
+          <Stages
               graph={graph}
               selected={selected}
               disabled={locked}
@@ -1086,8 +1140,7 @@ export function CanvasLab() {
               onSelect={inspectStage}
               selectedStage={selectedStage}
               selectedStages={selectedStages}
-            />
-          )}
+          />
           {node?.kind === "subgraph" && (
             <>
               <button disabled={locked} onClick={() => enter(node.id)}>
@@ -1121,7 +1174,7 @@ export function CanvasLab() {
           </nav>
           <CanvasView
             graph={graph}
-            analysis={analysis}
+            analysis={editorModel}
             scope={scope}
             selected={selected}
             selectedStage={selectedStage}
@@ -1221,6 +1274,14 @@ export function CanvasLab() {
           className="canvas-inspector"
           ref={inspector}
           aria-label="卡片参数面板"
+          onFocusCapture={event => {
+            const field = event.target;
+            if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) propertyInput.current = field;
+          }}
+          onChangeCapture={event => {
+            const field = event.target;
+            if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) { propertyInput.current = field; field.setCustomValidity(""); setFieldDraftPending(true); }
+          }}
         >
           <WaveResults graph={graph} wavePlan={validation?.wavePlan} />
           <nav className="canvas-dock-nav" aria-label="工具面板导航">
@@ -1261,7 +1322,7 @@ export function CanvasLab() {
                 node={node}
                 formats={catalog.formats.formats}
                 matchFormats={catalog.matchFormats}
-                analysis={analysis}
+                analysis={analysisView}
                 graph={graph}
                 onAction={act}
                 disabled={propertyLocked}
@@ -1275,7 +1336,7 @@ export function CanvasLab() {
           <section id="canvas-diagnostics">
             <h3>诊断</h3>
             <p>
-              {visibleReport.valid
+              {analysisState.status !== "current" && !validation ? "尚未分析当前草稿，可先检查本地结构。" : visibleReport.valid
                 ? "规划结构就绪；未来身份待解析"
                 : "存在未完成或冲突项，可保存类型合法草稿。"}
             </p>
@@ -1298,7 +1359,7 @@ export function CanvasLab() {
           </section>
           <details id="canvas-results">
             <summary>集合与种子结果</summary>
-            {Object.entries<any>(analysis.values ?? {}).map(
+            {Object.entries<any>(analysisView.values ?? {}).map(
               ([id, v]) =>
                 v.collection &&
                 inScope.some((n) => n.id === id) && (
@@ -1334,7 +1395,7 @@ export function CanvasLab() {
               .map((n) => (
                 <div key={n.id}>
                   <strong>{n.name}</strong>
-                  {Object.entries<any>(analysis.values?.[n.id] ?? {})
+                  {Object.entries<any>(analysisView.values?.[n.id] ?? {})
                     .filter(([, value]) => value?.kind === "collection")
                     .map(([port, value]) => (
                       <ol key={port}>

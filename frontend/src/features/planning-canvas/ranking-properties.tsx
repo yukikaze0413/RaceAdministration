@@ -1,6 +1,7 @@
 import { Field } from "../../shared/ui";
 import { mergeRuleParameters, RuleFields, Tiebreakers } from "./rule-fields";
 import type { CanvasNode } from "./types";
+import { BufferedNumber } from "./buffered-number";
 
 export function RankingProperties({
   node,
@@ -111,17 +112,15 @@ export function RankingProperties({
               <p>人数：{fixedCapacity}（规则固定）</p>
             ) : (
               <Field label="人数">
-                <input
-                  type="number"
+                <BufferedNumber
                   min={2}
                   max={64}
-                  value={count ?? ""}
+                  value={count}
+                  allowEmpty
                   placeholder="连接后由输入集合推导"
-                  onChange={(e) =>
+                  onChange={(value) =>
                     change({
-                      participantCount: e.target.value
-                        ? Number(e.target.value)
-                        : null,
+                      participantCount: value,
                     })
                   }
                 />

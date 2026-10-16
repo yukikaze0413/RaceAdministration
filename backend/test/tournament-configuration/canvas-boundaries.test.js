@@ -4,7 +4,7 @@ const { test } = require("node:test"),
   G = require("../../src/planning-canvas/graph");
 test("subgraph exposes all free input and output ports before any display hiding", () => {
   const match = require("../../src/planning-canvas/samples").node("match", "m");
-  const original = { schemaVersion: "canvas-v2", stages: [], nodes: [match], edges: [] };
+  const original = { schemaVersion: "canvas", stages: [], nodes: [match], edges: [] };
   const g = G.edit(original, { type: "encapsulate", selected: ["m"], id: "sg" }).graph;
   const group = g.nodes.find((n) => n.id === "sg");
   assert.deepEqual(G.ports(g, group).filter((p) => p.direction === "input").map((p) => p.label).sort(), ["Match A", "Match B"]);
@@ -32,7 +32,7 @@ test("canvas selectors and generators reject modes from the wrong component fami
   const n = require("../../src/planning-canvas/samples").node("generator");
   n.params.mode = "top";
   assert.throws(
-    () => G.parse({ schemaVersion: "canvas-v2", stages: [], nodes: [n], edges: [] }),
+    () => G.parse({ schemaVersion: "canvas", stages: [], nodes: [n], edges: [] }),
     /模式/,
   );
 });

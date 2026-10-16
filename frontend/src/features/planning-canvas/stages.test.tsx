@@ -5,7 +5,7 @@ import type { CanvasGraph } from "./types";
 afterEach(cleanup);
 test("stage properties summarize packaged children and allow processing components", () => {
   const graph: CanvasGraph = {
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     edges: [],
     nodes: [
       {

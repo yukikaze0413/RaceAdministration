@@ -5,7 +5,7 @@ const G = require("../../src/planning-canvas/graph");
 const S = require("../../src/planning-canvas/samples");
 function selector(kind, count = 2) {
   return {
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     stages: [],
     nodes: [
       S.node("source", "source", {
@@ -33,7 +33,7 @@ function selector(kind, count = 2) {
 }
 test("current canvas rejects previous graph format, removed parameters and old selector", () => {
   const g = G.sample("single");
-  assert.equal(g.schemaVersion, "canvas-v2");
+  assert.equal(g.schemaVersion, "canvas");
   assert.throws(() => G.parse({ ...g, schemaVersion: "canvas-v1" }));
   for (const [kind, params] of [
     ["expander", { count: 4 }],
@@ -42,7 +42,7 @@ test("current canvas rejects previous graph format, removed parameters and old s
   ]) {
     assert.throws(() =>
       G.parse({
-        schemaVersion: "canvas-v2",
+        schemaVersion: "canvas",
         stages: [],
         edges: [],
         nodes: [{ id: "x", name: "X", kind, params, position: { x: 0, y: 0 } }],

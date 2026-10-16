@@ -30,7 +30,7 @@ export interface CanvasNode<
   readOnlyProperties?: import("./readonly-properties").ReadOnlyProperty[];
 }
 export type CanvasGraph = {
-  schemaVersion: "canvas-v2";
+  schemaVersion: "canvas";
   stages?: { id: string; name: string; order: number; nodeIds: string[] }[];
   stageNumbering?: { latest: number };
   nodes: CanvasNode[];

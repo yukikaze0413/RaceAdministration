@@ -93,15 +93,21 @@ export function StageProperties({
       <Field label="阶段名称">
         <input
           value={name}
+          required
           disabled={disabled}
           onChange={(e) => {
             setName(e.target.value);
-            if (e.target.value.trim())
+            e.target.setCustomValidity(e.target.value.trim() ? "" : "请输入阶段名称");
+            if (e.target.value.trim() && !(e.nativeEvent as InputEvent).isComposing)
               void onAction({
                 type: "updateStage",
                 id: stage.id,
                 name: e.target.value.trim(),
               });
+          }}
+          onCompositionEnd={e => {
+            const value = e.currentTarget.value.trim();
+            if (value) void onAction({type:"updateStage",id:stage.id,name:value});
           }}
         />
       </Field>

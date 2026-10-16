@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./canvas-fixture";
 import { createRequire } from "node:module";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -112,7 +112,7 @@ test("清空来源外部映射先确认其连线影响，保存后不恢复旧�
 test("轮空预览与悬空接口显隐可保存，嵌套已有连接不隐藏", async ({ page }) =>
   isolated(page, async (base) => {
     const graph = {
-      schemaVersion: "canvas-v2",
+      schemaVersion: "canvas",
       stages: [],
       nodes: [
         {
@@ -800,6 +800,8 @@ test("画布 Pool 部分排序与无输入生成器位置模板在真实表单�
     page.once("dialog", (d) => d.accept());
     await page.getByRole("button", { name: "重置样例", exact: true }).click();
     await expect(page.locator('[data-canvas-node="pool"]')).toBeAttached();
+    await page.getByRole("button", {name:"分析草稿",exact:true}).click();
+    await expect(page.getByLabel("草稿分析状态")).toHaveText("分析结果已更新");
     await page.getByText("集合与种子结果", { exact: true }).click();
     await expect(
       page.locator(".canvas-inspector details ol").last().locator("li"),
@@ -827,6 +829,8 @@ test("画布 Pool 部分排序与无输入生成器位置模板在真实表单�
     await page
       .getByRole("button", { name: "Pool 排序 输入", exact: true })
       .click();
+    await page.getByRole("button", {name:"分析草稿",exact:true}).click();
+    await expect(page.getByLabel("草稿分析状态")).toHaveText("分析结果已更新");
     await expect(
       page.locator(".canvas-inspector details ol").last().locator("li"),
     ).toHaveText([

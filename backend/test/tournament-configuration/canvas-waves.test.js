@@ -24,12 +24,12 @@ test("stage members can be removed down to an empty group without deleting nodes
   assert.deepEqual(removed.nodes, g.nodes);
   assert.deepEqual(removed.edges, g.edges);
 });
-test("v2 migration preserves original, stage members survive encapsulation and transfer is atomic", () => {
+test("canvas parsing preserves original, stage members survive encapsulation and transfer is atomic", () => {
   const old = G.sample("single"),
     original = structuredClone(old);
   const g = G.parse(old);
   assert.deepEqual(old, original);
-  assert.equal(g.schemaVersion, "canvas-v2");
+  assert.equal(g.schemaVersion, "canvas");
   assert.equal(g.stages[0].nodeIds.length, 7);
   assert.ok(
     g.nodes

@@ -5,7 +5,7 @@ const G = require("../../src/planning-canvas/graph");
 const S = require("../../src/planning-canvas/samples");
 function graph(kind, size, parameters = {}, extra = {}) {
   return {
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     nodes: [
       S.node("source", "src", {
         seats: Array.from({ length: size }, (_, i) => ({

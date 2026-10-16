@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node ../scripts/build-canvas-core.cjs",
+    "prebuild": "node ../scripts/build-canvas-core.cjs",
+    "pretypecheck": "node ../scripts/build-canvas-core.cjs",
+    "pretest": "node ../scripts/build-canvas-core.cjs",
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",

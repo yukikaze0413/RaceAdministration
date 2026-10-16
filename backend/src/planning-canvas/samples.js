@@ -59,7 +59,7 @@ function node(
   };
 }
 function buildSample(name) {
-  const g = { schemaVersion: "canvas-v2", stages: [], nodes: [], edges: [] };
+  const g = { schemaVersion: "canvas", stages: [], nodes: [], edges: [] };
   const connect = (a, p, b, q) =>
     g.edges.push({
       id: randomUUID(),

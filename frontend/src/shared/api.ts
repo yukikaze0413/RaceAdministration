@@ -34,6 +34,7 @@ export async function api<T = any>(
     key?: string;
     signal?: AbortSignal;
     timeout?: number;
+    deferSessionExpiry?: boolean;
   } = {},
 ): Promise<T> {
   const generation = identityGeneration,
@@ -84,7 +85,7 @@ export async function api<T = any>(
       if (response.status === 401 && error.code === "AUTH_REQUIRED") {
         if (generation !== identityGeneration || options.signal?.aborted)
           throw new DOMException("旧会话请求已失效", "AbortError");
-        window.dispatchEvent(new Event("session-expired"));
+        if (!options.deferSessionExpiry) window.dispatchEvent(new Event("session-expired"));
       }
       throw error;
     }
@@ -97,6 +98,8 @@ export async function api<T = any>(
         code: "BAD_RESPONSE",
         status: response.status,
       });
+    if (generation !== identityGeneration || options.signal?.aborted)
+      throw new DOMException("旧会话请求已失效", "AbortError");
     return value.data as T;
   } catch (e) {
     if (e instanceof ApiFailure) throw e;

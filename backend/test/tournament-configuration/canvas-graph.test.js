@@ -3,7 +3,7 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const G = require("../../src/planning-canvas/graph");
 const graph = () => ({
-  schemaVersion: "canvas-v2", stages: [{ id: "stage", name: "阶段", order: 1, nodeIds: ["m", "m2"] }],
+  schemaVersion: "canvas", stages: [{ id: "stage", name: "阶段", order: 1, nodeIds: ["m", "m2"] }],
   nodes: [
     {
       id: "src",

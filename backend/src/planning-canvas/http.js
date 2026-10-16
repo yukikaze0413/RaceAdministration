@@ -8,13 +8,7 @@ function mountCanvas(api, { db, send }) {
   const S = require("./schedule");
   api.get("/planning-canvas/catalog", (req, res) => {
     loginRequired(req);
-    send(req, res, {
-      nodes: G.KINDS.map((k) => require("./samples").node(k, "new-" + k)),
-      matchFormats: require("./match-rules").formats,
-      propertyDefinitions: require("./property-definitions").definitions,
-      formats:
-        require("../tournament-configuration/domain/formats/registry").formatCatalog(),
-    });
+    send(req, res, require("./editor-catalog").catalog());
   });
   const pack = (row) => ({
     id: row.id,
@@ -58,7 +52,7 @@ function mountCanvas(api, { db, send }) {
         )
         .get(user.id, key);
       if (old) {
-        if (old.fingerprint !== fingerprint)
+        if (old.fingerprint !== fingerprint && !require("../platform/storage/canvas-naming").matchesRenamedRequest(db,old.fingerprint,operation,req.params.id ?? null,req.body))
           reject(409, "IDEMPOTENCY_CONFLICT", "原请求键已用于不同内容");
         return JSON.parse(old.result);
       }
@@ -200,9 +194,7 @@ function mountCanvas(api, { db, send }) {
       !validation?.valid ||
       validation.version !== row.version ||
       validation.digest !== G.digest(graph) ||
-      (graph.schemaVersion === "canvas-v2" &&
-        validation.wavePlan?.plannerVersion !==
-          require("./waves").PLANNER_VERSION)
+      validation.wavePlan?.plannerVersion !== require("./waves").PLANNER_VERSION
     )
       reject(409, "VALIDATION_REQUIRED", "请先验证当前保存版本");
     send(req, res, {

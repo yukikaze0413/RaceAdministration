@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CanvasGraph, CanvasNode, Endpoint, Port } from "./types";
 import { labels, typeLabels } from "./types";
 import { expandStageMembers } from "./stage-members";
@@ -46,7 +46,25 @@ export function CanvasView({
 }) {
   const viewport = useRef<HTMLDivElement>(null),
     world = useRef<HTMLDivElement>(null),
-    drag = useRef<any>(null);
+    drag = useRef<any>(null),
+    pendingFrame = useRef<number | null>(null),
+    pendingMove = useRef<(() => void) | null>(null);
+  const flushMove = () => {
+    if (pendingFrame.current !== null) cancelAnimationFrame(pendingFrame.current);
+    pendingFrame.current = null;
+    const move = pendingMove.current;
+    pendingMove.current = null;
+    move?.();
+  };
+  const scheduleMove = (move: () => void) => {
+    pendingMove.current = move;
+    if (pendingFrame.current === null)
+      pendingFrame.current = requestAnimationFrame(flushMove);
+  };
+  useEffect(() => () => {
+    if (pendingFrame.current !== null) cancelAnimationFrame(pendingFrame.current);
+    pendingMove.current = null;
+  }, []);
   const [view, setView] = useState<View>({ x: 20, y: 20, zoom: 0.6 }),
     [multiSelect, setMultiSelect] = useState(false),
     [boxMode, setBoxMode] = useState(false),
@@ -56,14 +74,24 @@ export function CanvasView({
       w: number;
       h: number;
     } | null>(null),
-    [anchors, setAnchors] = useState<Record<string, { x: number; y: number }>>(
+    [offsets, setOffsets] = useState<Record<string, { node: string; x: number; y: number }>>(
       {},
     ),
     [sizes, setSizes] = useState<Record<string, { w: number; h: number }>>({});
   const nodes = graph.nodes.filter((n) => (n.parentId ?? null) === scope);
+  const byNode = useMemo(() => new Map(graph.nodes.map(n => [n.id, n])), [graph.nodes]);
+  const byInfo = useMemo(() => new Map<string, CanvasNode>((analysis?.nodes ?? []).map((n: CanvasNode) => [n.id,n])), [analysis]);
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const anchors = useMemo(() => Object.fromEntries(Object.entries(offsets).flatMap(([key, offset]) => {
+    const node = byNode.get(offset.node);
+    return node ? [[key,{x:node.position.x + offset.x,y:node.position.y + offset.y}]] : [];
+  })), [offsets, byNode]);
+  const measureKey = nodes.map(n => [n.id,n.name,n.params.matchFormat,n.params.count,n.params.seed,n.params.mode,n.params.ruleVersion,n.params.participantCount,JSON.stringify(n.display),byInfo.get(n.id)?.capacity,(byInfo.get(n.id)?.ports ?? []).map(p=>[p.id,p.direction,p.label].join("/")).join(";")].join(":" )).join("|") + graph.edges.map(e=>e.id).join(",");
   useEffect(() => {
     const cancel = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        flushMove();
         drag.current = null;
         setBox(null);
         setBoxMode(false);
@@ -79,21 +107,21 @@ export function CanvasView({
       y: (y - rect.top - view.y) / view.zoom,
     };
   };
-  const connected = (n: CanvasNode, p: Port) =>
-    graph.edges.some((e) => {
-      let end = p.direction === "input" ? e.to : e.from;
-      if (end.node === n.id && end.port === p.id) return true;
-      if (n.kind === "subgraph") return false;
+  const connectedPorts = useMemo(() => {
+    const connected = new Set<string>();
+    for (const e of graph.edges) for (const direction of ["input", "output"]) {
+      let end = direction === "input" ? e.to : e.from;
+      connected.add(direction + "/" + end.node + "/" + end.port);
       const seen = new Set<string>();
       let derivedSeeds = false;
       while (!seen.has(end.node)) {
         seen.add(end.node);
-        const group = graph.nodes.find((x) => x.id === end.node);
+        const group = byNode.get(end.node);
         if (group?.kind !== "subgraph") break;
         let boundary = group.params.boundaries.find(
-          (b: any) => b.id === end.port && b.direction === p.direction,
+          (b: any) => b.id === end.port && b.direction === direction,
         );
-        if (!boundary && p.direction === "output") {
+        if (!boundary && direction === "output") {
           boundary = group.params.boundaries.find(
             (b: any) =>
               b.direction === "output" &&
@@ -106,18 +134,22 @@ export function CanvasView({
         end = boundary.target;
       }
       if (derivedSeeds) end = { ...end, port: "seeds" };
-      return end.node === n.id && end.port === p.id;
-    });
+      connected.add(direction + "/" + end.node + "/" + end.port);
+    }
+    return connected;
+  }, [graph.edges, byNode]);
+  const connected = (n: CanvasNode, p: Port) => connectedPorts.has(p.direction + "/" + n.id + "/" + p.id);
   useLayoutEffect(() => {
     const measure = () => {
       if (!world.current) return;
-      const wr = world.current.getBoundingClientRect(),
-        a: typeof anchors = {},
+      const rects = new Map<string, DOMRect>(),
+        a: typeof offsets = {},
         s: typeof sizes = {};
       world.current
         .querySelectorAll<HTMLElement>("[data-canvas-node]")
         .forEach((el) => {
           s[el.dataset.canvasNode!] = { w: el.offsetWidth, h: el.offsetHeight };
+          rects.set(el.dataset.canvasNode!, el.getBoundingClientRect());
         });
       world.current
         .querySelectorAll<HTMLElement>("[data-anchor]")
@@ -125,12 +157,16 @@ export function CanvasView({
           const r = (
             el.querySelector(".port-dot") ?? el
           ).getBoundingClientRect();
+          const node = el.closest<HTMLElement>("[data-canvas-node]")?.dataset.canvasNode;
+          const nr = node ? rects.get(node) : undefined;
+          if (!node || !nr) return;
           a[el.dataset.anchor!] = {
-            x: (r.left + r.width / 2 - wr.left) / view.zoom,
-            y: (r.top + r.height / 2 - wr.top) / view.zoom,
+            node,
+            x: (r.left + r.width / 2 - nr.left) / viewRef.current.zoom,
+            y: (r.top + r.height / 2 - nr.top) / viewRef.current.zoom,
           };
         });
-      setAnchors((old) =>
+      setOffsets((old) =>
         JSON.stringify(old) === JSON.stringify(a) ? old : a,
       );
       setSizes((old) => (JSON.stringify(old) === JSON.stringify(s) ? old : s));
@@ -148,7 +184,7 @@ export function CanvasView({
       ro?.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [graph, analysis, scope, view]);
+  }, [measureKey, scope]);
   const fit = () => {
     if (!viewport.current || !nodes.length) return;
     const minX = Math.min(...nodes.map((n) => n.position.x)),
@@ -326,21 +362,21 @@ export function CanvasView({
               w: Math.abs(p.x - d.original.x),
               h: Math.abs(p.y - d.original.y),
             });
-          } else if (d.kind === "pan")
-            setView({
+          } else if (d.kind === "pan") {
+            const next = {
               ...d.original,
               x: d.original.x + e.clientX - d.x,
               y: d.original.y + e.clientY - d.y,
-            });
-          else
-            onMove(
-              d.id,
-              Math.round(d.original.x + (e.clientX - d.x) / view.zoom),
-              Math.round(d.original.y + (e.clientY - d.y) / view.zoom),
-              false,
-            );
+            };
+            scheduleMove(() => setView(next));
+          } else {
+            const x = Math.round(d.original.x + (e.clientX - d.x) / view.zoom),
+              y = Math.round(d.original.y + (e.clientY - d.y) / view.zoom);
+            scheduleMove(() => onMove(d.id, x, y, false));
+          }
         }}
         onPointerUp={() => {
+          flushMove();
           if (drag.current?.kind === "select" && box) {
             onBoxSelect?.(
               nodes
@@ -358,6 +394,7 @@ export function CanvasView({
           drag.current = null;
         }}
         onPointerCancel={() => {
+          flushMove();
           drag.current = null;
           setBox(null);
         }}
@@ -503,9 +540,7 @@ export function CanvasView({
             })}
           </svg>
           {nodes.map((n) => {
-            const info = analysis?.nodes?.find(
-                (x: CanvasNode) => x.id === n.id,
-              ),
+            const info = byInfo.get(n.id),
               all: Port[] = info?.ports ?? [],
               ports = all.filter(
                 (p) =>

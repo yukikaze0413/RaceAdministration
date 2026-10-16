@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Field } from "../../shared/ui";
+import { BufferedNumber } from "./buffered-number";
 
 const parameterLabels: Record<string, string> = {
   defaultBO: "单场赛制",
@@ -337,9 +338,11 @@ export function RuleFields({
               </option>
             ))}
         </select>
+      ) : schema.type === "integer" ? (
+        <BufferedNumber min={schema.minimum} max={schema.maximum} value={value} onChange={onChange} />
       ) : (
         <input
-          type={schema.type === "integer" ? "number" : "text"}
+          type="text"
           min={schema.minimum}
           max={schema.maximum}
           value={value ?? ""}

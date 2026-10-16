@@ -89,7 +89,7 @@ function setup(kind = "swiss", params: Record<string, any> = {}) {
         : params,
   };
   const graph: CanvasGraph = {
-    schemaVersion: "canvas-v2",
+    schemaVersion: "canvas",
     nodes: [node],
     edges: [],
   };
